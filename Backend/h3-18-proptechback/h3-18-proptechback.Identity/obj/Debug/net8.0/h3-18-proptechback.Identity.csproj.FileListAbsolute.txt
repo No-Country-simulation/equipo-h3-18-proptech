@@ -10,3 +10,4 @@ C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech
 C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\refint\h3-18-proptechback.Identity.dll
 C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\h3-18-proptechback.Identity.pdb
 C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\ref\h3-18-proptechback.Identity.dll
+C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\h3-18-proptechback.Identity.csproj.AssemblyReference.cache

@@ -8,11 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
     <Folder Include="Exception\" />
     <Folder Include="Features\" />
     <Folder Include="Mappings\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

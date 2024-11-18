@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Response\" />
+    <Folder Include="Models\Requets\" />
+  </ItemGroup>
+
 </Project>
