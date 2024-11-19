@@ -2000,6 +2000,29 @@
             "rid": "win"
           }
         }
+      },
+      "h3-18-proptechback.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "h3-18-proptechback.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/h3-18-proptechback.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/h3-18-proptechback.Application.dll": {}
+        }
+      },
+      "h3-18-proptechback.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/h3-18-proptechback.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/h3-18-proptechback.Domain.dll": {}
+        }
       }
     }
   },
@@ -4859,6 +4882,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "h3-18-proptechback.Application/1.0.0": {
+      "type": "project",
+      "path": "../h3-18-proptechback.Application/h3-18-proptechback.Application.csproj",
+      "msbuildProject": "../h3-18-proptechback.Application/h3-18-proptechback.Application.csproj"
+    },
+    "h3-18-proptechback.Domain/1.0.0": {
+      "type": "project",
+      "path": "../h3-18-proptechback.Domain/h3-18-proptechback.Domain.csproj",
+      "msbuildProject": "../h3-18-proptechback.Domain/h3-18-proptechback.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4870,7 +4903,8 @@
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.10",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 8.0.0",
       "Newtonsoft.Json >= 13.0.3",
-      "System.IdentityModel.Tokens.Jwt >= 8.2.1"
+      "System.IdentityModel.Tokens.Jwt >= 8.2.1",
+      "h3-18-proptechback.Application >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4908,7 +4942,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Application\\h3-18-proptechback.Application.csproj": {
+              "projectPath": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Application\\h3-18-proptechback.Application.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
