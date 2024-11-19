@@ -7,7 +7,7 @@ export function HomePage() {
       <Link to={"./login"} className="text-blue-500">
         Ir al login
       </Link>
-      <Link to={"./register"} className="text-blue-500">
+      <Link to={"./register"} className="text-blue-500 block">
         Ir al register
       </Link>
     </>
