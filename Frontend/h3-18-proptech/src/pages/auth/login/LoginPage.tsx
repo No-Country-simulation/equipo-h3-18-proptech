@@ -11,7 +11,7 @@ export const LoginPage = () => {
     resolver: zodResolver(schema),
     mode: "onBlur",
     defaultValues: {
-      email: "",
+      dni: "",
       password: "",
     },
   });
@@ -26,21 +26,21 @@ export const LoginPage = () => {
       className="flex flex-col justify-center items-center min-h-[100vh]"
     >
       <div className="">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="dni">DNI</label>
         <Controller
-          name="email"
+          name="dni"
           control={control}
           render={({ field }) => (
             <input
-              id="email"
-              type="email"
+              id="dni"
+              type="text"
               {...field}
-              className={`block border border-gray-600 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6 w-[300px] ${errors.email ? "text-red-600" : "text-gray-900 "}`}
+              className={`block border border-gray-600 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6 w-[300px] ${errors.dni ? "text-red-600" : "text-gray-900 "}`}
             />
           )}
         />
-        {errors.email && (
-          <p className="text-red-600 text-xs">{errors.email.message}</p>
+        {errors.dni && (
+          <p className="text-red-600 text-xs">{errors.dni.message}</p>
         )}
       </div>
       <div className="">
