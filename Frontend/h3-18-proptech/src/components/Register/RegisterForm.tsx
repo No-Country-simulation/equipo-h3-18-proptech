@@ -2,7 +2,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import InlineGeneralInput from "./InlineGeneralInput";
 import InlineSelect from "./InlineSelect";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema } from "../../schemas/userSchema";
+import { userSchema } from "../../pages/auth/register/models/userSchema";
 
 function RegisterForm() {
   const {
