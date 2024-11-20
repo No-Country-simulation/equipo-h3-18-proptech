@@ -50,9 +50,42 @@ namespace h3_18_proptechback.Identity.Services
             {
                 var existingUser = await _userManager.FindByNameAsync(request.Username);
 
-                throw new NotImplementedException();
-            
+                if (existingUser != null) 
+                {
+                    throw new Exception($"El usuario ya se encuentra Registrado");
+                }
 
+                var existingEmail = await _userManager.FindByEmailAsync(request.Email);
+                
+                if (existingEmail != null)
+                {
+                    throw new Exception($"El Correo ya se encuentra Registrado");
+                }
+
+                var user = new ApplicationUser
+                {
+                    Email = request.Email,
+                    Nombre = request.Nombre,
+                    Apellido = request.Apellidos,
+                    UserName = request.Username,
+                    EmailConfirmed = true
+                };
+
+                var result = await _userManager.AddPasswordAsync(user, request.Password);
+                if (result.Succeeded) 
+                {
+                    await _userManager.AddToRoleAsync(user, "Cliente");
+                    return new RegistrationResponse
+                    {
+                        Email = user.Email,
+                        Token = "",
+                        Id = user.Id,
+                        UserName = user.UserName
+                    };
+
+                }
+
+                 throw new Exception($"{result.Errors}");
             }
     }
 }
