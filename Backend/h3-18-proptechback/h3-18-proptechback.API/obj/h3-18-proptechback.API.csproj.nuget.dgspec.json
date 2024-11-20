@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj": {}
+    "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj": {
+    "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj",
+        "projectUniqueName": "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj",
         "projectName": "h3-18-proptechback.API",
-        "projectPath": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj",
-        "packagesPath": "C:\\Users\\Indatech\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\obj\\",
+        "projectPath": "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\h3-18-proptechback.API.csproj",
+        "packagesPath": "C:\\Users\\Abel MV\\.nuget\\packages\\",
+        "outputPath": "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Indatech\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abel MV\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -29,6 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\Abel MV\\Escritorio": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -76,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
