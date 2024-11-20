@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Exception\" />
     <Folder Include="Features\" />
     <Folder Include="Mappings\" />
