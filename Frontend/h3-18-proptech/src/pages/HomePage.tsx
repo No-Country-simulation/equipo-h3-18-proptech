@@ -10,6 +10,9 @@ export function HomePage() {
       <Link to={"./register"} className="text-blue-500 block">
         Ir al register
       </Link>
+      <Link to={"./simular-prestamo"} className="text-blue-500 block">
+        Ir al simulador de préstamos
+      </Link>
     </>
   );
 }
