@@ -10,7 +10,7 @@ interface UserLoan {
   minimalSalary: number; // Salario mínimo necesario para poder recibir el financiamiento
   realLoan: number; // Monto Real. Valor que se obtiene restando el monto solicitado por el pago inicial
   interest: string; // Tasa de Interés
-  totalPayment: number; // Pago Total
+  totalPayment: string; // Pago Total
 }
 
 const monthlyReinforcement = {
@@ -60,6 +60,8 @@ export function LoanSimulatorPage() {
       monthlyReinforcement[paymentPlan as 6] * realLoan * extra
     );
 
+    const totalPayment = (realLoan + ((realLoan * Number(interest)) / 100)).toFixed(2)
+
     setLoan({
       financing,
       paymentPlan,
@@ -69,7 +71,7 @@ export function LoanSimulatorPage() {
       minimalSalary: monthlyPayment * 4,
       realLoan,
       interest,
-      totalPayment: monthlyPayment * paymentPlan,
+      totalPayment,
     });
   };
 
@@ -138,7 +140,7 @@ export function LoanSimulatorPage() {
             <div className="flex flex-col">
               <div className="flex gap-1">
                 <p className="font-bold">Cuota Mensual:</p>
-                <span>{loan.monthlyPayment}</span>
+                <span>${loan.monthlyPayment}</span>
               </div>
               <span className="text-xs text-gray-700">
                 {`Ten en cuenta que tu sueldo neto debe ser mayor a ${loan.minimalSalary}`}
@@ -152,12 +154,12 @@ export function LoanSimulatorPage() {
 
             <div className="flex gap-1">
               <p className="font-bold">Monto a Financiar:</p>
-              <span>{loan.realLoan}</span>
+              <span>${loan.realLoan}</span>
             </div>
 
             <div className="flex gap-1">
               <p className="font-bold">Pago total:</p>
-              <span className="font-normal">{loan.totalPayment}</span>
+              <span className="font-normal">${loan.totalPayment}</span>
             </div>
           </article>
         )}
