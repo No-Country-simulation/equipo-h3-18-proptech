@@ -5,7 +5,7 @@ interface UserLoan {
   financing: number; // Monto solicitado para la compra de un terreno
   paymentPlan: number; // Cantidad de Cuotas en las que se desea pagar el financiamiento
   initial: number; // Pago inicial
-  discountByInitial: number; // Valor que depende de si el pago inicial es mayor al 30% del monto real
+  extra: number; // Valor que depende de si el pago inicial es mayor al 30% del monto real y la cantidad de cuotas seleccionadas
   monthlyPayment: number; // Cuota a pagar por cada mes
   minimalSalary: number; // Salario mínimo necesario para poder recibir el financiamiento
   realLoan: number; // Monto Real. Valor que se obtiene restando el monto solicitado por el pago inicial
@@ -38,45 +38,33 @@ export function LoanSimulatorPage() {
 
   const [loan, setLoan] = useState<UserLoan>();
 
-  const getPaymentPerMonth = (
-    paymentPlan: number,
-    financing: number,
-    initial: number,
-    discountByInitial: number,
-    realLoan: number
-  ) => {
-    const monthlyInterestRate = monthlyReinforcement[paymentPlan as 6];
-
-    return initial > (financing * 30) / 100
-      ? Math.round(monthlyInterestRate * realLoan)
-      : Math.round(monthlyInterestRate * realLoan * discountByInitial);
-  };
-
   const onSubmit = (data: FieldValues) => {
     const financing = Number(data.financing);
     const paymentPlan = Number(data.paymentPlan);
     const initial = Number(data.initial);
 
-    const discountByInitial = paymentPlan > 30 ? 1.15 : 1.075;
+    const extra =
+      initial > financing * 0.3
+        ? 1
+        : paymentPlan > 30
+          ? 1.15
+          : 1.075;
+
     const realLoan = financing - initial;
     const interest = (
-      (monthlyReinforcement[paymentPlan as 6] * paymentPlan - 1) *
+      (monthlyReinforcement[paymentPlan as 6] * paymentPlan * extra - 1) *
       100
     ).toFixed(2);
 
-    const monthlyPayment = getPaymentPerMonth(
-      paymentPlan,
-      financing,
-      initial,
-      discountByInitial,
-      realLoan
+    const monthlyPayment = Math.round(
+      monthlyReinforcement[paymentPlan as 6] * realLoan * extra
     );
 
     setLoan({
       financing,
       paymentPlan,
       initial,
-      discountByInitial,
+      extra,
       monthlyPayment,
       minimalSalary: monthlyPayment * 4,
       realLoan,
@@ -92,8 +80,8 @@ export function LoanSimulatorPage() {
           <section className="flex flex-col">
             <h1 className="text-3xl font-bold mb-2">Simulador de Préstamos</h1>
             <p className="text-slate-600">
-              Establece el monto de la financiación y obtendrás como
-              resultado la cantidad a pagar por cuota
+              Establece el monto de la financiación y obtendrás como resultado
+              la cantidad a pagar por cuota
             </p>
             <form
               onSubmit={handleSubmit(onSubmit)}
