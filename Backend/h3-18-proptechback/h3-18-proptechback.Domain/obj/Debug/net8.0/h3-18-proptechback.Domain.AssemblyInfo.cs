@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("h3-18-proptechback.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7483aefc1c8f6082adf32a35150fe271e574b47a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+045ed941298559ef74f0cb40deebb9b7b400790a")]
 [assembly: System.Reflection.AssemblyProductAttribute("h3-18-proptechback.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("h3-18-proptechback.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

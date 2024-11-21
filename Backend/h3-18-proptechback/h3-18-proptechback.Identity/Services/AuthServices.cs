@@ -1,8 +1,14 @@
-﻿using h3_18_proptechback.Application.Contracts.Identity;
+﻿using h3_18_proptechback.Application.Constants;
+using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Models.Identity;
 using h3_18_proptechback.Identity.Models;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 
 namespace h3_18_proptechback.Identity.Services
@@ -35,10 +41,11 @@ namespace h3_18_proptechback.Identity.Services
                 throw new Exception($"Las credenciales son incorrectas");
             }
 
+            var token = await GenerateToken(user);
             var authResponse = new AuthReponse
             {
                 Id = user.Id,
-                Token = "",
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Email = user.Email,
                 UserName = user.UserName,
 
@@ -46,7 +53,7 @@ namespace h3_18_proptechback.Identity.Services
             return authResponse;
         }
 
-            public async Task<RegistrationResponse> Register(RegistrationRequest request)
+        public async Task<RegistrationResponse> Register(RegistrationRequest request)
             {
                 var existingUser = await _userManager.FindByNameAsync(request.Username);
 
@@ -75,10 +82,11 @@ namespace h3_18_proptechback.Identity.Services
                 if (result.Succeeded) 
                 {
                     await _userManager.AddToRoleAsync(user, "Cliente");
+                    var token = await GenerateToken(user);
                     return new RegistrationResponse
                     {
                         Email = user.Email,
-                        Token = "",
+                        Token = new JwtSecurityTokenHandler().WriteToken(token),
                         Id = user.Id,
                         UserName = user.UserName
                     };
@@ -87,5 +95,38 @@ namespace h3_18_proptechback.Identity.Services
 
                  throw new Exception($"{result.Errors}");
             }
+
+        public async Task<JwtSecurityToken> GenerateToken(ApplicationUser user) 
+        { 
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = new List<Claim>();
+            foreach (var role in roles) 
+            { 
+                roleClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(CustomClaimTypes.Uid, user.Id),
+            }.Union(userClaims).Union(roleClaims);
+
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
+            
+            var signingCredentials = new  SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+
+            var jwtSecurityToken = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinute),
+                signingCredentials: signingCredentials);
+            
+            return jwtSecurityToken;
+
+            
+
+        }
     }
 }
