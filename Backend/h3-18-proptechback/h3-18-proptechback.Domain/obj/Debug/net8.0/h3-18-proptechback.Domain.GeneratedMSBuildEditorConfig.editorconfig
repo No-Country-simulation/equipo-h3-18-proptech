@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = h3_18_proptechback.Domain
-build_property.ProjectDir = C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Domain\
+build_property.ProjectDir = D:\Trabajos\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Domain\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
