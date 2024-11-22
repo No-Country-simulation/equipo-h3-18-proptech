@@ -1,4 +1,6 @@
-﻿namespace h3_18_proptechback.Domain
+﻿using h3_18_proptechback.Domain.Common;
+
+namespace h3_18_proptechback.Domain
 {
     public class DataUser : BaseEntity
     {
@@ -7,5 +9,6 @@
         public string CUIT { get; set; }
         public string? PassportID { get; set; }
         public bool IsComplete { get; set; }    
+        public ICollection<DocumentsUser> DocumentsUsers { get; set; }
     }
 }

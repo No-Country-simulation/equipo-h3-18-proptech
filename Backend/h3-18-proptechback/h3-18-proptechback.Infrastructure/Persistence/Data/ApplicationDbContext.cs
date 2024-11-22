@@ -8,9 +8,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace h3_18_proptechback.Infrastructure.Data
+namespace h3_18_proptechback.Infrastructure.Persistence.Data
 {
-    internal class ApplicationDbContext: DbContext
+    internal class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

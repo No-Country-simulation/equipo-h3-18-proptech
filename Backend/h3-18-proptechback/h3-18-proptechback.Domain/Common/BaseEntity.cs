@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace h3_18_proptechback.Domain
+namespace h3_18_proptechback.Domain.Common
 {
     public class BaseEntity
     {

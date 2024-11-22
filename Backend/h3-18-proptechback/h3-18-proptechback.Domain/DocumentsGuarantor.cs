@@ -1,4 +1,6 @@
-﻿namespace h3_18_proptechback.Domain
+﻿using h3_18_proptechback.Domain.Common;
+
+namespace h3_18_proptechback.Domain
 {
     public class DocumentsGuarantor : BaseEntity
     {

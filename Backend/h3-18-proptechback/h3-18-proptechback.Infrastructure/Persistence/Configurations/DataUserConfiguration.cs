@@ -2,16 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using h3_18_proptechback.Domain;
 
-namespace h3_18_proptechback.Infrastructure.Configurations
+namespace h3_18_proptechback.Infrastructure.Persistence.Configurations
 {
-    internal class DocumentsGuarantorConfiguration : IEntityTypeConfiguration<DocumentsGuarantor>
+    internal class DataUserConfiguration : IEntityTypeConfiguration<DataUser>
     {
-        public void Configure(EntityTypeBuilder<DocumentsGuarantor> builder)
+        public void Configure(EntityTypeBuilder<DataUser> builder)
         {
             builder.HasKey(d => d.ID);
             builder.Property(d => d.ID)
                 .ValueGeneratedOnAdd();
-            builder.HasOne(d => d.DataGuarantor);
         }
     }
 }

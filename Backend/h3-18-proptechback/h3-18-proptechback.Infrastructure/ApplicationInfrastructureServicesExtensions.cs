@@ -1,4 +1,4 @@
-﻿using h3_18_proptechback.Infrastructure.Data;
+﻿using h3_18_proptechback.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
