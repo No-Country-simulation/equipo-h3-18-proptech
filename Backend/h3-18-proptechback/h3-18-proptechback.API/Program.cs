@@ -18,9 +18,9 @@ builder.Services.AddCors(options =>
     .AllowAnyHeader());
 });
 
-//var apiUrl = builder.Configuration.GetValue<string>("apiUrl");
+var apiUrl = builder.Configuration.GetValue<string>("apiUrl");
 
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
 
 var app = builder.Build();
 
