@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Exception\" />
     <Folder Include="Features\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\h3-18-proptechback.CreditRecord\h3-18-proptechback.CreditRecord.csproj" />
     <ProjectReference Include="..\h3-18-proptechback.Domain\h3-18-proptechback.Domain.csproj" />
   </ItemGroup>
 

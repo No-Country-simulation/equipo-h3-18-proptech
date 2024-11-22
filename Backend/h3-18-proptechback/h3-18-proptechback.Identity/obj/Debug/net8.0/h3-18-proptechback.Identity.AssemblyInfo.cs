@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("h3-18-proptechback.Identity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+045ed941298559ef74f0cb40deebb9b7b400790a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ce0ce22e1bd47eb88af078d38ef86b9de08c273")]
 [assembly: System.Reflection.AssemblyProductAttribute("h3-18-proptechback.Identity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("h3-18-proptechback.Identity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

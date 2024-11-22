@@ -21,6 +21,7 @@ namespace h3_18_proptechback.Identity
             services.AddDbContext<h3_18_proptechbackIdentityDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("IdentityConnectionString"),
                 b => b.MigrationsAssembly(typeof(h3_18_proptechbackIdentityDbContext).Assembly.FullName)));
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<h3_18_proptechbackIdentityDbContext>().AddDefaultTokenProviders();
 
