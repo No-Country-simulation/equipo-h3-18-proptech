@@ -1112,10 +1112,19 @@
       },
       "h3-18-proptechback.Application/1.0.0": {
         "dependencies": {
+          "h3-18-proptechback.CreditRecord": "1.0.0",
           "h3-18-proptechback.Domain": "1.0.0"
         },
         "runtime": {
           "h3-18-proptechback.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "h3-18-proptechback.CreditRecord/1.0.0": {
+        "runtime": {
+          "h3-18-proptechback.CreditRecord.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1859,6 +1868,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "h3-18-proptechback.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "h3-18-proptechback.CreditRecord/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

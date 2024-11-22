@@ -18,3 +18,5 @@ C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech
 C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\h3-18-proptechback.Identity.pdb
 C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\h3-18-proptechback.Identity.genruntimeconfig.cache
 C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\obj\Debug\net8.0\ref\h3-18-proptechback.Identity.dll
+C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\bin\Debug\net8.0\h3-18-proptechback.CreditRecord.dll
+C:\Users\Indatech\Documents\Desarrollo\Proyectos No_contry\equipo-h3-18-proptech\equipo-h3-18-proptech\Backend\h3-18-proptechback\h3-18-proptechback.Identity\bin\Debug\net8.0\h3-18-proptechback.CreditRecord.pdb

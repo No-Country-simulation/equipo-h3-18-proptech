@@ -24,7 +24,7 @@ namespace h3_18_proptechback.CreditRecord.Services
 
         public Task<List<DeudasRequest>> ObtenerChequesRechazados(DeudasRequest request)
         {
-            
+            throw new NotImplementedException();
         }
 
         public Task<List<DeudasRequest>?> ObtenerDeudas(DeudasRequest request)

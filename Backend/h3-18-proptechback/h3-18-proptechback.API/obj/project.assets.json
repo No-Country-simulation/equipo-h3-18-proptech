@@ -5376,6 +5376,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.10",
       "Swashbuckle.AspNetCore >= 6.6.2",
       "h3-18-proptechback.Application >= 1.0.0",
+      "h3-18-proptechback.CreditRecord >= 1.0.0",
       "h3-18-proptechback.Domain >= 1.0.0",
       "h3-18-proptechback.Identity >= 1.0.0"
     ]
@@ -5418,6 +5419,9 @@
           "projectReferences": {
             "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Application\\h3-18-proptechback.Application.csproj": {
               "projectPath": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Application\\h3-18-proptechback.Application.csproj"
+            },
+            "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.CreditRecord\\h3-18-proptechback.CreditRecord.csproj": {
+              "projectPath": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.CreditRecord\\h3-18-proptechback.CreditRecord.csproj"
             },
             "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Domain\\h3-18-proptechback.Domain.csproj": {
               "projectPath": "C:\\Users\\Indatech\\Documents\\Desarrollo\\Proyectos No_contry\\equipo-h3-18-proptech\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Domain\\h3-18-proptechback.Domain.csproj"
