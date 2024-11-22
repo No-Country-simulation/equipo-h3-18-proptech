@@ -16,7 +16,11 @@ namespace h3_18_proptechback.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(dbContextOptionsBuilder =>
             {
-                dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("ApplicationDbContextConnectionString"));
+                dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("ApplicationDbContextConnectionString"),
+                    npgsqlOptionsAction =>
+                    {
+                        npgsqlOptionsAction.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+                    });
             });
         }
     }

@@ -11,7 +11,9 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Configurations
             builder.HasKey(d => d.ID);
             builder.Property(d => d.ID)
                 .ValueGeneratedOnAdd();
-            builder.HasOne(d => d.DataGuarantor);
+            builder.HasOne(d => d.DataGuarantor)
+                .WithMany(d=>d.DocumentsGuarantors)
+                .HasForeignKey(d=>d.DataGuarantorID);
         }
     }
 }

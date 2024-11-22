@@ -288,6 +288,16 @@
         "build": {
           "buildTransitive/net8.0/_._": {}
         }
+      },
+      "h3-18-proptechback.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/h3-18-proptechback.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/h3-18-proptechback.Domain.dll": {}
+        }
       }
     }
   },
@@ -733,11 +743,17 @@
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "h3-18-proptechback.Domain/1.0.0": {
+      "type": "project",
+      "path": "../h3-18-proptechback.Domain/h3-18-proptechback.Domain.csproj",
+      "msbuildProject": "../h3-18-proptechback.Domain/h3-18-proptechback.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.1"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.1",
+      "h3-18-proptechback.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -773,7 +789,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Domain\\h3-18-proptechback.Domain.csproj": {
+              "projectPath": "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Domain\\h3-18-proptechback.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
