@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import Chatbot from "../components/Chatbot/Chatbot";
 
 export function HomePage() {
   return (
-    <>
+    <div className="relative min-h-screen">
       <div>HomePage</div>
       <Link to={"./login"} className="text-blue-500">
         Ir al login
@@ -13,7 +14,8 @@ export function HomePage() {
       <Link to={"./simular-prestamo"} className="text-blue-500 block">
         Ir al simulador de préstamos
       </Link>
-    </>
+      <Chatbot/>
+    </div>
   );
 }
 
