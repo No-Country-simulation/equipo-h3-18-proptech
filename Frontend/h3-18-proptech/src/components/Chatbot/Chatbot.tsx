@@ -58,12 +58,13 @@ function Chatbot() {
             </h4>
             {messages.map(({ text }, index) => (
               <ChatbotMessageBox
+                key={index}
                 text={text}
                 isLastOne={index === messages.length - 1}
               />
             ))}
-            {options.map(({ text, action }) => {
-              return <UserMessageBox text={text} action={action} />;
+            {options.map(({ text, action }, index) => {
+              return <UserMessageBox key={index} text={text} action={action} />;
             })}
           </section>
         </section>
