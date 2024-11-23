@@ -8,5 +8,6 @@
 @layer base {
     html {
       font-family: "nunito", sans-serif;
+      color: #1E1E1E
     }
   }
