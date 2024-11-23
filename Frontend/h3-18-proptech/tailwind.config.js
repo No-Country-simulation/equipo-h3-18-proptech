@@ -14,7 +14,7 @@ export default {
         secondary: "#EC8B57",
         secondaryVar1: "#E77C44",
         tertiary: "#BEC8D5",
-        constrast: "#FFFFFF",
+        contrast: "#FFFFFF",
         base: "#1E1E1E",
         background: "#F8F8F8",
         disabled: "#A0A0A0",
