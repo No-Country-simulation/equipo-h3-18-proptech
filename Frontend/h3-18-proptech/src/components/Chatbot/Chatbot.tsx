@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import {
-  ChatbotAnswer,
-  ChatMessage,
-  UserOption,
-} from "../../interfaces/Chatbot";
 import { chatbotAnswers } from "./Answers";
 import ChatbotMessageBox from "./ChatbotMessageBox";
 import UserMessageBox from "./UserMessageBox";
+import { useChatbotStore } from "../../stores";
 
 const chatbotStyles = {
   visible:
@@ -16,24 +12,17 @@ const chatbotStyles = {
 };
 
 function Chatbot() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [myOptions, setMyOptions] = useState<UserOption[]>([]);
+  const messages = useChatbotStore((state) => state.messages);
+  const options = useChatbotStore((state) => state.options);
+  const addNewMessages = useChatbotStore((state) => state.addNewMessage);
 
-  const sendMessage = (response: ChatbotAnswer) => {
-    if (response.options.length > 0) {
-      setMyOptions([...response.options]);
-      setMessages([...messages, response]);
-    } else {
-      setMessages([...messages, response]);
-    }
-  };
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const welcomeMessage = chatbotAnswers.find(
       (message) => message.question === "welcome"
     );
-    if (welcomeMessage) sendMessage(welcomeMessage);
+    if (welcomeMessage) addNewMessages(welcomeMessage);
   }, []);
 
   return (
@@ -63,21 +52,18 @@ function Chatbot() {
             </button>
             <h6 className="text-center font-bold text-lg">Financibot</h6>
           </header>
-          <section className="overflow-y-scroll h-full ps-2 pe-4 pb-4">
+          <section className="overflow-y-scroll h-full ps-2 pe-4 pb-4 justify-between">
             <h4 className="text-2xl text-center mt-3 font-semibold">
               Bienvenido. ¿Cómo podemos ayudarte?
             </h4>
             {messages.map(({ text }, index) => (
-              <ChatbotMessageBox message={text} final={index === messages.length - 1} />
+              <ChatbotMessageBox
+                text={text}
+                isLastOne={index === messages.length - 1}
+              />
             ))}
-            {myOptions.map(({ text, action }) => {
-              return (
-                <UserMessageBox
-                  message={text}
-                  action={action}
-                  sendMessage={sendMessage}
-                />
-              );
+            {options.map(({ text, action }) => {
+              return <UserMessageBox text={text} action={action} />;
             })}
           </section>
         </section>
