@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "bkvjsr8q8a+ZxripC5KpRrRAO+sRnGP9AHf/UUVurp9Y2G3IHMpidYvI8KwHDogV03o17QUkUfdYe97DKe/5Xw==",
+  "dgSpecHash": "K1X8SGqo65sINfNN5mjfb35qOnbms3knH4srSZt0lrdo4gDY/tU5DTjQ+BPPn+s6jHoCw/5YDA8TIqrDu/BnpA==",
   "success": true,
   "projectFilePath": "D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Application\\h3-18-proptechback.Application.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\Trabajos\\equipo-h3-18-proptech\\Backend\\h3-18-proptechback\\h3-18-proptechback.Application\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
