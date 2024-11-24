@@ -5,6 +5,9 @@
 
 .vs
 
+bin/
+obj/
+
 ### Linux ###
 *~
 
