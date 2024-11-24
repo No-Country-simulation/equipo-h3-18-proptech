@@ -1,18 +1,15 @@
-export interface ChatbotAnswer {
-  question: string;
+export interface ChatMessage {
   text: string;
-  owner: "chatbot" | "user";
+  owner: MessageOwner;
+}
+
+export interface UserOption extends ChatMessage {
+  action: string;
+}
+
+export interface ChatbotAnswer extends ChatMessage {
+  question: string;
   options: UserOption[];
 }
 
-export interface UserOption {
-  text: string;
-  action: string;
-  owner: "chatbot" | "user";
-}
-
-export interface ChatMessage {
-  text: string;
-  owner: "chatbot" | "user";
-  action?: string;
-}
+type MessageOwner = "chatbot" | "user";

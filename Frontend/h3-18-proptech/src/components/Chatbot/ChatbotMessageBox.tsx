@@ -1,14 +1,14 @@
 interface Props {
-  message: string | undefined;
-  final: boolean;
+  text: string;
+  isLastOne: boolean;
 }
 
-function ChatbotMessageBox({ message = "", final }: Props) {
+function ChatbotMessageBox({ text = "", isLastOne }: Props) {
   return (
     <article className="flex gap-4 items-start">
       <span
         className={
-          final
+          isLastOne
             ? "p-1 rounded-full bg-slate-100 border text-xl my-2 transition-all"
             : "p-1 rounded-full border text-xl my-2 invisible"
         }
@@ -16,7 +16,7 @@ function ChatbotMessageBox({ message = "", final }: Props) {
         🤖
       </span>
       <p className="bg-slate-100 px-2 py-1 my-2 max-w-[70%] rounded-lg self-center">
-        {message}
+        {text}
       </p>
     </article>
   );
