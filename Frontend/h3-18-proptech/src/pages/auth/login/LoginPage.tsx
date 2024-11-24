@@ -23,7 +23,7 @@ export const LoginPage = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center items-center min-h-[100vh]"
+      className="flex flex-col justify-center items-center flex-1"
     >
       <div className="">
         <label htmlFor="dni">DNI</label>

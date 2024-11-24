@@ -3,7 +3,7 @@ import Chatbot from "../components/Chatbot/Chatbot";
 
 export function HomePage() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative flex-1">
       <div>HomePage</div>
       <Link to={"./login"} className="text-blue-500">
         Ir al login
