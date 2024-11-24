@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\h3-18-proptechback.API.props" />
-</Project>
