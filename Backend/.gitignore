@@ -5,9 +5,12 @@
 
 .vs
 
+bin/
+obj/
+
 ### Linux ###
 *~
-
+bin/
 obj/
 *.cache
 *.editorconfig

@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace h3_18_proptechback.Identity
 {
-    public class h3_18_proptechbackIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class h3_18_proptechbackIdentityDbContext: IdentityDbContext<ApplicationUser>
     {
-        public h3_18_proptechbackIdentityDbContext(DbContextOptions<h3_18_proptechbackIdentityDbContext> options) : base(options)
-        {
+        public h3_18_proptechbackIdentityDbContext(DbContextOptions<h3_18_proptechbackIdentityDbContext> options): base(options) 
+        { 
         }
+      
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
