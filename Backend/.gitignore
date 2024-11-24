@@ -7,7 +7,7 @@
 
 ### Linux ###
 *~
-
+bin/
 obj/
 *.cache
 *.editorconfig
