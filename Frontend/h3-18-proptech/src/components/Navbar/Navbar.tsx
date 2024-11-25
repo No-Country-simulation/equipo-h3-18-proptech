@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Button from "../common/Button";
 import NavElement from "./NavElement";
 import UserIcon from "../common/UserIcon";
@@ -19,7 +18,7 @@ const navLinks = [
 ];
 
 function Navbar() {
-  const user = true;
+  const user = false;
 
   return (
     <header className="flex py-5 px-24 gap-12 bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
@@ -55,9 +54,8 @@ function Navbar() {
               <Button
                 size="medium"
                 color="primary-orange"
-                action={() => (
-                  <Link to={"./login"} className="text-blue-500"></Link>
-                )}
+                type="link"
+                to="/register"
               >
                 Solicitar Financiamiento
               </Button>
@@ -65,9 +63,8 @@ function Navbar() {
               <Button
                 size="small"
                 color="secondary"
-                action={() => (
-                  <Link to={"./login"} className="text-blue-500"></Link>
-                )}
+                type="link"
+                to="/login"
               >
                 Iniciar Sesión
               </Button>
