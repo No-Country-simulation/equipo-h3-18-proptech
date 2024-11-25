@@ -1,12 +1,16 @@
+import { Link, To } from "react-router-dom";
+
 interface Props {
   children: string;
   size: "small" | "medium" | "large";
   color: "primary-blue" | "primary-orange" | "secondary";
-  action: () => void;
-  type?: "submit" | "reset" | "button" | undefined;
+  type?: "submit" | "reset" | "button" | "link" | undefined;
+  action?: () => void;
+  to?: To;
+  classname?: string;
 }
 
-function Button({ size, color, action, children, type }: Props) {
+function Button({ size, color, action, children, type, classname, to }: Props) {
   const sizeStyle = {
     small: "w-[159px] h-[50px]",
     medium: "w-[251px] h-[50px]",
@@ -19,9 +23,16 @@ function Button({ size, color, action, children, type }: Props) {
     secondary: "bg-white border border-primary border-2 hover:bg-tertiary",
   };
 
-  return (
+  return type === "link" ? (
+    <Link
+      to={to ?? "/"}
+      className={`${sizeStyle[size]} ${colorStyle[color]} ${classname} flex items-center justify-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
+    >
+      {children}
+    </Link>
+  ) : (
     <button
-      className={`${sizeStyle[size]} ${colorStyle[color]} rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
+      className={`${sizeStyle[size]} ${colorStyle[color]} ${classname} rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
       type={type}
       onClick={() => action}
     >

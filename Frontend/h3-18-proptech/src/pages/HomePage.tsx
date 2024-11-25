@@ -5,7 +5,7 @@ export function HomePage() {
   return (
     <div className="relative flex-1">
       <LandingPage />
-      <Chatbot />
+      <Chatbot/>
     </div>
   );
 }
