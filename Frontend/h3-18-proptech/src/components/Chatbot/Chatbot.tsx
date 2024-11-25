@@ -31,7 +31,7 @@ function Chatbot() {
     <>
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="p-2 rounded-full bg-slate-300 border fixed bottom-4 right-4 hover:scale-125 transition-all text-xl"
+        className="p-2 rounded-full bg-white border-2 border-primary fixed bottom-4 right-4 hover:scale-125 transition-all text-xl duration-300"
       >
         🤖
       </button>
@@ -47,16 +47,16 @@ function Chatbot() {
         <section className="flex flex-col relative h-full gap-2">
           <header className="relative w-100 border-b-2 px-1 py-4 rounded-t-lg">
             <button
-              className="absolute top-0 bottom-0 right-2"
+              className="absolute top-0 bottom-0 right-2 h-fit my-auto rounded-full p-1 hover:bg-gray-50"
               onClick={() => setIsVisible(!isVisible)}
             >
               ❌
             </button>
             <h6 className="text-center font-bold text-lg">Financibot</h6>
           </header>
-          <section className="overflow-y-scroll h-full ps-2 pe-4 pb-4 justify-between">
+          <section className="overflow-y-scroll h-full ps-2 pe-4 pb-4 mb-2 justify-between">
             <h4 className="text-2xl text-center mt-3 font-semibold">
-              Bienvenido. ¿Cómo podemos ayudarte?
+              Bienvenido a Financia.ai
             </h4>
             {messages.map(({ text }, index) => (
               <ChatbotMessageBox
