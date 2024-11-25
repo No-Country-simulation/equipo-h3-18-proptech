@@ -24,6 +24,7 @@
     <ProjectReference Include="..\h3-18-proptechback.CreditRecord\h3-18-proptechback.CreditRecord.csproj" />
     <ProjectReference Include="..\h3-18-proptechback.Domain\h3-18-proptechback.Domain.csproj" />
     <ProjectReference Include="..\h3-18-proptechback.Identity\h3-18-proptechback.Identity.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.Infrastructure\h3-18-proptechback.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

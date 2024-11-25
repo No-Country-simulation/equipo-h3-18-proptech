@@ -1,4 +1,5 @@
 using h3_18_proptechback.Identity;
+using h3_18_proptechback.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureIdentityServices(builder.Configuration);
+builder.Services.AddApplicationInfrastructureServicesExtensions(builder.Configuration);
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()

@@ -1,4 +1,4 @@
-﻿using h3_18_proptechback.Infrastructure.Data;
+﻿using h3_18_proptechback.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,8 +16,12 @@ namespace h3_18_proptechback.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(dbContextOptionsBuilder =>
             {
-                dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("ApplicationDbContextConnectionString"));
+                dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("ConnetionSting"));
             });
+
+            
+
+           
         }
     }
 }
