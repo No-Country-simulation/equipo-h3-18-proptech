@@ -8,14 +8,14 @@ namespace h3_18_proptechback.Domain
         
         public DataGuarantor DataGuarantor { get; set; }
         
-        string PhotoURL { get; set; }
+        public string PhotoURL { get; set; }
         
         public string FrontDNIURL { get; set; }
         
         public string BackDNIURL { get; set; }
         
-        public string SalaryURL { get; set; }
+        public string? SalaryURL { get; set; }
         
-        public string ProofAddressURL { get; set; }
+        public string? ProofAddressURL { get; set; }
     }
 }
