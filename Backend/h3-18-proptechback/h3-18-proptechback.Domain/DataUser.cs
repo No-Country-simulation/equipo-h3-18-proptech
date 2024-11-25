@@ -9,8 +9,6 @@ namespace h3_18_proptechback.Domain
         
         public string CUIT { get; set; }
         
-        public string? PassportID { get; set; }
-        
         public bool IsComplete { get; set; }    
     }
 }

@@ -1,12 +1,7 @@
 ﻿using h3_18_proptechback.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace h3_18_proptechback.Infrastructure.Persistence
 {
