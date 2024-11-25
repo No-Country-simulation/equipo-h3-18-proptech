@@ -151,8 +151,16 @@ export default {
             fontWeight: 400,
           },
         ],
-        "body-small-regular": [
+        "body-small-regular-12": [
           "12px",
+          {
+            lineHeight: "16px",
+            letterSpacing: "0.4px",
+            fontWeight: 400,
+          },
+        ],
+        "body-small-regular-10": [
+          "10px",
           {
             lineHeight: "16px",
             letterSpacing: "0.4px",
@@ -175,7 +183,7 @@ export default {
             fontWeight: 600,
           },
         ],
-        "body-small-regular": [
+        "body-small-regular-8": [
           "8px",
           {
             lineHeight: "16px",
