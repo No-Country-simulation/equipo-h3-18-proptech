@@ -19,10 +19,12 @@ function Chatbot() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const welcomeMessage = chatbotAnswers.find(
-      (message) => message.question === "welcome"
-    );
-    if (welcomeMessage) addNewMessages(welcomeMessage);
+    if (messages.length === 0) {
+      const welcomeMessage = chatbotAnswers.find(
+        (message) => message.question === "welcome"
+      );
+      if (welcomeMessage) addNewMessages(welcomeMessage);
+    }
   }, []);
 
   return (
