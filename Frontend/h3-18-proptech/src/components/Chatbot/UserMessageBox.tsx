@@ -17,7 +17,7 @@ function UserMessageBox({ text = "", action }: Props) {
           );
           if (answer) addNewMessage(answer);
         }}
-        className="bg-blue-400 hover:bg-blue-600 text-white px-2 py-1 my-2 max-w-[70%] rounded-lg self-center"
+        className="bg-secondary hover:bg-secondaryVar1 text-white px-2 py-1 my-2 max-w-[70%] rounded-lg self-center"
       >
         {text}
       </button>

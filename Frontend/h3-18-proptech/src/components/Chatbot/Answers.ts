@@ -3,7 +3,7 @@ import { ChatbotAnswer } from "../../interfaces/Chatbot";
 export const chatbotAnswers: ChatbotAnswer[] = [
   {
     question: "welcome",
-    text: "Hola pana. ¿En qué te ayudo?",
+    text: "¡Hola! Soy Financibot. Estoy aquí para resolver todas tus dudas. ¿En qué te puedo ayudar?",
     owner: "chatbot",
     options: [
       {
@@ -32,7 +32,7 @@ export const chatbotAnswers: ChatbotAnswer[] = [
   },
   {
     question: "how-to-invest",
-    text: "Para poder invertir, es necesario que nos pases los números de tu tarjeta internacional y tu contraseña",
+    text: "¡Comenzar a invertir es muy fácil! No necesitas tener conocimientos financieros complejos, solo decidir cuánto dinero quieres que se multiplique a través de nuestras tasas de rendimiento",
     owner: "chatbot",
     options: [
       {
