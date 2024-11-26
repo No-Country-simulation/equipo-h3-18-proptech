@@ -10,7 +10,7 @@ interface Props {
 
 function TextInput({ register, name, label, info, error }: Props) {
   return (
-    <div className="flex flex-col relative pb-5">
+    <div className={`flex flex-col relative pb-5 ${info ? "mb-4" : "mb-0"}`}>
       <label className="mb-2 text-body-medium-regular ps-2">{label}</label>
       <input
         type="text"
@@ -18,7 +18,7 @@ function TextInput({ register, name, label, info, error }: Props) {
         className={`border-[3px] text-body-large-regular py-2 px-3 rounded-md shadow-md focus:outline-none ${error ? "border-error" : "border-primary"}`}
       />
       <span
-        className={`text-body-small-regular-10 font-lato absolute bottom-0 left-0  ${error ? "text-error" : info ? "text-base-color" : "text-transparent"}`}
+        className={`text-body-small-regular-10 font-lato absolute h-10 -bottom-6 left-0  ${error ? "text-error" : info ? "text-base-color" : "text-transparent"}`}
       >
         {error ? error.message : info ? info : ""}
       </span>
