@@ -1,6 +1,7 @@
 import Button from "../common/Button";
 import NavElement from "./NavElement";
 import UserIcon from "../common/UserIcon";
+import { useSwitchStore } from "../../stores";
 
 const navLinks = [
   {
@@ -19,6 +20,7 @@ const navLinks = [
 
 function Navbar() {
   const user = false;
+  const {role} = useSwitchStore()
 
   return (
     <header className="flex py-5 px-24 gap-12 bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
@@ -57,7 +59,7 @@ function Navbar() {
                 type="link"
                 to="/register"
               >
-                Solicitar Financiamiento
+                {role === 'buyer' ? 'Solicitar financiamiento' : 'Quiero invertir'}
               </Button>
 
               <Button

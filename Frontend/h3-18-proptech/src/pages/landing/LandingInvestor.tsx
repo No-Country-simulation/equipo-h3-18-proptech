@@ -1,10 +1,10 @@
-import { CarouselInvestor, HomeStepsInvestor } from "../../components/Home";
+import { CarouselInvestor, HomeSteps } from "../../components/Home";
 
 function LandingInvestor() {
   return (
     <>
       <CarouselInvestor />
-      <HomeStepsInvestor />
+      <HomeSteps />
     </>
   );
 }

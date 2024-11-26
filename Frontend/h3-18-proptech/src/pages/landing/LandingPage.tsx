@@ -1,21 +1,15 @@
-import { useState } from "react";
 import { HeaderHome } from "../../components/Home";
 import LandingBuyer from "./LandingBuyer";
 import LandingInvestor from "./LandingInvestor";
-
-type Mode = "buyer" | "investor";
+import { useSwitchStore } from "../../stores";
 
 function LandingPage() {
-  const [mode, setMode] = useState<Mode>("buyer");
-
-  const changeMode = () => {
-    mode === "buyer" ? setMode("investor") : setMode("buyer");
-  };
+  const { role } = useSwitchStore();
 
   return (
     <>
-      <HeaderHome action={changeMode} />
-      {mode === "buyer" ? <LandingBuyer /> : <LandingInvestor />}
+      <HeaderHome />
+      {role === "buyer" ? <LandingBuyer /> : <LandingInvestor />}
     </>
   );
 }

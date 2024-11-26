@@ -10,7 +10,7 @@ interface Props {
   classname?: string;
 }
 
-function Button({ size, color, action, children, type, classname, to }: Props) {
+export function Button({ size, color, action, children, type, classname, to }: Props) {
   const sizeStyle = {
     small: "w-[159px] h-[50px]",
     medium: "w-[251px] h-[50px]",
