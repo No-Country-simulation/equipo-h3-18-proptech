@@ -49,12 +49,13 @@ namespace h3_18_proptechback.Identity.Services
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Email = user.Email,
                 UserName = user.UserName,
+               
 
             };
             return authResponse;
         }
 
-        public async Task<RegistrationResponse> Register(RegistrationRequest request)
+        public async Task<RegistrationResponse> Register(RegistrationRequest request, string rol)
             {
                 var existingUser = await _userManager.FindByNameAsync(request.Username);
 
@@ -76,13 +77,16 @@ namespace h3_18_proptechback.Identity.Services
                     Nombre = request.Nombre,
                     Apellido = request.Apellidos,
                     UserName = request.Username,
+                    PhoneNumber = request.PhoneNumber,
+                    PhoneNumberConfirmed = request.PhoneNumberConfirmed,
                     EmailConfirmed = true
                 };
 
+                
                 var result = await _userManager.AddPasswordAsync(user, request.Password);
                 if (result.Succeeded) 
                 {
-                    await _userManager.AddToRoleAsync(user, "Cliente");
+                    await _userManager.AddToRoleAsync(user, rol);
                     var token = await GenerateToken(user);
                     return new RegistrationResponse
                     {
@@ -127,6 +131,18 @@ namespace h3_18_proptechback.Identity.Services
             return jwtSecurityToken;
 
             
+
+        }
+        
+        public enum ROL
+        { 
+            Administrador,
+
+            Operador,
+            
+            Cliente,
+
+            Inversor
 
         }
     }

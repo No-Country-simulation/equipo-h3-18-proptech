@@ -23,9 +23,9 @@ namespace h3_18_proptechback.API.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<RegistrationResponse>> Register([FromBody] RegistrationRequest request)
+        public async Task<ActionResult<RegistrationResponse>> Register([FromBody] RegistrationRequest request, string rol)
         {
-            return Ok(await _authServices.Register(request));
+            return Ok(await _authServices.Register(request, rol));
         }
     }
 }

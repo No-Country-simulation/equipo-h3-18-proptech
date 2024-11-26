@@ -7,7 +7,7 @@ namespace h3_18_proptechback.Application.Contracts.Identity
     {
         Task<AuthReponse> Login(AuthRequest request);
 
-        Task<RegistrationResponse> Register(RegistrationRequest request);
+        Task<RegistrationResponse> Register(RegistrationRequest request, string rol);
 
 
     }
