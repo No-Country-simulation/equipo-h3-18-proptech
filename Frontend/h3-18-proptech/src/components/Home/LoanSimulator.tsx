@@ -46,7 +46,18 @@ function LoanSimulator() {
     resolver: zodResolver(loanSimulatorSchema),
   });
 
-  const [loan, setLoan] = useState<UserLoan>();
+  const [loan, setLoan] = useState<UserLoan>({
+    extra: 0,
+    financing: 0,
+    initial: 0,
+    interest: "0",
+    minimalSalary: 0,
+    monthlyPayment: 0,
+    paymentPlan: 6,
+    realLoan: 0,
+    totalPayment: "0",
+  });
+  const [openModal, setOpenModal] = useState(false);
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -89,8 +100,8 @@ function LoanSimulator() {
   };
   return (
     <>
-      <section className="flex items-center justify-center gap-24 w-full bg-tertiary py-20">
-        <aside>
+      <section className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 lg:gap-24 w-full bg-tertiary py-10 md:py-20 px-6 relative">
+        <aside className="flex flex-col">
           <h3 className="text-headline-medium-medium mb-8">
             Calcula tu financiamiento a medida
           </h3>
@@ -106,7 +117,7 @@ function LoanSimulator() {
             Personaliza el monto inicial y el número de cuotas, y obtén una
             estimación clara de las mensualidades.
           </p>
-          <p className="text-title-large-bold max-w-[36ch] mb-7">
+          <p className="text-title-large-bold max-w-[36ch] mb-0 md:mb-7">
             Ajusta el plan de financiamiento a tus necesidades.
           </p>
           <Button
@@ -114,6 +125,7 @@ function LoanSimulator() {
             size="large"
             type="link"
             to="/register"
+            classname="hidden md:flex"
           >
             Solicitar financiación
           </Button>
@@ -147,49 +159,70 @@ function LoanSimulator() {
               label: `${month} meses`,
             }))}
           />
+          <div onClick={() => setOpenModal(true)}>
+            <Button
+              type="submit"
+              color="primary-blue"
+              size="large"
+              classname="mt-1"
+            >
+              Calcular
+            </Button>
+          </div>
+
           <Button
-            type="submit"
-            color="primary-blue"
+            color="primary-orange"
             size="large"
-            classname="mt-1"
+            type="link"
+            to="/register"
+            classname="flex md:hidden"
           >
-            Calcular
+            Solicitar financiación
           </Button>
         </form>
       </section>
       {/* Lo siguiente falta por diseño*/}
-      {loan && (
-        <article className="bg-white p-6 w-full flex flex-col shadow-md rounded-md gap-2">
-          <h1 className="text-2xl font-bold mb-1">
+      <dialog
+        className={`${openModal ? "opacity-100" : "scale-0 opacity-0"} transition-opacity h-full w-full absolute top-0 flex items-center justify-center bg-black bg-opacity-60 p-6`}
+      >
+        <article
+          className={`${openModal ? "opacity-100" : "scale-0 opacity-0"} transition-all ease-out bg-white p-6 w-fit flex flex-col shadow-md rounded-md gap-4 border-2 border-primary `}
+        >
+          <h1 className="text-title-large-bold text-center mb-4">
             Resumen de la Financiación
           </h1>
 
           <div className="flex flex-col">
-            <div className="flex gap-1">
-              <p className="font-bold">Cuota Mensual:</p>
-              <span>${loan.monthlyPayment}</span>
+            <div className="flex gap-1 items-center">
+              <p className="text-title-medium-bold">Cuota Mensual:</p>
+              <span className="text-body-medium-regular">${loan.monthlyPayment}</span>
             </div>
-            <span className="text-xs text-gray-700">
-              {`Ten en cuenta que tu sueldo neto debe ser mayor a ${loan.minimalSalary}`}
+            <span className="text-body-small-regular-12 font-lato">
+              {`Ten en cuenta que tu sueldo neto debe ser mayor a ${loan.minimalSalary}$`}
             </span>
           </div>
 
-          <div className="flex gap-1">
-            <p className="font-bold">Tasa de Interés:</p>
-            <span>{loan.interest}%</span>
+          <div className="flex gap-1 items-center">
+            <p className="text-title-medium-bold">Tasa de Interés:</p>
+            <span className="text-body-medium-regular">{loan.interest}%</span>
           </div>
 
-          <div className="flex gap-1">
-            <p className="font-bold">Monto a Financiar:</p>
-            <span>${loan.realLoan}</span>
+          <div className="flex gap-1 items-center">
+            <p className="text-title-medium-bold">Monto a Financiar:</p>
+            <span className="text-body-medium-regular">${loan.realLoan}</span>
           </div>
 
-          <div className="flex gap-1">
-            <p className="font-bold">Pago total:</p>
-            <span className="font-normal">${loan.totalPayment}</span>
+          <div className="flex gap-1 items-center">
+            <p className="text-title-medium-bold">Pago total:</p>
+            <span className="text-body-medium-regular">${loan.totalPayment}</span>
+          </div>
+          <div className="self-end" onClick={() => setOpenModal(false)}>
+            <Button color="primary-blue" size="small" classname="mt-2">
+              Cerrar
+            </Button>
           </div>
         </article>
-      )}
+      </dialog>
     </>
   );
 }
