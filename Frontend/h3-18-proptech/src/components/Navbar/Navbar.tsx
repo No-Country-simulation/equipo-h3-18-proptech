@@ -1,9 +1,12 @@
 import Button from "../common/Button";
 import NavElement from "./NavElement";
+import { useSwitchStore } from "../../stores";
 import UserIcon from "../icons/UserIcon";
 import MenuIcon from "../icons/MenuIcon";
 import { useState } from "react";
 import CloseIcon from "../icons/CloseIcon";
+import LogoIcon from "../icons/LogoIcon";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   {
@@ -21,16 +24,15 @@ const navLinks = [
 ];
 
 function Navbar() {
-  const user = true;
+  const user = false;
+  const { role } = useSwitchStore();
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <header className="flex py-3 md:py-5 px-6 lg:px-18 xl:px-24 gap-4 lg:gap-12 justify-between bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
-      <img
-        src="https://picsum.photos/130/130"
-        alt="Logo"
-        className="aspect-square w-[40px] h-[40px] sm:w-[80px] sm:h-[80px] lg:w-[130px] lg:h-[130px]"
-      />
+    <header className="flex py-2 px-6 lg:px-18 xl:px-24 gap-4 lg:gap-12 justify-between bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
+      <Link to={"/"}>
+        <LogoIcon className="aspect-square w-[40px] h-[40px] sm:w-[80px] sm:h-[80px] lg:w-[100px] lg:h-[100px]" />
+      </Link>
 
       <button className="flex md:hidden" onClick={() => setOpenMenu(true)}>
         <MenuIcon className="w-6 h-6 self-center" />
@@ -86,7 +88,9 @@ function Navbar() {
                     to="/register"
                     classname="min-w-full md:min-w-0"
                   >
-                    Solicitar Financiamiento
+                    {role === "buyer"
+                      ? "Solicitar financiamiento"
+                      : "Quiero invertir"}
                   </Button>
                 </div>
 

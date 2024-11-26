@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage, LoginPage, RegisterPage } from "./pages";
-import LoanSimulatorPage from "./pages/simulators/LoanSimulatorPage";
 import LayoutPage from "./pages/LayoutPage";
+import DashboardBuyerPage from "./pages/private/DashboardBuyerPage";
 
 function AppRoutes() {
   return (
@@ -11,7 +11,7 @@ function AppRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/simular-prestamo" element={<LoanSimulatorPage />} />
+          <Route path="/buyer" element={<DashboardBuyerPage />} />
         </Route>
       </Routes>
     </Router>

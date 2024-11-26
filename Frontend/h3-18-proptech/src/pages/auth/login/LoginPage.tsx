@@ -1,17 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { FormValues, schema } from "./models/Login.model";
+import { CustomInput, Button } from "../../../components/common";
 
 export const LoginPage = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    register,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     mode: "onBlur",
     defaultValues: {
-      dni: "",
+      email: "",
       password: "",
     },
   });
@@ -23,50 +25,41 @@ export const LoginPage = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center items-center flex-1"
+      className="flex flex-col justify-center items-center flex-1 bg-tertiary"
     >
-      <div className="">
-        <label htmlFor="dni">DNI</label>
+      <div className="w-[340px]">
         <Controller
-          name="dni"
+          name="email"
           control={control}
-          render={({ field }) => (
-            <input
-              id="dni"
-              type="text"
-              {...field}
-              className={`block border border-gray-600 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6 w-[300px] ${errors.dni ? "text-red-600" : "text-gray-900 "}`}
+          render={() => (
+            <CustomInput
+              type="email"
+              name="email"
+              register={register}
+              label="Email"
+              error={errors.email}
             />
           )}
         />
-        {errors.dni && (
-          <p className="text-red-600 text-xs">{errors.dni.message}</p>
-        )}
       </div>
-      <div className="">
-        <label htmlFor="password">Contraseña</label>
+      <div className="w-[340px] mb-3">
         <Controller
           name="password"
           control={control}
-          render={({ field }) => (
-            <input
-              id="password"
+          render={() => (
+            <CustomInput
               type="password"
-              {...field}
-              className={`block border border-gray-600 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6 w-[300px] ${errors.password ? "text-red-600" : ""}`}
+              name="password"
+              register={register}
+              label="Contraseña"
+              error={errors.password}
             />
           )}
         />
-        {errors.password && (
-          <p className="text-red-600 text-xs">{errors.password.message}</p>
-        )}
       </div>
-      <button
-        type="submit"
-        className="rounded-md bg-white px-2.5 py-1.5 m-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-      >
-        Submit
-      </button>
+      <Button type="submit" color="primary-blue" size="large">
+        Iniciar sesión
+      </Button>
     </form>
   );
 };
