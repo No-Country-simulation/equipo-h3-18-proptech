@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace h3_18_proptechback.Infrastructure.Repositories
 {
-    internal class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected ApplicationDbContext _context;
         public GenericRepository(ApplicationDbContext context)

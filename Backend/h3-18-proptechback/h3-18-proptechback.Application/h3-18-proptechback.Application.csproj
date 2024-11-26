@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Exception\" />
-    <Folder Include="Features\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
