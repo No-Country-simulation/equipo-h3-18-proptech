@@ -10,7 +10,7 @@ function NavElement({ to, children }: Props) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        isActive ? "text-secondary text-title-medium-semi-bold uppercase hover:text-primary" : "text-base-color text-title-medium-semi-bold uppercase hover:text-primary"
+        isActive ? "text-secondary text-title-large-semi-bold md:text-title-medium-semi-bold uppercase md:hover:text-primary " : "text-base-color text-title-large-semi-bold md:text-title-medium-semi-bold uppercase hover:text-primary"
       }
     >
       {children}

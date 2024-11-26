@@ -12,7 +12,7 @@ interface Props {
 
 function SelectInput({ register, name, label, info, error, options }: Props) {
   return (
-    <div className="flex flex-col relative pb-5">
+    <div className={`flex flex-col relative pb-5 ${info ? "mb-4" : "mb-0"}`}>
       <label className="mb-2 text-body-medium-regular ps-2">{label}</label>
       <div className="relative flex items-center cursor-pointer">
         <select
@@ -30,7 +30,7 @@ function SelectInput({ register, name, label, info, error, options }: Props) {
         <SelectArrowIcon className="absolute right-4 size-6 pointer-events-none" />
       </div>
       <span
-        className={`text-body-small-regular-10 font-lato absolute bottom-0 left-0  ${error ? "text-error" : info ? "text-base-color" : "text-transparent"}`}
+        className={`text-body-small-regular-10 font-lato absolute h-10 -bottom-6 left-0  ${error ? "text-error" : info ? "text-base-color" : "text-transparent"}`}
       >
         {error ? error.message : info ? info : ""}
       </span>
