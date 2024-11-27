@@ -1,4 +1,4 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput, PasswordInput, Button } from "../../../components/common";
 import { useSwitchStore } from "../../../stores";
@@ -6,10 +6,10 @@ import { userSchema } from "./models/userSchema";
 import { HeaderHome } from "../../../components/Home";
 import { Link } from "react-router-dom";
 
-interface UserForm {
+interface RegisterForm {
   name: string;
   lastname: string;
-  phone: string;
+  phoneNumber: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -20,10 +20,11 @@ export function RegisterPage() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<UserForm>({
+  } = useForm<RegisterForm>({
     defaultValues: {
       name: "",
       lastname: "",
+      phoneNumber: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -35,10 +36,18 @@ export function RegisterPage() {
 
   const visibleRole = role === "buyer" ? "Comprador" : "Inversor";
 
-  const onSubmit = (data: FieldValues) => {
-    const userRole = role === "buyer" ? "Cliente" : "Inversor"
-    data.role = userRole
-    console.log(data);
+  const onSubmit = (data: RegisterForm) => {
+    const userRole = role === "buyer" ? "Cliente" : "Inversor";
+    const formData = {
+      name: data.name,
+      lastname: data.lastname,
+      email: data.email,
+      password: data.password,
+      phoneNumber: data.phoneNumber,
+      rol: userRole,
+      username: data.email,
+    };
+    console.log(formData);
     // Envío de Formulario al Backend
   };
   return (
@@ -63,7 +72,10 @@ export function RegisterPage() {
           />
           <span className="text-title-large-semi-bold mt-6 hidden md:flex md:gap-2 ">
             ¿Ya tienes una cuenta?{" "}
-            <Link to={"/login"} className="flex mt-2 md:mt-0 md:inline text-title-large-bold hover:text-secondary transition-colors">
+            <Link
+              to={"/login"}
+              className="flex mt-2 md:mt-0 md:inline text-title-large-bold hover:text-secondary transition-colors"
+            >
               Iniciar Sesión
             </Link>
           </span>
@@ -92,9 +104,9 @@ export function RegisterPage() {
           <TextInput
             register={register}
             label="Teléfono*"
-            name="phone"
+            name="phoneNumber"
             type="tel"
-            error={errors.phone}
+            error={errors.phoneNumber}
           />
 
           <PasswordInput
@@ -125,7 +137,10 @@ export function RegisterPage() {
           </small>
           <span className="text-title-medium-semi-bold mt-2 flex gap-2 md:gap-0 md:hidden items-center justify-center">
             ¿Ya tienes una cuenta?{" "}
-            <Link to={"/login"} className="flex text-title-medium-bold text-secondary transition-colors">
+            <Link
+              to={"/login"}
+              className="flex text-title-medium-bold text-secondary transition-colors"
+            >
               Iniciar Sesión
             </Link>
           </span>

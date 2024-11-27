@@ -12,7 +12,7 @@ export const userSchema = z
       .string()
       .min(1, "Introduce tu apellido")
       .max(40, "Ingrese un apellido con máximo 40 caracteres"),
-    phone: z
+    phoneNumber: z
       .string()
       .min(1, "Introduce tu número de teléfono")
       .regex(
