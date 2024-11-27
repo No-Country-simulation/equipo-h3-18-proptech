@@ -1,10 +1,6 @@
 ﻿using h3_18_proptechback.Application.Contracts.Persistence;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace h3_18_proptechback.Application.Features.DataUser
 {
@@ -39,26 +35,30 @@ namespace h3_18_proptechback.Application.Features.DataUser
             return await _dataRepo.Update(entity);
         }
 
-        public Task Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var existe = _dataRepo.GetIdAsync(id);
+            if (existe == null) { 
+                throw new Exception($"el registro{id} no existe");
+            
+            }
+            await _dataRepo.Delete(id);
+            return true; 
         }
 
         public IEnumerable<Domain.DataUser?> GetAll()
         {
-            throw new NotImplementedException();
+             return _dataRepo.GetAll();
         }
 
-        public Task<Domain.DataUser> GetIdAsync(Guid id)
+        public async Task<Domain.DataUser> GetIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dataRepo.GetIdAsync(id);
         }
 
-        public Task<bool> IsValueUser()
+        public async Task<bool> IsValueUser(Domain.DataUser entity)
         {
-            throw new NotImplementedException();
+            return await _dataRepo.IsValueUser(entity);
         }
-
-        
     }
 }

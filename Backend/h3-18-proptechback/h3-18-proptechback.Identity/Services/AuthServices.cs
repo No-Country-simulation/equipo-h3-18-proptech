@@ -55,7 +55,7 @@ namespace h3_18_proptechback.Identity.Services
             return authResponse;
         }
 
-        public async Task<RegistrationResponse> Register(RegistrationRequest request, string rol)
+        public async Task<RegistrationResponse> Register(RegistrationRequest request)
             {
                 var existingUser = await _userManager.FindByNameAsync(request.Username);
 
@@ -78,15 +78,16 @@ namespace h3_18_proptechback.Identity.Services
                     Apellido = request.Apellidos,
                     UserName = request.Username,
                     PhoneNumber = request.PhoneNumber,
-                    PhoneNumberConfirmed = request.PhoneNumberConfirmed,
-                    EmailConfirmed = true
+                    PhoneNumberConfirmed = true,
+                    EmailConfirmed = true,
+                    
                 };
 
                 
                 var result = await _userManager.AddPasswordAsync(user, request.Password);
                 if (result.Succeeded) 
                 {
-                    await _userManager.AddToRoleAsync(user, rol);
+                    await _userManager.AddToRoleAsync(user, request.rol);
                     var token = await GenerateToken(user);
                     return new RegistrationResponse
                     {
@@ -133,17 +134,7 @@ namespace h3_18_proptechback.Identity.Services
             
 
         }
+
         
-        public enum ROL
-        { 
-            Administrador,
-
-            Operador,
-            
-            Cliente,
-
-            Inversor
-
-        }
     }
 }

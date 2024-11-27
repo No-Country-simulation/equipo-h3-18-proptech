@@ -36,14 +36,14 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return entity;
         }
-        public async Task Delete(Guid id)
+        
+        async Task<bool>  IGenericRepository<T>.Delete(Guid id)
         {
-
             var entity = await GetIdAsync(id);
             if (entity is null) throw new Exception("Entity not found");
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
+            return true;
         }
-
     }
 }

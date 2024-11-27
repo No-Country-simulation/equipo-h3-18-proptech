@@ -1,5 +1,6 @@
 using h3_18_proptechback.Identity;
 using h3_18_proptechback.Infrastructure;
+using h3_18_proptechback.Application;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 builder.Services.AddApplicationInfrastructureServicesExtensions(builder.Configuration);
+builder.Services.AddAplicationService();
 
 builder.Services.AddCors(options =>
 {

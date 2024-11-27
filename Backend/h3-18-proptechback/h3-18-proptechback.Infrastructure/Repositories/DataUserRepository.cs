@@ -11,15 +11,19 @@ namespace h3_18_proptechback.Infrastructure.Repositories
 {
     public class DataUserRepository : GenericRepository<DataUser>, IDataUserRepository
     {
-       
-        public DataUserRepository(ApplicationDbContext context): base(context) 
+
+        public DataUserRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public Task<bool> IsValueUser()
+        public async Task<bool> IsValueUser(DataUser entity)
         {
-            throw new NotImplementedException();
+            var existe = await _context.Set<DataUser>().FindAsync(entity.DNI);
+            if (existe == null)
+                throw new Exception($"Es Requerido un valor ");
+
+                return existe.IsComplete;
         }
     }
 }
