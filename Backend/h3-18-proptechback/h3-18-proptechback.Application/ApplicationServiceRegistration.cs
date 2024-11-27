@@ -9,7 +9,7 @@ namespace h3_18_proptechback.Application
     {
         public static IServiceCollection AddAplicationService(this IServiceCollection service)
         {
-            //service.AddScoped<IDataUserRepository, DataUserComandHandler>();
+            service.AddScoped<DataUserComandHandler>();
 
             return service;
 

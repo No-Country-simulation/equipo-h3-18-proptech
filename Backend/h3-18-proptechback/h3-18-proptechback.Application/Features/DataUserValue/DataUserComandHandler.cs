@@ -1,10 +1,10 @@
-﻿using h3_18_proptechback.Application.Contracts.Persistence;
+﻿
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 
 
 namespace h3_18_proptechback.Application.Features.DataUser
 {
-    public class DataUserComandHandler : IDataUserRepository
+    public class DataUserComandHandler
     {
         private readonly IDataUserRepository _dataRepo;
 

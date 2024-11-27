@@ -84,7 +84,7 @@ namespace h3_18_proptechback.Identity.Services
                 };
 
                 
-                var result = await _userManager.AddPasswordAsync(user, request.Password);
+                var result = await _userManager.CreateAsync(user, request.Password);
                 if (result.Succeeded) 
                 {
                     await _userManager.AddToRoleAsync(user, request.rol);
