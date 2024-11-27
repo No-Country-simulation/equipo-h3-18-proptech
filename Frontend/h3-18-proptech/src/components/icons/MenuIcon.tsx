@@ -1,5 +1,5 @@
 import { SVGProps } from "react";
-const MenuIcon = (props: SVGProps<SVGSVGElement>) => (
+export const MenuIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
