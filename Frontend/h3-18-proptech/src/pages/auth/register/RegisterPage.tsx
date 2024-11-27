@@ -2,9 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput, PasswordInput, Button } from "../../../components/common";
 import { useSwitchStore } from "../../../stores";
-import { userSchema } from "./models/userSchema";
+import { userSchema } from "./models/Register.model";
 import { HeaderHome } from "../../../components/Home";
 import { Link } from "react-router-dom";
+import { authRegister } from "../../../services/auth";
+import { RegisterUser } from "../../../interfaces/User";
 
 interface RegisterForm {
   name: string;
@@ -48,6 +50,7 @@ export function RegisterPage() {
       username: data.email,
     };
     console.log(formData);
+    authRegister(formData as RegisterUser)
     // Envío de Formulario al Backend
   };
   return (
@@ -135,14 +138,16 @@ export function RegisterPage() {
           <small className="text-body-small-regular-10 font-lato mt-1">
             *Todos los campos son obligatorios.
           </small>
-          <span className="text-title-medium-semi-bold mt-2 flex gap-2 md:gap-0 md:hidden items-center justify-center">
+          <span className="text-title-medium-semi-bold mt-2 flex-col flex gap-2 md:gap-0 md:hidden items-center justify-center">
             ¿Ya tienes una cuenta?{" "}
-            <Link
+            <Button
+              size="large"
+              type="link"
+              color="primary-orange"
               to={"/login"}
-              className="flex text-title-medium-bold text-secondary transition-colors"
             >
               Iniciar Sesión
-            </Link>
+            </Button>
           </span>
         </form>
       </section>
