@@ -4,16 +4,17 @@ interface Props {
   register: UseFormRegister<any>;
   label: string;
   name: string;
+  type?: "text" | "email" | "tel"
   info?: string;
   error?: FieldError;
 }
 
-export function TextInput({ register, name, label, info, error }: Props) {
+export function TextInput({ register, name, label, info, error, type = "text" }: Props) {
   return (
     <div className={`flex flex-col relative pb-5 ${info ? "mb-4" : "mb-0"}`}>
       <label className="mb-2 text-body-medium-regular ps-2">{label}</label>
       <input
-        type="text"
+        type={type}
         {...register(name)}
         className={`border-[3px] text-body-large-regular py-2 px-3 rounded-md shadow-md focus:outline-none ${error ? "border-error" : "border-primary"}`}
       />
