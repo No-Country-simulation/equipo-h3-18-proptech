@@ -16,7 +16,7 @@ export const HomeSteps = () => {
         {role === "buyer" ? (
           <>
             {cardDataBuyer.map(({ img, title, children }) => (
-              <CardStep img={img} title={title}>
+              <CardStep key={title} img={img} title={title}>
                 {children}
               </CardStep>
             ))}
@@ -24,7 +24,7 @@ export const HomeSteps = () => {
         ) : (
           <>
             {cardDataInvestor.map(({ img, title, children }) => (
-              <CardStep img={img} title={title}>
+              <CardStep key={title} img={img} title={title}>
                 {children}
               </CardStep>
             ))}

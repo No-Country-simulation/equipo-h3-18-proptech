@@ -1,6 +1,6 @@
 import { useSwitchStore } from "../../stores";
 
-export default function SwitchButton() {
+export function SwitchButton() {
   const { role, setBuyer, setInvestor } = useSwitchStore();
 
   const handleClickBuyer = () => {

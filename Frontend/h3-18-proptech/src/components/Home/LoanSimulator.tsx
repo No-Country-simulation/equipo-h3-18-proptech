@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { useForm, FieldValues } from "react-hook-form";
-import SelectInput from "../common/SelectInput";
-import Button from "../common/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loanSimulatorSchema } from "./models/LoanSimulator.model";
-import NumberInput from "../common/NumberInput";
+import { useModalStore } from "../../stores/modal/modal.store";
+import { Button, NumberInput, SelectInput } from "../common";
 
-interface UserLoan {
+/*   
   financing: number; // Monto solicitado para la compra de un terreno
   paymentPlan: number; // Cantidad de Cuotas en las que se desea pagar el financiamiento
   initial: number; // Pago inicial
@@ -16,7 +14,7 @@ interface UserLoan {
   realLoan: number; // Monto Real. Valor que se obtiene restando el monto solicitado por el pago inicial
   interest: string; // Tasa de Interés
   totalPayment: string; // Pago Total
-}
+*/
 
 const monthlyReinforcement = {
   6: (175710 / 1000000) * 1.05,
@@ -46,18 +44,7 @@ function LoanSimulator() {
     resolver: zodResolver(loanSimulatorSchema),
   });
 
-  const [loan, setLoan] = useState<UserLoan>({
-    extra: 0,
-    financing: 0,
-    initial: 0,
-    interest: "0",
-    minimalSalary: 0,
-    monthlyPayment: 0,
-    paymentPlan: 6,
-    realLoan: 0,
-    totalPayment: "0",
-  });
-  const [openModal, setOpenModal] = useState(false);
+  const showModal = useModalStore((state) => state.showModal);
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -86,16 +73,29 @@ function LoanSimulator() {
       (realLoan * Number(interest)) / 100
     ).toFixed(2);
 
-    setLoan({
-      financing,
-      paymentPlan,
-      initial,
-      extra,
-      monthlyPayment,
-      minimalSalary: monthlyPayment * 4,
-      realLoan,
-      interest,
-      totalPayment,
+    showModal({
+      title: "Total a pagar",
+      content: [
+        {
+          label: "Cuota Mensual",
+          value: `${monthlyPayment}$`,
+          info: `Ten en cuenta que tu sueldo neto debe ser mayor a ${monthlyPayment * 4}`,
+        },
+        {
+          label: "Tasa de Interés",
+          value: `${interest}%`,
+        },
+        {
+          label: "Monto a Financiar",
+          value: `${realLoan}$`,
+        },
+        {
+          label: "Pago Total",
+          value: `${totalPayment}$`,
+        },
+      ],
+      buttonLink: "/register",
+      buttonTitle: "Solicitar Financiación",
     });
   };
   return (
@@ -159,16 +159,14 @@ function LoanSimulator() {
               label: `${month} meses`,
             }))}
           />
-          <div onClick={() => setOpenModal(true)}>
-            <Button
-              type="submit"
-              color="primary-blue"
-              size="large"
-              classname="mt-1"
-            >
-              Calcular
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            color="primary-blue"
+            size="large"
+            classname="mt-1"
+          >
+            Calcular
+          </Button>
 
           <Button
             color="primary-orange"
@@ -182,47 +180,6 @@ function LoanSimulator() {
         </form>
       </section>
       {/* Lo siguiente falta por diseño*/}
-      <dialog
-        className={`${openModal ? "opacity-100" : "scale-0 opacity-0"} transition-opacity h-full w-full absolute top-0 flex items-center justify-center bg-black bg-opacity-60 p-6`}
-      >
-        <article
-          className={`${openModal ? "opacity-100" : "scale-0 opacity-0"} transition-all ease-out bg-white p-6 w-fit flex flex-col shadow-md rounded-md gap-4 border-2 border-primary `}
-        >
-          <h1 className="text-title-large-bold text-center mb-4">
-            Resumen de la Financiación
-          </h1>
-
-          <div className="flex flex-col">
-            <div className="flex gap-1 items-center">
-              <p className="text-title-medium-bold">Cuota Mensual:</p>
-              <span className="text-body-medium-regular">${loan.monthlyPayment}</span>
-            </div>
-            <span className="text-body-small-regular-12 font-lato">
-              {`Ten en cuenta que tu sueldo neto debe ser mayor a ${loan.minimalSalary}$`}
-            </span>
-          </div>
-
-          <div className="flex gap-1 items-center">
-            <p className="text-title-medium-bold">Tasa de Interés:</p>
-            <span className="text-body-medium-regular">{loan.interest}%</span>
-          </div>
-
-          <div className="flex gap-1 items-center">
-            <p className="text-title-medium-bold">Monto a Financiar:</p>
-            <span className="text-body-medium-regular">${loan.realLoan}</span>
-          </div>
-
-          <div className="flex gap-1 items-center">
-            <p className="text-title-medium-bold">Pago total:</p>
-            <span className="text-body-medium-regular">${loan.totalPayment}</span>
-          </div>
-          <div className="self-end" onClick={() => setOpenModal(false)}>
-            <Button color="primary-blue" size="small" classname="mt-2">
-              Cerrar
-            </Button>
-          </div>
-        </article>
-      </dialog>
     </>
   );
 }

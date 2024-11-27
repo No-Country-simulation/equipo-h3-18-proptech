@@ -1,12 +1,9 @@
-import Button from "../common/Button";
 import NavElement from "./NavElement";
 import { useSwitchStore } from "../../stores";
-import UserIcon from "../icons/UserIcon";
-import MenuIcon from "../icons/MenuIcon";
 import { useState } from "react";
-import CloseIcon from "../icons/CloseIcon";
-import LogoIcon from "../icons/LogoIcon";
 import { Link } from "react-router-dom";
+import { Button } from "../common";
+import { LogoIcon, MenuIcon, CloseIcon, UserIcon } from "../icons";
 
 const navLinks = [
   {
@@ -27,6 +24,7 @@ function Navbar() {
   const user = false;
   const { role } = useSwitchStore();
   const [openMenu, setOpenMenu] = useState(false);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
 
   return (
     <header className="flex py-2 px-6 lg:px-18 xl:px-24 gap-4 lg:gap-12 justify-between bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
@@ -73,10 +71,38 @@ function Navbar() {
         <section className="flex flex-col">
           <hr className="flex md:hidden my-4 bg-primary" />
           {user ? (
-            <button className="flex flex-col items-center justify-center gap-1">
-              <UserIcon className="text-primary size-12" />
-              <p className="text-body-medium-regular">Mi cuenta</p>
-            </button>
+            <section className="relative">
+              <button
+                onClick={() => setOpenProfileModal(!openProfileModal)}
+                className="hidden md:flex flex-col items-center justify-center gap-1 text-primary hover:text-primaryVar1"
+              >
+                <UserIcon className=" size-12 " />
+                <p className="text-body-medium-regular">Mi cuenta</p>
+              </button>
+              <article
+                className={`${openProfileModal ? "md:opacity-100 md:translate-y-0 md:translate-x-0" : "md:-translate-y-20 md:translate-x-20 md:scale-0 md:opacity-0"} md:transition md:absolute md:-bottom-[6.5rem] md:right-7 md:border md:border-primary md:w-[150px] md:bg-white md:p-4 md:shadow-md flex flex-col gap-4 ease-out duration-300`}
+              >
+                <div className="w-fit" onClick={() => {setOpenProfileModal(false); setOpenMenu(false)}}>
+                  <NavElement
+                    to={"/login"}
+                    activeClassname="capitalize"
+                    notActiveClassname="capitalize"
+                  >
+                    Mi Perfil
+                  </NavElement>
+                </div>
+
+                <div className="w-fit" onClick={() => {setOpenProfileModal(false); setOpenMenu(false)}}>
+                  <NavElement
+                    to={"/register"}
+                    activeClassname="capitalize"
+                    notActiveClassname="capitalize"
+                  >
+                    Cerrar Sesión
+                  </NavElement>
+                </div>
+              </article>
+            </section>
           ) : (
             <>
               <section className="flex gap-x-4 lg:gap-x-8 gap-y-6 flex-col md:flex-row">

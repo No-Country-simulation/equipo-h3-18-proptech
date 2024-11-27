@@ -3,12 +3,13 @@ import { chatbotAnswers } from "./Answers";
 import ChatbotMessageBox from "./ChatbotMessageBox";
 import UserMessageBox from "./UserMessageBox";
 import { useChatbotStore } from "../../stores";
+import { CloseIcon } from "../icons";
 
 const chatbotStyles = {
   visible:
-    "absolute sm:fixed top-0 sm:top-auto left-0 sm:left-auto sm:bottom-24 sm:right-4 bg-white z-50 shadow-lg rounded-lg h-screen sm:h-[80%] sm:max-w-[400px] min-w-[200px] w-full origin-bottom-right opacity-100",
+    "fixed top-0 sm:top-auto left-0 sm:left-auto sm:bottom-24 sm:right-4 bg-white z-50 shadow-lg rounded-lg h-screen sm:h-[80%] sm:max-w-[400px] min-w-[200px] w-full origin-bottom-right opacity-100",
   hidden:
-    "absolute sm:fixed top-0 sm:top-auto left-0 sm:left-auto sm:bottom-24 sm:right-4 bg-white z-50 shadow-lg rounded-lg h-screen sm:h-[80%] sm:max-w-[400px] min-w-[200px] w-full scale-0 opacity-0",
+    "fixed top-0 sm:top-auto left-0 sm:left-auto sm:bottom-24 sm:right-4 bg-white z-50 shadow-lg rounded-lg h-screen sm:h-[80%] sm:max-w-[400px] min-w-[200px] w-full scale-0 opacity-0",
 };
 
 function Chatbot() {
@@ -50,7 +51,7 @@ function Chatbot() {
               className="absolute top-0 bottom-0 right-2 h-fit my-auto rounded-full p-1 hover:bg-gray-50"
               onClick={() => setIsVisible(!isVisible)}
             >
-              ❌
+              <CloseIcon className="h-4 w-4"/>
             </button>
             <h6 className="text-center font-bold text-lg">Financibot</h6>
           </header>
