@@ -1,4 +1,5 @@
 import { NavLink, To } from "react-router-dom";
+import useTransitionNavigation from "../../hooks/useTransitionNavigation";
 
 interface Props {
   to: To;
@@ -7,12 +8,24 @@ interface Props {
   notActiveClassname?: string;
 }
 
-function NavElement({ to, children, activeClassname, notActiveClassname }: Props) {
+function NavElement({
+  to,
+  children,
+  activeClassname,
+  notActiveClassname,
+}: Props) {
+  const navigate = useTransitionNavigation();
   return (
     <NavLink
+      onClick={(e) => {
+        e.preventDefault();
+        navigate(to);
+      }}
       to={to}
       className={({ isActive }) =>
-        isActive ? `${activeClassname} text-secondary text-title-large-semi-bold md:text-title-medium-semi-bold uppercase md:hover:text-primary` : `${notActiveClassname} text-base-color text-title-large-semi-bold md:text-title-medium-semi-bold uppercase hover:text-primary`
+        isActive
+          ? `${activeClassname} text-secondary text-title-large-semi-bold md:text-title-medium-semi-bold uppercase hover:text-primary`
+          : `${notActiveClassname} text-base-color text-title-large-semi-bold md:text-title-medium-semi-bold uppercase hover:text-primary`
       }
     >
       {children}

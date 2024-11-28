@@ -24,7 +24,7 @@ function Modal() {
         <ul className="flex flex-col gap-3 px-4 py-8">
           {content.map(({ label, value, info }) => {
             return (
-              <li className="flex flex-col gap-1">
+              <li key={label + value} className="flex flex-col gap-1">
                 <div className="flex gap-2 items-center">
                   <label className="text-title-medium-bold">{label}:</label>
                   <span className="text-body-medium-regular">{value}</span>
@@ -38,7 +38,7 @@ function Modal() {
             );
           })}
         </ul>
-        <footer onClick={() => closeModal()} className="w-fit">
+        <footer onClick={() => closeModal()} className="w-fit mx-auto">
           <Button
             type="link"
             color="primary-orange"

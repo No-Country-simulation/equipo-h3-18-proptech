@@ -6,7 +6,12 @@ import BuyerShares from "./pages/private/BuyerShares";
 
 function AppRoutes() {
   return (
-    <Router>
+    <Router
+      future={{
+        v7_relativeSplatPath: true,
+        v7_startTransition: true,
+      }}
+    >
       <Routes>
         <Route element={<LayoutPage />}>
           <Route path="/" element={<HomePage />} />

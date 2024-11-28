@@ -1,13 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-    html {
-      font-family: "nunito", sans-serif;
-      color: #1E1E1E
-    }
+  html {
+    font-family: "nunito", sans-serif;
+    color: #1e1e1e;
   }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@keyframes blur-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.1;
+  }
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0.1;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 0.5s ease both blur-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.5s ease both blur-in;
+}

@@ -47,10 +47,6 @@ function LoanSimulator() {
   const showModal = useModalStore((state) => state.showModal);
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
-
-    // Petición al Back
-
     const financing = Number(data.financing);
     const paymentPlan = Number(data.paymentPlan);
     const initial = Number(data.initial);
@@ -99,88 +95,85 @@ function LoanSimulator() {
     });
   };
   return (
-    <>
-      <section className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 lg:gap-24 w-full bg-tertiary py-10 md:py-20 px-6 relative">
-        <aside className="flex flex-col">
-          <h3 className="text-headline-medium-medium mb-8">
-            Calcula tu financiamiento a medida
-          </h3>
-          <p className="text-title-large-regular max-w-[36ch] mb-7">
-            Nuestro{" "}
-            <span className="text-title-large-semi-bold">
-              Simulador de Financiamiento
-            </span>{" "}
-            te permite explorar diferentes opciones de pago para la compra de tu
-            terreno.
-          </p>
-          <p className="text-title-large-regular max-w-[36ch] mb-7">
-            Personaliza el monto inicial y el número de cuotas, y obtén una
-            estimación clara de las mensualidades.
-          </p>
-          <p className="text-title-large-bold max-w-[36ch] mb-0 md:mb-7">
-            Ajusta el plan de financiamiento a tus necesidades.
-          </p>
-          <Button
-            color="primary-orange"
-            size="large"
-            type="link"
-            to="/register"
-            classname="hidden md:flex"
-          >
-            Solicitar financiación
-          </Button>
-        </aside>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 pt-5"
-        >
-          <NumberInput
-            label="Costo del Lote"
-            name="financing"
-            register={register}
-            error={errors.financing}
-          />
-          <NumberInput
-            label="Adelanto"
-            name="initial"
-            info="Si tu inicial supera el 30% del Costo del Lote, tendrás beneficios"
-            register={register}
-            error={errors.initial}
-          />
+    <section className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 lg:gap-24 w-full bg-tertiary py-10 md:py-20 px-6 relative">
+    <aside className="flex flex-col">
+      <h3 className="text-headline-medium-medium mb-8">
+        Calcula tu financiamiento a medida
+      </h3>
+      <p className="text-title-large-regular max-w-[36ch] mb-7">
+        Nuestro{" "}
+        <span className="text-title-large-semi-bold">
+          Simulador de Financiamiento
+        </span>{" "}
+        te permite explorar diferentes opciones de pago para la compra de tu
+        terreno.
+      </p>
+      <p className="text-title-large-regular max-w-[36ch] mb-7">
+        Personaliza el monto inicial y el número de cuotas, y obtén una
+        estimación clara de las mensualidades.
+      </p>
+      <p className="text-title-large-bold max-w-[36ch] mb-0 md:mb-7">
+        Ajusta el plan de financiamiento a tus necesidades.
+      </p>
+      <Button
+        color="primary-orange"
+        size="large"
+        type="link"
+        to="/register"
+        classname="hidden md:flex"
+      >
+        Solicitar financiación
+      </Button>
+    </aside>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 pt-5"
+    >
+      <NumberInput
+        label="Costo del Lote"
+        name="financing"
+        register={register}
+        error={errors.financing}
+      />
+      <NumberInput
+        label="Adelanto"
+        name="initial"
+        info="Si tu inicial supera el 30% del Costo del Lote, tendrás beneficios"
+        register={register}
+        error={errors.initial}
+      />
 
-          <SelectInput
-            register={register}
-            name="paymentPlan"
-            label="Cantidad de Cuotas"
-            options={[
-              6, 9, 12, 18, 24, 30, 36, 48, 60, 72, 84, 96, 120, 150, 180,
-            ].map((month) => ({
-              value: month,
-              label: `${month} meses`,
-            }))}
-          />
-          <Button
-            type="submit"
-            color="primary-blue"
-            size="large"
-            classname="mt-1"
-          >
-            Calcular
-          </Button>
+      <SelectInput
+        register={register}
+        name="paymentPlan"
+        label="Cantidad de Cuotas"
+        options={[
+          6, 9, 12, 18, 24, 30, 36, 48, 60, 72, 84, 96, 120, 150, 180,
+        ].map((month) => ({
+          value: month,
+          label: `${month} meses`,
+        }))}
+      />
+      <Button
+        type="submit"
+        color="primary-blue"
+        size="large"
+        classname="mt-1"
+      >
+        Calcular
+      </Button>
 
-          <Button
-            color="primary-orange"
-            size="large"
-            type="link"
-            to="/register"
-            classname="flex md:hidden"
-          >
-            Solicitar financiación
-          </Button>
-        </form>
-      </section>
-      {/* Lo siguiente falta por diseño*/}
-    </>
+      <Button
+        color="primary-orange"
+        size="large"
+        type="link"
+        to="/register"
+        classname="flex md:hidden"
+      >
+        Solicitar financiación
+      </Button>
+    </form>
+  </section>
   );
 }
 
