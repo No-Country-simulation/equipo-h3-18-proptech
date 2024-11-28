@@ -1,5 +1,7 @@
 import { Button } from "../../components/common";
-import DashboardBuyerTable, { DataBuyerTable } from "./components/DashboardBuyerTable";
+import DashboardBuyerTable, {
+  DataBuyerTable,
+} from "./components/DashboardBuyerTable";
 
 function DashboardBuyerPage() {
   return (
@@ -10,13 +12,12 @@ function DashboardBuyerPage() {
           Solicitar financiación
         </Button>
       </div>
-      <DashboardBuyerTable data={data}/>
+      <DashboardBuyerTable data={data} />
     </div>
   );
 }
 
 export default DashboardBuyerPage;
-
 
 const data: DataBuyerTable[] = [
   {

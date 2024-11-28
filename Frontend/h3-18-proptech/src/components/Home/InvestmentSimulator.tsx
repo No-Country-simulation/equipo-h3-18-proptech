@@ -47,7 +47,7 @@ function InvestmentSimulator() {
     };
 
     const earnings: number = calculeEarnings(months);
-    const total: number = calculeTotal(months)
+    const total: number = calculeTotal(months);
 
     setTotals([
       calculeEarnings(3),
@@ -112,14 +112,13 @@ function InvestmentSimulator() {
           className="flex flex-col gap-4 pt-5 basis-[490px]"
         >
           <div className="flex items-center justify-around">
-
-          <NumberInput
-            label="Inversión"
-            name="investment"
-            register={register}
-            error={errors.investment}
-          />
-          {/* <SelectInput
+            <NumberInput
+              label="Inversión"
+              name="investment"
+              register={register}
+              error={errors.investment}
+            />
+            {/* <SelectInput
             register={register}
             name="months"
             label={`Meses de capitalización (interes mensual: %${(interest * 100).toFixed(2)})`}
@@ -130,15 +129,15 @@ function InvestmentSimulator() {
               label: `${month} meses`,
             }))}
           /> */}
-          <Button
-            type="submit"
-            color="primary-blue"
-            size="small"
-            classname="mt-1"
-          >
-            Calcular
-          </Button>
-            </div>
+            <Button
+              type="submit"
+              color="primary-blue"
+              size="small"
+              classname="mt-1"
+            >
+              Calcular
+            </Button>
+          </div>
 
           <Button
             color="primary-orange"
@@ -182,7 +181,11 @@ function InvestmentSimulator() {
                 maxValue={totals[3]}
               />
             </div>
-            {grafh && <p className="text-title-medium-semi-bold absolute bottom-[-30px] right-1/2 translate-x-1/2 w-max">Rendimientos estimados de acuerdo al plazo de inversión</p>}
+            {grafh && (
+              <p className="text-title-medium-semi-bold absolute bottom-[-30px] right-1/2 translate-x-1/2 w-max">
+                Rendimientos estimados de acuerdo al plazo de inversión
+              </p>
+            )}
           </div>
         </form>
       </section>

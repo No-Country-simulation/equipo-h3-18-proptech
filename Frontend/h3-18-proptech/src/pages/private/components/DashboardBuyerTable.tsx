@@ -38,9 +38,7 @@ export const DashboardBuyerTable = ({ data }: Props) => {
               <td>{shares}</td>
               <td>${total}</td>
               <td>
-                <Link to={'/shares'}>
-               {pay ? "Pagar" : "Ver"}
-                </Link>
+                <Link to={"/shares"}>{pay ? "Pagar" : "Ver"}</Link>
               </td>
             </tr>
           ))}

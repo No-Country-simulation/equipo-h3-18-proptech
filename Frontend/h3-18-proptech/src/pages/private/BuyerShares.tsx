@@ -3,27 +3,26 @@ import BuyerSharesTable, {
 } from "./components/BuyerSharesTable";
 
 function BuyerShares() {
+  const dataPaid = data.filter((d) => d.state === "paid");
 
-  const dataPaid = data.filter(d=>d.state=== 'paid')
-  
-  const dataNonPaid = data.filter(d=>d.state !== 'paid')
+  const dataNonPaid = data.filter((d) => d.state !== "paid");
 
   return (
     <>
-    <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
-      <div className="flex justify-between w-[1050px] my-[60px]">
-        <h2 className="text-headline-large-medium">Cuotas Pendientes</h2>
-        <p>Páginas</p>
+      <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
+        <div className="flex justify-between w-[1050px] my-[60px]">
+          <h2 className="text-headline-large-medium">Cuotas Pendientes</h2>
+          <p>Páginas</p>
+        </div>
+        <BuyerSharesTable data={dataNonPaid} shares={data.length} />
       </div>
-      <BuyerSharesTable data={dataNonPaid} shares={data.length} />
-    </div>
-    <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
-      <div className="flex justify-between w-[1050px] my-[60px]">
-        <h2 className="text-headline-large-medium">Cuotas Pagadas</h2>
-        <p>Páginas</p>
+      <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
+        <div className="flex justify-between w-[1050px] my-[60px]">
+          <h2 className="text-headline-large-medium">Cuotas Pagadas</h2>
+          <p>Páginas</p>
+        </div>
+        <BuyerSharesTable data={dataPaid} shares={data.length} />
       </div>
-      <BuyerSharesTable data={dataPaid} shares={data.length}/>
-    </div>
     </>
   );
 }

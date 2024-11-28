@@ -1,18 +1,17 @@
 export interface DataBuyerSharesTable {
   share: number;
-  date: Date
+  date: Date;
   state: "paid" | "pending" | "overdue";
   total: number;
   pay: boolean;
 }
 
 interface Props {
-  data: DataBuyerSharesTable[]
-  shares: number
+  data: DataBuyerSharesTable[];
+  shares: number;
 }
 
-function BuyerSharesTable({data, shares}:Props) {
-
+function BuyerSharesTable({ data, shares }: Props) {
   return (
     <>
       <table className="w-[1050px] text-base-color text-center bg-contrast ">
@@ -28,7 +27,9 @@ function BuyerSharesTable({data, shares}:Props) {
         <tbody className="text-headline-small-medium">
           {data.map(({ date, share, state, total, pay }) => (
             <tr className="border-b-2 border-[#ccc] h-[70px]">
-              <td>{share}/{shares}</td>
+              <td>
+                {share}/{shares}
+              </td>
               <td>{date.toLocaleDateString()}</td>
               <td
                 className={`text-headline-small-bold ${state === "paid" ? "text-success" : state === "pending" ? "text-primary" : "text-error"}`}
@@ -48,7 +49,7 @@ function BuyerSharesTable({data, shares}:Props) {
         </tbody>
       </table>
     </>
-  )
+  );
 }
 
-export default BuyerSharesTable
+export default BuyerSharesTable;
