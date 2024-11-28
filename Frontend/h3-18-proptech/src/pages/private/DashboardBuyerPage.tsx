@@ -1,4 +1,7 @@
 import { Button } from "../../components/common";
+import DashboardBuyerTable, {
+  DataBuyerTable,
+} from "./components/DashboardBuyerTable";
 
 function DashboardBuyerPage() {
   return (
@@ -9,26 +12,30 @@ function DashboardBuyerPage() {
           Solicitar financiación
         </Button>
       </div>
-      <table className="w-[1050px] text-sm text-left rtl:text-right text-gray-500 bg-contrast">
-        <thead className=" text-headline-small-bold">
-          <tr>
-            <th>Prestamo</th>
-            <th>Cuotas</th>
-            <th>Total</th>
-            <th>Abonar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="text-headline-small-bold">Pagado</td>
-            <td className="text-headline-small-medium">100</td>
-            <td className="text-headline-small-medium">100</td>
-            <td className="text-headline-small-medium">Pagar</td>
-          </tr>
-        </tbody>
-      </table>
+      <DashboardBuyerTable data={data} />
     </div>
   );
 }
 
 export default DashboardBuyerPage;
+
+const data: DataBuyerTable[] = [
+  {
+    loan: "paid",
+    shares: 6,
+    total: 1000,
+    pay: false,
+  },
+  {
+    loan: "overdue",
+    shares: 3,
+    total: 1500,
+    pay: true,
+  },
+  {
+    loan: "pending",
+    shares: 10,
+    total: 1200,
+    pay: true,
+  },
+];
