@@ -12,30 +12,27 @@ export const userSchema = z
       .string()
       .min(1, "Introduce tu apellido")
       .max(40, "Ingrese un apellido con máximo 40 caracteres"),
-    dni: z
+    phoneNumber: z
       .string()
-      .min(1, "Introduce tu DNI")
-      .regex(/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/, "Ingrese un DNI válido"),
-    cuit: z
-      .string()
-      .min(1, "Introduce tu CUIT")
+      .min(1, "Introduce tu número de teléfono")
       .regex(
-        /^([0-9]{11}|[0-9]{2}-[0-9]{8}-[0-9]{1})$/,
-        "Ingrese un número de CUIT válido"
+        /^(\(?\+[\d]{1,3}\)?)\s?([\d]{1,5})\s?([\d][\s\.-]?){6,7}$/,
+        "Ingrese un número de teléfono válido"
       ),
     email: z.string().email("Ingrese un correo electrónico válido"),
     password: z
       .string()
-      .min(8, "Ingrese una contraseña con al menos 8 caracteres"),
-    confirm_password: z
-      .string()
-      .min(8, "Ingrese una contraseña con al menos 8 caracteres"),
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,30}$/,
+        "Ingresa una contraseña con al menos 8 caracteres, letras mayúsculas y minúsculas, números y caracteres especiales (@, #, $, %)."
+      ),
+    confirmPassword: z.string(),
   })
-  .superRefine(({ password, confirm_password }, ctx) => {
-    if (confirm_password !== password) {
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (confirmPassword !== password) {
       ctx.addIssue({
         message: "Las contraseñas deben ser iguales",
-        path: ["confirm_password"],
+        path: ["confirmPassword"],
         code: "custom",
       });
     }
