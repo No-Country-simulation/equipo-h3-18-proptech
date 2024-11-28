@@ -1,6 +1,6 @@
 export interface RegisterUser {
-  name: string;
-  lastname: string;
+  nombre: string;
+  apellido: string;
   email: string;
   password: string;
   phoneNumber: string;
@@ -12,5 +12,14 @@ export interface LoginUser {
     email: string;
     password: string;
   }
+
+export interface UserProfile {
+  nombre: string;
+  apellido: string;
+  email: string;
+  phoneNumber: string;
+  cuit: string;
+  dni: string;
+}
 
 type UserRole = "Cliente" | "Inversor"

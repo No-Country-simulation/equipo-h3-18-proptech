@@ -10,8 +10,8 @@ import { RegisterUser } from "../../../interfaces/User";
 import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
 
 interface RegisterForm {
-  name: string;
-  lastname: string;
+  nombre: string;
+  apellido: string;
   phoneNumber: string;
   email: string;
   password: string;
@@ -25,8 +25,8 @@ export function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterForm>({
     defaultValues: {
-      name: "",
-      lastname: "",
+      nombre: "",
+      apellido: "",
       phoneNumber: "",
       email: "",
       password: "",
@@ -42,8 +42,8 @@ export function RegisterPage() {
   const onSubmit = (data: RegisterForm) => {
     const userRole = role === "buyer" ? "Cliente" : "Inversor";
     const formData = {
-      name: data.name,
-      lastname: data.lastname,
+      nombre: data.nombre,
+      apellido: data.apellido,
       email: data.email,
       password: data.password,
       phoneNumber: data.phoneNumber,
@@ -56,7 +56,7 @@ export function RegisterPage() {
   };
   const navigate = useTransitionNavigation();
   return (
-    <section className="flex-1 bg-tertiary px-6 py-4">
+    <section className="flex-1 bg-tertiary px-6 pb-4">
       <HeaderHome />
       <section className="flex flex-col md:flex-row gap-10 justify-evenly pt-4">
         <aside className="flex flex-col">
@@ -94,14 +94,14 @@ export function RegisterPage() {
           <TextInput
             register={register}
             label="Nombre*"
-            name="name"
-            error={errors.name}
+            name="nombre"
+            error={errors.nombre}
           />
           <TextInput
             register={register}
             label="Apellido*"
-            name="lastname"
-            error={errors.lastname}
+            name="apellido"
+            error={errors.apellido}
           />
           <TextInput
             register={register}
