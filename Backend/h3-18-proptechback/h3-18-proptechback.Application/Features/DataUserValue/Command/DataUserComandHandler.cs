@@ -1,8 +1,7 @@
-﻿
-using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
+﻿using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 
 
-namespace h3_18_proptechback.Application.Features.DataUser
+namespace h3_18_proptechback.Application.Features.DataUserValue.Command
 {
     public class DataUserComandHandler
     {
@@ -15,14 +14,14 @@ namespace h3_18_proptechback.Application.Features.DataUser
 
         public async Task<Domain.DataUser> Add(Domain.DataUser entity)
         {
-            if (entity == null) 
+            if (entity == null)
             {
                 throw new Exception($"No se permiten Campos vacios {entity}");
             }
-            
-            
+
+
             return await _dataRepo.Add(entity);
-            
+
         }
 
         public async Task<Domain.DataUser> Update(Domain.DataUser entity)
@@ -31,24 +30,25 @@ namespace h3_18_proptechback.Application.Features.DataUser
 
             if (existe == null)
                 throw new Exception($"el registro{entity.DNI} no existe");
-            
+
             return await _dataRepo.Update(entity);
         }
 
         public async Task<bool> Delete(Guid id)
         {
             var existe = _dataRepo.GetIdAsync(id);
-            if (existe == null) { 
+            if (existe == null)
+            {
                 throw new Exception($"el registro{id} no existe");
-            
+
             }
             await _dataRepo.Delete(id);
-            return true; 
+            return true;
         }
 
         public IEnumerable<Domain.DataUser?> GetAll()
         {
-             return _dataRepo.GetAll();
+            return _dataRepo.GetAll();
         }
 
         public async Task<Domain.DataUser> GetIdAsync(Guid id)
