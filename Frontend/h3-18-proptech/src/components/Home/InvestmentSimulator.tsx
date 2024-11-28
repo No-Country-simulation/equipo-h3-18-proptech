@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useModalStore } from "../../stores/modal/modal.store";
-import { Button, NumberInput, SelectInput } from "../common";
+// import { useModalStore } from "../../stores/modal/modal.store";
+import { Button, NumberInput } from "../common";
 import {
   FormValues,
   investmentSimulatorSchema,
@@ -31,7 +31,7 @@ function InvestmentSimulator() {
   const [grafh, setGrafh] = useState(false);
   const [totals, setTotals] = useState<number[]>([]);
 
-  const showModal = useModalStore((state) => state.showModal);
+  //const showModal = useModalStore((state) => state.showModal);
 
   const onSubmit: SubmitHandler<FormValues> = ({ investment, months }) => {
     console.log({ investment, months });
@@ -42,12 +42,12 @@ function InvestmentSimulator() {
       );
     };
 
-    const calculeTotal = (NMonths: number) => {
-      return investment + calculeEarnings(NMonths);
-    };
+    // const calculeTotal = (NMonths: number) => {
+    //   return investment + calculeEarnings(NMonths);
+    // };
 
-    const earnings: number = calculeEarnings(months);
-    const total: number = calculeTotal(months);
+    //const earnings: number = calculeEarnings(months);
+    //const total: number = calculeTotal(months);
 
     setTotals([
       calculeEarnings(3),
