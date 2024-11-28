@@ -7,6 +7,7 @@ import { HeaderHome } from "../../../components/Home";
 import { Link } from "react-router-dom";
 import { authRegister } from "../../../services/auth";
 import { RegisterUser } from "../../../interfaces/User";
+import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
 
 interface RegisterForm {
   name: string;
@@ -50,9 +51,10 @@ export function RegisterPage() {
       username: data.email,
     };
     console.log(formData);
-    authRegister(formData as RegisterUser)
+    authRegister(formData as RegisterUser);
     // Envío de Formulario al Backend
   };
+  const navigate = useTransitionNavigation();
   return (
     <section className="flex-1 bg-tertiary px-6 py-4">
       <HeaderHome />
@@ -77,6 +79,10 @@ export function RegisterPage() {
             ¿Ya tienes una cuenta?{" "}
             <Link
               to={"/login"}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/login");
+              }}
               className="flex mt-2 md:mt-0 md:inline text-title-large-bold hover:text-secondary transition-colors"
             >
               Iniciar Sesión
