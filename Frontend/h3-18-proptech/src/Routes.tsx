@@ -5,7 +5,12 @@ import DashboardBuyerPage from "./pages/private/DashboardBuyerPage";
 
 function AppRoutes() {
   return (
-    <Router>
+    <Router
+      future={{
+        v7_relativeSplatPath: true,
+        v7_startTransition: true,
+      }}
+    >
       <Routes>
         <Route element={<LayoutPage />}>
           <Route path="/" element={<HomePage />} />
