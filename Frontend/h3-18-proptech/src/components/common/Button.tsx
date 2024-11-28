@@ -1,4 +1,5 @@
 import { Link, To } from "react-router-dom";
+import useTransitionNavigation from "../../hooks/useTransitionNavigation";
 
 interface Props {
   children: string;
@@ -10,7 +11,15 @@ interface Props {
   classname?: string;
 }
 
-export function Button({ size, color, action, children, type, classname, to }: Props) {
+export function Button({
+  size,
+  color,
+  action,
+  children,
+  type,
+  classname,
+  to,
+}: Props) {
   const sizeStyle = {
     small: "w-[clamp(129px,15vw,159px)] h-[50px]",
     medium: "w-[clamp(191px,25vw,251px)] h-[50px]",
@@ -23,8 +32,14 @@ export function Button({ size, color, action, children, type, classname, to }: P
     secondary: "bg-white border-2 border-primary hover:bg-tertiary",
   };
 
+  const navigate = useTransitionNavigation();
+
   return type === "link" ? (
     <Link
+      onClick={(e) => {
+        e.preventDefault();
+        navigate(to ?? "/");
+      }}
       to={to ?? "/"}
       className={`${classname} ${sizeStyle[size]} ${colorStyle[color]} px-2 py-1 text-center flex items-center justify-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
     >

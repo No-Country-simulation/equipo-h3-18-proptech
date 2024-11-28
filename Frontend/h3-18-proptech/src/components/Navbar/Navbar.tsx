@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../common";
 import { LogoIcon, MenuIcon, CloseIcon, UserIcon } from "../icons";
+import useTransitionNavigation from "../../hooks/useTransitionNavigation";
 
 const navLinks = [
   {
@@ -26,9 +27,17 @@ function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const [openProfileModal, setOpenProfileModal] = useState(false);
 
+  const navigate = useTransitionNavigation();
+
   return (
     <header className="flex py-2 px-6 lg:px-18 xl:px-24 gap-4 lg:gap-12 justify-between bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
-      <Link to={"/"}>
+      <Link
+        to={"/"}
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/");
+        }}
+      >
         <LogoIcon className="aspect-square w-[40px] h-[40px] sm:w-[80px] sm:h-[80px] lg:w-[100px] lg:h-[100px]" />
       </Link>
 
@@ -82,7 +91,13 @@ function Navbar() {
               <article
                 className={`${openProfileModal ? "md:opacity-100 md:translate-y-0 md:translate-x-0" : "md:-translate-y-20 md:translate-x-20 md:scale-0 md:opacity-0"} md:transition md:absolute md:-bottom-[6.5rem] md:right-7 md:border md:border-primary md:w-[150px] md:bg-white md:p-4 md:shadow-md flex flex-col gap-4 ease-out duration-300`}
               >
-                <div className="w-fit" onClick={() => {setOpenProfileModal(false); setOpenMenu(false)}}>
+                <div
+                  className="w-fit"
+                  onClick={() => {
+                    setOpenProfileModal(false);
+                    setOpenMenu(false);
+                  }}
+                >
                   <NavElement
                     to={"/login"}
                     activeClassname="capitalize"
@@ -92,7 +107,13 @@ function Navbar() {
                   </NavElement>
                 </div>
 
-                <div className="w-fit" onClick={() => {setOpenProfileModal(false); setOpenMenu(false)}}>
+                <div
+                  className="w-fit"
+                  onClick={() => {
+                    setOpenProfileModal(false);
+                    setOpenMenu(false);
+                  }}
+                >
                   <NavElement
                     to={"/register"}
                     activeClassname="capitalize"
