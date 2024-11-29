@@ -4,12 +4,15 @@ import { PencilIcon } from "../../../components/icons";
 import { useEffect, useState } from "react";
 import CheckIcon from "../../../components/icons/CheckIcon";
 import { UserProfile } from "../../../interfaces/User";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { profileSchema } from "./models/Profile.model";
 
 function ProfilePage() {
   const {
     register,
     formState: { errors },
     reset,
+    watch,
     handleSubmit,
   } = useForm<UserProfile>({
     defaultValues: {
@@ -20,6 +23,7 @@ function ProfilePage() {
       cuit: "",
       dni: "",
     },
+    resolver: zodResolver(profileSchema),
   });
 
   const [userData, setUserData] = useState<UserProfile>();
@@ -36,18 +40,24 @@ function ProfilePage() {
       phoneNumber: "+5612345678",
       cuit: "",
       dni: "",
-      rol: "Cliente",
+      isValidated: false,
     };
     setUserData(userResponse);
     reset(userResponse);
   }, []);
 
-  const onSubmit = (data: UserProfile) => {
-    console.log(data);
+  const onSubmit = async (data: UserProfile) => {
+    console.log({ email: data.email, phoneNumber: data.phoneNumber });
   };
 
+  const formUpdated =
+    watch("phoneNumber") !== userData?.phoneNumber ||
+    watch("email") !== userData?.email
+      ? true
+      : false;
+
   return (
-    <section className="flex-1 flex flex-col gap-6 bg-background px-4 md:px-10 py-6">
+    <section className="flex-1 flex flex-col gap-8 bg-background px-4 md:px-10 py-6">
       <header className="flex flex-col sm:flex-row gap-y-4 justify-between sm:px-10">
         <h1 className="text-headline-large-medium text-center sm:text-start">
           Mi Perfil
@@ -55,18 +65,27 @@ function ProfilePage() {
         <Button
           size={"large"}
           color={"primary-orange"}
-          classname="self-center sm:self-auto"
+          classname="self-center sm:self-auto hidden sm:flex items-center justify-center"
         >
           Solicitar Financiamiento
         </Button>
       </header>
 
-      <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary px-4 sm:px-3 md:px-6 lg:px-10 py-6 rounded-lg">
-        <h1 className="text-title-large-regular mb-6">Información Personal</h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-5 px-4 w-full"
-        >
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary px-4 sm:px-3 md:px-6 lg:px-10 py-6 rounded-lg"
+      >
+        <header className="flex justify-between items-center">
+          <h1 className="text-title-large-regular">Información Personal</h1>
+          {userData?.isValidated && (
+            <div className="text-title-large-bold flex gap-4 items-center">
+              <span className="hidden sm:flex">Usuario validado</span>
+              <CheckIcon className="w-8 h-8 rounded-full p-1 bg-success text-white" />
+            </div>
+          )}
+        </header>
+
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-5 px-4 w-full">
           <TextInput
             register={register}
             label="Nombre"
@@ -81,7 +100,7 @@ function ProfilePage() {
             error={errors.apellido}
             readonly={true}
           />
-          {userData?.dni && (
+          {userData?.isValidated && (
             <TextInput
               register={register}
               label="DNI"
@@ -90,7 +109,7 @@ function ProfilePage() {
               readonly={true}
             />
           )}
-          {userData?.cuit && (
+          {userData?.isValidated && (
             <TextInput
               register={register}
               label="CUIT"
@@ -141,23 +160,67 @@ function ProfilePage() {
               )}
             </button>
           </div>
-        </form>
-      </article>
+        </section>
 
-      <article className="w-full max-w-[900px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-8 flex flex-col items-center gap-6">
-        <p className="text-title-large-regular">
-          Para acceder a una financiación, es indispensable validar tu identidad
-          con la documentación requerida.
-        </p>
         <Button
+          type="submit"
           size="medium"
           color="primary-blue"
-          type="link"
-          to={"/validate-identity"}
+          classname={`mx-auto ${!formUpdated && "bg-disabled pointer-events-none"}`}
         >
-          Validar identidad
+          Guardar cambios
         </Button>
-      </article>
+      </form>
+
+      {!userData?.isValidated &&
+        userData?.dni.length === 0 &&
+        userData?.cuit.length === 0 && (
+          <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1">
+            <p className="text-body-large-regular self-start">
+              Para acceder a una financiación, es indispensable validar tu
+              identidad con la documentación requerida.
+            </p>
+            <p className="text-body-large-regular self-start">
+              La validación de los documentos será revisada y aprobada por un
+              representante para garantizar la autenticidad de la información
+              proporcionada.
+            </p>
+            <p className="text-body-large-regular self-start">
+              Recuerda asegurarte de que todos los documentos estén completos y
+              en buen estado para evitar demoras en el proceso.
+            </p>
+            <Button
+              size="medium"
+              color="primary-blue"
+              type="link"
+              to={"/validate-identity"}
+              classname="mt-4"
+            >
+              Validar identidad
+            </Button>
+          </article>
+        )}
+
+      {userData?.dni && userData?.cuit && !userData.isValidated && (
+        <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1 border-2 border-secondary">
+          <h3 className="text-title-large-bold text-center mb-2">
+            Tu solicitud de validación está en proceso.
+          </h3>
+          <p className="text-body-large-regular self-start">
+            Tu solicitud de validación fue enviada correctamente y está en
+            proceso de revisión. Un representante está verificando la
+            documentación proporcionada. Recibirás una notificación cuando el
+            trámite sea aprobado.
+          </p>
+        </article>
+      )}
+      <Button
+        size={"large"}
+        color={"primary-orange"}
+        classname="self-center sm:self-auto flex sm:hidden items-center justify-center"
+      >
+        Solicitar Financiamiento
+      </Button>
     </section>
   );
 }

@@ -20,6 +20,7 @@ export interface UserProfile {
   phoneNumber: string;
   cuit: string;
   dni: string;
+  isValidated: boolean;
 }
 
 type UserRole = "Cliente" | "Inversor"
