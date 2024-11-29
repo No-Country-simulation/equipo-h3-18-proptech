@@ -14,15 +14,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCloudinaryServicesExtensions(builder.Configuration);
+
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 builder.Services.AddApplicationInfrastructureServicesExtensions(builder.Configuration);
 builder.Services.AddAplicationService();
 builder.Services.RecordCreditServices(builder.Configuration);
+builder.Services.AddCloudinaryServicesExtensions(builder.Configuration);
 
-var apiUrl = builder.Configuration.GetValue<string>("apiUrl");
+//var apiUrl = builder.Configuration.GetValue<string>("apiUrl");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
+//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
 
 
 builder.Services.AddCors(options =>
@@ -43,8 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 //no borrar para que el front pueda ver el Swagger
-app.UseSwagger();
-app.UseSwaggerUI();
+//app.UseSwagger();
+//app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

@@ -24,21 +24,21 @@ namespace h3_18_proptechback.CreditRecord.Services
 
         public async Task<List<DeudasRequest>> ObtenerChequesRechazados(DeudasRequest request)
         {
-            var reponse = await _client.GetAsync("v1.0/Deudas/{request.identificacion}" + request.identificacion);
+            var reponse = await _client.GetAsync($"v1.0/Deudas/{request.identificacion}");
             var content = await reponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
 
         public async Task<List<DeudasRequest>?> ObtenerDeudas(DeudasRequest request)
         {
-            var reponse = await _client.GetAsync("v1.0/Deudas/Historicas/{request.identificacion}" + request.identificacion);
+            var reponse = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
             var content = await reponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
 
         public async Task<List<DeudasRequest>> ObtenerHistoria(DeudasRequest request)
         {
-            var reponse = await _client.GetAsync("v1.0/Deudas/Historicas/{request.identificacion}" + request.identificacion);
+            var reponse = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
             var content = await reponse.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
