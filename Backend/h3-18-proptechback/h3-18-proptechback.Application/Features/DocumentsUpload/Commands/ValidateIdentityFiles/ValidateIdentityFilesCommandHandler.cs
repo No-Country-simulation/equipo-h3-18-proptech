@@ -1,18 +1,20 @@
 ﻿using h3_18_proptechback.Application.Contracts.Infrastructure.Cloudinary;
-using h3_18_proptechback.Application.Contracts.Persistence;
+using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
 
-namespace h3_18_proptechback.Application.Features.DocumentsUser.Commands.ValidateIdentityFiles
+namespace h3_18_proptechback.Application.Features.DocumentsUpload.Commands.ValidateIdentityFiles
 {
     public class ValidateIdentityFilesCommandHandler
     {
         private readonly IDocumentsUserRepository _documentsUserRepository;
         private readonly ICloudinaryService _cloudinaryService;
+        private readonly IDocumentsGuarantorRepository _documentsGuarantorRepository;
 
         public ValidateIdentityFilesCommandHandler(IDocumentsUserRepository documentsUserRepository,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryService cloudinaryService, IDocumentsGuarantorRepository documentsGuarantorRepository)
         {
             _documentsUserRepository = documentsUserRepository;
             _cloudinaryService = cloudinaryService;
+            _documentsGuarantorRepository = documentsGuarantorRepository;
         }
 
         public async Task<bool> ReceiveFiles(ValidateIdentityFilesCommand command)
@@ -34,7 +36,10 @@ namespace h3_18_proptechback.Application.Features.DocumentsUser.Commands.Validat
                 if (results.Any(string.IsNullOrEmpty))
                     return false;
 
-                await _documentsUserRepository.AddDocumentsValidateIdentity(results!, command.DNI);
+                if(command.IsDataUser)
+                    await _documentsUserRepository.AddDocumentsValidateIdentity(results!, command.DNI);
+                else
+                    await _documentsGuarantorRepository.AddDocumentsValidateIdentity(results!, command.DNI);
 
                 return true;
             }
