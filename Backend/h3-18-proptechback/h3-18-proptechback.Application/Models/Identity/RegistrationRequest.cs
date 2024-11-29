@@ -1,5 +1,7 @@
 ﻿
 
+using AutoMapper.Configuration.Annotations;
+
 namespace h3_18_proptechback.Application.Models.Identity
 {
     public class RegistrationRequest
@@ -13,5 +15,9 @@ namespace h3_18_proptechback.Application.Models.Identity
         public string Username { get; set; } = string.Empty;
 
         public string Password { get; set; } = string.Empty;
+
+        public string PhoneNumber {  get; set; } = string.Empty;
+
+        public string rol { get; set; } = string.Empty;
     }
 }

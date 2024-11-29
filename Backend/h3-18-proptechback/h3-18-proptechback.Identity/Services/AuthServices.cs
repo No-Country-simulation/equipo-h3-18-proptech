@@ -49,6 +49,7 @@ namespace h3_18_proptechback.Identity.Services
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Email = user.Email,
                 UserName = user.UserName,
+               
 
             };
             return authResponse;
@@ -76,13 +77,17 @@ namespace h3_18_proptechback.Identity.Services
                     Nombre = request.Nombre,
                     Apellido = request.Apellidos,
                     UserName = request.Username,
-                    EmailConfirmed = true
+                    PhoneNumber = request.PhoneNumber,
+                    PhoneNumberConfirmed = true,
+                    EmailConfirmed = true,
+                    
                 };
 
-                var result = await _userManager.AddPasswordAsync(user, request.Password);
+                
+                var result = await _userManager.CreateAsync(user, request.Password);
                 if (result.Succeeded) 
                 {
-                    await _userManager.AddToRoleAsync(user, "Cliente");
+                    await _userManager.AddToRoleAsync(user, request.rol);
                     var token = await GenerateToken(user);
                     return new RegistrationResponse
                     {
@@ -129,5 +134,7 @@ namespace h3_18_proptechback.Identity.Services
             
 
         }
+
+        
     }
 }
