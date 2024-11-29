@@ -1,4 +1,6 @@
-﻿using h3_18_proptechback.Infrastructure.Persistence;
+﻿using h3_18_proptechback.Application.Contracts.Persistence;
+using h3_18_proptechback.Infrastructure.Persistence;
+using h3_18_proptechback.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,7 @@ namespace h3_18_proptechback.Infrastructure
                 dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("ConnetionSting"));
             });
 
-            
+            services.AddScoped<IDocumentsUserRepository, DocumentsUserRepository>();
 
            
         }

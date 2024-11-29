@@ -15,7 +15,10 @@ namespace h3_18_proptechback.Domain
         public string BackDNIURL { get; set; }
         
         public string? SalaryURL { get; set; }
-        
+        public decimal Salary { get; set; }
+        public DateTime ExpiredDateDNI { get; set; }
+        public Guid? LoanId { get; set; }
+
         public string? ProofAddressURL { get; set; }
     }
 }

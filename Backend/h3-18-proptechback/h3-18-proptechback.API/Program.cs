@@ -1,6 +1,6 @@
 using h3_18_proptechback.Identity;
 using h3_18_proptechback.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+using h3_18_proptechback.Cloudinary;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCloudinaryServicesExtensions(builder.Configuration);
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 builder.Services.AddApplicationInfrastructureServicesExtensions(builder.Configuration);
 
