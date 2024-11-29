@@ -1,0 +1,25 @@
+﻿using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
+using h3_18_proptechback.CreditRecord.Models.configurations;
+using h3_18_proptechback.CreditRecord.Models.Requets;
+using h3_18_proptechback.CreditRecord.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace h3_18_proptechback.CreditRecord
+{
+    public static class CreditRecordServiceRegistration
+    {
+        public static IServiceCollection RecordCreditServices(this IServiceCollection services, IConfiguration configuration) 
+        {
+            services.AddScoped<ICreditRecordServices<DeudasRequest>, CreditRecordServices>();
+
+            return services;
+        }
+    }
+}

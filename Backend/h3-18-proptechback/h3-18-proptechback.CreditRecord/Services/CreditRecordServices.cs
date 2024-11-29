@@ -22,19 +22,25 @@ namespace h3_18_proptechback.CreditRecord.Services
             _options = options;
         }
 
-        public Task<List<DeudasRequest>> ObtenerChequesRechazados(DeudasRequest request)
+        public async Task<List<DeudasRequest>> ObtenerChequesRechazados(DeudasRequest request)
         {
-            throw new NotImplementedException();
+            var reponse = await _client.GetAsync("v1.0/Deudas/{request.identificacion}" + request.identificacion);
+            var content = await reponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
 
-        public Task<List<DeudasRequest>?> ObtenerDeudas(DeudasRequest request)
+        public async Task<List<DeudasRequest>?> ObtenerDeudas(DeudasRequest request)
         {
-            throw new NotImplementedException();
+            var reponse = await _client.GetAsync("v1.0/Deudas/Historicas/{request.identificacion}" + request.identificacion);
+            var content = await reponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
 
-        public Task<List<DeudasRequest>> ObtenerHistoria(DeudasRequest request)
+        public async Task<List<DeudasRequest>> ObtenerHistoria(DeudasRequest request)
         {
-            throw new NotImplementedException();
+            var reponse = await _client.GetAsync("v1.0/Deudas/Historicas/{request.identificacion}" + request.identificacion);
+            var content = await reponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
     }
 }
