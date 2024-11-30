@@ -24,15 +24,13 @@
 
         public Calculator(decimal lotCost, decimal downPayment, int quotasCount)
         {
-            if (lotCost <= 0 && downPayment < 0 && !MonthlyRefValues.ContainsKey(quotasCount))
-                throw new Exception("Parametros no validos.");
             LotCost = lotCost;
             DownPayment = downPayment;
             QuotasCount = quotasCount;
         }
-        public decimal LotCost { get; set; }
-        public decimal DownPayment { get; set; }
-        public int QuotasCount { get; set; }
+        public readonly decimal LotCost;
+        public readonly decimal DownPayment;
+        public readonly int QuotasCount;
         public decimal FinancingAmount => LotCost - DownPayment;
 
         public decimal InteresRate() => ((GetMonthValue() * QuotasCount * GetDiscount())-1m) * 100m;
