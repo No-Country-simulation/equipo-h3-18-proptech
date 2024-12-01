@@ -1,4 +1,4 @@
-﻿using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
+﻿
 using h3_18_proptechback.CreditRecord.Models.configurations;
 using h3_18_proptechback.CreditRecord.Models.Requets;
 using h3_18_proptechback.CreditRecord.Services;
@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using static h3_18_proptechback.CreditRecord.Services.CreditRecordServices;
+
 
 namespace h3_18_proptechback.CreditRecord
 {
@@ -17,10 +20,12 @@ namespace h3_18_proptechback.CreditRecord
     {
         public static IServiceCollection RecordCreditServices(this IServiceCollection services, IConfiguration configuration) 
         {
+            
+            services.AddSingleton(new JsonSerializerOptions());
             services.Configure<ApiSettings>(configuration.GetSection("apiUrl"));
             var apiUrl = configuration.GetValue<string>("apiUrl");
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
-            services.AddScoped<ICreditRecordServices<DeudasRequest>, CreditRecordServices>();
+            services.AddScoped<CreditRecordServices>();
 
             return services;
         }

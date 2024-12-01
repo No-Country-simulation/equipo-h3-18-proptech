@@ -1,4 +1,4 @@
-﻿using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
+﻿
 using h3_18_proptechback.CreditRecord.Models.Requets;
 using h3_18_proptechback.CreditRecord.Services;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +7,7 @@ using System.Net;
 
 namespace h3_18_proptechback.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class CreditRecordController : ControllerBase
@@ -21,32 +22,33 @@ namespace h3_18_proptechback.API.Controllers
         [HttpGet(Name = "DeudoresRecord")]
         //[Authorize(Roles = "Administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> RecordCreditDeudor([FromBody] DeudasRequest cuit)
+        public async Task<ActionResult<int>> RecordCreditDeudor([FromQuery] DeudasRequest cuit)
         {
-            var result = await _creditRecord.ObtenerDeudas(cuit);
+            
+            var result = await _creditRecord.ObtenerDeudasAsync(cuit);
 
             return Ok(result);
         }
 
-        [HttpGet(Name = "HistorialRecod")]
+        [HttpGet("HistorialCreditRecord")]
         //[Authorize(Roles = "Administrator")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> HistoryRecord([FromBody] DeudasRequest cuit)
+        public async Task<ActionResult<int>> HistoryCreditRecord([FromQuery] DeudasRequest cuit)
         {
-            var result = await _creditRecord.ObtenerHistoria(cuit);
+            var result = await _creditRecord.ObtenerHistoriaAsync(cuit);
 
             return Ok(result);
         }
 
-        [HttpGet(Name = "CheckRechazados")]
-        //[Authorize(Roles = "Administrator")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> ChequesRechazados([FromBody] DeudasRequest cuit)
-        {
-            var result = await _creditRecord.ObtenerChequesRechazados(cuit);
+        //[HttpGet(Name = "CheckRechazados")]
+        ////[Authoze(Roles = "Administrator")]
+        //[ProducesResponseType((int)HttpStatusCode.OK)]
+        //public async Task<ActionResult<int>> ChequesRechazados([FromBody] DeudasRequest cuit)
+        //{
+        //    var result = await _creditRecord.ObtenerChequesRechazados(cuit);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
     }
 }
