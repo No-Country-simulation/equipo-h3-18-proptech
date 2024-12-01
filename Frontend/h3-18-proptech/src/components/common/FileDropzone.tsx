@@ -60,9 +60,10 @@ export function FileDropzone({
   });
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [viewImage, setViewImage] = useState({
+  const [fileChosen, setFileChosen] = useState({
     open: false,
-    image: "",
+    type: "",
+    src: "",
   });
 
   useEffect(() => {
@@ -74,12 +75,8 @@ export function FileDropzone({
   }, [error]);
 
   const viewFile = (file: File) => {
-    if (file.type !== "application/pdf") {
-      const imageSrc = URL.createObjectURL(file);
-      setViewImage({ open: true, image: imageSrc });
-    } else {
-      console.log("Es un PDF");
-    }
+    const fileSrc = URL.createObjectURL(file);
+    setFileChosen({ open: true, src: fileSrc, type: file.type });
   };
 
   const deleteFile = (fileToDelete: File) => {
@@ -141,22 +138,34 @@ export function FileDropzone({
         </ul>
       )}
       <dialog
-        onClick={() => setViewImage({ open: false, image: "" })}
-        className={`${viewImage.open ? "opacity-100" : "opacity-0 scale-0"} transition-opacity fixed h-screen w-screen bg-black bg-opacity-50 z-[100] flex items-center justify-center px-4 top-0`}
+        onClick={() => setFileChosen({ open: false, src: "", type: "" })}
+        className={`${fileChosen.open ? "opacity-100" : "opacity-0 scale-0"} transition-opacity fixed h-screen w-screen bg-black bg-opacity-50 z-[100] flex items-center justify-center px-4 top-0`}
       >
-        <figure className="relative">
-          <img
-            src={viewImage.image}
-            alt="Hola Mundo"
-            className="max-w-[250px] max-h-[250px] aspect-square md:max-w-[70vw] md:max-h-[70vh]"
-          />
-          <button
-            type="button"
-            onClick={() => setViewImage({ open: false, image: "" })}
-          >
-            <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
-          </button>
-        </figure>
+        {fileChosen.type !== "application/pdf" ? (
+          <figure className="relative">
+            <img
+              src={fileChosen.src}
+              alt="Hola Mundo"
+              className="max-w-[250px] max-h-[250px] aspect-square md:max-w-[70vw] md:max-h-[70vh]"
+            />
+            <button
+              type="button"
+              onClick={() => setFileChosen({ open: false, src: "", type: "" })}
+            >
+              <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
+            </button>
+          </figure>
+        ) : (
+          <div className="h-[300px] w-[300px] md:h-full md:w-full md:max-h-[80%] md:max-w-[80%] p-2 relative">
+            <button
+              type="button"
+              onClick={() => setFileChosen({ open: false, src: "", type: "" })}
+            >
+              <CloseIcon className="absolute top-0 right-0 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
+            </button>
+            <iframe className="w-full h-full" src={fileChosen.src}></iframe>
+          </div>
+        )}
       </dialog>
     </>
   );

@@ -3,6 +3,7 @@ import { Button, FileDropzone, TextInput } from "../../../components/common";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { validateIdentitySchema } from "./models/ValidateIdentity.model";
+import { useEffect } from "react";
 
 interface ValidateIdentityForm {
   cuit: string;
@@ -20,6 +21,10 @@ function ValidateIdentityPage() {
     defaultValues: { cuit: "", dni: "", files: [] },
     resolver: zodResolver(validateIdentitySchema),
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const onSubmit = (data: ValidateIdentityForm) => {
     console.log(data);

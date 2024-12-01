@@ -31,6 +31,7 @@ function ProfilePage() {
   const [readOnlyPhoneNumber, setReadOnlyPhoneNumber] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     // Petición al back para obtener los datos del usuario
 
     const userResponse = {
