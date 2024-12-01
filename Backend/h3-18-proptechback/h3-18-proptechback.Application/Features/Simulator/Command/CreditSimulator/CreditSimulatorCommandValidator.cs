@@ -19,7 +19,7 @@ namespace h3_18_proptechback.Application.Features.Simulator.Command.CreditSimula
                 .WithMessage("El adelanto no puede ser mayor al costo del lote.");
 
             RuleFor(x => x.QuotasCount)
-                .Must(quotas => Calculator.MonthlyRefValues.ContainsKey(quotas))
+                .Must(quotas => FinancingCalculator.MonthlyRefValues.ContainsKey(quotas))
                 .WithMessage("La cantidad de cuotas no es válida. Debe estar entre las opciones predefinidas (6, 9, 12, ..., 180).");
 
         }

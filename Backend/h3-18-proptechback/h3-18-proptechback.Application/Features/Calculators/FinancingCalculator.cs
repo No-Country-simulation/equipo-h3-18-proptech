@@ -1,6 +1,6 @@
 ﻿namespace h3_18_proptechback.Application.Features.CalculatorCredit
 {
-    public class Calculator
+    public class FinancingCalculator
     {
         public static readonly Dictionary<int, decimal> MonthlyRefValues = new Dictionary<int, decimal>(15)
         {
@@ -22,7 +22,7 @@
         };
         
 
-        public Calculator(decimal lotCost, decimal downPayment, int quotasCount)
+        public FinancingCalculator(decimal lotCost, decimal downPayment, int quotasCount)
         {
             LotCost = lotCost;
             DownPayment = downPayment;

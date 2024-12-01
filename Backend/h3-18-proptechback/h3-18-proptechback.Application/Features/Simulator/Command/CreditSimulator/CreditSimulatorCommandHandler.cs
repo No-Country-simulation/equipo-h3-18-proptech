@@ -9,7 +9,7 @@ namespace h3_18_proptechback.Application.Features.Simulator.Command.CreditSimula
 {
     public class CreditSimulatorCommandHandler
     {
-        private Calculator _calculator;
+        private FinancingCalculator _calculator;
 
         public CreditSimulatorCommandHandler()
         {
@@ -17,7 +17,7 @@ namespace h3_18_proptechback.Application.Features.Simulator.Command.CreditSimula
 
         public CreditSimulatorCommandResponse Calculate(CreditSimulatorCommand command)
         {
-            _calculator = new Calculator(command.LotCost, command.DownPayment, command.QuotasCount);
+            _calculator = new FinancingCalculator(command.LotCost, command.DownPayment, command.QuotasCount);
             var response = new CreditSimulatorCommandResponse(Math.Round(_calculator.MinimumSalary(),2),
                 Math.Round(_calculator.InteresRate(),2),
                 Math.Round(_calculator.TotalPayment(),2),
