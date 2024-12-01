@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace h3_18_proptechback.Application.Contracts.Persistence
 {
@@ -16,6 +12,6 @@ namespace h3_18_proptechback.Application.Contracts.Persistence
         
         Task<T> Update(T entity);
         
-        Task Delete(Guid id);
+        Task<bool> Delete(Guid id);
     }
 }

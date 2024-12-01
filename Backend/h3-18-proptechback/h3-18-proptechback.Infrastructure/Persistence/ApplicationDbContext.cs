@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace h3_18_proptechback.Infrastructure.Persistence
 {
-    internal class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
