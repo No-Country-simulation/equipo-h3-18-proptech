@@ -1,6 +1,7 @@
 ﻿using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Domain;
 using h3_18_proptechback.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,13 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<bool> IsValidUserByDNI(string DNI)
+        {
+            var exists = await _context.DataUsers.AnyAsync(du => du.DNI == DNI);
+
+            return exists;
+        }
+
         public async Task<bool> IsValueUser(DataUser entity)
         {
             var existe = await _context.Set<DataUser>().FindAsync(entity.DNI);
@@ -24,6 +32,15 @@ namespace h3_18_proptechback.Infrastructure.Repositories
                 throw new Exception($"Es Requerido un valor ");
 
                 return existe.IsComplete;
+        }
+
+        public async Task ValidateUser(string DNI)
+        {
+            var user = await _context.DataUsers.FirstOrDefaultAsync(du => du.DNI == DNI);
+            user.IsComplete = true;
+
+            await Update(user);
+            return;
         }
     }
 }

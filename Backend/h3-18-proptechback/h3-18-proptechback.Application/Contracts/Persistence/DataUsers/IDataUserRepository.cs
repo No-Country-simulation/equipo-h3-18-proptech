@@ -4,6 +4,8 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.DataUsers
 {
     public interface IDataUserRepository: IGenericRepository<DataUser>
     {
-        Task<bool> IsValueUser(DataUser entity); 
+        Task<bool> IsValueUser(DataUser entity);
+        Task ValidateUser(string DNI);
+        Task<bool> IsValidUserByDNI(string DNI);
     }
 }
