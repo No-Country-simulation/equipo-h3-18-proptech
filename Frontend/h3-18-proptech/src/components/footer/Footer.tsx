@@ -20,8 +20,8 @@ function Footer() {
             <LogoIcon className="aspect-square w-[40px] h-[40px] sm:w-[80px] sm:h-[80px] lg:w-[140px] lg:h-[140px] rounded-lg my-6" />
           </Link>
         </div>
-        <section className="flex flex-col flex-1 md:flex-auto md:flex-row gap-6 md:gap-4 justify-center">
-          <div className="flex gap-4 w-fit">
+        <section className="flex  ">
+          <div className="flex gap-4 w-fit flex-col flex-1 md:flex-auto md:flex-row md:gap-4 justify-center items-center">
             <Link
               to={"/"}
               className="text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold uppercase hover:text-secondary flex items-center"
