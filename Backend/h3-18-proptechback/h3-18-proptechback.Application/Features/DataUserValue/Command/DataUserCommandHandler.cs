@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
+using h3_18_proptechback.Application.Features.DataUserValue.Command.AddUser;
+using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
+using h3_18_proptechback.Application.Features.IdentityValidation.Commands.ValidateIdentityFiles;
 using h3_18_proptechback.Domain;
 
 
@@ -8,32 +11,36 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
     public class DataUserCommandHandler
     {
         private readonly IDataUserRepository _dataRepo;
+        private readonly ValidateIdentityCommandHandler _filesHandler;
         private readonly IMapper _mapper;
 
-        public DataUserCommandHandler(IDataUserRepository dataRepo)
+        public DataUserCommandHandler(IDataUserRepository dataRepo, ValidateIdentityCommandHandler filesHandler)
         {
             _dataRepo = dataRepo;
+            _filesHandler = filesHandler;
         }
-        public async Task<VMDataUser> Add(DataUser entity)
+        public async Task<string> Add(AddUserCommand command)
         {
-            if (entity == null)
-            {
-                throw new Exception($"No se permiten Campos vacios {entity}");
-            }
+            if (command is null)
+                throw new Exception("El usuario proporcionado no puede ser nulo. Verifique los campos enviados.");
 
-            await _dataRepo.Add(entity);
+            if (await _dataRepo.IsValidUserByDNI(command.DNI))
+                throw new ArgumentException($"El usuario con DNI: {command.DNI} ya existe");
 
-            var newDataUser = new VMDataUser
+            DataUser entityToAdd = new DataUser
             {
-                CUIT = entity.CUIT,
-                DNI = entity.DNI,
-                IsComplete = entity.IsComplete,
+                DNI = command.DNI,
+                CUIT = command.CUIT,
+                Createby = "System",
+                IsComplete = false,
+                CreatedDate = DateTime.Now.ToUniversalTime(),
             };
 
-            
+            await _dataRepo.Add(entityToAdd);
+            if (!await _filesHandler.ReceiveFiles(new ValidateIdentityFilesCommand(command.Photo, command.Front, command.Back, command.DNI, true)))
+                throw new Exception("Error al subir los archivos. Intente nuevamente.");
 
-            return _mapper.Map<VMDataUser>(newDataUser);
-
+            return "¡Validación solicitada con éxito! Un operador revisará su solicitud.";
         }
 
         public async Task<VMDataUser> Update(DataUser entity)

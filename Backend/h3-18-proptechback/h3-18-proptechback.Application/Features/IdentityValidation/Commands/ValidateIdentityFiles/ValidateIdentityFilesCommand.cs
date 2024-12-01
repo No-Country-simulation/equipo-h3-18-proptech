@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace h3_18_proptechback.Application.Features.DocumentsUpload.Commands.ValidateIdentityFiles
+namespace h3_18_proptechback.Application.Features.IdentityValidation.Commands.ValidateIdentityFiles
 {
     public class ValidateIdentityFilesCommand
     {
@@ -10,15 +10,15 @@ namespace h3_18_proptechback.Application.Features.DocumentsUpload.Commands.Valid
 
         public IFormFile Back { get; set; }
         public string DNI { get; set; }
-        public bool IsDataUser {  get; set; }
+        public bool IsDataUser { get; set; }
         public ValidateIdentityFilesCommand()
         {
-            
+
         }
         public ValidateIdentityFilesCommand(IFormFile photo, IFormFile front, IFormFile back, string DNI, bool isDataUser)
         {
             Front = front;
-            Back = back;   
+            Back = back;
             Photo = photo;
             this.DNI = DNI;
             IsDataUser = isDataUser;

@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 using h3_18_proptechback.Application.Models.Identity;
+using h3_18_proptechback.Application.Features.DataUserValue.Queries;
+using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
 
 
 namespace h3_18_proptechback.Application
@@ -17,7 +19,9 @@ namespace h3_18_proptechback.Application
         {
             
             service.AddScoped<DataUserCommandHandler>();
+            service.AddScoped<DataUserQueriesHandler>();
             service.AddScoped<CreditSimulatorCommandHandler>();
+            service.AddScoped<ValidateIdentityCommandHandler>();
 
             service.AddFluentValidationAutoValidation();
             service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
