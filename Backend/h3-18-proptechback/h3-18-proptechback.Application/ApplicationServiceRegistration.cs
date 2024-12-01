@@ -6,6 +6,8 @@ using h3_18_proptechback.Application.Features.Simulator.Command.CreditSimulator;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
+using h3_18_proptechback.Application.Models.Identity;
+
 
 namespace h3_18_proptechback.Application
 {
@@ -13,6 +15,7 @@ namespace h3_18_proptechback.Application
     {
         public static IServiceCollection AddAplicationService(this IServiceCollection service)
         {
+            
             service.AddScoped<DataUserCommandHandler>();
             service.AddScoped<CreditSimulatorCommandHandler>();
 

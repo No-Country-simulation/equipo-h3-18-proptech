@@ -1,5 +1,4 @@
 ﻿
-using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
 using h3_18_proptechback.CreditRecord.Models.Requets;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,18 @@ using System.Threading.Tasks;
 
 namespace h3_18_proptechback.CreditRecord.Services
 {
-    public class CreditRecordServices : ICreditRecordServices<DeudasRequest>
+    public class CreditRecordServices
     {
+        public interface ICreditRecordServices<T>
+        {
+            Task<List<T>?> ObtenerDeudasAsync(DeudasRequest request);
+
+            Task<List<T>> ObtenerHistoriaAsync(DeudasRequest request);
+
+            Task<List<T>> ObtenerChequesRechazadosAsync(DeudasRequest request);
+
+        }
+
         public readonly HttpClient _client;
 
         public readonly JsonSerializerOptions _options;
@@ -22,19 +31,32 @@ namespace h3_18_proptechback.CreditRecord.Services
             _options = options;
         }
 
-        public Task<List<DeudasRequest>> ObtenerChequesRechazados(DeudasRequest request)
+        public async Task<ApiResponse> ObtenerDeudasAsync(DeudasRequest request)
         {
-            throw new NotImplementedException();
+            var reponse = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
+            reponse.EnsureSuccessStatusCode();
+            var content = await reponse.Content.ReadAsStringAsync();
+            if (!reponse.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            return JsonSerializer.Deserialize<ApiResponse>(content);
         }
 
-        public Task<List<DeudasRequest>?> ObtenerDeudas(DeudasRequest request)
+        public async Task<ApiResponse> ObtenerHistoriaAsync(DeudasRequest request)
         {
-            throw new NotImplementedException();
+            var reponse = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
+            reponse.EnsureSuccessStatusCode();
+            var content = await reponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ApiResponse>(content);
         }
 
-        public Task<List<DeudasRequest>> ObtenerHistoria(DeudasRequest request)
+        public async Task<List<DeudasRequest>> ObtenerChequesRechazadosAsync(DeudasRequest request)
         {
-            throw new NotImplementedException();
+            var reponse = await _client.GetAsync($"v1.0/Deudas/{request.identificacion}");
+            reponse.EnsureSuccessStatusCode();
+            var content = await reponse.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
         }
     }
 }
