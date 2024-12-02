@@ -18,7 +18,7 @@ function DashboardBuyerPage() {
     <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center md:w-[1050px] my-4 md:my-[60px]">
         <h2 className="text-headline-large-medium">Prestamos aprobados</h2>
-        <Button color="primary-orange" size="medium">
+        <Button color="primary-orange" size="medium" type="link" to="/finance">
           Solicitar financiación
         </Button>
       </div>
