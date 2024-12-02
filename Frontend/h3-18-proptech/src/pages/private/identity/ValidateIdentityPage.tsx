@@ -4,10 +4,12 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { validateIdentitySchema } from "./models/ValidateIdentity.model";
 import { useEffect } from "react";
+import { sendValidationInfo } from "../../../services/profile";
+import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
 
 interface ValidateIdentityForm {
-  cuit: string;
-  dni: string;
+  CUIT: string;
+  DNI: string;
   files: File[];
 }
 
@@ -18,17 +20,34 @@ function ValidateIdentityPage() {
     setValue,
     formState: { errors },
   } = useForm<ValidateIdentityForm>({
-    defaultValues: { cuit: "", dni: "", files: [] },
+    defaultValues: { CUIT: "", DNI: "", files: [] },
     resolver: zodResolver(validateIdentitySchema),
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
-  const onSubmit = (data: ValidateIdentityForm) => {
-    console.log(data);
-    toast.success("Formulario enviado exitosamente");
+  const navigate = useTransitionNavigation();
+
+  const onSubmit = async (data: ValidateIdentityForm) => {
+    const form = new FormData();
+    form.append("CUIT", data.CUIT);
+    form.append("DNI", data.DNI);
+    form.append("Front", data.files[0]);
+    form.append("Back", data.files[1]);
+    form.append("Photo", data.files[2]);
+
+    const response = await sendValidationInfo(form);
+    if (response?.status === 200) {
+      toast.success(response.data);
+      navigate("/profile");
+    } else {
+      if (typeof response?.data === "string") toast.error(response.data);
+      else {
+        toast.error("Ha ocurrido un error al guardar sus datos");
+      }
+    }
   };
   return (
     <section className="flex-1 flex flex-col py-6 gap-4 px-4 md:px-16">
@@ -53,15 +72,15 @@ function ValidateIdentityPage() {
           <section className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <TextInput
               label="DNI"
-              name="dni"
+              name="DNI"
               register={register}
-              error={errors.dni}
+              error={errors.DNI}
             />
             <TextInput
               label="CUIT"
-              name="cuit"
+              name="CUIT"
               register={register}
-              error={errors.cuit}
+              error={errors.CUIT}
             />
           </section>
           <FileDropzone
