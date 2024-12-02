@@ -15,7 +15,7 @@ export const Carousel = ({ images }: Props) => {
   const slide = () => {
     setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      console.log(currentIndex);
+      //console.log(currentIndex);
     }, 5000);
   };
 

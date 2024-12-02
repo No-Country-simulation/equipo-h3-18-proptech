@@ -4,6 +4,7 @@ import { FormValues, schema } from "./models/Login.model";
 import { Button, PasswordInput, TextInput } from "../../../components/common";
 import { useSwitchStore } from "../../../stores";
 import { authLogin } from "../../../services/auth";
+import { toast } from "sonner";
 
 export const LoginPage = () => {
   const {
@@ -23,9 +24,16 @@ export const LoginPage = () => {
   const setBuyer = useSwitchStore((state) => state.setBuyer);
   const setInvestor = useSwitchStore((state) => state.setInvestor);
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
-    authLogin(data).then((response) => console.log(response));
+    const response = await authLogin(data);
+    if (response && response.status < 300) {
+      // guardar response.data en un store
+      toast.success("Sesión iniciada exitosamente");
+      // redireccionar al dashboard dependiendo del rol
+    } else {
+      toast.error("Ha ocurrido un error al iniciar sesión")
+    }
   };
 
   return (

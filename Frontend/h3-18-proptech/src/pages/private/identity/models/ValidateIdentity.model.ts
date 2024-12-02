@@ -3,11 +3,11 @@ import { z } from "zod";
 const userFilesSchema = z.instanceof(File);
 
 export const validateIdentitySchema = z.object({
-  dni: z
+  DNI: z
     .string()
     .min(1, "Introduce tu DNI")
-    .regex(/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/, "Ingrese un DNI válido"),
-  cuit: z
+    .regex(/^[\d]{7,8}$/, "El DNI debe contener entre 7 y 8 caracteres"),
+  CUIT: z
     .string()
     .min(1, "Introduce tu CUIT")
     .regex(/^\d{2}\-?\d{8}\-?\d{1}$/, "Ingresa un CUIT válido"),
