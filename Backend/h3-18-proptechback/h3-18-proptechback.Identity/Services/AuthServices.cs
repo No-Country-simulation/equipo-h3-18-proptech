@@ -31,13 +31,13 @@ namespace h3_18_proptechback.Identity.Services
 
             if (user == null) 
             {
-                throw new Exception($"E usuario con email {request.Email} no existe");
+                throw new Exception($"El usuario con email {request.Email} no existe.");
             }
             
             var resultado = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
             if(!resultado.Succeeded) 
             {
-                throw new Exception($"Las credenciales son incorrectas");
+                throw new Exception($"Correo y/o contraseña incorrectas.");
             }
 
             var token = await GenerateToken(user);

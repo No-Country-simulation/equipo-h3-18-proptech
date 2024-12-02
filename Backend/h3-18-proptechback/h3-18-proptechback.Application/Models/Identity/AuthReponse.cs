@@ -12,6 +12,5 @@ namespace h3_18_proptechback.Application.Models.Identity
 
         public string Token { get; set; } = string.Empty;
 
-
     }
 }

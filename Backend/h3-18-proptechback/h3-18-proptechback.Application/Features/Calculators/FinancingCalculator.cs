@@ -20,8 +20,6 @@
             {150, 0.017913m},
             {180, 0.017199m}
         };
-        
-
         public FinancingCalculator(decimal lotCost, decimal downPayment, int quotasCount)
         {
             LotCost = lotCost;
@@ -32,9 +30,7 @@
         public readonly decimal DownPayment;
         public readonly int QuotasCount;
         public decimal FinancingAmount => LotCost - DownPayment;
-
         public decimal InteresRate() => ((GetMonthValue() * QuotasCount * GetDiscount())-1m) * 100m;
-
         public decimal GetDiscount()
         {
             if (DownPayment >= (30m * LotCost) / 100m)
@@ -44,17 +40,13 @@
             else
                 return 1.15m;
         }
-
         public decimal PaymentMonth() => GetMonthValue() * FinancingAmount * GetDiscount();
-
         public decimal MinimumSalary() => PaymentMonth() * 4m;
-
         public decimal TotalPayment()
         {
             var interestAmount = (FinancingAmount * InteresRate()) / 100m;
             return FinancingAmount + interestAmount;
         }
-
         public decimal GetMonthValue()
         {
             if (MonthlyRefValues.ContainsKey(QuotasCount))

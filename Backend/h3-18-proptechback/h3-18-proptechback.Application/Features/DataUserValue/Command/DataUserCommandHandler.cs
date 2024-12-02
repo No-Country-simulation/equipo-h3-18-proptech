@@ -43,10 +43,9 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
             {
                 DNI = command.DNI,
                 CUIT = command.CUIT,
-                Createby = "System",
+                Createby = user.Id,
                 StateValidation = Domain.Common.StateValidation.Pending,
                 CreatedDate = DateTime.Now.ToUniversalTime(),
-                IdentityUserId = user.Id
             };
 
             await _dataRepo.Add(entityToAdd);

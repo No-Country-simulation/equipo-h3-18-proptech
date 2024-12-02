@@ -20,7 +20,7 @@ namespace h3_18_proptechback.Infrastructure.Repositories
 
         public async Task<DataUser?> GetUserByGuidIdentity(string id)
         {
-            var user = await _context.DataUsers.FirstOrDefaultAsync(d=>d.IdentityUserId == id);
+            var user = await _context.DataUsers.FirstOrDefaultAsync(d=>d.Createby == id);
             return user;
         }
 

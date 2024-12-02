@@ -20,8 +20,6 @@ namespace h3_18_proptechback.CreditRecord
     {
         public static IServiceCollection RecordCreditServices(this IServiceCollection services, IConfiguration configuration) 
         {
-            
-            services.AddSingleton(new JsonSerializerOptions());
             services.Configure<ApiSettings>(configuration.GetSection("apiUrl"));
             var apiUrl = configuration.GetValue<string>("apiUrl");
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
