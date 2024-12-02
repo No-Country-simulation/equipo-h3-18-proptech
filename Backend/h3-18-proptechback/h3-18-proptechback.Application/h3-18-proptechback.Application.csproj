@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\h3-18-proptechback.CreditRecord\h3-18-proptechback.CreditRecord.csproj" />
     <ProjectReference Include="..\h3-18-proptechback.Domain\h3-18-proptechback.Domain.csproj" />
   </ItemGroup>
 

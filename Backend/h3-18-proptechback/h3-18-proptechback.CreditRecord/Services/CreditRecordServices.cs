@@ -1,26 +1,9 @@
-﻿
-using h3_18_proptechback.CreditRecord.Models.Requets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using h3_18_proptechback.CreditRecord.Models.Requets;
 using System.Text.Json;
-using System.Threading.Tasks;
-
 namespace h3_18_proptechback.CreditRecord.Services
 {
     public class CreditRecordServices
     {
-        public interface ICreditRecordServices<T>
-        {
-            Task<List<T>?> ObtenerDeudasAsync(DeudasRequest request);
-
-            Task<List<T>> ObtenerHistoriaAsync(DeudasRequest request);
-
-            Task<List<T>> ObtenerChequesRechazadosAsync(DeudasRequest request);
-
-        }
-
         public readonly HttpClient _client;
 
         public readonly JsonSerializerOptions _options;
@@ -29,6 +12,33 @@ namespace h3_18_proptechback.CreditRecord.Services
         {
             _client = client;
             _options = options;
+        }
+
+        public async Task<int> GetCreditScore(DeudasRequest request)
+        {
+            var response = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
+
+            if(!response.IsSuccessStatusCode)
+            {
+                throw new ArgumentException($"CUIT: {request.identificacion} no valido");
+            }
+            var content = JsonSerializer.Deserialize<ApiResponse>(await response.Content.ReadAsStringAsync());
+
+            return GetAverageCreditScore(content.Results.Periodos);
+        }
+
+        public int GetAverageCreditScore(List<Periodo> periodos)
+        {
+            var averageByPeriodo = periodos.Select(p =>
+            {
+                var result = p.Entidades.Where(e => e.Situacion > 0 && e.Situacion <= 5)
+                .Average(e => e.Situacion);
+
+                return result;
+            }).ToList();
+
+            var resultAverage = Math.Round(averageByPeriodo.Average());
+            return Convert.ToInt32(resultAverage);
         }
 
         public async Task<ApiResponse> ObtenerDeudasAsync(DeudasRequest request)
