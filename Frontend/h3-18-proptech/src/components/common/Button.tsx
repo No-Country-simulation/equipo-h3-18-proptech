@@ -9,6 +9,7 @@ interface Props {
   action?: () => void;
   to?: To;
   classname?: string;
+  disabled?: boolean;
 }
 
 export function Button({
@@ -19,6 +20,7 @@ export function Button({
   type,
   classname,
   to,
+  disabled,
 }: Props) {
   const sizeStyle = {
     small: "w-[clamp(129px,15vw,159px)] h-[50px]",
@@ -50,6 +52,7 @@ export function Button({
       className={`${classname} ${sizeStyle[size]} ${colorStyle[color]} text-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
       type={type}
       onClick={() => action}
+      disabled={disabled}
     >
       {children}
     </button>

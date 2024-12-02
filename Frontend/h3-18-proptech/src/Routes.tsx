@@ -5,6 +5,7 @@ import DashboardBuyerPage from "./pages/private/DashboardBuyerPage";
 import BuyerShares from "./pages/private/BuyerShares";
 import ValidateIdentityPage from "./pages/private/identity/ValidateIdentityPage";
 import ProfilePage from "./pages/private/identity/ProfilePage";
+import SwitchFinanceForm from "./pages/private/buyer/SwitchFinanceForm";
 
 function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ function AppRoutes() {
           <Route path="/shares" element={<BuyerShares />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/validate-identity" element={<ValidateIdentityPage />} />
+          <Route path="/finance" element={<SwitchFinanceForm />} />
         </Route>
       </Routes>
     </Router>
