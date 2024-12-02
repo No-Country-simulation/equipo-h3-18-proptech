@@ -25,11 +25,6 @@ builder.Services.AddCloudinaryServicesExtensions(builder.Configuration);
 
 
 
-//var apiUrl = builder.Configuration.GetValue<string>("apiUrl");
-
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
-
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin()
@@ -48,8 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 //no borrar para que el front pueda ver el Swagger
-//app.UseSwagger();
-//app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

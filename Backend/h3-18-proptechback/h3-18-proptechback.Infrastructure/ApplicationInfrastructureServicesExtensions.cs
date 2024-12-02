@@ -16,7 +16,7 @@ namespace h3_18_proptechback.Infrastructure
         {
             services.AddDbContext<ApplicationDbContext>(dbContextOptionsBuilder =>
             {
-                dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("ConnetionSting"));
+                dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("connetionString"));
             });
             services.AddScoped<IDataUserRepository, DataUserRepository>();
             services.AddScoped<IDocumentsUserRepository, DocumentsUserRepository>();
