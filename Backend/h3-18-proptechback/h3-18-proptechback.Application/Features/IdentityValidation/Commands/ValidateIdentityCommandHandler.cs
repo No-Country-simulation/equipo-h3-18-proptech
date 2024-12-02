@@ -56,5 +56,15 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Commands
             }
             throw new ArgumentException($"Usuario con DNI: {command.DNI} inexistente.");
         }
+
+        public async Task<string> RejectUser(ValidateUserCommand command)
+        {
+            if (await _dataUserRepository.IsValidUserByDNI(command.DNI))
+            {
+                await _dataUserRepository.RejectUser(command.DNI);
+                return "¡Validación rechazada con éxito!";
+            }
+            throw new ArgumentException($"Usuario con DNI: {command.DNI} inexistente.");
+        }
     }
 }

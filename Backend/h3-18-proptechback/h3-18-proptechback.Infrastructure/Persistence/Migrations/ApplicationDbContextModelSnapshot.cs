@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using h3_18_proptechback.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace h3_18_proptechback.Infrastructure.Migrations
+namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241128223830_secondmigration")]
-    partial class secondmigration
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +39,7 @@ namespace h3_18_proptechback.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DNI")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
@@ -59,9 +57,6 @@ namespace h3_18_proptechback.Infrastructure.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PassportID")
                         .HasColumnType("text");
 
                     b.HasKey("ID");
@@ -86,16 +81,21 @@ namespace h3_18_proptechback.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DNI")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsComplete")
-                        .HasColumnType("boolean");
+                    b.Property<string>("IdentityUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("StateValidation")
+                        .HasColumnType("integer");
 
                     b.HasKey("ID");
 

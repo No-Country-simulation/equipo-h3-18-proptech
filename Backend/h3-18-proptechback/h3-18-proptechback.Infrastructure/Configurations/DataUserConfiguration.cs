@@ -11,6 +11,7 @@ namespace h3_18_proptechback.Infrastructure.Configurations
             builder.HasKey(d => d.ID);
             builder.Property(d => d.ID)
                 .ValueGeneratedOnAdd();
+
         }
     }
 }

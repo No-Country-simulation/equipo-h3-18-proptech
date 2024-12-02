@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace h3_18_proptechback.Infrastructure.Migrations
+namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class secondmigration : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,9 +18,8 @@ namespace h3_18_proptechback.Infrastructure.Migrations
                     ID = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
-                    DNI = table.Column<string>(type: "text", nullable: true),
+                    DNI = table.Column<string>(type: "text", nullable: false),
                     CUIT = table.Column<string>(type: "text", nullable: false),
-                    PassportID = table.Column<string>(type: "text", nullable: true),
                     IsComplete = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Createby = table.Column<string>(type: "text", nullable: true),
@@ -37,9 +36,10 @@ namespace h3_18_proptechback.Infrastructure.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    DNI = table.Column<string>(type: "text", nullable: true),
+                    DNI = table.Column<string>(type: "text", nullable: false),
                     CUIT = table.Column<string>(type: "text", nullable: false),
-                    IsComplete = table.Column<bool>(type: "boolean", nullable: false),
+                    IdentityUserId = table.Column<string>(type: "text", nullable: false),
+                    StateValidation = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Createby = table.Column<string>(type: "text", nullable: true),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),

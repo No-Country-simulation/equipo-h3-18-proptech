@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
+using h3_18_proptechback.Application.Features.DataUserValue.Queries.GetCurrentUser;
 using h3_18_proptechback.Domain;
 using System;
 using System.Collections.Generic;
@@ -12,11 +14,13 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Queries
     public class DataUserQueriesHandler
     {
         private readonly IDataUserRepository _dataRepo;
+        private readonly IUserIdentityService _userIdentityService;
         private readonly IMapper _mapper;
 
-        public DataUserQueriesHandler(IDataUserRepository dataRepo)
+        public DataUserQueriesHandler(IDataUserRepository dataRepo, IUserIdentityService userIdentityService)
         {
             _dataRepo = dataRepo;
+            _userIdentityService = userIdentityService;
         }
 
         //public IEnumerable<VMDataUser> GetAll()
@@ -45,6 +49,30 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Queries
         public async Task<bool> IsValueUser(DataUser entity)
         {
             return await _dataRepo.IsValueUser(entity);
+        }
+
+        public async Task<GetCurrentUserQueryResponse> CurrentUser(string email)
+        {
+            var userResponse = await _userIdentityService.GetIdentityUser(email);
+
+            var currentUserResponse = new GetCurrentUserQueryResponse(userResponse.Name, userResponse.LastName, userResponse.Email, userResponse.PhoneNumber);
+
+            var dataUser = await _dataRepo.GetUserByGuidIdentity(userResponse.Id);
+
+            if (dataUser is null)
+            {
+                currentUserResponse.StateValidation = Domain.Common.StateValidation.NoValid;
+                currentUserResponse.CUIT = null;
+                currentUserResponse.DNI = null;
+            }
+            else
+            {
+                currentUserResponse.CUIT = dataUser.CUIT;
+                currentUserResponse.DNI = dataUser.DNI;
+                currentUserResponse.StateValidation = dataUser.StateValidation;
+            }
+
+            return currentUserResponse;
         }
     }
 }

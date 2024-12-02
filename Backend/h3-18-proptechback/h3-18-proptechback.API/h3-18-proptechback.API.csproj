@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>h3_18_proptechback.API</RootNamespace>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>CS8618;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

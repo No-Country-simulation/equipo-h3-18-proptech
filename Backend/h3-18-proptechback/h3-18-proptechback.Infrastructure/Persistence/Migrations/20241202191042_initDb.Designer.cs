@@ -9,11 +9,11 @@ using h3_18_proptechback.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace h3_18_proptechback.Infrastructure.Migrations
+namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241130234214_DataUser")]
-    partial class DataUser
+    [Migration("20241202191042_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,7 @@ namespace h3_18_proptechback.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DNI")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
@@ -59,9 +60,6 @@ namespace h3_18_proptechback.Infrastructure.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PassportID")
                         .HasColumnType("text");
 
                     b.HasKey("ID");
@@ -86,16 +84,21 @@ namespace h3_18_proptechback.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DNI")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsComplete")
-                        .HasColumnType("boolean");
+                    b.Property<string>("IdentityUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("StateValidation")
+                        .HasColumnType("integer");
 
                     b.HasKey("ID");
 

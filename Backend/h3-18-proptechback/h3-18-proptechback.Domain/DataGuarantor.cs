@@ -10,11 +10,9 @@ namespace h3_18_proptechback.Domain
         
         public string LastName { get; set; }
         
-        public string? DNI { get; set; }
+        public string DNI { get; set; }
         
         public string CUIT { get; set; }
-        
-        public string? PassportID { get; set; }
         
         public bool IsComplete { get; set; }
     }
