@@ -6,12 +6,9 @@ namespace h3_18_proptechback.CreditRecord.Services
     {
         public readonly HttpClient _client;
 
-        public readonly JsonSerializerOptions _options;
-
-        public CreditRecordServices(HttpClient client, JsonSerializerOptions options)
+        public CreditRecordServices(HttpClient client)
         {
             _client = client;
-            _options = options;
         }
 
         public async Task<int> GetCreditScore(DeudasRequest request)

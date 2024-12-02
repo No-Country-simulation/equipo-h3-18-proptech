@@ -7,6 +7,7 @@ using h3_18_proptechback.Cloudinary;
 using h3_18_proptechback.CreditRecord.Models.configurations;
 using h3_18_proptechback.CreditRecord.Models.Requets;
 using h3_18_proptechback.CreditRecord.Services;
+using h3_18_proptechback.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 builder.Services.AddApplicationInfrastructureServicesExtensions(builder.Configuration);

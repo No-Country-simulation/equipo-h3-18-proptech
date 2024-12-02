@@ -2,8 +2,6 @@
 using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Models.Identity;
 using h3_18_proptechback.Identity.Models;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -33,13 +31,13 @@ namespace h3_18_proptechback.Identity.Services
 
             if (user == null) 
             {
-                throw new Exception($"E usuario con email {request.Email} no existe");
+                throw new Exception($"El usuario con email {request.Email} no existe.");
             }
             
             var resultado = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
             if(!resultado.Succeeded) 
             {
-                throw new Exception($"Las credenciales son incorrectas");
+                throw new Exception($"Correo y/o contraseña incorrectas.");
             }
 
             var token = await GenerateToken(user);
@@ -114,7 +112,7 @@ namespace h3_18_proptechback.Identity.Services
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(CustomClaimTypes.Uid, user.Id),
             }.Union(userClaims).Union(roleClaims);
 

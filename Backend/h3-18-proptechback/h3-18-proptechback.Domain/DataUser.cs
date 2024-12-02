@@ -4,11 +4,8 @@ namespace h3_18_proptechback.Domain
 {
     public class DataUser : BaseEntity
     {
-        
-        public string? DNI { get; set; }
-        
+        public string DNI { get; set; }
         public string CUIT { get; set; }
-        
-        public bool IsComplete { get; set; }    
+        public StateValidation StateValidation { get; set; }    
     }
 }

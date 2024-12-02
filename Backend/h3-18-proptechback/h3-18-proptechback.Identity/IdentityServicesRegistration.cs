@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace h3_18_proptechback.Identity
 {
@@ -26,6 +27,8 @@ namespace h3_18_proptechback.Identity
                 .AddEntityFrameworkStores<h3_18_proptechbackIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthServices, AuthServices>();
+            services.AddTransient<AuthServices>();
+            services.AddTransient<IUserIdentityService, UserIdentityService>();
 
             services.AddAuthentication(options =>
             {
@@ -39,7 +42,7 @@ namespace h3_18_proptechback.Identity
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
-                    ValidIssuer = configuration["JwtSettings: Issuer"],
+                    ValidIssuer = configuration["JwtSettings:Issuer"],
                     ValidAudience = configuration["JwtSettings:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]))
                 };

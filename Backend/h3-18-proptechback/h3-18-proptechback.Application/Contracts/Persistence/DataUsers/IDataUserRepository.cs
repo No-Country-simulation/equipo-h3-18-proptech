@@ -6,6 +6,8 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.DataUsers
     {
         Task<bool> IsValueUser(DataUser entity);
         Task ValidateUser(string DNI);
+        Task RejectUser(string DNI);
         Task<bool> IsValidUserByDNI(string DNI);
+        Task<DataUser?> GetUserByGuidIdentity(string id);
     }
 }

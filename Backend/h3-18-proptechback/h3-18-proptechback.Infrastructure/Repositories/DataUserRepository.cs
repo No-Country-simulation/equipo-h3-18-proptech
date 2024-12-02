@@ -18,6 +18,12 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<DataUser?> GetUserByGuidIdentity(string id)
+        {
+            var user = await _context.DataUsers.FirstOrDefaultAsync(d=>d.Createby == id);
+            return user;
+        }
+
         public async Task<bool> IsValidUserByDNI(string DNI)
         {
             var exists = await _context.DataUsers.AnyAsync(du => du.DNI == DNI);
@@ -31,13 +37,22 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             if (existe == null)
                 throw new Exception($"Es Requerido un valor ");
 
-                return existe.IsComplete;
+                return true;
+        }
+
+        public async Task RejectUser(string DNI)
+        {
+            var user = await _context.DataUsers.FirstOrDefaultAsync(du => du.DNI == DNI);
+            user.StateValidation = Domain.Common.StateValidation.NoValid;
+
+            await Update(user);
+            return;
         }
 
         public async Task ValidateUser(string DNI)
         {
             var user = await _context.DataUsers.FirstOrDefaultAsync(du => du.DNI == DNI);
-            user.IsComplete = true;
+            user.StateValidation = Domain.Common.StateValidation.Valid;
 
             await Update(user);
             return;
