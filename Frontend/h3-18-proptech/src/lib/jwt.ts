@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { DecodedToken, LoginResponse } from "../interfaces/Responses";
 
-export const getUserInfoByToken = (token: string): LoginResponse => {
+export const decodeUserToken = (token: string): LoginResponse => {
   const decodedToken = jwtDecode(token) as DecodedToken;
   const userRole =
     decodedToken[

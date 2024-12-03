@@ -5,7 +5,7 @@ import { Button, PasswordInput, TextInput } from "../../../components/common";
 import { useSwitchStore } from "../../../stores";
 import { authLogin } from "../../../services/auth";
 import { toast } from "sonner";
-import { getUserInfoByToken } from "../../../lib/jwt";
+import { decodeUserToken } from "../../../lib/jwt";
 import { useSessionStore } from "../../../stores/session/session.store";
 import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
 
@@ -33,7 +33,7 @@ export const LoginPage = () => {
     console.log(data);
     const response = await authLogin(data);
     if (response && response.status < 300) {
-      const user = getUserInfoByToken(response.data.token);
+      const user = decodeUserToken(response.data.token);
       newSession(user);
       toast.success("Sesión iniciada exitosamente");
       user.role === "Cliente" && navigate("/buyer");

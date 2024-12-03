@@ -6,6 +6,8 @@ import CheckIcon from "../../../components/icons/CheckIcon";
 import { UserProfile } from "../../../interfaces/User";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileSchema } from "./models/Profile.model";
+import { getUserbyToken } from "../../../services/profile";
+import Loader from "../../../components/common/Loader";
 
 function ProfilePage() {
   const {
@@ -16,8 +18,8 @@ function ProfilePage() {
     handleSubmit,
   } = useForm<UserProfile>({
     defaultValues: {
-      nombre: "",
-      apellido: "",
+      name: "",
+      lastName: "",
       email: "",
       phoneNumber: "",
       cuit: "",
@@ -29,22 +31,31 @@ function ProfilePage() {
   const [userData, setUserData] = useState<UserProfile>();
   const [readOnlyEmail, setReadOnlyEmail] = useState(true);
   const [readOnlyPhoneNumber, setReadOnlyPhoneNumber] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Petición al back para obtener los datos del usuario
+    getUserbyToken().then((response) => {
+      console.log(response)
+      const userResponse =
+        response && response?.status < 300
+          ? response.data
+          : {
+              name: "John",
+              lastName: "Doe",
+              email: "correo@localhost.com",
+              phoneNumber: "+5612345678",
+              cuit: "",
+              dni: "",
+              isValidated: false,
+            };
 
-    const userResponse = {
-      nombre: "John",
-      apellido: "Doe",
-      email: "correo@localhost.com",
-      phoneNumber: "+5612345678",
-      cuit: "",
-      dni: "",
-      isValidated: false,
-    };
-    setUserData(userResponse);
-    reset(userResponse);
+            console.log(userResponse)
+      setUserData(userResponse);
+      reset(userResponse);
+      setLoading(false)
+    });
+    // Petición al back para obtener los datos del usuario
   }, []);
 
   const onSubmit = async (data: UserProfile) => {
@@ -57,7 +68,7 @@ function ProfilePage() {
       ? true
       : false;
 
-  return (
+  return loading ? <Loader/> :(
     <section className="flex-1 flex flex-col gap-8 bg-background px-4 md:px-10 py-6">
       <header className="flex flex-col sm:flex-row gap-y-4 justify-between sm:px-10">
         <h1 className="text-headline-large-medium text-center sm:text-start">
@@ -78,7 +89,7 @@ function ProfilePage() {
       >
         <header className="flex justify-between items-center">
           <h1 className="text-title-large-regular">Información Personal</h1>
-          {userData?.isValidated && (
+          {userData?.stateValidation == 2 && (
             <div className="text-title-large-bold flex gap-4 items-center">
               <span className="hidden sm:flex">Usuario validado</span>
               <CheckIcon className="w-8 h-8 rounded-full p-1 bg-success text-white" />
@@ -90,18 +101,18 @@ function ProfilePage() {
           <TextInput
             register={register}
             label="Nombre"
-            name="nombre"
-            error={errors.nombre}
+            name="name"
+            error={errors.name}
             readonly={true}
           />
           <TextInput
             register={register}
             label="Apellido"
-            name="apellido"
-            error={errors.apellido}
+            name="lastName"
+            error={errors.lastName}
             readonly={true}
           />
-          {userData?.isValidated && (
+          {userData?.dni && (
             <TextInput
               register={register}
               label="DNI"
@@ -110,7 +121,7 @@ function ProfilePage() {
               readonly={true}
             />
           )}
-          {userData?.isValidated && (
+          {userData?.cuit && (
             <TextInput
               register={register}
               label="CUIT"
@@ -173,9 +184,7 @@ function ProfilePage() {
         </Button>
       </form>
 
-      {!userData?.isValidated &&
-        userData?.dni.length === 0 &&
-        userData?.cuit.length === 0 && (
+      {userData?.stateValidation == 0 && (
           <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1">
             <p className="text-body-large-regular self-start">
               Para acceder a una financiación, es indispensable validar tu
@@ -202,7 +211,7 @@ function ProfilePage() {
           </article>
         )}
 
-      {userData?.dni && userData?.cuit && !userData.isValidated && (
+      {userData?.stateValidation === 1 && (
         <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1 border-2 border-secondary">
           <h3 className="text-title-large-bold text-center mb-2">
             Tu solicitud de validación está en proceso.

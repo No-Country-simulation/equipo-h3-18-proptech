@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useSessionStore } from "../../../stores/session/session.store";
 import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
+import Loader from "../../../components/common/Loader";
 
 function RoleBuyerAuth() {
   const role = useSessionStore((state) => state.role);
@@ -8,10 +9,7 @@ function RoleBuyerAuth() {
   if (role && role !== "Cliente") {
     navigate("/");
     return (
-      <div className="flex-1 flex items-center justify-center">
-        {" "}
-        <h1 className="text-title-large-semi-bold">No Autorizado</h1>
-      </div>
+      <Loader/>
     );
   }
 

@@ -14,13 +14,13 @@ export interface LoginUser {
   }
 
 export interface UserProfile {
-  nombre: string;
-  apellido: string;
+  name: string;
+  lastName: string;
   email: string;
   phoneNumber: string;
   cuit: string;
   dni: string;
-  isValidated: boolean;
+  stateValidation: number;
 }
 
 export type UserRole = "Cliente" | "Inversor" | "Administrador" | ""

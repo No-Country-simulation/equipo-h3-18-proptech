@@ -1,6 +1,7 @@
 import { useSessionStore } from "../../stores/session/session.store";
 import useTransitionNavigation from "../../hooks/useTransitionNavigation";
 import { Outlet } from "react-router-dom";
+import Loader from "../../components/common/Loader";
 
 function PrivatePages() {
   const session = useSessionStore((state) => state.session);
@@ -9,10 +10,7 @@ function PrivatePages() {
   if (!session || !role) {
     navigate("/");
     return (
-      <div className="flex-1 flex items-center justify-center">
-        {" "}
-        <h1 className="text-title-large-semi-bold">No Autorizado</h1>
-      </div>
+      <Loader/>
     );
   }
   return <Outlet />;
