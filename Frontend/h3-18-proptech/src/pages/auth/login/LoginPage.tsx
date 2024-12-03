@@ -22,8 +22,6 @@ export const LoginPage = () => {
     },
   });
 
-  const role = useSwitchStore((state) => state.role);
-  const visibleRole = role === "buyer" ? "Comprador" : "Inversor";
   const setBuyer = useSwitchStore((state) => state.setBuyer);
   const setInvestor = useSwitchStore((state) => state.setInvestor);
   const newSession = useSessionStore((state) => state.newSession);
@@ -47,44 +45,38 @@ export const LoginPage = () => {
   };
 
   return (
-    <section className="flex flex-col md:flex-row gap-x-20 justify-center flex-1 bg-tertiary items-center p-8">
+    <section className="flex flex-col md:flex-row gap-x-20 justify-center flex-1 bg-tertiary items-center px-8 py-8 md:py-20">
       <aside className="flex flex-col">
-        <h2 className="text-headline-medium-medium mb-7">
-          {visibleRole === "Comprador"
-            ? "Solicita tu financiamiento"
-            : "Accede a tus oportunidades de inversión"}
-        </h2>
+        <h2 className="text-headline-medium-medium mb-7">Iniciar sesión</h2>
         <p className="text-title-large-regular md:max-w-[36ch] mb-7">
-          {visibleRole === "Comprador"
-            ? "Explora opciones accesibles, personaliza tus condiciones y da el primer paso hacia tu lote ideal."
-            : "Gestiona tus proyectos, analiza métricas clave y encuentra nuevas posibilidades para hacer crecer tu portafolio."}
+          Accede a tu cuenta para continuar gestionando tu información y
+          realizar tus actividades de manera rápida y segura. Todo en un mismo
+          lugar.
         </p>
         <footer className="flex-col hidden md:flex">
           <span className="text-title-large-semi-bold mb-8">
             ¿Aún no tienes cuenta? Comienza tu registro aquí.
           </span>
-          <div className="w-fit" onClick={() => setBuyer()}>
-            <Button
-              color="primary-orange"
-              size="large"
-              type="link"
-              to={"/register"}
-              classname="mb-4 self-center md:self-auto"
-            >
-              Quiero una financiación
-            </Button>
-          </div>
-          <div className="w-fit" onClick={() => setInvestor()}>
-            <Button
-              color="primary-orange"
-              size="large"
-              type="link"
-              to={"/register"}
-              classname="mb-4 self-center md:self-auto"
-            >
-              Quiero invertir
-            </Button>
-          </div>
+          <Button
+            color="primary-orange"
+            size="large"
+            type="link"
+            to={"/register"}
+            classname="mb-4 self-center md:self-auto"
+            onClick={() => setBuyer()}
+          >
+            Quiero una financiación
+          </Button>
+          <Button
+            color="primary-orange"
+            size="large"
+            type="link"
+            to={"/register"}
+            classname="mb-4 self-center md:self-auto"
+            onClick={() => setInvestor()}
+          >
+            Quiero invertir
+          </Button>
         </footer>
       </aside>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -117,28 +109,26 @@ export const LoginPage = () => {
           <span className="text-title-large-semi-bold mb-8 text-center md:text-start mt-6 md:mt-0">
             ¿Aún no tienes cuenta? Comienza tu registro aquí.
           </span>
-          <div className="w-fit" onClick={() => setBuyer()}>
-            <Button
-              color="primary-orange"
-              size="large"
-              type="link"
-              to={"/register"}
-              classname="mb-4 self-center md:self-auto"
-            >
-              Quiero una financiación
-            </Button>
-          </div>
-          <div className="w-fit" onClick={() => setInvestor()}>
-            <Button
-              color="primary-orange"
-              size="large"
-              type="link"
-              to={"/register"}
-              classname="mb-4 self-center md:self-auto"
-            >
-              Quiero invertir
-            </Button>
-          </div>
+          <Button
+            color="primary-orange"
+            size="large"
+            type="link"
+            to={"/register"}
+            classname="mb-4 self-center md:self-auto"
+            onClick={() => setBuyer()}
+          >
+            Quiero una financiación
+          </Button>
+          <Button
+            color="primary-orange"
+            size="large"
+            type="link"
+            to={"/register"}
+            classname="mb-4 self-center md:self-auto"
+            onClick={() => setInvestor()}
+          >
+            Quiero invertir
+          </Button>
         </footer>
       </form>
     </section>
