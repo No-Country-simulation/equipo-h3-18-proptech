@@ -30,7 +30,6 @@ export const LoginPage = () => {
   const navigate = useTransitionNavigation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
     const response = await authLogin(data);
     if (response && response.status < 300) {
       const user = decodeUserToken(response.data.token);

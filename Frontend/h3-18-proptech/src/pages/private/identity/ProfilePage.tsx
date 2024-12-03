@@ -6,10 +6,12 @@ import CheckIcon from "../../../components/icons/CheckIcon";
 import { UserProfile } from "../../../interfaces/User";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { profileSchema } from "./models/Profile.model";
-import { getUserbyToken } from "../../../services/profile";
+import { getUserbyToken, updateEmailPhone } from "../../../services/profile";
 import Loader from "../../../components/common/Loader";
 import { toast } from "sonner";
 import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
+import { decodeUserToken } from "../../../lib/jwt";
+import { useSessionStore } from "../../../stores/session/session.store";
 
 function ProfilePage() {
   const {
@@ -30,11 +32,14 @@ function ProfilePage() {
     resolver: zodResolver(profileSchema),
   });
 
+  const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(false);
+
   const [userData, setUserData] = useState<UserProfile>();
   const [readOnlyEmail, setReadOnlyEmail] = useState(true);
   const [readOnlyPhoneNumber, setReadOnlyPhoneNumber] = useState(true);
-  const [loading, setLoading] = useState(true);
 
+  const newSession = useSessionStore((state) => state.newSession);
   const navigate = useTransitionNavigation();
 
   useEffect(() => {
@@ -44,15 +49,27 @@ function ProfilePage() {
         setUserData(response.data);
         reset(response.data);
         setLoading(false);
+        setReload(false);
       } else {
         toast.error("Ha ocurrido un error al obtener sus datos");
         navigate("/");
       }
     });
-  }, []);
+  }, [reload]);
 
   const onSubmit = async (data: UserProfile) => {
-    console.log({ email: data.email, phoneNumber: data.phoneNumber });
+    updateEmailPhone({ email: data.email, phoneNumber: data.phoneNumber }).then(
+      (response) => {
+        if (response && response.status < 300) {
+          const user = decodeUserToken(response.data.refreshToken);
+          newSession(user);
+          toast.success(response.data.message ?? "Datos actualizados exitosamente");
+          setReload(true);
+        } else {
+          toast.error("Ha ocurrido un error al actualizar los datos");
+        }
+      }
+    );
   };
 
   const formUpdated =
