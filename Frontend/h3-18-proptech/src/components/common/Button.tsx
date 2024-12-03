@@ -4,23 +4,21 @@ import useTransitionNavigation from "../../hooks/useTransitionNavigation";
 interface Props {
   children: string;
   size: "small" | "medium" | "large";
-  color: "primary-blue" | "primary-orange" | "secondary";
+  color: "primary-blue" | "primary-orange" | "secondary" | "disabled";
   type?: "submit" | "reset" | "button" | "link" | undefined;
-  action?: () => void;
+  onClick?: () => void;
   to?: To;
   classname?: string;
-  disabled?: boolean;
 }
 
 export function Button({
   size,
   color,
-  action,
+  onClick,
   children,
   type,
   classname,
   to,
-  disabled,
 }: Props) {
   const sizeStyle = {
     small: "w-[clamp(129px,15vw,159px)] h-[50px]",
@@ -32,6 +30,7 @@ export function Button({
     "primary-orange": "bg-secondary text-contrast hover:bg-secondaryVar1",
     "primary-blue": "bg-primary text-contrast hover:bg-primaryVar2",
     secondary: "bg-white border-2 border-primary hover:bg-tertiary",
+    disabled: "bg-disabled pointer-events-none"
   };
 
   const navigate = useTransitionNavigation();
@@ -51,8 +50,8 @@ export function Button({
     <button
       className={`${classname} ${sizeStyle[size]} ${colorStyle[color]} text-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
       type={type}
-      onClick={() => action}
-      disabled={disabled}
+      onClick={onClick}
+      disabled={color === "disabled"}
     >
       {children}
     </button>

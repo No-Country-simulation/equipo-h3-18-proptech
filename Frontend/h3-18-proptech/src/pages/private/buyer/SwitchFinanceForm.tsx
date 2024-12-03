@@ -3,27 +3,38 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { FinanceSchema, FinancingDataForm } from "./models/Financing.models";
 import FinanceForm from "./FinanceForm";
+import AddGuarantorForm from "./AddGuarantorForm";
 
 function SwitchFinanceForm() {
   const {
     handleSubmit,
     setValue,
     formState: { errors },
+    watch,
   } = useForm<FinancingDataForm>({
     defaultValues: {
       files: [],
+      guarantors: [],
       // AGREGAR GARANTES
     },
     resolver: zodResolver(FinanceSchema),
   });
 
   const [guarantorForm, setGuarantorForm] = useState(false);
+  const [editGuarantorIndex, setEditGuarantorIndex] = useState<
+    number | undefined
+  >();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleOnClick = () => {
+  const handleGuarantorView = (id?: number) => {
+    if (id !== undefined) {
+      setEditGuarantorIndex(id);
+    } else {
+      setEditGuarantorIndex(undefined);
+    }
     setGuarantorForm(true);
     // VER FORM GARANTES
   };
@@ -32,7 +43,7 @@ function SwitchFinanceForm() {
     const form = new FormData();
     form.append("Receipt1", data.files[0]);
     form.append("Receipt2", data.files[1]);
-    form.append("Receipt2", data.files[2]);
+    form.append("Receipt3", data.files[2]);
     form.append("service", data.files[3]);
     // AGREGAR GARANTES
     console.log(data);
@@ -40,17 +51,27 @@ function SwitchFinanceForm() {
     // LLAMAR SERVICIO
   };
 
+  const actualGuarantors = watch("guarantors");
+
   return (
     <>
       {guarantorForm ? (
-        <>{/* AGREGAR GARANTES */}</>
+        <>
+          <AddGuarantorForm
+            viewGuarantorForm={setGuarantorForm}
+            guarantors={actualGuarantors}
+            externalSetValue={setValue}
+            editIndex={editGuarantorIndex}
+          />
+        </>
       ) : (
         <FinanceForm
           handleSubmit={handleSubmit}
           setValue={setValue}
           errors={errors}
-          changeGuarantor={handleOnClick}
+          changeGuarantor={handleGuarantorView}
           onSubmit={onSubmit}
+          watch={watch}
         />
       )}
     </>

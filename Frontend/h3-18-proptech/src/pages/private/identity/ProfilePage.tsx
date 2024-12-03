@@ -31,7 +31,7 @@ function ProfilePage() {
   const [readOnlyPhoneNumber, setReadOnlyPhoneNumber] = useState(true);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     // Petición al back para obtener los datos del usuario
 
     const userResponse = {
@@ -166,8 +166,8 @@ function ProfilePage() {
         <Button
           type="submit"
           size="medium"
-          color="primary-blue"
-          classname={`mx-auto ${!formUpdated && "bg-disabled pointer-events-none"}`}
+          color={formUpdated ? "primary-blue" : "disabled"}
+          classname={`mx-auto`}
         >
           Guardar cambios
         </Button>
