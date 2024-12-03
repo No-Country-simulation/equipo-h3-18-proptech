@@ -2,16 +2,20 @@ import {
   FieldErrors,
   UseFormHandleSubmit,
   UseFormSetValue,
+  UseFormWatch,
 } from "react-hook-form";
 import { Button, FileDropzone } from "../../../components/common";
 import { FinancingDataForm } from "./models/Financing.models";
+import { Guarantor } from "../../../interfaces/Guarantor";
+import { useEffect } from "react";
 
 interface Props {
   handleSubmit: UseFormHandleSubmit<FinancingDataForm>;
   setValue: UseFormSetValue<FinancingDataForm>;
   errors: FieldErrors<FinancingDataForm>;
-  changeGuarantor: () => void;
+  changeGuarantor: (id?: number) => void;
   onSubmit: (data: FinancingDataForm) => Promise<void>;
+  watch: UseFormWatch<any>;
 }
 
 function FinanceForm({
@@ -20,7 +24,16 @@ function FinanceForm({
   errors,
   changeGuarantor,
   onSubmit,
+  watch,
 }: Props) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const guarantors = watch("guarantors") ?? [];
+  const files = watch("files")
+
   return (
     <section className="flex-1 flex flex-col py-6 gap-4 px-4 md:px-16">
       <h1 className="text-headline-medium-medium text-center">
@@ -52,51 +65,47 @@ function FinanceForm({
             name="files"
             error={errors.files}
             maxFiles={4}
+            files={files}
           />
-          <div className="flex gap-4">
-            <div className="flex-1 py-2 px-4 shadow-md shadow-tertiary border-[3px] rounded-lg border-primary text-ellipsis max-w-[50vw] whitespace-nowrap overflow-hidden md:w-full">
-              Garante nº 1
-            </div>
-            <Button
-              size="small"
-              color="primary-blue"
-              type="button"
-              disabled={true}
+          {guarantors.map((guarantor: Guarantor, index: number) => (
+            <div
+              className="flex gap-4"
+              key={guarantor.name + guarantor.lastname + index}
             >
-              Editar datos
-            </Button>
-          </div>
-          <div className="flex gap-4">
-            <div className="flex-1 py-2 px-4 shadow-md shadow-tertiary border-[3px] rounded-lg border-primary text-ellipsis max-w-[50vw] whitespace-nowrap overflow-hidden md:w-full">
-              Garante nº 2
+              <div className="flex-1 py-2 px-4 shadow-md shadow-tertiary border-[3px] rounded-lg border-primary text-ellipsis max-w-[50vw] whitespace-nowrap overflow-hidden md:w-full items-center flex">
+                {`Garante nº ${index + 1}: ${guarantor.name + " " + guarantor.lastname}`}
+              </div>
+              <Button
+                size="small"
+                color="primary-blue"
+                type="button"
+                onClick={() => changeGuarantor(index)}
+              >
+                Editar datos
+              </Button>
             </div>
-            <Button
-              size="small"
-              color="primary-blue"
-              type="button"
-              disabled={true}
-            >
-              Editar datos
-            </Button>
-          </div>
+          ))}
         </article>
-        <Button
-          color="primary-blue"
-          size="large"
-          type="button"
-          classname="self-center mt-2"
-          action={changeGuarantor}
-        >
-          Agregar Garante
-        </Button>
-        <Button
-          color="primary-orange"
-          size="large"
-          type="submit"
-          classname="self-center mt-2"
-        >
-          Solicitar Financiación
-        </Button>
+        {guarantors.length < 2 ? (
+          <Button
+            color="primary-blue"
+            size="large"
+            type="button"
+            onClick={() => changeGuarantor()}
+            classname="mt-2 self-center"
+          >
+            Agregar Garante
+          </Button>
+        ) : (
+          <Button
+            color="primary-orange"
+            size="large"
+            type="submit"
+            classname="self-center mt-2"
+          >
+            Solicitar Financiación
+          </Button>
+        )}
       </form>
     </section>
   );

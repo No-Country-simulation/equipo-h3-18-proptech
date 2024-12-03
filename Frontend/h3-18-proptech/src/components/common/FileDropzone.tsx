@@ -10,6 +10,7 @@ interface Props {
   fileType: "images" | "pdf" | "both";
   maxFiles: number;
   error?: Merge<FieldError, (FieldError | undefined)[]>;
+  files?: File[]
 }
 
 export function FileDropzone({
@@ -18,6 +19,7 @@ export function FileDropzone({
   name,
   error,
   maxFiles,
+  files
 }: Props) {
   let validFileType;
   switch (fileType) {
@@ -59,7 +61,7 @@ export function FileDropzone({
     accept: validFileType,
   });
 
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>(files ?? []);
   const [fileChosen, setFileChosen] = useState({
     open: false,
     type: "",
