@@ -8,6 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { profileSchema } from "./models/Profile.model";
 import { getUserbyToken } from "../../../services/profile";
 import Loader from "../../../components/common/Loader";
+import { toast } from "sonner";
+import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
 
 function ProfilePage() {
   const {
@@ -31,31 +33,22 @@ function ProfilePage() {
   const [userData, setUserData] = useState<UserProfile>();
   const [readOnlyEmail, setReadOnlyEmail] = useState(true);
   const [readOnlyPhoneNumber, setReadOnlyPhoneNumber] = useState(true);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useTransitionNavigation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getUserbyToken().then((response) => {
-      console.log(response)
-      const userResponse =
-        response && response?.status < 300
-          ? response.data
-          : {
-              name: "John",
-              lastName: "Doe",
-              email: "correo@localhost.com",
-              phoneNumber: "+5612345678",
-              cuit: "",
-              dni: "",
-              isValidated: false,
-            };
-
-            console.log(userResponse)
-      setUserData(userResponse);
-      reset(userResponse);
-      setLoading(false)
+      if (response && response?.status < 300) {
+        setUserData(response.data);
+        reset(response.data);
+        setLoading(false);
+      } else {
+        toast.error("Ha ocurrido un error al obtener sus datos");
+        navigate("/");
+      }
     });
-    // Petición al back para obtener los datos del usuario
   }, []);
 
   const onSubmit = async (data: UserProfile) => {
@@ -68,7 +61,9 @@ function ProfilePage() {
       ? true
       : false;
 
-  return loading ? <Loader/> :(
+  return loading ? (
+    <Loader />
+  ) : (
     <section className="flex-1 flex flex-col gap-8 bg-background px-4 md:px-10 py-6">
       <header className="flex flex-col sm:flex-row gap-y-4 justify-between sm:px-10">
         <h1 className="text-headline-large-medium text-center sm:text-start">
@@ -185,31 +180,31 @@ function ProfilePage() {
       </form>
 
       {userData?.stateValidation == 0 && (
-          <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1">
-            <p className="text-body-large-regular self-start">
-              Para acceder a una financiación, es indispensable validar tu
-              identidad con la documentación requerida.
-            </p>
-            <p className="text-body-large-regular self-start">
-              La validación de los documentos será revisada y aprobada por un
-              representante para garantizar la autenticidad de la información
-              proporcionada.
-            </p>
-            <p className="text-body-large-regular self-start">
-              Recuerda asegurarte de que todos los documentos estén completos y
-              en buen estado para evitar demoras en el proceso.
-            </p>
-            <Button
-              size="medium"
-              color="primary-blue"
-              type="link"
-              to={"/validate-identity"}
-              classname="mt-4"
-            >
-              Validar identidad
-            </Button>
-          </article>
-        )}
+        <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1">
+          <p className="text-body-large-regular self-start">
+            Para acceder a una financiación, es indispensable validar tu
+            identidad con la documentación requerida.
+          </p>
+          <p className="text-body-large-regular self-start">
+            La validación de los documentos será revisada y aprobada por un
+            representante para garantizar la autenticidad de la información
+            proporcionada.
+          </p>
+          <p className="text-body-large-regular self-start">
+            Recuerda asegurarte de que todos los documentos estén completos y en
+            buen estado para evitar demoras en el proceso.
+          </p>
+          <Button
+            size="medium"
+            color="primary-blue"
+            type="link"
+            to={"/validate-identity"}
+            classname="mt-4"
+          >
+            Validar identidad
+          </Button>
+        </article>
+      )}
 
       {userData?.stateValidation === 1 && (
         <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1 border-2 border-secondary">

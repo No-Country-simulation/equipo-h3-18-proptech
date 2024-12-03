@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSessionStore } from "../stores/session/session.store";
+import Loader from "../components/common/Loader";
 
 function LayoutPage() {
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,7 @@ function LayoutPage() {
   }, []);
 
   return loading ? (
-    <div>Loading</div>
+    <Loader/>
   ) : (
     <main className="flex flex-col min-h-screen">
       <Navbar />
