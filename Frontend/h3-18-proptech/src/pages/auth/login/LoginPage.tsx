@@ -5,6 +5,9 @@ import { Button, PasswordInput, TextInput } from "../../../components/common";
 import { useSwitchStore } from "../../../stores";
 import { authLogin } from "../../../services/auth";
 import { toast } from "sonner";
+import { getUserInfoByToken } from "../../../lib/jwt";
+import { useSessionStore } from "../../../stores/session/session.store";
+import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
 
 export const LoginPage = () => {
   const {
@@ -23,16 +26,24 @@ export const LoginPage = () => {
   const visibleRole = role === "buyer" ? "Comprador" : "Inversor";
   const setBuyer = useSwitchStore((state) => state.setBuyer);
   const setInvestor = useSwitchStore((state) => state.setInvestor);
+  const newSession = useSessionStore((state) => state.newSession);
+  const navigate = useTransitionNavigation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log(data);
     const response = await authLogin(data);
     if (response && response.status < 300) {
-      // guardar response.data en un store
+      const user = getUserInfoByToken(response.data.token);
+      newSession(user);
       toast.success("Sesión iniciada exitosamente");
-      // redireccionar al dashboard dependiendo del rol
+      user.role === "Cliente" && navigate("/buyer");
+      // user.role === "Inversor" && navigate("/")
+      // user.role === "Administrador" && navigate("/")
     } else {
-      toast.error("Ha ocurrido un error al iniciar sesión")
+      if (response?.data) toast.error(response.data);
+      else {
+        toast.error("Ha ocurrido un error al iniciar sesión");
+      }
     }
   };
 

@@ -23,4 +23,4 @@ export interface UserProfile {
   isValidated: boolean;
 }
 
-type UserRole = "Cliente" | "Inversor"
+export type UserRole = "Cliente" | "Inversor" | "Administrador" | ""

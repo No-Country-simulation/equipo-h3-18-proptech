@@ -1,13 +1,13 @@
-import { To, useNavigate } from "react-router-dom";
+import { NavigateOptions, To, useNavigate } from "react-router-dom";
 
 function useTransitionNavigation() {
   const navigate = useNavigate();
 
-  const viewTransitionHandler = (to: To) => {
+  const viewTransitionHandler = (to: To, options?: NavigateOptions) => {
     if (!document.startViewTransition) {
-      navigate(to);
+      navigate(to, options);
     }
-    document.startViewTransition(() => navigate(to));
+    document.startViewTransition(() => navigate(to, options));
   };
   return viewTransitionHandler;
 }

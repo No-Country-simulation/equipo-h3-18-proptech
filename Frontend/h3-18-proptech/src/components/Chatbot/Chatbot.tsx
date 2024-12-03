@@ -28,6 +28,15 @@ function Chatbot() {
     }
   }, []);
 
+  useEffect(() => {
+    document
+      .getElementById("chatbotMessagesSection")
+      ?.scrollTo(
+        0,
+        document.getElementById("chatbotMessagesSection")?.scrollHeight ?? 0
+      );
+  }, [messages]);
+
   return (
     <>
       <button
@@ -51,11 +60,14 @@ function Chatbot() {
               className="absolute top-0 bottom-0 right-2 h-fit my-auto rounded-full p-1 hover:bg-gray-50"
               onClick={() => setIsVisible(!isVisible)}
             >
-              <CloseIcon className="h-4 w-4"/>
+              <CloseIcon className="h-4 w-4" />
             </button>
             <h6 className="text-center font-bold text-lg">Financibot</h6>
           </header>
-          <section className="overflow-y-scroll h-full ps-2 pe-4 pb-4 mb-2 justify-between">
+          <section
+            id="chatbotMessagesSection"
+            className="overflow-y-scroll h-full ps-2 pe-4 pb-4 mb-2 justify-between transition-all"
+          >
             <h4 className="text-2xl text-center mt-3 font-semibold">
               Bienvenido a Financia.ai
             </h4>

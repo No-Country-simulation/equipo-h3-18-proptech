@@ -5,24 +5,33 @@ import { Link } from "react-router-dom";
 import { Button } from "../common";
 import { LogoIcon, MenuIcon, CloseIcon, UserIcon } from "../icons";
 import useTransitionNavigation from "../../hooks/useTransitionNavigation";
-
-const navLinks = [
-  {
-    text: "Mis Finanzas",
-    href: "/register",
-  },
-  {
-    text: "Quienes somos",
-    href: "/",
-  },
-  {
-    text: "Contacto",
-    href: "/profile",
-  },
-];
+import { useSessionStore } from "../../stores/session/session.store";
 
 function Navbar() {
-  const user = false;
+  const session = useSessionStore((state) => state.session);
+  const sessionRole = useSessionStore((state) => state.role);
+  const closeSession = useSessionStore((state) => state.closeSession);
+
+  const navLinks = [
+    {
+      text: "Mis Finanzas",
+      href:
+        sessionRole === "Cliente"
+          ? "buyer"
+          : sessionRole === "Inversor"
+            ? "/"
+            : "/",
+    },
+    {
+      text: "Quienes somos",
+      href: "/",
+    },
+    {
+      text: "Contacto",
+      href: "/profile",
+    },
+  ];
+
   const { role } = useSwitchStore();
   const [openMenu, setOpenMenu] = useState(false);
   const [openProfileModal, setOpenProfileModal] = useState(false);
@@ -61,7 +70,7 @@ function Navbar() {
 
         <section className="flex flex-col flex-1 md:flex-auto md:flex-row gap-6 md:gap-4">
           {navLinks.map(({ href, text }, index) => {
-            if (!user && text === "Mis Finanzas") return;
+            if (!session && text === "Mis Finanzas") return;
             return (
               <div
                 className="flex gap-4 w-fit"
@@ -79,7 +88,7 @@ function Navbar() {
 
         <section className="flex flex-col">
           <hr className="flex md:hidden my-4 bg-primary" />
-          {user ? (
+          {session ? (
             <section className="relative">
               <button
                 onClick={() => setOpenProfileModal(!openProfileModal)}
@@ -99,7 +108,7 @@ function Navbar() {
                   }}
                 >
                   <NavElement
-                    to={"/login"}
+                    to={"/profile"}
                     activeClassname="capitalize"
                     notActiveClassname="capitalize"
                   >
@@ -107,21 +116,18 @@ function Navbar() {
                   </NavElement>
                 </div>
 
-                <div
-                  className="w-fit"
+                <button
+                  className="text-base-color text-title-large-semi-bold md:text-title-medium-semi-bold hover:text-primary capitalize self-start"
+                  type="button"
                   onClick={() => {
                     setOpenProfileModal(false);
                     setOpenMenu(false);
+                    closeSession();
+                    navigate("/", { replace: true });
                   }}
                 >
-                  <NavElement
-                    to={"/register"}
-                    activeClassname="capitalize"
-                    notActiveClassname="capitalize"
-                  >
-                    Cerrar Sesión
-                  </NavElement>
-                </div>
+                  Cerrar Sesión
+                </button>
               </article>
             </section>
           ) : (
