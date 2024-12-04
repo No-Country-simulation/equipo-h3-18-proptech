@@ -39,5 +39,13 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             var lastDataUser = _context.DocumentsUsers.OrderByDescending(d=>d.CreatedDate).FirstOrDefault();
             return lastDataUser;
         }
+
+        public async Task OverrideDocumentsValidateIdentity(string[] URLs, string DNI)
+        {
+            var docUser = await _context.DocumentsUsers.FirstAsync(doc => doc.DataUser.DNI == DNI);
+            docUser.FrontDNIURL = URLs[0];
+            docUser.BackDNIURL = URLs[1];
+            docUser.PhotoURL = URLs[2];
+        }
     }
 }

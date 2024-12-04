@@ -30,27 +30,46 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
         {
             if (command is null)
                 throw new ArgumentException("El usuario proporcionado no puede ser nulo. Verifique los campos enviados.");
-
-            if (await _dataRepo.IsValidUserByDNI(command.DNI))
-                throw new ArgumentException($"El usuario con DNI: {command.DNI} ya existe");
             var user = await _userIdentityService.GetIdentityUser(email);
+
+            if (await _dataRepo.IsValidUserByDNI(command.DNI) && !await _dataRepo.IsMine(command.DNI, user.Id))
+                throw new ArgumentException($"El usuario con DNI: {command.DNI} ya existe");
+
             var userExists = await _dataRepo.GetUserByGuidIdentity(user.Id);
 
-            if (userExists is not null)
-                throw new ArgumentException("Ya existe una solicitud de validación de identidad");
-
-            DataUser entityToAdd = new DataUser
+            if (userExists is not null && userExists.StateValidation is Domain.Common.StateRequest.NoValid)
             {
-                DNI = command.DNI,
-                CUIT = command.CUIT,
-                Createby = user.Id,
-                StateValidation = Domain.Common.StateRequest.Pending,
-                CreatedDate = DateTime.Now.ToUniversalTime(),
-            };
+                var getCurrentDataUser = await _dataRepo.GetUserByGuidIdentity(user.Id);
+                getCurrentDataUser.DNI = command.DNI;
+                getCurrentDataUser.CUIT = command.CUIT;
+                getCurrentDataUser.CreatedDate = DateTime.Now.ToUniversalTime();
+                getCurrentDataUser.StateValidation = Domain.Common.StateRequest.Pending;
 
-            await _dataRepo.Add(entityToAdd);
-            if (!await _filesHandler.ReceiveFiles(new ValidateIdentityFilesCommand(command.Photo, command.Front, command.Back, command.DNI, true)))
-                throw new Exception("Error al subir los archivos. Intente nuevamente.");
+                await _dataRepo.Update(getCurrentDataUser);
+
+                if (!await _filesHandler.ReceiveFiles(new ValidateIdentityFilesCommand(command.Photo, command.Front, command.Back, command.DNI, true), true))
+                    throw new Exception("Error externo al servidor");
+
+            }
+            else if(userExists is not null && (userExists.StateValidation is Domain.Common.StateRequest.Pending || userExists.StateValidation is Domain.Common.StateRequest.Valid))
+                throw new ArgumentException("Ya existe una solicitud de validación de identidad");
+            else
+            {
+                DataUser entityToAdd = new DataUser
+                {
+                    DNI = command.DNI,
+                    CUIT = command.CUIT,
+                    Createby = user.Id,
+                    StateValidation = Domain.Common.StateRequest.Pending,
+                    CreatedDate = DateTime.Now.ToUniversalTime(),
+                };
+
+                await _dataRepo.Add(entityToAdd);
+                if (!await _filesHandler.ReceiveFiles(new ValidateIdentityFilesCommand(command.Photo, command.Front, command.Back, command.DNI, true), false))
+                    throw new Exception("Error externo al servidor");
+            }
+            
+            
 
             return "¡Validación solicitada con éxito! Un operador revisará su solicitud.";
         }
