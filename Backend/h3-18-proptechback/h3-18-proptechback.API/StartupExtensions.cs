@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
 namespace h3_18_proptechback.API
@@ -12,7 +13,7 @@ namespace h3_18_proptechback.API
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "JuniorHub API",
+                    Title = "Financia.ai API",
 
                 });
 

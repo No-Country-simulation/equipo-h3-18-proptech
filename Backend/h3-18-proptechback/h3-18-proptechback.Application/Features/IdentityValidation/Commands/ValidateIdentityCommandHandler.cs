@@ -1,6 +1,7 @@
 ﻿using h3_18_proptechback.Application.Contracts.Infrastructure.Cloudinary;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Features.IdentityValidation.Commands.AddOtherDocuments;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands.ValidateIdentityFiles;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands.ValidateUser;
 

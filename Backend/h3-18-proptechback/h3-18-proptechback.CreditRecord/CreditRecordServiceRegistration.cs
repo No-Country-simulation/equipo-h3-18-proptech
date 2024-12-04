@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using static h3_18_proptechback.CreditRecord.Services.CreditRecordServices;
+using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
 
 
 namespace h3_18_proptechback.CreditRecord
@@ -23,7 +24,7 @@ namespace h3_18_proptechback.CreditRecord
             services.Configure<ApiSettings>(configuration.GetSection("apiUrl"));
             var apiUrl = configuration.GetValue<string>("apiUrl");
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
-            services.AddScoped<CreditRecordServices>();
+            services.AddScoped<ICreditRecordService, CreditRecordServices>();
 
             return services;
         }

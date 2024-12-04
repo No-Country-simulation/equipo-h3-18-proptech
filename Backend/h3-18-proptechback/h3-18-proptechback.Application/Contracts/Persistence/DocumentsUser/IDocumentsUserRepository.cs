@@ -5,5 +5,6 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers
     public interface IDocumentsUserRepository : IGenericRepository<DocumentsUser>
     {
         Task AddDocumentsValidateIdentity(string[] URLs, string DNI);
+        Task<DocumentsUser> GetLastDataUser(string DNI);
     }
 }

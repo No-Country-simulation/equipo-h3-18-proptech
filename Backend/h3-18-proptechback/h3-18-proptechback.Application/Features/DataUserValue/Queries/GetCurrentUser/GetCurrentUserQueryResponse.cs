@@ -13,7 +13,7 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Queries.GetCurre
         public string LastName { get; set; }
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
-        public StateValidation StateValidation { get; set; }
+        public StateRequest StateValidation { get; set; }
         public string? DNI { get; set; }
         public string? CUIT { get; set; }
         public GetCurrentUserQueryResponse()

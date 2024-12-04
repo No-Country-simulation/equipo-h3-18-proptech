@@ -1,8 +1,10 @@
-﻿using h3_18_proptechback.CreditRecord.Models.Requets;
+﻿using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
+using h3_18_proptechback.Application.Models.Infrastructure;
+using h3_18_proptechback.CreditRecord.Models.Requets;
 using System.Text.Json;
 namespace h3_18_proptechback.CreditRecord.Services
 {
-    public class CreditRecordServices
+    public class CreditRecordServices : ICreditRecordService
     {
         public readonly HttpClient _client;
 
@@ -11,7 +13,7 @@ namespace h3_18_proptechback.CreditRecord.Services
             _client = client;
         }
 
-        public async Task<int> GetCreditScore(DeudasRequest request)
+        public async Task<int> GetCreditScore(Application.Models.Infrastructure.DeudasRequest request)
         {
             var response = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
 
@@ -38,7 +40,7 @@ namespace h3_18_proptechback.CreditRecord.Services
             return Convert.ToInt32(resultAverage);
         }
 
-        public async Task<ApiResponse> ObtenerDeudasAsync(DeudasRequest request)
+        public async Task<ApiResponse> ObtenerDeudasAsync(Application.Models.Infrastructure.DeudasRequest request)
         {
             var reponse = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
             reponse.EnsureSuccessStatusCode();
@@ -50,7 +52,7 @@ namespace h3_18_proptechback.CreditRecord.Services
             return JsonSerializer.Deserialize<ApiResponse>(content);
         }
 
-        public async Task<ApiResponse> ObtenerHistoriaAsync(DeudasRequest request)
+        public async Task<ApiResponse> ObtenerHistoriaAsync(Application.Models.Infrastructure.DeudasRequest request)
         {
             var reponse = await _client.GetAsync($"v1.0/Deudas/Historicas/{request.identificacion}");
             reponse.EnsureSuccessStatusCode();
@@ -58,12 +60,12 @@ namespace h3_18_proptechback.CreditRecord.Services
             return JsonSerializer.Deserialize<ApiResponse>(content);
         }
 
-        public async Task<List<DeudasRequest>> ObtenerChequesRechazadosAsync(DeudasRequest request)
+        public async Task<List<Application.Models.Infrastructure.DeudasRequest>> ObtenerChequesRechazadosAsync(Application.Models.Infrastructure.DeudasRequest request)
         {
             var reponse = await _client.GetAsync($"v1.0/Deudas/{request.identificacion}");
             reponse.EnsureSuccessStatusCode();
             var content = await reponse.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<DeudasRequest>>(content);
+            return JsonSerializer.Deserialize<List<Application.Models.Infrastructure.DeudasRequest>>(content);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Queries
 
             if (dataUser is null)
             {
-                currentUserResponse.StateValidation = Domain.Common.StateValidation.NoValid;
+                currentUserResponse.StateValidation = Domain.Common.StateRequest.NoValid;
                 currentUserResponse.CUIT = null;
                 currentUserResponse.DNI = null;
             }

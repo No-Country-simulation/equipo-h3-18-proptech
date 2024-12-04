@@ -43,7 +43,7 @@ namespace h3_18_proptechback.Infrastructure.Repositories
         public async Task RejectUser(string DNI)
         {
             var user = await _context.DataUsers.FirstOrDefaultAsync(du => du.DNI == DNI);
-            user.StateValidation = Domain.Common.StateValidation.NoValid;
+            user.StateValidation = Domain.Common.StateRequest.NoValid;
 
             await Update(user);
             return;
@@ -52,7 +52,7 @@ namespace h3_18_proptechback.Infrastructure.Repositories
         public async Task ValidateUser(string DNI)
         {
             var user = await _context.DataUsers.FirstOrDefaultAsync(du => du.DNI == DNI);
-            user.StateValidation = Domain.Common.StateValidation.Valid;
+            user.StateValidation = Domain.Common.StateRequest.Valid;
 
             await Update(user);
             return;

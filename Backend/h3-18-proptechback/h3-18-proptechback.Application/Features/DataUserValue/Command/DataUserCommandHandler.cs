@@ -48,7 +48,7 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
                 DNI = command.DNI,
                 CUIT = command.CUIT,
                 Createby = user.Id,
-                StateValidation = Domain.Common.StateValidation.Pending,
+                StateValidation = Domain.Common.StateRequest.Pending,
                 CreatedDate = DateTime.Now.ToUniversalTime(),
             };
 
