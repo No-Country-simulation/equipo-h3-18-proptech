@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { Outlet } from "react-router-dom";
-import { Navbar } from "../components/navbar2";
-import { Footer } from "../components/footer2";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
 import { Loader } from "../components/common";
-import { Modal } from "../components/modal2";
+import { Modal } from "../components/modal";
 import { useSessionStore } from "../stores";
 
 export function LayoutPage() {
