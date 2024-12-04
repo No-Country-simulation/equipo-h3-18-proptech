@@ -10,6 +10,7 @@ namespace h3_18_proptechback.Application.Contracts.Identity
     public interface IUserIdentityService
     {
         Task<ApplicationUserResponse> GetIdentityUser(string email);
+        Task<ApplicationUserResponse> GetByIdIdentityUser(string id);
         Task<string> UpdateEmailPhone(string currentEmail, string email, string phoneNumber);
     }
 }

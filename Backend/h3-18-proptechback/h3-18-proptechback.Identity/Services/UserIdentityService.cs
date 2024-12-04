@@ -26,6 +26,27 @@ namespace h3_18_proptechback.Identity.Services
             _emailServices = emailServices;
         }
 
+        public async Task<ApplicationUserResponse> GetByIdIdentityUser(string id)
+        {
+            var existsUser = await _userManager.FindByIdAsync(id);
+            ApplicationUserResponse response = new ApplicationUserResponse()
+            {
+                Name = existsUser.Nombre,
+                Email = existsUser.Email,
+                LastName = existsUser.Apellido,
+                PhoneNumber = existsUser.PhoneNumber,
+                Id = existsUser.Id,
+                Role = await GetRoleIdentity(existsUser)
+            };
+            return response;
+        }
+
+        public async Task<string> GetRoleIdentity(ApplicationUser user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.First();
+        }
+
         public async Task<ApplicationUserResponse> GetIdentityUser(string email)
         {
             var existsUser = await _userManager.FindByEmailAsync(email);
@@ -42,6 +63,8 @@ namespace h3_18_proptechback.Identity.Services
             };
             return response;
         }
+
+        
 
         public async Task<string> UpdateEmailPhone(string currentEmail, string newEmail, string phoneNumber)
         {
