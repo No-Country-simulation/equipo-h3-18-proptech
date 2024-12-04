@@ -1,4 +1,4 @@
-import { Chatbot } from "../components/chatbot2";
+import { Chatbot } from "../components/chatbot";
 import { LandingPage } from "./landing";
 //
 export function HomePage() {
