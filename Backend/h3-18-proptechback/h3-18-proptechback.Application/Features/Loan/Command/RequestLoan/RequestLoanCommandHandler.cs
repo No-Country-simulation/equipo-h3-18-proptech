@@ -39,8 +39,14 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
 
             var dataUser = await _dataUserRepository.GetUserByGuidIdentity(user.Id);
 
-            if(dataUser is null || dataUser.StateValidation is not Domain.Common.StateRequest.Valid)
+            if (dataUser is null || dataUser.StateValidation is not Domain.Common.StateRequest.Valid)
                 throw new ArgumentException("El usuario no tiene identidad validada.");
+
+            if (command.Guarantor1.DNI == dataUser.DNI || command.Guarantor2.DNI == dataUser.DNI)
+                throw new ArgumentException("El DNI de un garante no puede ser igual al del usuario.");
+
+            if (command.Guarantor1.CUIT == dataUser.CUIT || command.Guarantor2.CUIT == dataUser.CUIT)
+                throw new ArgumentException("El CUIT de un garante no puede ser igual al del usuario.");
 
             var lastDocUser = await _documentsUserRepository.GetLastDataUser(dataUser.DNI);
 
@@ -126,7 +132,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
             var guarantor2ID = await CreateDataGuarantor(command.Guarantor2, user.Id, loanRequestCreated.ID);
 
             await CreateDocsGuarantor(user.Id, guarantor1ID, results.Skip(4).Take(7).ToArray());
-            await CreateDocsGuarantor(user.Id, guarantor1ID, results.Skip(11).Take(7).ToArray());
+            await CreateDocsGuarantor(user.Id, guarantor2ID, results.Skip(11).Take(7).ToArray());
 
             return "¡Solicitud de préstamo solicitada exitosamente! Un operador revisará su solicitud.";
         }
