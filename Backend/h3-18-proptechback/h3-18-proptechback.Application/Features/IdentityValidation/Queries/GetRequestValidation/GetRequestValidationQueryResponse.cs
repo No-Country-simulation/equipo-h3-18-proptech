@@ -8,8 +8,9 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries.Get
 {
     public class GetRequestValidationQueryResponse
     {
-        public Guid IdRequest { get; set; }
         public string FullName { get; set; }
         public string Role {  get; set; }
+        public DateTime? DateRequest { get; set; }
+        public string DNI {  get; set; }
     }
 }

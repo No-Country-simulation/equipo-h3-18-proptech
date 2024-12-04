@@ -5,6 +5,8 @@ using h3_18_proptechback.Application.Features.DataUserValue.Queries;
 using h3_18_proptechback.Application.Features.DataUserValue.Queries.GetCurrentUser;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands.ValidateUser;
+using h3_18_proptechback.Application.Features.IdentityValidation.Queries;
+using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetRequestValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -19,12 +21,15 @@ namespace h3_18_proptechback.API.Controllers
         private readonly DataUserCommandHandler _RepoData;
         private readonly DataUserQueriesHandler _RepoQueries;
         private readonly ValidateIdentityCommandHandler _validateIdentityCommandHandler;
+        private readonly ValidateIdentityQueryHandler _validateIdentityQueryHandler;
 
-        public DataUserController(DataUserCommandHandler repoData, DataUserQueriesHandler repoQueries, ValidateIdentityCommandHandler validateIdentityCommandHandler)
+        public DataUserController(DataUserCommandHandler repoData, DataUserQueriesHandler repoQueries,
+            ValidateIdentityCommandHandler validateIdentityCommandHandler, ValidateIdentityQueryHandler validateIdentityQueryHandler)
         {
             _RepoData = repoData;
             _RepoQueries = repoQueries;
             _validateIdentityCommandHandler = validateIdentityCommandHandler;
+            _validateIdentityQueryHandler = validateIdentityQueryHandler;
         }
         /// <summary>
         /// Crea un nuevo usuario en el sistema.
@@ -95,6 +100,22 @@ namespace h3_18_proptechback.API.Controllers
         }
 
         /// <summary>
+        /// Obtiene todas las solicitudes de validación de identidad que están pendientes.
+        /// </summary>
+        /// <returns>
+        /// Una lista de respuestas que contienen las solicitudes de validación de identidad pendientes.
+        /// </returns>
+        /// <response code="200">
+        /// La operación fue exitosa y devuelve la lista de solicitudes de validación pendientes.
+        /// </response>
+        [HttpGet("requestValidationPending")]
+        [ProducesResponseType<List<GetRequestValidationQueryResponse>>(StatusCodes.Status200OK)]
+        public async Task<ActionResult<string>> GetRequestValidation()
+        {
+                return Ok(await _validateIdentityQueryHandler.GetPendingRequest());
+        }
+
+        /// <summary>
         /// Rechaza la validación de identidad de un usuario en el sistema.
         /// </summary>
         /// <param name="DNI">La solicitud con el DNI del usuario a validar.</param>
@@ -131,30 +152,15 @@ namespace h3_18_proptechback.API.Controllers
         /// <returns>
         /// Devuelve los datos del usuario actual asociados con el token.
         /// </returns>
-        /// <remarks>
+        /// <response code="200">
+        /// Los datos del usuario fueron obtenidos exitosamente.
         /// El campo <c>stateValidation</c> en la respuesta indica el estado de la identidad del usuario, con los siguientes valores posibles:
-        /// <list type="bullet">
-        ///   <item>
-        ///     <term>0
-        ///     </term>
-        ///     <description>La solicitud no es válida.</description>
-        ///   </item>
-        ///   <item>
-        ///     <term>1
-        ///     </term>
-        ///     <description>La solicitud está pendiente de revisión.</description>
-        ///   </item>
-        ///   <item>
-        ///     <term>2
-        ///     </term>
-        ///     <description>La solicitud ha sido validada con éxito.</description>
-        ///   </item>
-        /// </list>
-        /// </remarks>
-        /// <response code="200">Los datos del usuario fueron obtenidos exitosamente.</response>
+        /// - **0**: Identidad no válida.
+        /// - **1**: La solicitud está pendiente de revisión.
+        /// - **2**: Identidad válida.
+        /// </response>
         /// <response code="401">El token de autenticación no es válido o no está presente.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
-
         [HttpGet("currentUser")]
         [Authorize]
         [ProducesResponseType<GetCurrentUserQueryResponse>(StatusCodes.Status200OK)]

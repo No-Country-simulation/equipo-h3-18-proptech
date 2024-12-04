@@ -10,6 +10,5 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.DataUsers
         Task<bool> IsValidUserByDNI(string DNI);
         Task<DataUser?> GetUserByGuidIdentity(string id);
         Task<bool> IsMine(string DNI, string idUser);
-        IQueryable<DataUser> GetDataUserPending();
     }
 }

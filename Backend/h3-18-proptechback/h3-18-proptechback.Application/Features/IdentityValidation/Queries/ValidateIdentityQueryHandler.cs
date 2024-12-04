@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries
 {
-    internal class ValidateIdentityQueryHandler
+    public class ValidateIdentityQueryHandler
     {
         private readonly IDataUserRepository _dataUserRepository;
         private readonly IUserIdentityService _userIdentityService;
@@ -23,17 +23,24 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries
 
         public async Task<List<GetRequestValidationQueryResponse>> GetPendingRequest()
         {
-            var dataUsers = _dataUserRepository.GetDataUserPending().ToList();
-            dataUsers.Select(async d =>
+            var dataUsers = _dataUserRepository.GetAll();
+            var dataUserfilt = dataUsers.Where(d => d.StateValidation == Domain.Common.StateRequest.Pending)
+                .OrderByDescending(d => d.CreatedDate)
+                .ToList();
+            List<GetRequestValidationQueryResponse> list = new List<GetRequestValidationQueryResponse>();
+            foreach(var requestValidation in dataUserfilt)
             {
-                var appUserForDataUser = await _userIdentityService.GetByIdIdentityUser(d.Createby!);
-                return new GetRequestValidationQueryResponse()
+                var userOfDataUser = await _userIdentityService.GetByIdIdentityUser(requestValidation.Createby);
+                list.Add(new GetRequestValidationQueryResponse
                 {
-                    IdRequest = d.ID,
-                    FullName = string.Concat(appUserForDataUser.Name, " ", appUserForDataUser.LastName),
-                    Role = "hola"
-                };
-            }).ToList();
+                    DNI = requestValidation.DNI,
+                    DateRequest = requestValidation.CreatedDate,
+                    FullName = string.Concat(userOfDataUser.Name, " ", userOfDataUser.LastName),
+                    Role = userOfDataUser.Role
+                });
+            }
+
+            return list;
         }
     }
 }
