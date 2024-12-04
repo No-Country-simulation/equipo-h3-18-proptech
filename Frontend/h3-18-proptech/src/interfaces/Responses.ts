@@ -1,4 +1,4 @@
-import { UserRole } from "./User";
+import { UserRole } from ".";
 
 export interface LoginResponse {
   role: UserRole;

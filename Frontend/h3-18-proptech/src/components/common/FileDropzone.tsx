@@ -1,26 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { CloseIcon, DeleteIcon, EyeIcon, UploadIcon } from "../icons";
 import { FieldError, Merge, UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
+import { useDropzone } from "react-dropzone";
+import { CloseIcon, UploadIcon } from "../icons";
 
 interface Props {
   setValue: UseFormSetValue<any>;
   name: string;
+  label: string;
   fileType: "images" | "pdf" | "both";
-  maxFiles: number;
   error?: Merge<FieldError, (FieldError | undefined)[]>;
-  files?: File[]
+  file?: File;
 }
 
-export function FileDropzone({
-  fileType,
-  setValue,
-  name,
-  error,
-  maxFiles,
-  files
-}: Props) {
+export function FileDropzone({ fileType, setValue, name, error, file }: Props) {
   let validFileType;
   switch (fileType) {
     case "images":
@@ -44,16 +37,8 @@ export function FileDropzone({
   }
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    const newFiles = Array.from(acceptedFiles);
-    setSelectedFiles((files) => {
-      const joinFiles = [...files, ...newFiles];
-      if (joinFiles.length <= maxFiles) {
-        return joinFiles;
-      } else {
-        toast.error(`No se pueden enviar más de ${maxFiles} archivos`);
-        return files;
-      }
-    });
+    const newFiles = acceptedFiles[0];
+    setSelectedFiles(newFiles);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -61,12 +46,7 @@ export function FileDropzone({
     accept: validFileType,
   });
 
-  const [selectedFiles, setSelectedFiles] = useState<File[]>(files ?? []);
-  const [fileChosen, setFileChosen] = useState({
-    open: false,
-    type: "",
-    src: "",
-  });
+  const [selectedFiles, setSelectedFiles] = useState<File | undefined>(file);
 
   useEffect(() => {
     setValue(name, selectedFiles);
@@ -76,26 +56,33 @@ export function FileDropzone({
     if (error?.message) toast.error(error.message);
   }, [error]);
 
-  const viewFile = (file: File) => {
-    const fileSrc = URL.createObjectURL(file);
-    setFileChosen({ open: true, src: fileSrc, type: file.type });
-  };
-
-  const deleteFile = (fileToDelete: File) => {
-    const updateFiles = selectedFiles.filter((file) => file !== fileToDelete);
-    setSelectedFiles(updateFiles);
+  const deleteFile = () => {
+    setSelectedFiles(undefined);
   };
   return (
-    <>
-      <article
-        className={`flex flex-col pt-2 pb-6 px-6 border-[3px] border-primary rounded-2xl relative`}
-      >
-        <span className="text-center text-title-large-bold py-3">
-          Sube tus archivos
-        </span>
+    <article className="flex flex-col min-w-[200px] min-h-[200px]">
+      <label className="text-label-large-medium" htmlFor="">
+        {name}
+      </label>
+
+      {selectedFiles !== undefined ? (
+        <div className="relative border-[3px] border-primary rounded-2xl w-[260px] h-[260px]">
+          <img
+            src={URL.createObjectURL(selectedFiles)}
+            alt="Hola Mundo"
+            className="w-full h-full aspect-square rounded-2xl"
+          />
+          <button
+            type="button"
+            onClick={() => deleteFile()}
+          >
+            <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
+          </button>
+        </div>
+      ) : (
         <div
+          className="flex flex-col items-center justify-center border-[3px] border-primary rounded-2xl bg-tertiary h-[260px] w-[260px]"
           {...getRootProps()}
-          className="p-6 bg-tertiary flex flex-col gap-2 items-center justify-center rounded-xl"
         >
           <UploadIcon className="w-12 h-12" />
           <span className="text-body-large-regular max-w-[20ch] text-center">
@@ -104,42 +91,13 @@ export function FileDropzone({
           <input
             {...getInputProps()}
             type="file"
-            multiple
+            multiple={false}
             className="opacity-0"
           />
         </div>
-      </article>
-      {selectedFiles.length > 0 && (
-        <ul className="flex flex-col gap-4">
-          {selectedFiles.map((file, index) => {
-            return (
-              <li
-                key={`${file.name} - ${index}`}
-                className="flex gap-4 justify-center"
-              >
-                <div className="flex-1 py-2 px-4 shadow-md shadow-tertiary border-[3px] rounded-lg border-primary text-ellipsis max-w-[50vw] whitespace-nowrap overflow-hidden md:w-full">
-                  {file.name}
-                </div>
-                <button
-                  onClick={() => viewFile(file)}
-                  type="button"
-                  className="p-2 md:p-3 bg-background shadow-md shadow-tertiary rounded-lg hover:bg-tertiary transition-colors"
-                >
-                  <EyeIcon className="h-6 w-6" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => deleteFile(file)}
-                  className="p-2 md:p-3 bg-background shadow-md shadow-tertiary rounded-lg hover:bg-tertiary transition-colors"
-                >
-                  <DeleteIcon className="w-6 h-6 text-error" />
-                </button>
-              </li>
-            );
-          })}
-        </ul>
       )}
-      <dialog
+
+      {/* <dialog
         onClick={() => setFileChosen({ open: false, src: "", type: "" })}
         className={`${fileChosen.open ? "opacity-100" : "opacity-0 scale-0"} transition-opacity fixed h-screen w-screen bg-black bg-opacity-50 z-[100] flex items-center justify-center px-4 top-0`}
       >
@@ -168,8 +126,8 @@ export function FileDropzone({
             <iframe className="w-full h-full" src={fileChosen.src}></iframe>
           </div>
         )}
-      </dialog>
-    </>
+      </dialog> */}
+    </article>
   );
 }
 

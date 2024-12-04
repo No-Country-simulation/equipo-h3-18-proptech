@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { chatbotAnswers } from "./Answers";
-import ChatbotMessageBox from "./ChatbotMessageBox";
-import UserMessageBox from "./UserMessageBox";
 import { useChatbotStore } from "../../stores";
 import { CloseIcon } from "../icons";
+import { ChatbotMessageBox, UserMessageBox } from ".";
 
 const chatbotStyles = {
   visible:
@@ -12,7 +11,7 @@ const chatbotStyles = {
     "fixed top-0 sm:top-auto left-0 sm:left-auto sm:bottom-24 sm:right-4 bg-white z-50 shadow-lg rounded-lg h-screen sm:h-[80%] sm:max-w-[400px] min-w-[200px] w-full scale-0 opacity-0",
 };
 
-function Chatbot() {
+export function Chatbot() {
   const messages = useChatbotStore((state) => state.messages);
   const options = useChatbotStore((state) => state.options);
   const addNewMessages = useChatbotStore((state) => state.addNewMessage);

@@ -3,7 +3,7 @@ interface Props {
   isLastOne: boolean;
 }
 
-function ChatbotMessageBox({ text = "", isLastOne }: Props) {
+export function ChatbotMessageBox({ text = "", isLastOne }: Props) {
   return (
     <article className="flex gap-4 items-start">
       <span

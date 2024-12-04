@@ -1,4 +1,4 @@
-import { SwitchButton } from "../common";
+import { SwitchButton } from "../../../components/common";
 
 export const HeaderHome = () => {
   return (

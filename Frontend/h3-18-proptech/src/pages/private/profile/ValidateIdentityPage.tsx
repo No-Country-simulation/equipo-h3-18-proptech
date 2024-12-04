@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
-import { Button, FileDropzone, TextInput } from "../../../components/common";
-import { toast } from "sonner";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { validateIdentitySchema } from "./models/ValidateIdentity.model";
 import { useEffect } from "react";
-import { sendValidationInfo } from "../../../services/profile";
-import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, FileDropzone, TextInput } from "../../../components/common";
+import { useTransitionNavigation } from "../../../hooks";
+import { sendValidationInfo } from "../../../services";
+import { validateIdentitySchema } from "./models";
 
 interface ValidateIdentityForm {
   CUIT: string;
@@ -13,7 +13,7 @@ interface ValidateIdentityForm {
   files: File[];
 }
 
-function ValidateIdentityPage() {
+export function ValidateIdentityPage() {
   const {
     register,
     handleSubmit,
@@ -88,7 +88,7 @@ function ValidateIdentityPage() {
             setValue={setValue}
             name="files"
             error={errors.files}
-            maxFiles={3}
+            label={""}
           />
         </article>
         <Button

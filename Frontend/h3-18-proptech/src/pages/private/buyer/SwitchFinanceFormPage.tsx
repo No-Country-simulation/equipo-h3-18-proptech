@@ -1,11 +1,10 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { FinanceSchema, FinancingDataForm } from "./models/Financing.models";
-import FinanceForm from "./FinanceForm";
-import AddGuarantorForm from "./AddGuarantorForm";
+import { FinanceSchema, FinancingDataForm } from "./models";
+import { AddGuarantorForm, FinanceForm } from "./components";
 
-function SwitchFinanceForm() {
+export function SwitchFinanceFormPage() {
   const {
     handleSubmit,
     setValue,
@@ -78,4 +77,4 @@ function SwitchFinanceForm() {
   );
 }
 
-export default SwitchFinanceForm;
+export default SwitchFinanceFormPage;

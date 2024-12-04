@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { DecodedToken, LoginResponse } from "../interfaces/Responses";
+import { DecodedToken, LoginResponse } from "../interfaces";
 
 export const decodeUserToken = (token: string): LoginResponse => {
   const decodedToken = jwtDecode(token) as DecodedToken;

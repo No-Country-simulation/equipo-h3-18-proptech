@@ -1,13 +1,13 @@
+import { useEffect } from "react";
 import {
   FieldErrors,
   UseFormHandleSubmit,
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { Button, FileDropzone } from "../../../components/common";
-import { FinancingDataForm } from "./models/Financing.models";
-import { Guarantor } from "../../../interfaces/Guarantor";
-import { useEffect } from "react";
+import { Button, FileDropzone } from "../../../../components/common";
+import { FinancingDataForm } from "../models";
+import { Guarantor } from "../../../../interfaces";
 
 interface Props {
   handleSubmit: UseFormHandleSubmit<FinancingDataForm>;
@@ -18,7 +18,7 @@ interface Props {
   watch: UseFormWatch<any>;
 }
 
-function FinanceForm({
+export function FinanceForm({
   handleSubmit,
   setValue,
   errors,
@@ -64,8 +64,8 @@ function FinanceForm({
             setValue={setValue}
             name="files"
             error={errors.files}
-            maxFiles={4}
-            files={files}
+            file={files[0]}
+            label=""
           />
           {guarantors.map((guarantor: Guarantor, index: number) => (
             <div

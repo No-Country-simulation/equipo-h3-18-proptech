@@ -1,5 +1,5 @@
 import { Link, To } from "react-router-dom";
-import useTransitionNavigation from "../../hooks/useTransitionNavigation";
+import { useTransitionNavigation } from "../../hooks";
 
 interface Props {
   children: string;

@@ -1,13 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage, RegisterPage } from "./pages";
-import LayoutPage from "./pages/LayoutPage";
-import DashboardBuyerPage from "./pages/private/DashboardBuyerPage";
-import BuyerShares from "./pages/private/BuyerShares";
-import ValidateIdentityPage from "./pages/private/identity/ValidateIdentityPage";
-import ProfilePage from "./pages/private/identity/ProfilePage";
-import SwitchFinanceForm from "./pages/private/buyer/SwitchFinanceForm";
-import PrivatePages from "./pages/private/PrivatePages";
-import RoleBuyerAuth from "./pages/private/buyer/RoleBuyerAuth";
+import {
+  BuyerSharesPage,
+  CheckIdentityPage,
+  DashboardBuyerPage,
+  HomePage,
+  LayoutPage,
+  LoginPage,
+  PrivatePagesAuth,
+  ProfilePage,
+  RegisterPage,
+  RoleAdminAuth,
+  RoleBuyerAuth,
+  SwitchFinanceFormPage,
+  ValidateIdentityPage,
+} from "./pages";
 
 function AppRoutes() {
   return (
@@ -22,22 +28,27 @@ function AppRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route element={<PrivatePages />}>
+
+          <Route element={<PrivatePagesAuth />}>
+
             <Route path="/profile" element={<ProfilePage />} />
             <Route
               path="/validate-identity"
               element={<ValidateIdentityPage />}
             />
 
-            <Route element={<RoleBuyerAuth />}>
-              <Route path="/buyer" element={<DashboardBuyerPage />} />
-              <Route path="/shares" element={<BuyerShares />} />
-              <Route path="/finance" element={<SwitchFinanceForm />} />
+            <Route path="/buyer" element={<RoleBuyerAuth />}>
+              <Route path="" element={<DashboardBuyerPage />} />
+              <Route path="shares" element={<BuyerSharesPage />} />
+              <Route path="finance" element={<SwitchFinanceFormPage />} />
             </Route>
 
-            <Route path="/role-investor">// Rutas del Inversor</Route>
+            <Route path="/investor">// Rutas del Inversor</Route>
 
-            <Route path="/role-admin">// Rutas del Administrador</Route>
+            <Route path="/admin" element={<RoleAdminAuth />}>
+              <Route path="" element={<CheckIdentityPage />} />
+            </Route>
+            
           </Route>
         </Route>
       </Routes>

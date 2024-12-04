@@ -1,5 +1,4 @@
-import { Carousel, HomeSteps, ImageData } from "../../components/Home";
-import InvestmentSimulator from "../../components/Home/InvestmentSimulator";
+import { Carousel, HomeSteps, ImageData, InvestmentSimulator } from "./components";
 
 const images: ImageData[] = [
   {
@@ -16,7 +15,7 @@ const images: ImageData[] = [
   },
 ];
 
-function LandingInvestor() {
+export function LandingInvestor() {
   return (
     <>
       <Carousel images={images} />

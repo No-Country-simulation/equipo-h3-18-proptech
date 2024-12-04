@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeaders, backend } from "./server";
+import { authHeaders, backend } from ".";
 
 export const getUserbyToken = async () => {
   try {

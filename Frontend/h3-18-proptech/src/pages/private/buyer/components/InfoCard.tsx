@@ -6,7 +6,7 @@ export interface PropsInfoCard {
   value: string
 }
 
-function InfoCard({title,icon,value}:PropsInfoCard) {
+export function InfoCard({title,icon,value}:PropsInfoCard) {
   return (
     <div className="w-[250px] h-[165px] rounded-2xl bg-contrast drop-shadow-md shadow-md shadow-[#00000025] flex flex-col items-center pt-6 px-4">
       <p className=" text-title-large-bold leading-[44px]">{title}</p>

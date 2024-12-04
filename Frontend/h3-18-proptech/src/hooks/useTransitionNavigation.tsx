@@ -1,6 +1,6 @@
 import { NavigateOptions, To, useNavigate } from "react-router-dom";
 
-function useTransitionNavigation() {
+export function useTransitionNavigation() {
   const navigate = useNavigate();
 
   const viewTransitionHandler = (to: To, options?: NavigateOptions) => {

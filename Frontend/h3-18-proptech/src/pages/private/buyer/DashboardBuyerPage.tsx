@@ -1,17 +1,15 @@
-import { Button } from "../../components/common";
+import { Button } from "../../../components/common";
 import {
   CashIcon,
   CircleProgressIcon,
   GreenCheckIcon,
   MoneyIcon,
   RedXIcon,
-} from "../../components/icons";
-import DashboardBuyerTable, {
-  DataBuyerTable,
-} from "./components/DashboardBuyerTable";
-import InfoCard from "./components/InfoCard";
+} from "../../../components/icons";
+import { DashboardBuyerTable, DataBuyerTable, InfoCard } from "./components";
 
-function DashboardBuyerPage() {
+
+export function DashboardBuyerPage() {
   const payOk = true;
 
   return (

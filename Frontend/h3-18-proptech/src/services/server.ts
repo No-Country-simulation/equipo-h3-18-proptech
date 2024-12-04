@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginResponse } from "../interfaces/Responses";
+import { LoginResponse } from "../interfaces";
 
 export const backend = axios.create({
   baseURL: "https://www.equipo-h3-18-proptechbackend.somee.com/api",

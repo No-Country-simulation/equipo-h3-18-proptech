@@ -1,13 +1,13 @@
-import { Toaster } from "sonner";
-import Footer from "../components/footer/Footer";
-import Modal from "../components/Modal/Modal";
-import Navbar from "../components/Navbar/Navbar";
-import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
+import { Outlet } from "react-router-dom";
 import { useSessionStore } from "../stores/session/session.store";
-import Loader from "../components/common/Loader";
+import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer";
+import { Loader } from "../components/common";
+import { Modal } from "../components/modal";
 
-function LayoutPage() {
+export function LayoutPage() {
   const [loading, setLoading] = useState(true);
   const newSession = useSessionStore((state) => state.newSession);
   useEffect(() => {

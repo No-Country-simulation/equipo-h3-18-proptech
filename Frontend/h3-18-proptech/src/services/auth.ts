@@ -1,6 +1,6 @@
 import axios from "axios";
-import { LoginUser, RegisterUser } from "../interfaces/User";
-import { backend } from "./server";
+import { LoginUser, RegisterUser } from "../interfaces";
+import { backend } from ".";
 
 export const authRegister = async (data: RegisterUser) => {
   try {

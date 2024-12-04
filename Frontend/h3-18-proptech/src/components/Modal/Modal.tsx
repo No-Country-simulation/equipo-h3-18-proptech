@@ -1,8 +1,8 @@
-import { useModalStore } from "../../stores/modal/modal.store";
+import { useModalStore } from "../../stores";
 import { Button } from "../common";
 import { CloseIcon } from "../icons";
 
-function Modal() {
+export function Modal() {
   const isOpen = useModalStore((state) => state.isOpen);
   const title = useModalStore((state) => state.title);
   const content = useModalStore((state) => state.content);

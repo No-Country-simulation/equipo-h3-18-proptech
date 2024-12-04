@@ -1,13 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FormValues, schema } from "./models/Login.model";
-import { Button, PasswordInput, TextInput } from "../../../components/common";
-import { useSwitchStore } from "../../../stores";
-import { authLogin } from "../../../services/auth";
 import { toast } from "sonner";
-import { decodeUserToken } from "../../../lib/jwt";
-import { useSessionStore } from "../../../stores/session/session.store";
-import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
+import { Button, PasswordInput, TextInput } from "../../../components/common";
+import { useSessionStore, useSwitchStore } from "../../../stores";
+import { useTransitionNavigation } from "../../../hooks";
+import { decodeUserToken } from "../../../lib";
+import { authLogin } from "../../../services";
+import { FormValues, loginSchema } from "./models";
 
 export const LoginPage = () => {
   const {
@@ -15,7 +14,7 @@ export const LoginPage = () => {
     formState: { errors },
     register,
   } = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",

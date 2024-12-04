@@ -11,7 +11,7 @@ interface Props {
   shares: number;
 }
 
-function BuyerSharesTable({ data, shares }: Props) {
+export function BuyerSharesTable({ data, shares }: Props) {
   return (
     <>
       <table className="w-[1050px] text-base-color text-center bg-contrast ">
