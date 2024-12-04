@@ -7,15 +7,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAQlPkI/dR7UKr74tj6zj56QAAAAACAAAAAAAQZgAAAAEAACAAAADE9/tFBliYN3r/eV6/LE/WFSGErN8zRUdGJMCySejWCQAAAAAOgAAAAAIAACAAAAA+oLgsUcZ4+UrCZbOjEXNBAPoGg3jJNvnWBNiykdZKoyAAAABK6rjtSxPY3ZZ4dH+DQqbAV1fK11r8pceHVp7loeLzaUAAAAAiFEUiKwCljrE/sTNzCe2m8838Z25nANbIT2dJZeLTlkBjPT8pYCV7hpYvY6cIHKKFYSzcUeu92gwdOsCgir0F</EncryptedPassword>
     <_PublishTargetUrl>ftp://155.254.246.30/www.equipo-h3-18-proptechbackend.somee.com</_PublishTargetUrl>
-    <History>True|2024-12-02T23:50:27.1459845Z||;False|2024-12-02T19:19:13.2553918-04:00||;True|2024-12-01T19:40:59.3327369-04:00||;True|2024-12-01T18:02:00.1162964-04:00||;False|2024-12-01T17:59:31.1654094-04:00||;True|2024-12-01T17:57:42.5421848-04:00||;True|2024-11-27T23:11:52.9727261-04:00||;True|2024-11-27T18:21:37.7813773-04:00||;True|2024-11-27T14:01:29.8603780-04:00||;True|2024-11-27T13:55:03.1585077-04:00||;</History>
+    <History>True|2024-12-04T17:58:51.4364045Z||;True|2024-12-02T19:50:27.1459845-04:00||;False|2024-12-02T19:19:13.2553918-04:00||;True|2024-12-01T19:40:59.3327369-04:00||;True|2024-12-01T18:02:00.1162964-04:00||;False|2024-12-01T17:59:31.1654094-04:00||;True|2024-12-01T17:57:42.5421848-04:00||;True|2024-11-27T23:11:52.9727261-04:00||;True|2024-11-27T18:21:37.7813773-04:00||;True|2024-11-27T14:01:29.8603780-04:00||;True|2024-11-27T13:55:03.1585077-04:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="appsettings.Development.json">
-      <publishTime>12/02/2024 19:11:52</publishTime>
+      <publishTime>12/04/2024 13:46:49</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>12/02/2024 19:11:52</publishTime>
+      <publishTime>12/04/2024 13:46:49</publishTime>
     </File>
     <File Include="AutoMapper.dll">
       <publishTime>02/07/2024 17:45:30</publishTime>
@@ -42,58 +42,58 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/16/2024 15:43:24</publishTime>
     </File>
     <File Include="h3-18-proptechback.API.deps.json">
-      <publishTime>12/02/2024 19:48:15</publishTime>
+      <publishTime>12/04/2024 13:57:05</publishTime>
     </File>
     <File Include="h3-18-proptechback.API.dll">
-      <publishTime>12/02/2024 19:48:13</publishTime>
+      <publishTime>12/04/2024 13:57:00</publishTime>
     </File>
     <File Include="h3-18-proptechback.API.exe">
-      <publishTime>12/02/2024 19:48:13</publishTime>
+      <publishTime>12/04/2024 13:57:01</publishTime>
     </File>
     <File Include="h3-18-proptechback.API.pdb">
-      <publishTime>12/02/2024 19:48:13</publishTime>
+      <publishTime>12/04/2024 13:57:00</publishTime>
     </File>
     <File Include="h3-18-proptechback.API.runtimeconfig.json">
-      <publishTime>12/02/2024 19:16:05</publishTime>
+      <publishTime>12/04/2024 13:57:01</publishTime>
     </File>
     <File Include="h3-18-proptechback.API.xml">
-      <publishTime>12/02/2024 19:48:12</publishTime>
+      <publishTime>12/04/2024 13:57:00</publishTime>
     </File>
     <File Include="h3-18-proptechback.Application.dll">
-      <publishTime>12/02/2024 19:16:00</publishTime>
+      <publishTime>12/04/2024 13:56:53</publishTime>
     </File>
     <File Include="h3-18-proptechback.Application.pdb">
-      <publishTime>12/02/2024 19:15:59</publishTime>
+      <publishTime>12/04/2024 13:56:53</publishTime>
     </File>
     <File Include="h3-18-proptechback.Cloudinary.dll">
-      <publishTime>12/02/2024 19:16:00</publishTime>
+      <publishTime>12/04/2024 13:56:55</publishTime>
     </File>
     <File Include="h3-18-proptechback.Cloudinary.pdb">
-      <publishTime>12/02/2024 19:16:00</publishTime>
+      <publishTime>12/04/2024 13:56:55</publishTime>
     </File>
     <File Include="h3-18-proptechback.CreditRecord.dll">
-      <publishTime>12/02/2024 19:15:57</publishTime>
+      <publishTime>12/04/2024 13:56:55</publishTime>
     </File>
     <File Include="h3-18-proptechback.CreditRecord.pdb">
-      <publishTime>12/02/2024 19:15:57</publishTime>
+      <publishTime>12/04/2024 13:56:55</publishTime>
     </File>
     <File Include="h3-18-proptechback.Domain.dll">
-      <publishTime>12/02/2024 19:15:59</publishTime>
+      <publishTime>12/04/2024 13:56:51</publishTime>
     </File>
     <File Include="h3-18-proptechback.Domain.pdb">
-      <publishTime>12/02/2024 19:15:59</publishTime>
+      <publishTime>12/04/2024 13:56:51</publishTime>
     </File>
     <File Include="h3-18-proptechback.Identity.dll">
-      <publishTime>12/02/2024 19:16:02</publishTime>
+      <publishTime>12/04/2024 13:56:59</publishTime>
     </File>
     <File Include="h3-18-proptechback.Identity.pdb">
-      <publishTime>12/02/2024 19:16:02</publishTime>
+      <publishTime>12/04/2024 13:56:59</publishTime>
     </File>
     <File Include="h3-18-proptechback.Infrastructure.dll">
-      <publishTime>12/02/2024 19:16:03</publishTime>
+      <publishTime>12/04/2024 13:56:57</publishTime>
     </File>
     <File Include="h3-18-proptechback.Infrastructure.pdb">
-      <publishTime>12/02/2024 19:16:03</publishTime>
+      <publishTime>12/04/2024 13:56:57</publishTime>
     </File>
     <File Include="Microsoft.AspNetCore.Authentication.JwtBearer.dll">
       <publishTime>09/18/2024 14:41:00</publishTime>
@@ -227,6 +227,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="runtimes/win/lib/net6.0/System.Windows.Extensions.dll">
       <publishTime>10/22/2021 19:49:58</publishTime>
     </File>
+    <File Include="SendGrid.dll">
+      <publishTime>02/14/2024 04:55:58</publishTime>
+    </File>
+    <File Include="StarkbankEcdsa.dll">
+      <publishTime>11/09/2021 17:27:58</publishTime>
+    </File>
     <File Include="Swashbuckle.AspNetCore.Swagger.dll">
       <publishTime>05/21/2024 12:42:50</publishTime>
     </File>
@@ -261,7 +267,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 19:49:44</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>12/02/2024 19:48:15</publishTime>
+      <publishTime>12/04/2024 13:57:06</publishTime>
     </File>
   </ItemGroup>
 </Project>
