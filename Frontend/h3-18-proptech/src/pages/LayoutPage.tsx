@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { Outlet } from "react-router-dom";
-import { useSessionStore } from "../stores/session/session.store";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
 import { Loader } from "../components/common";
 import { Modal } from "../components/modal";
+import { useSessionStore } from "../stores";
 
 export function LayoutPage() {
   const [loading, setLoading] = useState(true);
