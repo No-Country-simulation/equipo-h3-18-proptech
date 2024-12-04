@@ -47,6 +47,13 @@ namespace h3_18_proptechback.Identity
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]))
                 };
             });
+
+            services.AddAuthorization(authOptions =>
+            {
+                authOptions.AddPolicy("Administrador", policyBuilder => policyBuilder.RequireRole("Administrador"));
+                authOptions.AddPolicy("Cliente", policyBuilder => policyBuilder.RequireRole("Cliente"));
+                authOptions.AddPolicy("Inversor", policyBuilder => policyBuilder.RequireRole("Inversor"));
+            });
             return services;
 
         }

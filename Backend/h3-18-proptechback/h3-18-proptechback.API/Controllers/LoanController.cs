@@ -37,7 +37,7 @@ namespace h3_18_proptechback.API.Controllers
         /// Error interno del servidor. Devuelve el mensaje de la excepción.
         /// </response>
         [HttpPost("sendLoanRequest")]
-        [Authorize]
+        [Authorize(Roles = "Cliente, Inversor")]
         [ProducesResponseType<string>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]

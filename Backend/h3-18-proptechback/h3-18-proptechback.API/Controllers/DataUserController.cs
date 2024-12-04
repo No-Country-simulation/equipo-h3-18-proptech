@@ -43,7 +43,7 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="400">Error de validación de FluentValidation. Devuelve los detalles del error.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpPost("sendValidationRequest", Name = "CreateDataUsers")]
-        [Authorize]
+        [Authorize(Roles = "Cliente, Inversor")]
         [ProducesResponseType<string>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
@@ -80,6 +80,7 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="400">El DNI no es válido o no se pudo realizar la validación.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpPost("validateIdentity/{DNI}")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType<string>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
@@ -110,6 +111,7 @@ namespace h3_18_proptechback.API.Controllers
         /// La operación fue exitosa y devuelve la lista de solicitudes de validación pendientes.
         /// </response>
         [HttpGet("requestValidationPending")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType<List<GetRequestValidationQueryResponse>>(StatusCodes.Status200OK)]
         public async Task<ActionResult<string>> GetRequestValidation()
         {
@@ -127,6 +129,7 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="400">El DNI no es válido o no se pudo realizar la operación.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpPost("rejectValidationIdentity/{DNI}")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType<string>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
@@ -163,7 +166,7 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="401">El token de autenticación no es válido o no está presente.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpGet("currentUser")]
-        [Authorize]
+        [Authorize(Roles = "Cliente, Inversor")]
         [ProducesResponseType<GetCurrentUserQueryResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
@@ -198,7 +201,7 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="401">El token de autenticación no es válido o no está presente.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpPut("updateEmailPhone")]
-        [Authorize]
+        [Authorize(Roles = "Cliente, Inversor")]
         [ProducesResponseType<UpdateUserCommandResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
@@ -224,9 +227,21 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        /// <summary>
+        /// Obtiene los detalles de una solicitud de validación pendiente para el usuario identificado por su DNI.
+        /// </summary>
+        /// <param name="DNI">El número de documento nacional de identidad (DNI) del usuario.</param>
+        /// <returns>
+        /// Devuelve los detalles de la solicitud de validación pendiente asociados al DNI proporcionado.
+        /// </returns>
+        /// <response code="200">Los detalles de la solicitud de validación pendiente fueron obtenidos exitosamente.</response>
+        /// <response code="400">Error de validación: el DNI es inválido o no se encontraron datos asociados.</response>
+        /// <response code="401">El token de autenticación no es válido o no está presente.</response>
+        /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpGet("detailsRequestValidation/{DNI}")]
-        [ProducesResponseType<GetDetailsRequestValidationQueryResponse>(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = "Administrador")]
+        [ProducesResponseType<GetDetailsRequestValidationQueryResponse>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<GetDetailsRequestValidationQueryResponse>> GetDetailsRequestValidation(string DNI)
