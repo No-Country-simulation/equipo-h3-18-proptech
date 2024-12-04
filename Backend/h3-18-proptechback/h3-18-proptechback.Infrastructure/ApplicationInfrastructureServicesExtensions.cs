@@ -1,5 +1,8 @@
-﻿using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
+﻿using h3_18_proptechback.Application.Contracts.Infrastructure.SendEmails;
+using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Models.Emails;
+using h3_18_proptechback.Infrastructure.Email;
 using h3_18_proptechback.Infrastructure.Persistence;
 using h3_18_proptechback.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,9 @@ namespace h3_18_proptechback.Infrastructure
             services.AddScoped<IDataUserRepository, DataUserRepository>();
             services.AddScoped<IDocumentsUserRepository, DocumentsUserRepository>();
             services.AddScoped<IDocumentsGuarantorRepository, DocumentsGuarantorRepository>();
+
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailServices, EmailService>();
 
             return services;
                

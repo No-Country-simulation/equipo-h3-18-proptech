@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using h3_18_proptechback.Application.Contracts.Identity;
+using h3_18_proptechback.Application.Contracts.Infrastructure.SendEmails;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Features.DataUserValue.Command.AddUser;
 using h3_18_proptechback.Application.Features.DataUserValue.Command.UpdateUser;
@@ -18,13 +19,16 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
         private readonly ValidateIdentityCommandHandler _filesHandler;
         private readonly IUserIdentityService _userIdentityService;
         private readonly IMapper _mapper;
+        private readonly IEmailServices _emailServices;
+
 
         public DataUserCommandHandler(IDataUserRepository dataRepo, ValidateIdentityCommandHandler filesHandler,
-            IUserIdentityService userIdentityService)
+            IUserIdentityService userIdentityService, IEmailServices emailServices)
         {
             _dataRepo = dataRepo;
             _filesHandler = filesHandler;
             _userIdentityService = userIdentityService;
+            _emailServices = emailServices;
         }
         public async Task<string> Add(AddUserCommand command, string email)
         {
@@ -52,7 +56,15 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
             if (!await _filesHandler.ReceiveFiles(new ValidateIdentityFilesCommand(command.Photo, command.Front, command.Back, command.DNI, true)))
                 throw new Exception("Error al subir los archivos. Intente nuevamente.");
 
-            return "¡Validación solicitada con éxito! Un operador revisará su solicitud.";
+            await _emailServices.SendEmailAsync(new Application.Models.Emails.Email
+            {
+                TO = email,
+                Subject = "Usuario Valido Exitoso",
+                Body = "¡Su Validación solicitada con éxito! Un operador revisará su solicitud."
+            });
+
+
+            return "¡Su Validación solicitada con éxito! Un operador revisará su solicitud.";
         }
 
         public async Task<UpdateUserCommandResponse> UpdateUser(UpdateUserCommand command, string currentEmail)
