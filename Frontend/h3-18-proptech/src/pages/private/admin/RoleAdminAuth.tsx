@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { useTransitionNavigation } from "../../../hooks";
-import { Loader } from "../../../components/common";
 import { useSessionStore } from "../../../stores";
+import { Loader } from "../../../components/common";
 
-export function RoleBuyerAuth() {
+export function RoleAdminAuth() {
   const role = useSessionStore((state) => state.role);
   const navigate = useTransitionNavigation();
-  if (role && role !== "Cliente") {
+  if (role && role !== "Administrador") {
     navigate("/");
     return (
       <Loader/>
@@ -16,4 +16,4 @@ export function RoleBuyerAuth() {
   return <Outlet />;
 }
 
-export default RoleBuyerAuth;
+export default RoleAdminAuth;

@@ -1,9 +1,6 @@
 import { create } from "zustand";
-import {
-  ChatbotAnswer,
-  ChatMessage,
-  UserOption,
-} from "../../interfaces/Chatbot";
+import { ChatbotAnswer, ChatMessage, UserOption } from "../../interfaces";
+
 
 interface ChatbotState {
   messages: ChatMessage[];

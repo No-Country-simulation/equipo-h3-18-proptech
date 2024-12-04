@@ -1,5 +1,5 @@
 import { NavLink, To } from "react-router-dom";
-import useTransitionNavigation from "../../hooks/useTransitionNavigation";
+import { useTransitionNavigation } from "../../hooks";
 
 interface Props {
   to: To;
@@ -8,7 +8,7 @@ interface Props {
   notActiveClassname?: string;
 }
 
-function NavElement({
+export function NavElement({
   to,
   children,
   activeClassname,

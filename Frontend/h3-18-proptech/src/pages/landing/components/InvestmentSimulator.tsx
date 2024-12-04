@@ -1,12 +1,9 @@
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, NumberInput } from "../../../components/common";
+import { FormValues, investmentSimulatorSchema } from "../models";
 // import { useModalStore } from "../../stores/modal/modal.store";
-import { Button, NumberInput } from "../common";
-import {
-  FormValues,
-  investmentSimulatorSchema,
-} from "./models/InvestmentSimulator.model";
-import { useState } from "react";
 
 /*   
   interest: number; // Interes mensual
@@ -18,7 +15,7 @@ import { useState } from "react";
 
 const interest: number = 0.01531;
 
-function InvestmentSimulator() {
+export function InvestmentSimulator() {
   const {
     handleSubmit,
     register,

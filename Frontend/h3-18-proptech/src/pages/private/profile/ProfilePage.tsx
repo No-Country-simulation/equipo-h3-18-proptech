@@ -1,19 +1,17 @@
-import { useForm } from "react-hook-form";
-import { Button, TextInput } from "../../../components/common";
-import { PencilIcon } from "../../../components/icons";
 import { useEffect, useState } from "react";
-import CheckIcon from "../../../components/icons/CheckIcon";
-import { UserProfile } from "../../../interfaces/User";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { profileSchema } from "./models/Profile.model";
-import { getUserbyToken, updateEmailPhone } from "../../../services/profile";
-import Loader from "../../../components/common/Loader";
 import { toast } from "sonner";
-import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
-import { decodeUserToken } from "../../../lib/jwt";
-import { useSessionStore } from "../../../stores/session/session.store";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Loader, TextInput } from "../../../components/common";
+import { CheckIcon, PencilIcon } from "../../../components/icons";
+import { UserProfile } from "../../../interfaces";
+import { profileSchema } from "./models";
+import { useTransitionNavigation } from "../../../hooks";
+import { useSessionStore } from "../../../stores";
+import { getUserbyToken, updateEmailPhone } from "../../../services";
+import { decodeUserToken } from "../../../lib";
 
-function ProfilePage() {
+export function ProfilePage() {
   const {
     register,
     formState: { errors },

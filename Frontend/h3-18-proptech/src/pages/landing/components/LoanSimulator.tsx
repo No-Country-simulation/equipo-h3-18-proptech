@@ -1,8 +1,8 @@
 import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loanSimulatorSchema } from "./models/LoanSimulator.model";
-import { useModalStore } from "../../stores/modal/modal.store";
-import { Button, NumberInput, SelectInput } from "../common";
+import { Button, NumberInput, SelectInput } from "../../../components/common";
+import { loanSimulatorSchema } from "../models";
+import { useModalStore } from "../../../stores";
 
 /*   
   financing: number; // Monto solicitado para la compra de un terreno
@@ -34,7 +34,7 @@ const monthlyReinforcement = {
   180: (16380 / 1000000) * 1.05,
 };
 
-function LoanSimulator() {
+export function LoanSimulator() {
   const {
     handleSubmit,
     register,

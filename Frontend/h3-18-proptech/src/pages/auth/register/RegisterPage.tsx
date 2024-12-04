@@ -1,13 +1,13 @@
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { TextInput, PasswordInput, Button } from "../../../components/common";
 import { useSwitchStore } from "../../../stores";
-import { userSchema } from "./models/Register.model";
-import { HeaderHome } from "../../../components/Home";
-import { Link } from "react-router-dom";
-import { authRegister } from "../../../services/auth";
-import { RegisterUser } from "../../../interfaces/User";
-import useTransitionNavigation from "../../../hooks/useTransitionNavigation";
+import { registerSchema } from "./models";
+import { HeaderHome } from "../../landing/components";
+import { useTransitionNavigation } from "../../../hooks";
+import { authRegister } from "../../../services";
+import { RegisterUser } from "../../../interfaces";
 
 interface RegisterForm {
   nombre: string;
@@ -32,7 +32,7 @@ export function RegisterPage() {
       password: "",
       confirmPassword: "",
     },
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(registerSchema),
   });
 
   const role = useSwitchStore((state) => state.role);

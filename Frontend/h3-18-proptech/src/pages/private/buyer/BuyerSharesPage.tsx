@@ -1,8 +1,7 @@
-import BuyerSharesTable, {
-  DataBuyerSharesTable,
-} from "./components/BuyerSharesTable";
+import { BuyerSharesTable, DataBuyerSharesTable } from "./components";
 
-function BuyerShares() {
+
+export function BuyerSharesPage() {
   const dataPaid = data.filter((d) => d.state === "paid");
 
   const dataNonPaid = data.filter((d) => d.state !== "paid");
@@ -27,7 +26,7 @@ function BuyerShares() {
   );
 }
 
-export default BuyerShares;
+export default BuyerSharesPage;
 
 const data: DataBuyerSharesTable[] = [
   {

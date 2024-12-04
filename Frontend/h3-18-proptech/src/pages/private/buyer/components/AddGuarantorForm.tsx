@@ -1,9 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm, UseFormSetValue } from "react-hook-form";
-import { TextInput, FileDropzone, Button } from "../../../components/common";
-import { guarantorDataSchema } from "./models/Financing.models";
-import { Guarantor } from "../../../interfaces/Guarantor";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { TextInput, FileDropzone, Button } from "../../../../components/common";
+import { Guarantor } from "../../../../interfaces";
+import { guarantorDataSchema } from "../models";
 
 interface Props {
   guarantors: {
@@ -20,7 +20,7 @@ interface Props {
   editIndex?: number;
 }
 
-function AddGuarantorForm({
+export function AddGuarantorForm({
   externalSetValue,
   guarantors,
   viewGuarantorForm,
@@ -133,10 +133,10 @@ function AddGuarantorForm({
             setValue={setValue}
             name="files"
             error={errors.files}
-            maxFiles={7}
-            files={
-              editIndex !== undefined ? guarantors[editIndex].files : undefined
+            file={
+              editIndex !== undefined ? guarantors[editIndex].files[0] : undefined
             }
+            label=""
           />
         </article>
         <Button

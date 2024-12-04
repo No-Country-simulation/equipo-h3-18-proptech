@@ -6,7 +6,7 @@ interface Props {
   img?: string;
 }
 
-function CardStep({ children, img, title }: Props) {
+export function CardStep({ children, img, title }: Props) {
   const [showInfo, setShowInfo] = useState(false);
 
   const handleClick = () => {

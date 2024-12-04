@@ -1,5 +1,6 @@
-import { useSwitchStore } from "../../stores";
-import CardStep from "./components/CardStep";
+import { CardStep } from ".";
+import { useSwitchStore } from "../../../stores";
+
 
 export const HomeSteps = () => {
   const { role } = useSwitchStore();

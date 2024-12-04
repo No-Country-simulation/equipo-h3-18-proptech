@@ -6,7 +6,7 @@ interface Props {
   action: string;
 }
 
-function UserMessageBox({ text = "", action }: Props) {
+export function UserMessageBox({ text = "", action }: Props) {
   const addNewMessage = useChatbotStore((state) => state.addNewMessage);
   return (
     <article className="flex gap-4 items-start justify-end">

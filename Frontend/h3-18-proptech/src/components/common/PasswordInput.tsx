@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FieldError, UseFormRegister } from "react-hook-form";
-import EyeIcon from "../icons/EyeIcon";
-import EyeoffIcon from "../icons/EyeoffIcon";
+import { EyeIcon, EyeoffIcon } from "../icons";
 
 interface Props {
   register: UseFormRegister<any>;

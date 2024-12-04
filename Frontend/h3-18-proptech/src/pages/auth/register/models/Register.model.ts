@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-//const roles = ["inversor", "comprador"]
-
-export const userSchema = z
+export const registerSchema = z
   .object({
     name: z
       .string()

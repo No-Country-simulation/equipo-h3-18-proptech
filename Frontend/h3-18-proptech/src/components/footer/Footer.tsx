@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { LogoIcon } from "../icons";
 
-function Footer() {
+export function Footer() {
   const user = true;
 
   const handleClick = () => {

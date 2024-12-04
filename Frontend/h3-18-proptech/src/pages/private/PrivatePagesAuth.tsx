@@ -1,14 +1,14 @@
-import { useSessionStore } from "../../stores/session/session.store";
-import useTransitionNavigation from "../../hooks/useTransitionNavigation";
 import { Outlet } from "react-router-dom";
-import Loader from "../../components/common/Loader";
+import { useSessionStore } from "../../stores";
+import { useTransitionNavigation } from "../../hooks";
+import { Loader } from "../../components/common";
 
-function PrivatePages() {
+export function PrivatePagesAuth() {
   const session = useSessionStore((state) => state.session);
   const role = useSessionStore((state) => state.role);
   const navigate = useTransitionNavigation();
   if (!session || !role) {
-    navigate("/");
+    navigate("/login");
     return (
       <Loader/>
     );
@@ -16,4 +16,4 @@ function PrivatePages() {
   return <Outlet />;
 }
 
-export default PrivatePages;
+export default PrivatePagesAuth;

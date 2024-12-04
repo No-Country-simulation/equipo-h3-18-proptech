@@ -1,13 +1,12 @@
-import NavElement from "./NavElement";
-import { useSwitchStore } from "../../stores";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../common";
+import { useSessionStore, useSwitchStore } from "../../stores";
 import { LogoIcon, MenuIcon, CloseIcon, UserIcon } from "../icons";
-import useTransitionNavigation from "../../hooks/useTransitionNavigation";
-import { useSessionStore } from "../../stores/session/session.store";
+import { useTransitionNavigation } from "../../hooks";
+import { NavElement } from ".";
 
-function Navbar() {
+export function Navbar() {
   const session = useSessionStore((state) => state.session);
   const sessionRole = useSessionStore((state) => state.role);
   const closeSession = useSessionStore((state) => state.closeSession);

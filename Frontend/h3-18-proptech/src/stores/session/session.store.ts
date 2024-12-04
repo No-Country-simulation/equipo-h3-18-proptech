@@ -1,7 +1,6 @@
-import { create } from "zustand";
-import { UserRole } from "../../interfaces/User";
-import { LoginResponse } from "../../interfaces/Responses";
 import { toast } from "sonner";
+import { create } from "zustand";
+import { UserRole, LoginResponse } from "../../interfaces";
 
 interface SessionState {
   token: string;

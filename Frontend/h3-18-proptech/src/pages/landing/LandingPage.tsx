@@ -1,9 +1,8 @@
-import { HeaderHome } from "../../components/Home";
-import LandingBuyer from "./LandingBuyer";
-import LandingInvestor from "./LandingInvestor";
+import { LandingBuyer, LandingInvestor } from ".";
 import { useSwitchStore } from "../../stores";
+import { HeaderHome } from "./components";
 
-function LandingPage() {
+export function LandingPage() {
   const { role } = useSwitchStore();
 
   return (
