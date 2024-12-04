@@ -122,7 +122,7 @@ export function ProfilePage() {
             error={errors.lastName}
             readonly={true}
           />
-          {userData?.dni && (
+          {userData?.dni && userData.stateValidation === 2 && (
             <TextInput
               register={register}
               label="DNI"
@@ -131,7 +131,7 @@ export function ProfilePage() {
               readonly={true}
             />
           )}
-          {userData?.cuit && (
+          {userData?.cuit && userData.stateValidation === 2 && (
             <TextInput
               register={register}
               label="CUIT"

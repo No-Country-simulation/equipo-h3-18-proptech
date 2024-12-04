@@ -2,8 +2,8 @@ import { UserRole } from ".";
 
 export interface LoginResponse {
   role: UserRole;
-  id: string;
   token: string;
+  exp: number;
 }
 
 export interface DecodedToken {

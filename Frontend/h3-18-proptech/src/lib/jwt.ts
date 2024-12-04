@@ -7,7 +7,7 @@ export const decodeUserToken = (token: string): LoginResponse => {
     decodedToken[
       "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
     ];
-  const userId = decodedToken.uid;
-  const user = { role: userRole, id: userId, token };
+  const userExp = decodedToken.exp
+  const user = { role: userRole, token, exp: userExp };
   return user;
 };
