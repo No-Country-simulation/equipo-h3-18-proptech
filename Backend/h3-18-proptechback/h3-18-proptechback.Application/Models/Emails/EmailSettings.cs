@@ -10,7 +10,7 @@ namespace h3_18_proptechback.Application.Models.Emails
     {
         public string ApiKey { get; set; }
 
-        public string FromAdress { get; set; }
+        public string FromAddress { get; set; }
 
         public string FromName { get; set; }
     }

@@ -27,8 +27,7 @@ namespace h3_18_proptechback.Application.Models.Identity.Validators
 
             RuleFor(x => x.Username)
                 .NotEmpty().WithMessage("El nombre de usuario es obligatorio.")
-                .MinimumLength(3).WithMessage("El nombre de usuario debe tener al menos 3 caracteres.")
-                .MaximumLength(20).WithMessage("El nombre de usuario no debe exceder los 20 caracteres.");
+                .MinimumLength(3).WithMessage("El nombre de usuario debe tener al menos 3 caracteres.");
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("La contraseña es obligatoria.")

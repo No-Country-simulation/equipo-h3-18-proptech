@@ -4,12 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace h3_18_proptechback.Infrastructure.Email
 {
     public class EmailService : IEmailServices
@@ -28,15 +22,15 @@ namespace h3_18_proptechback.Infrastructure.Email
             
             var client = new SendGridClient(_emailSettings.ApiKey);
 
-            var subject = new EmailAddress(email.Subject);
+            var subject = new EmailAddress(email.TO);
 
-            var to = email.TO;
+            var to = email.Subject;
             
             var emailBody = email.Body;
 
             var from = new EmailAddress
             {
-                Email = _emailSettings.FromAdress,
+                Email = _emailSettings.FromAddress,
                 
                
                 Name = _emailSettings.FromName
@@ -45,7 +39,7 @@ namespace h3_18_proptechback.Infrastructure.Email
             var sendGridMessage= MailHelper.CreateSingleEmail(from, subject, to, emailBody, emailBody);
 
             var response = await client.SendEmailAsync(sendGridMessage);
-
+            var result = await response.Body.ReadAsStringAsync();
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted || response.StatusCode == System.Net.HttpStatusCode.OK)
             {
 
