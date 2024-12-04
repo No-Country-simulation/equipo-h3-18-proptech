@@ -9,8 +9,7 @@ namespace h3_18_proptechback.Domain
         public string LastName { get; set; }
         public string DNI { get; set; }
         public string CUIT { get; set; }
-        public Guid DataUserId {  get; set; }
-        public DataUser DataUser { get; set; }
-        public StateValidation StateValidation { get; set; }
+        public Guid LoanRequestId {  get; set; }
+        public LoanRequest LoanRequest { get; set; }
     }
 }

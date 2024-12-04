@@ -6,7 +6,7 @@ namespace h3_18_proptechback.Application.Contracts.Persistence
     {
         IEnumerable<T?> GetAll();
 
-        Task<T> GetIdAsync(Guid id);
+        Task<T?> GetIdAsync(Guid id);
 
         Task<T> Add(T entity);
         

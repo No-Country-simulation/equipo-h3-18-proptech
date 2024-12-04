@@ -5,9 +5,7 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Commands.Va
     public class ValidateIdentityFilesCommand
     {
         public IFormFile Photo { get; set; }
-
         public IFormFile Front { get; set; }
-
         public IFormFile Back { get; set; }
         public string DNI { get; set; }
         public bool IsDataUser { get; set; }

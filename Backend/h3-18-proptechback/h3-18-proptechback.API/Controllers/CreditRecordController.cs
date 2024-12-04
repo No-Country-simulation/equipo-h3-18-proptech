@@ -1,7 +1,7 @@
 ﻿
-using h3_18_proptechback.CreditRecord.Models.Requets;
+using h3_18_proptechback.Application.Contracts.Infrastructure.CreditRecord;
+using h3_18_proptechback.Application.Models.Infrastructure;
 using h3_18_proptechback.CreditRecord.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -12,9 +12,9 @@ namespace h3_18_proptechback.API.Controllers
     [ApiController]
     public class CreditRecordController : ControllerBase
     {
-        private readonly CreditRecordServices _creditRecord;
+        private readonly ICreditRecordService _creditRecord;
 
-        public CreditRecordController(CreditRecordServices creditRecord)
+        public CreditRecordController(ICreditRecordService creditRecord)
         {
             _creditRecord = creditRecord;
         }
