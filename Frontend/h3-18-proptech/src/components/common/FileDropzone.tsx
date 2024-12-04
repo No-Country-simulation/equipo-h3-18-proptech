@@ -3,6 +3,7 @@ import { FieldError, Merge, UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
 import { useDropzone } from "react-dropzone";
 import { CloseIcon, UploadIcon } from "../icons";
+import PDFIcon from "../icons/PDFIcon";
 
 interface Props {
   setValue: UseFormSetValue<any>;
@@ -13,7 +14,14 @@ interface Props {
   file?: File;
 }
 
-export function FileDropzone({ fileType, setValue, name, error, file }: Props) {
+export function FileDropzone({
+  fileType,
+  setValue,
+  name,
+  error,
+  file,
+  label,
+}: Props) {
   let validFileType;
   switch (fileType) {
     case "images":
@@ -38,7 +46,7 @@ export function FileDropzone({ fileType, setValue, name, error, file }: Props) {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles = acceptedFiles[0];
-    setSelectedFiles(newFiles);
+    setUploadedFile(newFiles);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -46,40 +54,26 @@ export function FileDropzone({ fileType, setValue, name, error, file }: Props) {
     accept: validFileType,
   });
 
-  const [selectedFiles, setSelectedFiles] = useState<File | undefined>(file);
+  const [UploadedFile, setUploadedFile] = useState<File | undefined>(file);
 
   useEffect(() => {
-    setValue(name, selectedFiles);
-  }, [selectedFiles]);
+    setValue(name, UploadedFile);
+  }, [UploadedFile]);
 
   useEffect(() => {
     if (error?.message) toast.error(error.message);
   }, [error]);
 
   const deleteFile = () => {
-    setSelectedFiles(undefined);
+    setUploadedFile(undefined);
   };
   return (
-    <article className="flex flex-col min-w-[200px] min-h-[200px]">
-      <label className="text-label-large-medium" htmlFor="">
-        {name}
+    <article className="flex flex-col min-w-[200px] min-h-[200px] mx-auto">
+      <label className="text-label-large-medium mb-2" htmlFor="">
+        {label}
       </label>
 
-      {selectedFiles !== undefined ? (
-        <div className="relative border-[3px] border-primary rounded-2xl w-[260px] h-[260px]">
-          <img
-            src={URL.createObjectURL(selectedFiles)}
-            alt="Hola Mundo"
-            className="w-full h-full aspect-square rounded-2xl"
-          />
-          <button
-            type="button"
-            onClick={() => deleteFile()}
-          >
-            <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
-          </button>
-        </div>
-      ) : (
+      {!UploadedFile ? (
         <div
           className="flex flex-col items-center justify-center border-[3px] border-primary rounded-2xl bg-tertiary h-[260px] w-[260px]"
           {...getRootProps()}
@@ -95,38 +89,26 @@ export function FileDropzone({ fileType, setValue, name, error, file }: Props) {
             className="opacity-0"
           />
         </div>
+      ) : UploadedFile.type !== "application/pdf" ? (
+        <div className="relative border-[3px] border-primary rounded-2xl w-[260px] h-[260px] select-none">
+          <img
+            src={URL.createObjectURL(UploadedFile)}
+            alt="Hola Mundo"
+            className="w-full h-full aspect-square rounded-xl"
+          />
+          <button type="button" onClick={() => deleteFile()}>
+            <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
+          </button>
+        </div>
+      ) : (
+        <div className="relative border-[3px] border-primary rounded-2xl w-[260px] h-[260px] select-none flex flex-col items-center justify-center p-3">
+          <PDFIcon className="w-48 h-48"/>
+          <span className="text-label-large-medium mt-2">{UploadedFile.name}</span>
+          <button type="button" onClick={() => deleteFile()}>
+            <CloseIcon className="absolute top-2 right-2 h-7 w-7 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
+          </button>
+        </div>
       )}
-
-      {/* <dialog
-        onClick={() => setFileChosen({ open: false, src: "", type: "" })}
-        className={`${fileChosen.open ? "opacity-100" : "opacity-0 scale-0"} transition-opacity fixed h-screen w-screen bg-black bg-opacity-50 z-[100] flex items-center justify-center px-4 top-0`}
-      >
-        {fileChosen.type !== "application/pdf" ? (
-          <figure className="relative">
-            <img
-              src={fileChosen.src}
-              alt="Hola Mundo"
-              className="max-w-[250px] max-h-[250px] aspect-square md:max-w-[70vw] md:max-h-[70vh]"
-            />
-            <button
-              type="button"
-              onClick={() => setFileChosen({ open: false, src: "", type: "" })}
-            >
-              <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
-            </button>
-          </figure>
-        ) : (
-          <div className="h-[300px] w-[300px] md:h-full md:w-full md:max-h-[80%] md:max-w-[80%] p-2 relative">
-            <button
-              type="button"
-              onClick={() => setFileChosen({ open: false, src: "", type: "" })}
-            >
-              <CloseIcon className="absolute top-0 right-0 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
-            </button>
-            <iframe className="w-full h-full" src={fileChosen.src}></iframe>
-          </div>
-        )}
-      </dialog> */}
     </article>
   );
 }

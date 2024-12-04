@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-const userFilesSchema = z.instanceof(File);
-
 export const validateIdentitySchema = z.object({
   DNI: z
     .string()
@@ -11,10 +9,13 @@ export const validateIdentitySchema = z.object({
     .string()
     .min(1, "Introduce tu CUIT")
     .regex(/^\d{2}\-?\d{8}\-?\d{1}$/, "Ingresa un CUIT válido"),
-  files: z
-    .array(userFilesSchema)
-    .length(
-      3,
-      "Debes adjuntar 3 archivos: Una foto de tu rostro, el anverso del DNI y el reverso del DNI"
-    ),
+  Front: z.instanceof(File, {
+    message: "Introduce una imagen o archivo que contenga el frente de tu DNI",
+  }),
+  Back: z.instanceof(File, {
+    message: "Introduce una imagen o archivo que contenga el reverso de tu DNI",
+  }),
+  Photo: z.instanceof(File, {
+    message: "Introduce una imagen o archivo que contenga una foto de tu rostro",
+  }),
 });

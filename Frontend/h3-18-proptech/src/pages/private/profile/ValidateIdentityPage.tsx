@@ -10,7 +10,9 @@ import { validateIdentitySchema } from "./models";
 interface ValidateIdentityForm {
   CUIT: string;
   DNI: string;
-  files: File[];
+  Front: File;
+  Back: File;
+  Photo: File;
 }
 
 export function ValidateIdentityPage() {
@@ -20,7 +22,7 @@ export function ValidateIdentityPage() {
     setValue,
     formState: { errors },
   } = useForm<ValidateIdentityForm>({
-    defaultValues: { CUIT: "", DNI: "", files: [] },
+    defaultValues: { CUIT: "", DNI: "" },
     resolver: zodResolver(validateIdentitySchema),
   });
 
@@ -34,9 +36,9 @@ export function ValidateIdentityPage() {
     const form = new FormData();
     form.append("CUIT", data.CUIT);
     form.append("DNI", data.DNI);
-    form.append("Front", data.files[0]);
-    form.append("Back", data.files[1]);
-    form.append("Photo", data.files[2]);
+    form.append("Front", data.Front);
+    form.append("Back", data.Back);
+    form.append("Photo", data.Photo);
 
     const response = await sendValidationInfo(form);
     if (response?.status === 200) {
@@ -56,7 +58,7 @@ export function ValidateIdentityPage() {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mx-auto max-w-[800px] flex flex-col gap-4"
+        className="mx-auto max-w-[1000px] flex flex-col gap-4"
       >
         <p className="text-title-large-regular">
           Para completar la validación de tu identidad, sube imágenes claras de
@@ -83,13 +85,29 @@ export function ValidateIdentityPage() {
               error={errors.CUIT}
             />
           </section>
-          <FileDropzone
-            fileType="both"
-            setValue={setValue}
-            name="files"
-            error={errors.files}
-            label={""}
-          />
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="Photo"
+              error={errors.Photo}
+              label="Foto tipo Selfie"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="Front"
+              error={errors.Front}
+              label="Frente del DNI"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="Back"
+              error={errors.Back}
+              label="Reverso del DNI"
+            />
+          </section>
         </article>
         <Button
           color="primary-blue"
