@@ -18,6 +18,12 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<DataUser?> GetPendingByDNI(string DNI)
+        {
+            
+            return await _context.DataUsers.FirstOrDefaultAsync(data => data.DNI == DNI && data.StateValidation == Domain.Common.StateRequest.Pending);
+        }
+
         public async Task<DataUser?> GetUserByGuidIdentity(string id)
         {
             var user = await _context.DataUsers.FirstOrDefaultAsync(d=>d.Createby == id);

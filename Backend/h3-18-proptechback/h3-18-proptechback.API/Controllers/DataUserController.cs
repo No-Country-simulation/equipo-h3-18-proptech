@@ -6,6 +6,7 @@ using h3_18_proptechback.Application.Features.DataUserValue.Queries.GetCurrentUs
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands.ValidateUser;
 using h3_18_proptechback.Application.Features.IdentityValidation.Queries;
+using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetDetailsRequestValidation;
 using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetRequestValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -213,6 +214,26 @@ namespace h3_18_proptechback.API.Controllers
                 }
                 var result = await _RepoData.UpdateUser(command, email);
                 return Ok(result);
+            }
+            catch (ArgumentException argEx)
+            {
+                return BadRequest(argEx.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("detailsRequestValidation/{DNI}")]
+        [ProducesResponseType<GetDetailsRequestValidationQueryResponse>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<GetDetailsRequestValidationQueryResponse>> GetDetailsRequestValidation(string DNI)
+        {
+            try
+            {
+                return await _validateIdentityQueryHandler.GetDetailPendingRequest(DNI);
             }
             catch (ArgumentException argEx)
             {

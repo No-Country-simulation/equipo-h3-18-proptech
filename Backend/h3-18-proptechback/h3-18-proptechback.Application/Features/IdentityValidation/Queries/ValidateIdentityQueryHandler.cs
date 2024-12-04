@@ -1,5 +1,7 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
+using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetDetailsRequestValidation;
 using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetRequestValidation;
 using System;
 using System.Collections.Generic;
@@ -12,20 +14,33 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries
     public class ValidateIdentityQueryHandler
     {
         private readonly IDataUserRepository _dataUserRepository;
+        private readonly IDocumentsUserRepository _documentsUserRepository;
         private readonly IUserIdentityService _userIdentityService;
 
         public ValidateIdentityQueryHandler(IDataUserRepository dataUserRepository,
-            IUserIdentityService userIdentityService)
+            IUserIdentityService userIdentityService,
+            IDocumentsUserRepository documentsUserRepository)
         {
             _dataUserRepository = dataUserRepository;
             _userIdentityService = userIdentityService;
+            _documentsUserRepository = documentsUserRepository;
         }
+        public async Task<GetDetailsRequestValidationQueryResponse> GetDetailPendingRequest(string DNI)
+        {
+            var dataUser = await _dataUserRepository.GetPendingByDNI(DNI);
+            if(dataUser is null)
+                throw new ArgumentException($"Solicitud en estado pendiente con DNI: {DNI} inexistente.");
+            var user = await _userIdentityService.GetByIdIdentityUser(dataUser.Createby);
+            var docsUser = await _documentsUserRepository.GetLastDataUser(DNI);
 
+            var response = new GetDetailsRequestValidationQueryResponse(user.Name, user.LastName, user.Email, user.PhoneNumber, dataUser.DNI, dataUser.CUIT, docsUser.PhotoURL, docsUser.FrontDNIURL, docsUser.BackDNIURL);
+            return response;
+        }
         public async Task<List<GetRequestValidationQueryResponse>> GetPendingRequest()
         {
             var dataUsers = _dataUserRepository.GetAll();
             var dataUserfilt = dataUsers.Where(d => d.StateValidation == Domain.Common.StateRequest.Pending)
-                .OrderByDescending(d => d.CreatedDate)
+                .OrderBy(d => d.CreatedDate)
                 .ToList();
             List<GetRequestValidationQueryResponse> list = new List<GetRequestValidationQueryResponse>();
             foreach(var requestValidation in dataUserfilt)
