@@ -1,5 +1,6 @@
 ﻿using h3_18_proptechback.Application.Constants;
 using h3_18_proptechback.Application.Contracts.Identity;
+using h3_18_proptechback.Application.Contracts.Infrastructure.SendEmails;
 using h3_18_proptechback.Application.Models.Identity;
 using h3_18_proptechback.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -17,12 +18,15 @@ namespace h3_18_proptechback.Identity.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IEmailServices _emailServices;
 
-        public AuthServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings>  jwtSettings)
+        public AuthServices(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings>  jwtSettings,
+                            IEmailServices emailServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtSettings = jwtSettings.Value;
+            _emailServices = emailServices;
         }
 
         public async Task<AuthReponse> Login(AuthRequest request)
@@ -50,6 +54,12 @@ namespace h3_18_proptechback.Identity.Services
                
 
             };
+            await _emailServices.SendEmailAsync(new Application.Models.Emails.Email 
+            { 
+                TO = user.Email,
+                Subject = "Acceso a su cuenta",
+                Body = "Hemos registrado un acceso a su cuenta en caso de no ser usted por favor notifiquelo al 555-555"
+            });
             return authResponse;
         }
 
@@ -85,8 +95,15 @@ namespace h3_18_proptechback.Identity.Services
                 var result = await _userManager.CreateAsync(user, request.Password);
                 if (result.Succeeded) 
                 {
+                    
                     await _userManager.AddToRoleAsync(user, request.rol);
-                    var token = await GenerateToken(user);
+                    await _emailServices.SendEmailAsync(new Application.Models.Emails.Email
+                    {
+                        TO = user.Email,
+                        Subject = "Registro Exitoso",
+                        Body = $"{user.Nombre} {user.Apellido} Hemos registrado su cuenta de forma exitosa"
+                    });
+                var token = await GenerateToken(user);
                     return new RegistrationResponse
                     {
                         Email = user.Email,

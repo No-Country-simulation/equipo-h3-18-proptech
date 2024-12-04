@@ -1,6 +1,9 @@
-﻿using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
+﻿using h3_18_proptechback.Application.Contracts.Infrastructure.SendEmails;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Models.Emails;
+using h3_18_proptechback.Infrastructure.Email;
+﻿using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
 using h3_18_proptechback.Application.Contracts.Persistence.Loan;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
 using h3_18_proptechback.Application.Contracts.Persistence.Quota;
@@ -29,6 +32,9 @@ namespace h3_18_proptechback.Infrastructure
             services.AddScoped<ILoanRequestRepository, LoanRequestRepository>();
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IQuotaRepository, QuotaRepository>();
+
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailServices, EmailService>();
 
             return services;
                

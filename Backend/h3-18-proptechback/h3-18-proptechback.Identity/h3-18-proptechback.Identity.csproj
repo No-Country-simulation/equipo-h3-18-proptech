@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\h3-18-proptechback.Application\h3-18-proptechback.Application.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.Infrastructure\h3-18-proptechback.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
