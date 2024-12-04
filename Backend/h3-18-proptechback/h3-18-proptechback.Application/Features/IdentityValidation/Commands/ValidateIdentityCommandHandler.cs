@@ -24,7 +24,7 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Commands
             _dataUserRepository = dataUserRepository;
         }
 
-        public async Task<bool> ReceiveFiles(ValidateIdentityFilesCommand command)
+        public async Task<bool> ReceiveFiles(ValidateIdentityFilesCommand command, bool isOverride)
         {
             if (command.Front is null || command.Back is null || command.Photo is null)
                 throw new ArgumentException("Los archivos no deben ser nulos");
@@ -41,10 +41,10 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Commands
             if (results.Any(string.IsNullOrEmpty))
                 return false;
 
-            if (command.IsDataUser)
+            if (!isOverride)
                 await _documentsUserRepository.AddDocumentsValidateIdentity(results!, command.DNI);
-            else
-                await _documentsGuarantorRepository.AddDocumentsValidateIdentity(results!, command.DNI);
+            else 
+                await _documentsUserRepository.OverrideDocumentsValidateIdentity(results!, command.DNI);
 
             return true;
         }

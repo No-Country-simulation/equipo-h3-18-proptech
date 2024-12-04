@@ -24,6 +24,11 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             return user;
         }
 
+        public async Task<bool> IsMine(string DNI, string idUser)
+        {
+            return await _context.DataUsers.AnyAsync(d => d.DNI == DNI && d.Createby == idUser);
+        }
+
         public async Task<bool> IsValidUserByDNI(string DNI)
         {
             var exists = await _context.DataUsers.AnyAsync(du => du.DNI == DNI);
