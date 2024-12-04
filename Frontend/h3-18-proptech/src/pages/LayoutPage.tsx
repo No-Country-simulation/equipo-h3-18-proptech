@@ -6,15 +6,15 @@ import { Footer } from "../components/footer";
 import { Loader } from "../components/common";
 import { Modal } from "../components/modal";
 import { useSessionStore } from "../stores";
+import { getCookie } from "../lib";
 
 export function LayoutPage() {
   const [loading, setLoading] = useState(true);
   const newSession = useSessionStore((state) => state.newSession);
   useEffect(() => {
-    const session = localStorage.getItem("user");
+    const session = getCookie("user");
     if (session) {
-      const parsedSession = JSON.parse(session);
-      newSession(parsedSession);
+      newSession(session);
     }
     setLoading(false);
   }, []);
