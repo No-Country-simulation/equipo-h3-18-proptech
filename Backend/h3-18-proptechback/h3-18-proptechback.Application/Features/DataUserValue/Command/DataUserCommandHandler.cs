@@ -32,7 +32,7 @@ namespace h3_18_proptechback.Application.Features.DataUserValue.Command
                 throw new ArgumentException("El usuario proporcionado no puede ser nulo. Verifique los campos enviados.");
             var user = await _userIdentityService.GetIdentityUser(email);
 
-            if (await _dataRepo.IsValidUserByDNI(command.DNI) || !await _dataRepo.IsMine(command.DNI, user.Id))
+            if (await _dataRepo.IsValidUserByDNI(command.DNI) && !await _dataRepo.IsMine(command.DNI, user.Id))
                 throw new ArgumentException($"El usuario con DNI: {command.DNI} ya existe");
 
             var userExists = await _dataRepo.GetUserByGuidIdentity(user.Id);
