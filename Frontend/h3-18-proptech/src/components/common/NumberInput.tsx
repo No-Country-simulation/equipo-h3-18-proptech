@@ -6,14 +6,16 @@ interface Props {
   name: string;
   info?: string;
   error?: FieldError;
+  placeholder?: string;
 }
 
-export function NumberInput({ register, name, label, info, error }: Props) {
+export function NumberInput({ register, name, label, info, error, placeholder }: Props) {
   return (
     <div className={`flex flex-col relative pb-5 ${info ? "mb-4" : "mb-0"}`}>
       <label className="mb-2 text-body-medium-regular ps-2">{label}</label>
       <input
         type="number"
+        placeholder={placeholder ?? "0"}
         min={0}
         step={"any"}
         {...register(name)}

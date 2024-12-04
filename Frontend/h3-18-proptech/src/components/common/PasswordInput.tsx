@@ -8,9 +8,10 @@ interface Props {
   name: string;
   info?: string;
   error?: FieldError;
+  placeholder?: string;
 }
 
-export function PasswordInput({ register, name, label, info, error }: Props) {
+export function PasswordInput({ register, name, label, info, error, placeholder }: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -19,6 +20,7 @@ export function PasswordInput({ register, name, label, info, error }: Props) {
       <div className="relative w-full">
         <input
           type={showPassword ? "text" : "password"}
+          placeholder={placeholder ?? "********"}
           {...register(name)}
           className={`border-[3px] w-full text-body-large-regular py-2 px-3 pe-8 rounded-md shadow-md focus:outline-none ${error ? "border-error" : "border-primary"}`}
         />
