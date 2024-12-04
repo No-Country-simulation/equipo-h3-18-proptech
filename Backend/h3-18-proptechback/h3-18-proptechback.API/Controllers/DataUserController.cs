@@ -131,9 +131,30 @@ namespace h3_18_proptechback.API.Controllers
         /// <returns>
         /// Devuelve los datos del usuario actual asociados con el token.
         /// </returns>
+        /// <remarks>
+        /// El campo <c>stateValidation</c> en la respuesta indica el estado de la identidad del usuario, con los siguientes valores posibles:
+        /// <list type="bullet">
+        ///   <item>
+        ///     <term>0
+        ///     </term>
+        ///     <description>La solicitud no es válida.</description>
+        ///   </item>
+        ///   <item>
+        ///     <term>1
+        ///     </term>
+        ///     <description>La solicitud está pendiente de revisión.</description>
+        ///   </item>
+        ///   <item>
+        ///     <term>2
+        ///     </term>
+        ///     <description>La solicitud ha sido validada con éxito.</description>
+        ///   </item>
+        /// </list>
+        /// </remarks>
         /// <response code="200">Los datos del usuario fueron obtenidos exitosamente.</response>
         /// <response code="401">El token de autenticación no es válido o no está presente.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
+
         [HttpGet("currentUser")]
         [Authorize]
         [ProducesResponseType<GetCurrentUserQueryResponse>(StatusCodes.Status200OK)]

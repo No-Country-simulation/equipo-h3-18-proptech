@@ -23,6 +23,8 @@ namespace h3_18_proptechback.Infrastructure.Persistence
         public DbSet<DataGuarantor> DataGuarantors { get; set; }
         public DbSet<DocumentsUser> DocumentsUsers { get; set; }
         public DbSet<DocumentsGuarantor> DocumentsGuarantors { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Quota> Quotas { get; set; }
 
         
     }

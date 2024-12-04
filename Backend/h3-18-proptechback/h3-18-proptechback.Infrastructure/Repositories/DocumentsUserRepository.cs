@@ -33,5 +33,11 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             
         }
+
+        public async Task<DocumentsUser> GetLastDataUser(string DNI)
+        {
+            var lastDataUser = _context.DocumentsUsers.OrderByDescending(d=>d.CreatedDate).FirstOrDefault();
+            return lastDataUser;
+        }
     }
 }

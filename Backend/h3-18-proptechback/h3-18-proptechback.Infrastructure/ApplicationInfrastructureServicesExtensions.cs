@@ -1,5 +1,9 @@
-﻿using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
+﻿using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
+using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Contracts.Persistence.Loan;
+using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
+using h3_18_proptechback.Application.Contracts.Persistence.Quota;
 using h3_18_proptechback.Infrastructure.Persistence;
 using h3_18_proptechback.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +23,12 @@ namespace h3_18_proptechback.Infrastructure
                 dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("connetionString"));
             });
             services.AddScoped<IDataUserRepository, DataUserRepository>();
+            services.AddScoped<IDataGuarantorRepository, DataGuarantorRepository>();
             services.AddScoped<IDocumentsUserRepository, DocumentsUserRepository>();
             services.AddScoped<IDocumentsGuarantorRepository, DocumentsGuarantorRepository>();
+            services.AddScoped<ILoanRequestRepository, LoanRequestRepository>();
+            services.AddScoped<ILoanRepository, LoanRepository>();
+            services.AddScoped<IQuotaRepository, QuotaRepository>();
 
             return services;
                
