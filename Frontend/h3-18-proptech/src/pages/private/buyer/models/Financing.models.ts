@@ -37,7 +37,7 @@ export const guarantorDataSchema = z.object({
     .string()
     .min(1, "Introduce tu número de teléfono")
     .regex(
-      /^(\(?\+[\d]{1,3}\)?)\s?([\d]{1,5})\s?([\d][\s\.-]?){6,7}$/,
+      /^(\+54)?\d{10,17}$/,
       "Ingrese un número de teléfono válido"
     ),
   email: z.string().email("Ingrese un correo electrónico válido"),
