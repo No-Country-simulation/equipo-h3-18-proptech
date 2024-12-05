@@ -1,5 +1,5 @@
 export * from "./LayoutPage";
-export * from "./HomePage"
+export * from "./HomePage";
 export * from "./auth/register/RegisterPage";
 export * from "./auth/login/LoginPage";
 export * from "./private/PrivatePagesAuth";
@@ -10,4 +10,3 @@ export * from "./private/buyer/DashboardBuyerPage";
 export * from "./private/buyer/BuyerSharesPage";
 export * from "./private/buyer/LoanRequestPage";
 export * from "./private/admin/RoleAdminAuth";
-export * from "./private/admin/CheckIdentityPage";

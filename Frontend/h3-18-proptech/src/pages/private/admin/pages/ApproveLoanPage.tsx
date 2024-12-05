@@ -24,7 +24,7 @@ export function ApproveLoanPage() {
   });
 
   const goBack = () => {
-    navigate("/admin/dashboard/approve");
+    navigate("/admin/approve");
   };
 
   const viewFile = (file: string) => {

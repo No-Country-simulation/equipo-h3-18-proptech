@@ -2,15 +2,19 @@ import { Carousel, HomeSteps, ImageData, InvestmentSimulator } from "./component
 
 const images: ImageData[] = [
   {
-    img: "https://via.placeholder.com/800x400.png?text=Slide+1",
+    img: "assets/carouselinversor1.jpg",
     text: "Inversor Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
   },
   {
-    img: "https://via.placeholder.com/800x400.png?text=Slide+2",
+    img: "assets/carouselinversor2.jpg",
     text: "Dinero Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
   },
   {
-    img: "https://via.placeholder.com/800x400.png?text=Slide+3",
+    img: "assets/carouselinversor3.jpg",
+    text: "Ganancias Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
+  },
+  {
+    img: "assets/carouselinversor4.jpg",
     text: "Ganancias Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
   },
 ];
