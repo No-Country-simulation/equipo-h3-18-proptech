@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-const userFilesSchema = z.instanceof(File);
 export const guarantorDataSchema = z.object({
   name: z
     .string()
@@ -18,30 +17,70 @@ export const guarantorDataSchema = z.object({
     .string()
     .min(1, "Introduce tu CUIT")
     .regex(/^\d{2}\-?\d{8}\-?\d{1}$/, "Ingresa un CUIT válido"),
-  files: z
-    .array(userFilesSchema)
-    .length(
-      7,
-      "Debes adjuntar 7 archivos: Una foto de tu rostro, el anverso y el reverso del DNI, tus últimos 3 recibos de sueldo y un comprobante que valide tu domicilio actual"
-    ),
+  salaryReceipt1: z.instanceof(File, {
+    message:
+      "Introduce una imagen o archivo que contenga el recibo de hace un mes del salario del garante",
+  }),
+  salaryReceipt2: z.instanceof(File, {
+    message:
+      "Introduce una imagen o archivo que contenga el recibo de hace 2 meses del salario del garante",
+  }),
+  salaryReceipt3: z.instanceof(File, {
+    message:
+      "Introduce una imagen o archivo que contenga el recibo de hace 3 meses del salario del garante",
+  }),
+  homeReceipt: z.instanceof(File, {
+    message:
+      "Introduce una imagen o archivo que contenga un comprobante del domicilio actual del garante",
+  }),
   phoneNumber: z
     .string()
     .min(1, "Introduce tu número de teléfono")
     .regex(
-      /^(\(?\+[\d]{1,3}\)?)\s?([\d]{1,5})\s?([\d][\s\.-]?){6,7}$/,
+      /^(\+54)?\d{10,17}$/,
       "Ingrese un número de teléfono válido"
     ),
   email: z.string().email("Ingrese un correo electrónico válido"),
 });
 
-export const FinanceSchema = z.object({
-  files: z
-    .array(userFilesSchema)
-    .length(
-      4,
-      "Debes adjuntar 4 archivos: Tus últimos tres recibos de sueldo y una boleta de sevicio que valide tu dirección actual"
-    ),
-  guarantors: z.array(guarantorDataSchema),
-});
+export const FinanceSchema = z
+  .object({
+    lotCost: z.coerce
+      .number({ message: "Debes introducir un número" })
+      .nonnegative({ message: "Por favor, introduzca un número positivo" })
+      .gt(0, "El costo del Lote no puede ser 0"),
+    quotasCount: z.coerce
+      .number({ message: "Debes introducir un número" })
+      .nonnegative({ message: "Por favor, introduzca un número positivo" }),
+    downPayment: z.coerce
+      .number({ message: "Debes introducir un número" })
+      .nonnegative({ message: "Por favor, introduzca un número positivo" }),
+    salaryReceipt1: z.instanceof(File, {
+      message:
+        "Introduce una imagen o archivo que contenga el recibo de hace un mes de tu salario",
+    }),
+    salaryReceipt2: z.instanceof(File, {
+      message:
+        "Introduce una imagen o archivo que contenga el recibo de hace 2 meses de tu salario",
+    }),
+    salaryReceipt3: z.instanceof(File, {
+      message:
+        "Introduce una imagen o archivo que contenga el recibo de hace 3 meses de tu salario",
+    }),
+    homeReceipt: z.instanceof(File, {
+      message:
+        "Introduce una imagen o archivo que contenga un comprobante de tu domicilio actual",
+    }),
+    guarantors: z.array(guarantorDataSchema),
+  })
+  .superRefine(({ lotCost, downPayment }, ctx) => {
+    if (downPayment > lotCost) {
+      ctx.addIssue({
+        message: "El Adelanto debe ser menor al Costo del Lote",
+        path: ["downPayment"],
+        code: "custom",
+      });
+    }
+  });
 
 export type FinancingDataForm = z.infer<typeof FinanceSchema>;

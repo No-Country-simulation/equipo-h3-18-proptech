@@ -6,15 +6,7 @@ import { Guarantor } from "../../../../interfaces";
 import { guarantorDataSchema } from "../models";
 
 interface Props {
-  guarantors: {
-    name: string;
-    lastname: string;
-    CUIT: string;
-    DNI: string;
-    email: string;
-    phoneNumber: string;
-    files: File[];
-  }[];
+  guarantors: Guarantor[];
   externalSetValue: UseFormSetValue<any>;
   viewGuarantorForm: React.Dispatch<any>;
   editIndex?: number;
@@ -41,7 +33,10 @@ export function AddGuarantorForm({
             DNI: guarantors[editIndex].DNI,
             email: guarantors[editIndex].email,
             phoneNumber: guarantors[editIndex].phoneNumber,
-            files: guarantors[editIndex].files,
+            salaryReceipt1: guarantors[editIndex].salaryReceipt1,
+            salaryReceipt2: guarantors[editIndex].salaryReceipt2,
+            salaryReceipt3: guarantors[editIndex].salaryReceipt3,
+            homeReceipt: guarantors[editIndex].homeReceipt,
           }
         : {
             name: "",
@@ -50,7 +45,6 @@ export function AddGuarantorForm({
             DNI: "",
             email: "",
             phoneNumber: "",
-            files: [],
           },
     resolver: zodResolver(guarantorDataSchema),
   });
@@ -128,16 +122,56 @@ export function AddGuarantorForm({
               error={errors.phoneNumber}
             />
           </section>
-          <FileDropzone
-            fileType="both"
-            setValue={setValue}
-            name="files"
-            error={errors.files}
-            file={
-              editIndex !== undefined ? guarantors[editIndex].files[0] : undefined
-            }
-            label=""
-          />
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="salaryReceipt1"
+              error={errors.salaryReceipt1}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].salaryReceipt1
+                  : undefined
+              }
+              label="Recibo de Sueldo #1"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="salaryReceipt2"
+              error={errors.salaryReceipt2}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].salaryReceipt2
+                  : undefined
+              }
+              label="Recibo de Sueldo #2"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="salaryReceipt3"
+              error={errors.salaryReceipt3}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].salaryReceipt3
+                  : undefined
+              }
+              label="Recibo de Sueldo #3"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="homeReceipt"
+              error={errors.homeReceipt}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].homeReceipt
+                  : undefined
+              }
+              label="Comprobante de Domicilio"
+            />
+          </section>
         </article>
         <Button
           color="primary-blue"

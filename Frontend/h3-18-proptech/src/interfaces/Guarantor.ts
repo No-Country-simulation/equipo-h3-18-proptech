@@ -5,5 +5,8 @@ export interface Guarantor {
   DNI: string;
   email: string;
   phoneNumber: string;
-  files: File[];
+  salaryReceipt1: File;
+  salaryReceipt2: File;
+  salaryReceipt3: File;
+  homeReceipt: File;
 }

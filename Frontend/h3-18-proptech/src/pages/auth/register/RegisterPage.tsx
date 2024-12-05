@@ -93,26 +93,26 @@ export function RegisterPage() {
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
           <TextInput
             register={register}
-            label="Nombre*"
+            label="Nombre"
             name="nombre"
             error={errors.nombre}
           />
           <TextInput
             register={register}
-            label="Apellido*"
+            label="Apellido"
             name="apellido"
             error={errors.apellido}
           />
           <TextInput
             register={register}
-            label="Correo Electrónico*"
+            label="Correo Electrónico"
             name="email"
             type="email"
             error={errors.email}
           />
           <TextInput
             register={register}
-            label="Teléfono*"
+            label="Teléfono"
             name="phoneNumber"
             type="tel"
             error={errors.phoneNumber}
@@ -120,7 +120,7 @@ export function RegisterPage() {
 
           <PasswordInput
             register={register}
-            label="Contraseña*"
+            label="Contraseña"
             name="password"
             info="Utiliza al menos 8 caracteres, combinando letras mayúsculas y minúsculas, números y caracteres especiales (@, #, $, %)."
             error={errors.password}
@@ -128,7 +128,7 @@ export function RegisterPage() {
 
           <PasswordInput
             register={register}
-            label="Confirmar Contraseña*"
+            label="Confirmar Contraseña"
             name="confirmPassword"
             error={errors.confirmPassword}
           />

@@ -10,11 +10,10 @@ export function SwitchFinanceFormPage() {
     setValue,
     formState: { errors },
     watch,
+    register
   } = useForm<FinancingDataForm>({
     defaultValues: {
-      files: [],
       guarantors: [],
-      // AGREGAR GARANTES
     },
     resolver: zodResolver(FinanceSchema),
   });
@@ -40,10 +39,10 @@ export function SwitchFinanceFormPage() {
 
   const onSubmit = async (data: FinancingDataForm) => {
     const form = new FormData();
-    form.append("Receipt1", data.files[0]);
-    form.append("Receipt2", data.files[1]);
-    form.append("Receipt3", data.files[2]);
-    form.append("service", data.files[3]);
+    form.append("salaryReceipt1", data.salaryReceipt1);
+    form.append("salaryReceipt2", data.salaryReceipt2);
+    form.append("salaryReceipt3", data.salaryReceipt3);
+    form.append("homeReceipt", data.homeReceipt);
     // AGREGAR GARANTES
     console.log(data);
 
@@ -71,6 +70,7 @@ export function SwitchFinanceFormPage() {
           changeGuarantor={handleGuarantorView}
           onSubmit={onSubmit}
           watch={watch}
+          register={register}
         />
       )}
     </>
