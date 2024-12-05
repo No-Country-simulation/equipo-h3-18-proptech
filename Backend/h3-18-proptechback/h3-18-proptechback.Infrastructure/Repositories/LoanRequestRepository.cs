@@ -17,5 +17,26 @@ namespace h3_18_proptechback.Infrastructure.Repositories
                 .OrderBy(l => l.Createby).Include(l=>l.DataUser).ToListAsync();
             return requests;
         }
+
+        public async Task<LoanRequest> ValidatePendingLoanRequest(Guid id)
+        {
+            var pendingRequest = await GetPending(id);
+            pendingRequest.StateRequest = Domain.Common.StateRequest.Valid;
+            return await Update(pendingRequest);
+        }
+        public async Task<LoanRequest> RejectPendingLoanRequest(Guid id)
+        {
+            var pendingRequest = await GetPending(id);
+            pendingRequest.StateRequest = Domain.Common.StateRequest.NoValid;
+            return await Update(pendingRequest);
+        }
+
+        private async Task<LoanRequest> GetPending(Guid id)
+        {
+            var pendingRequest = await _context.LoanRequests.FirstOrDefaultAsync(l => l.StateRequest == Domain.Common.StateRequest.Pending && l.ID == id);
+            if (pendingRequest is null)
+                throw new ArgumentException($"No existe una solicitud de préstamo pendiente con el ID: {id}");
+            return pendingRequest;
+        }
     }
 }

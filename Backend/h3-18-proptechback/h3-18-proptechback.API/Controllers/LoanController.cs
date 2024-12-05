@@ -15,9 +15,9 @@ namespace h3_18_proptechback.API.Controllers
     public class LoanController : ControllerBase
     {
         private readonly RequestLoanCommandHandler _handler;
-        private readonly LoanQueryHandler _loanQueryHandler;
+        private readonly LoanRequestQueryHandler _loanQueryHandler;
 
-        public LoanController(RequestLoanCommandHandler handler, LoanQueryHandler loanQueryHandler)
+        public LoanController(RequestLoanCommandHandler handler, LoanRequestQueryHandler loanQueryHandler)
         {
             _handler = handler;
             _loanQueryHandler = loanQueryHandler;

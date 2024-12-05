@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace h3_18_proptechback.Application.Features.Loan.Queries
 {
-    public class LoanQueryHandler
+    public class LoanRequestQueryHandler
     {
         private readonly ILoanRequestRepository _loanRequestRepository;
         private readonly IUserIdentityService _userIdentityService;
 
-        public LoanQueryHandler(ILoanRequestRepository loanRequestRepository, IUserIdentityService userIdentityService)
+        public LoanRequestQueryHandler(ILoanRequestRepository loanRequestRepository, IUserIdentityService userIdentityService)
         {
             _loanRequestRepository = loanRequestRepository;
             _userIdentityService = userIdentityService;

@@ -4,8 +4,9 @@ using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
-using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
+using h3_18_proptechback.Application.Features.CalculatorCredit;
 using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
+using h3_18_proptechback.Application.Features.Loan.Command.ValidateLoanRequest;
 using h3_18_proptechback.Domain;
 
 namespace h3_18_proptechback.Application.Features.Loan.Command
@@ -19,6 +20,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
         private readonly IDocumentsUserRepository _documentsUserRepository;
         private readonly IDataGuarantorRepository _dataGuarantorRepository;
         private readonly IDocumentsGuarantorRepository _documentsGuarantorRepository;
+        private FinancingCalculator _calculator;
 
         public RequestLoanCommandHandler(ICloudinaryService cloudinaryService, ILoanRequestRepository loanRequestRepository,
             IDataUserRepository dataUserRepository, IUserIdentityService userIdentityService, IDocumentsUserRepository documentsUserRepository,
@@ -171,6 +173,70 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             };
             await _documentsGuarantorRepository.Add(docGuarantorToCreate);
 
+        }
+        public async Task<string> RejectLoanRequest(ValidateLoanRequestCommand command)
+        {
+            var loanUpdated = await _loanRequestRepository.RejectPendingLoanRequest(command.LoanRequestId);
+            return "¡Solicitud de préstamo rechazada con exito!";
+        }
+        public async Task<string> ValidateLoanRequest(ValidateLoanRequestCommand command, string email)
+        {
+            var user = await _userIdentityService.GetIdentityUser(email);
+
+            var loanUpdated = await _loanRequestRepository.ValidatePendingLoanRequest(command.LoanRequestId);
+
+            _calculator = new FinancingCalculator(loanUpdated.LotCost, loanUpdated.DownPayment, loanUpdated.QuotasCount);
+            var loan = new Domain.Loan
+            {
+                ID = command.LoanRequestId,
+                Createby = user.Id,
+                FinancingAmount = _calculator.FinancingAmount,
+                InterestRate = _calculator.InteresRate(),
+                CreatedDate = DateTime.Now.ToUniversalTime(),
+                TotalPayment = _calculator.TotalPayment(),
+                PaymentMonth = _calculator.PaymentMonth(),
+                LoanRequestId = loanUpdated.ID,
+                StateLoan = Domain.Common.StateLoan.Pending,
+
+            };
+            List<Quota> quotas = new List<Quota>();
+            DateTime? lastQuota = null;
+            
+            for(int i = 1; i<= loanUpdated.QuotasCount;i++)
+            {
+                Quota quota = new Quota
+                {
+                    Amount = loan.PaymentMonth,
+                    Createby = user.Id,
+                    LoanId = loan.ID,
+                    QuotaNumber = i,
+                    State = Domain.Common.StateQuota.Pending,
+                    CreatedDate = DateTime.Now.ToUniversalTime(),
+                    PayDate = GetDatetimeQuota(lastQuota)
+                };
+                lastQuota = quota.PayDate;
+            }
+
+            return "¡Solicitud de préstamo validada con exito!";
+        }
+
+        private DateTime GetDatetimeQuota(DateTime? lastQuotaDate)
+        {
+            if(lastQuotaDate is null)
+            {
+                var timeNow = DateTime.Now.ToUniversalTime();
+                var currentMonth11Date = new DateTime(timeNow.Year, timeNow.Month, 11);
+                if (timeNow > currentMonth11Date)
+                {
+                    return currentMonth11Date.AddMonths(1);
+                }
+                return currentMonth11Date;
+            }
+            else
+            {
+                return lastQuotaDate.Value.AddMonths(1);
+            }
+            
         }
     }
 }

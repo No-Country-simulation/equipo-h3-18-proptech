@@ -27,7 +27,7 @@ namespace h3_18_proptechback.Application
             service.AddScoped<ValidateIdentityCommandHandler>();
             service.AddScoped<ValidateIdentityQueryHandler>();
             service.AddScoped<RequestLoanCommandHandler>();
-            service.AddScoped<LoanQueryHandler>();
+            service.AddScoped<LoanRequestQueryHandler>();
 
             service.AddFluentValidationAutoValidation();
             service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
