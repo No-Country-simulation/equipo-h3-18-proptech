@@ -2,15 +2,19 @@ import { Carousel, HomeSteps, ImageData, LoanSimulator } from "./components";
 
 const images: ImageData[] = [
   {
-    img: "https://via.placeholder.com/800x400.png?text=Slide+1",
+    img: "assets/carouselcomprador1.jpg",
     text: "Comprador Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
   },
   {
-    img: "https://via.placeholder.com/800x400.png?text=Slide+2",
+    img: "assets/carouselcomprador2.jpg",
     text: "Terreno Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
   },
   {
-    img: "https://via.placeholder.com/800x400.png?text=Slide+3",
+    img: "assets/carouselcomprador3.jpg",
+    text: "Cuotas Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
+  },
+  {
+    img: "assets/carouselcomprador4.jpg",
     text: "Cuotas Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, cum. Obcaecati eveniet perferendis voluptate.",
   },
 ];
