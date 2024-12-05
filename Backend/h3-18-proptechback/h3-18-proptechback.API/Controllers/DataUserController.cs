@@ -240,11 +240,19 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpGet("detailsRequestValidation/{DNI}")]
         [Authorize(Roles = "Administrador")]
+<<<<<<< HEAD
         [ProducesResponseType<DetailReqLoanQueryResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<DetailReqLoanQueryResponse>> GetDetailsRequestValidation(string DNI)
+=======
+        [ProducesResponseType<GetDetailsRequestValidationQueryResponse>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<GetDetailsRequestValidationQueryResponse>> GetDetailsRequestValidation(string DNI)
+>>>>>>> 91716a7 (backend/update/fix proyect)
         {
             try
             {
