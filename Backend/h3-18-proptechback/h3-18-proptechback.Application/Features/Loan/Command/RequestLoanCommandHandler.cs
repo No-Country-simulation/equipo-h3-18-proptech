@@ -5,9 +5,10 @@ using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
+using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
 using h3_18_proptechback.Domain;
 
-namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
+namespace h3_18_proptechback.Application.Features.Loan.Command
 {
     public class RequestLoanCommandHandler
     {
@@ -89,7 +90,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
 
             if (string.IsNullOrEmpty(lastDocUser.SalaryURL) || string.IsNullOrEmpty(lastDocUser.Salary2URL) || string.IsNullOrEmpty(lastDocUser.Salary3URL) || string.IsNullOrEmpty(lastDocUser.ProofAddressURL))
             {
-                
+
 
                 results = await Task.WhenAll(uploadTasks);
 
@@ -125,7 +126,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
                     LoanRequestId = loanRequestCreated.ID,
                 };
 
-                var docUserCreated = await _documentsUserRepository.Add(newDocUser);  
+                var docUserCreated = await _documentsUserRepository.Add(newDocUser);
             }
 
             var guarantor1ID = await CreateDataGuarantor(command.Guarantor1, user.Id, loanRequestCreated.ID);
@@ -169,7 +170,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
                 CreatedDate = DateTime.Now.ToUniversalTime()
             };
             await _documentsGuarantorRepository.Add(docGuarantorToCreate);
-            
+
         }
     }
 }

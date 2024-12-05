@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="Exception\" />
     <Folder Include="Features\DocumentsUpload\" />
-    <Folder Include="Features\Loan\Queries\GetDetailsLoan\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

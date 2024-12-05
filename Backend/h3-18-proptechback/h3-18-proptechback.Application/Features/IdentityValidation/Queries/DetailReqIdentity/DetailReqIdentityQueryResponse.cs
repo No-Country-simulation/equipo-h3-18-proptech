@@ -1,6 +1,6 @@
 ﻿namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetDetailsRequestValidation
 {
-    public class DetailReqLoanQueryResponse
+    public class DetailReqIdentityQueryResponse
     {
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -11,11 +11,11 @@
         public string Photo { get; set; }
         public string FrontDNI { get; set; }
         public string BackDNI { get; set; }
-        public DetailReqLoanQueryResponse()
+        public DetailReqIdentityQueryResponse()
         {
             
         }
-        public DetailReqLoanQueryResponse(string name, string lastName, string email, string phoneNumber, string dNI, string cUIT, string photo, string frontDNI, string backDNI)
+        public DetailReqIdentityQueryResponse(string name, string lastName, string email, string phoneNumber, string dNI, string cUIT, string photo, string frontDNI, string backDNI)
         {
             Name = name;
             LastName = lastName;
