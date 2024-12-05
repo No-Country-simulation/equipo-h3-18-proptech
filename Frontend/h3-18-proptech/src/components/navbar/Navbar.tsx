@@ -11,31 +11,28 @@ export function Navbar() {
   const sessionRole = useSessionStore((state) => state.role);
   const closeSession = useSessionStore((state) => state.closeSession);
 
-  const navLinks = [
-    {
-      text: "Mis Finanzas",
-      href:
-        sessionRole === "Cliente"
-          ? "buyer"
-          : sessionRole === "Inversor"
-            ? "/"
-            : "/",
-    },
-    {
-      text: "Quienes somos",
-      href: "/",
-    },
-    {
-      text: "Contacto",
-      href: "/profile",
-    },
-  ];
-
-  const { role } = useSwitchStore();
+  const { role, setRole } = useSwitchStore();
   const [openMenu, setOpenMenu] = useState(false);
   const [openProfileModal, setOpenProfileModal] = useState(false);
 
   const navigate = useTransitionNavigation();
+
+  const userAditionalRoute =
+    sessionRole === "Cliente"
+      ? "/buyer"
+      : sessionRole === "Administrador"
+        ? "/admin"
+        : "/profile";
+
+  const goToSimulator = () => {
+    setTimeout(() => {
+      sessionRole === "Cliente" && setRole("buyer");
+      sessionRole === "Inversor" && setRole("investor");
+      document
+        .getElementById("simulator")
+        ?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <header className="flex py-2 px-6 lg:px-18 xl:px-24 gap-4 lg:gap-12 justify-between bg-contrast border-b-[3px] border-primary sticky top-0 w-full z-20">
@@ -54,7 +51,7 @@ export function Navbar() {
       </button>
 
       <nav
-        className={`${openMenu ? "opacity-100 translate-x-0 translate-y-0" : "opacity-0 scale-0 translate-x-80 -translate-y-80"} transition ease-out duration-300 md:transition-none absolute top-0 right-0 flex flex-col bg-white p-4 pb-8 h-screen z-30 justify-between border-s-2 w-screen border-primary md:flex md:relative md:flex-row md:justify-between md:items-center md:w-full md:z-auto md:p-0 md:h-auto md:border-0 md:scale-100 md:opacity-100 md:translate-x-0 md:translate-y-0 `}
+        className={`${openMenu ? "opacity-100 translate-x-0 translate-y-0" : "opacity-0 scale-0 translate-x-80 -translate-y-80"} transition ease-out duration-300 absolute top-0 right-0 flex flex-col bg-white p-4 pb-8 h-screen z-30 justify-between border-s-2 w-screen border-primary md:flex md:relative md:flex-row md:justify-between md:items-center md:w-full md:z-auto md:p-0 md:h-auto md:border-0 md:scale-100 md:opacity-100 md:translate-x-0 md:translate-y-0 md:transition-none `}
       >
         <header className="flex flex-col md:hidden relative">
           <button
@@ -67,23 +64,35 @@ export function Navbar() {
           <hr className="bg-primary my-4" />
         </header>
 
-        <section className="flex flex-col flex-1 md:flex-auto md:flex-row gap-6 md:gap-4">
-          {navLinks.map(({ href, text }, index) => {
-            if (!session && text === "Mis Finanzas") return;
-            return (
-              <div
-                className="flex gap-4 w-fit"
-                key={text}
-                onClick={() => setOpenMenu(false)}
-              >
-                <NavElement to={href}>{text}</NavElement>
-                {index < navLinks.length - 1 && (
-                  <div className="hidden md:flex w-1 bg-secondary"></div>
-                )}
-              </div>
-            );
-          })}
-        </section>
+        <ul className="flex flex-col flex-1 md:flex-auto md:flex-row gap-6 md:gap-4">
+          <li className="flex gap-4 w-fit">
+            <NavElement to="/">Quienes somos</NavElement>
+            <div className="hidden md:flex w-1 bg-secondary"></div>
+          </li>
+          <li className="flex gap-4 w-fit">
+            <Link
+              to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/");
+                goToSimulator();
+              }}
+              className="text-base-color text-title-large-semi-bold md:text-title-medium-semi-bold uppercase hover:text-primary"
+            >
+              Simulador
+            </Link>
+            {session && <div className="hidden md:flex w-1 bg-secondary"></div>}
+          </li>
+          {session && (
+            <li className="flex gap-4 w-fit">
+              <NavElement to={userAditionalRoute}>
+                {sessionRole === "Administrador"
+                  ? "Gestión de Usuarios"
+                  : "Mis Finanzas"}
+              </NavElement>
+            </li>
+          )}
+        </ul>
 
         <section className="flex flex-col">
           <hr className="flex md:hidden my-4 bg-primary" />

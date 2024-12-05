@@ -30,17 +30,16 @@ export function Chatbot() {
   useEffect(() => {
     document
       .getElementById("chatbotMessagesSection")
-      ?.scrollTo(
-        0,
-        document.getElementById("chatbotMessagesSection")?.scrollHeight ?? 0
+      ?.scrollTo({left: 0, top: document.getElementById("chatbotMessagesSection")?.scrollHeight ?? 0, behavior: "smooth"}
       );
   }, [messages]);
+
 
   return (
     <>
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="p-2 rounded-full bg-white border-2 border-primary fixed bottom-4 right-4 hover:scale-125 transition-all text-xl duration-300"
+        className="p-2 rounded-full bg-white border-2 border-primary fixed bottom-4 right-4 hover:scale-125 transition-all text-xl duration-300 z-50"
       >
         🤖
       </button>

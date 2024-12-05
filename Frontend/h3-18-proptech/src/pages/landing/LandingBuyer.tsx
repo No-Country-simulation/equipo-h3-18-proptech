@@ -20,7 +20,7 @@ export function LandingBuyer() {
     <>
       <Carousel images={images} />
       <HomeSteps />
-      <div id="simulator">
+      <div id="simulator" className="pt-16">
         <LoanSimulator />
       </div>
     </>

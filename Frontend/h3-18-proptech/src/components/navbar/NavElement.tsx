@@ -6,6 +6,7 @@ interface Props {
   children: string;
   activeClassname?: string;
   notActiveClassname?: string;
+  action?: () => void;
 }
 
 export function NavElement({
@@ -13,6 +14,7 @@ export function NavElement({
   children,
   activeClassname,
   notActiveClassname,
+  action
 }: Props) {
   const navigate = useTransitionNavigation();
   return (
@@ -20,6 +22,7 @@ export function NavElement({
       onClick={(e) => {
         e.preventDefault();
         navigate(to);
+        action && action()
       }}
       to={to}
       className={({ isActive }) =>

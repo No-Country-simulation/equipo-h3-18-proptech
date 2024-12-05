@@ -2,18 +2,13 @@ import { create } from "zustand";
 
 interface SwitchState {
   role: "buyer" | "investor";
-  setBuyer: () => void;
-  setInvestor: () => void;
+  setRole: (role: "buyer" | "investor") => void;
 }
 
 export const useSwitchStore = create<SwitchState>()((set) => ({
   role: "buyer",
-  setBuyer: () =>
+  setRole: (role: "buyer" | "investor") =>
     set(() => ({
-      role: "buyer",
-    })),
-  setInvestor: () =>
-    set(() => ({
-      role: "investor",
+      role,
     })),
 }));
