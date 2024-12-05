@@ -8,7 +8,7 @@ namespace h3_18_proptechback.Domain
         public Loan Loan { get; set; }
         public int QuotaNumber { get; set; }
         public DateTime PayDate { get; set; }
-        public StateLoan State { get; set; }
+        public StateQuota State { get; set; }
         public decimal Amount { get; set; }
     }
 }
