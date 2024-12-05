@@ -17,6 +17,18 @@ export const guarantorDataSchema = z.object({
     .string()
     .min(1, "Introduce tu CUIT")
     .regex(/^\d{2}\-?\d{8}\-?\d{1}$/, "Ingresa un CUIT válido"),
+  Photo: z.instanceof(File, {
+    message:
+      "Introduce una imagen o archivo que contenga una foto de tu rostro",
+  }),
+  Front: z.instanceof(File, {
+    message:
+      "IIntroduce una imagen o archivo que contenga el frente de tu DN",
+  }),
+  Back: z.instanceof(File, {
+    message:
+      "Introduce una imagen o archivo que contenga el reverso de tu DN",
+  }),
   salaryReceipt1: z.instanceof(File, {
     message:
       "Introduce una imagen o archivo que contenga el recibo de hace un mes del salario del garante",
@@ -36,10 +48,7 @@ export const guarantorDataSchema = z.object({
   phoneNumber: z
     .string()
     .min(1, "Introduce tu número de teléfono")
-    .regex(
-      /^(\+54)?\d{10,17}$/,
-      "Ingrese un número de teléfono válido"
-    ),
+    .regex(/^(\+54)?\d{10,17}$/, "Ingrese un número de teléfono válido"),
   email: z.string().email("Ingrese un correo electrónico válido"),
 });
 
@@ -55,6 +64,10 @@ export const FinanceSchema = z
     downPayment: z.coerce
       .number({ message: "Debes introducir un número" })
       .nonnegative({ message: "Por favor, introduzca un número positivo" }),
+      cardNumber: z.coerce
+      .number({ message: "Debes introducir un número" })
+      .nonnegative({ message: "Por favor, introduzca un número positivo" })
+      .refine((value) => `${value}`.length === 16 || `${value}`.length === 17, 'Introduzca un número de tarjeta que contenga 16 o 17 dígitos'),
     salaryReceipt1: z.instanceof(File, {
       message:
         "Introduce una imagen o archivo que contenga el recibo de hace un mes de tu salario",
@@ -83,4 +96,4 @@ export const FinanceSchema = z
     }
   });
 
-export type FinancingDataForm = z.infer<typeof FinanceSchema>;
+export type RequestLoanForm = z.infer<typeof FinanceSchema>;

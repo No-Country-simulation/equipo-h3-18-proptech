@@ -12,7 +12,7 @@ interface Props {
 export function NumberInput({ register, name, label, info, error, placeholder }: Props) {
   return (
     <div className={`flex flex-col relative pb-5 ${info ? "mb-4" : "mb-0"}`}>
-      <label className="mb-2 text-body-medium-regular ps-2">{label}</label>
+      <span className="mb-2 text-body-medium-regular ps-2">{label}</span>
       <input
         type="number"
         placeholder={placeholder ?? "0"}

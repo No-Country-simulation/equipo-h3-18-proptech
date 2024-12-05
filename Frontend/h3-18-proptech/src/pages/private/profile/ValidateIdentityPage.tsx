@@ -91,7 +91,7 @@ export function ValidateIdentityPage() {
               setValue={setValue}
               name="Photo"
               error={errors.Photo}
-              label="Foto tipo Selfie"
+              label="Foto tipo selfie"
             />
             <FileDropzone
               fileType="both"

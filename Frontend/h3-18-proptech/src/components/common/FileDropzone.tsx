@@ -69,9 +69,9 @@ export function FileDropzone({
   };
   return (
     <article className="flex flex-col min-w-[200px] min-h-[200px] mx-auto">
-      <label className="text-label-large-medium mb-2" htmlFor="">
+      <span className="text-label-large-medium mb-2">
         {label}
-      </label>
+      </span>
 
       {!UploadedFile ? (
         <div
@@ -79,8 +79,11 @@ export function FileDropzone({
           {...getRootProps()}
         >
           <UploadIcon className="w-12 h-12" />
-          <span className="text-body-large-regular max-w-[20ch] text-center">
+          <span className="text-body-large-regular max-w-[20ch] text-center hidden md:flex">
             Haz click o arrastra y suelta los archivos aquí
+          </span>
+          <span className="text-body-large-regular max-w-[20ch] text-center flex md:hidden">
+            Haz click aquí para subir un archivo
           </span>
           <input
             {...getInputProps()}

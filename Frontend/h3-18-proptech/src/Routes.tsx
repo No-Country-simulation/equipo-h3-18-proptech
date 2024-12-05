@@ -5,13 +5,13 @@ import {
   DashboardBuyerPage,
   HomePage,
   LayoutPage,
+  LoanRequestPage,
   LoginPage,
   PrivatePagesAuth,
   ProfilePage,
   RegisterPage,
   RoleAdminAuth,
   RoleBuyerAuth,
-  SwitchFinanceFormPage,
   ValidateIdentityPage,
 } from "./pages";
 import DashboardAdminPage from "./pages/private/admin/DashboardAdminPage";
@@ -25,6 +25,7 @@ import {
   ValidateTablePage,
   ValidateUserPage,
 } from "./pages/private/admin/pages";
+import { GuarantorForm, LoanForm } from "./pages/private/buyer/components";
 
 function AppRoutes() {
   return (
@@ -50,7 +51,10 @@ function AppRoutes() {
             <Route path="/buyer" element={<RoleBuyerAuth />}>
               <Route path="" element={<DashboardBuyerPage />} />
               <Route path="shares" element={<BuyerSharesPage />} />
-              <Route path="finance" element={<SwitchFinanceFormPage />} />
+              <Route path="loan-request" element={<LoanRequestPage />}>
+                <Route path="" element={<LoanForm />} />
+                <Route path="guarantor" element={<GuarantorForm />} />
+              </Route>
             </Route>
 
             <Route path="/investor">// Rutas del Inversor</Route>

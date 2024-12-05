@@ -12,9 +12,9 @@ export function LayoutPage() {
   const [loading, setLoading] = useState(true);
   const newSession = useSessionStore((state) => state.newSession);
   useEffect(() => {
-    const session = getCookie("user");
-    if (session) {
-      newSession(session);
+    const cookie = getCookie("user") ?? {};
+    if (cookie.token) {
+      newSession(cookie.token);
     }
     setLoading(false);
   }, []);
