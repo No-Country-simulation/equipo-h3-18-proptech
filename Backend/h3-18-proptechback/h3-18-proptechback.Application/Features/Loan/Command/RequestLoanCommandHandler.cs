@@ -87,6 +87,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
                 QuotasCount = command.QuotasCount,
                 CreatedDate = DateTime.Now.ToUniversalTime(),
                 StateRequest = Domain.Common.StateRequest.Pending,
+                CBU = command.CBU
             };
 
             string[] results;

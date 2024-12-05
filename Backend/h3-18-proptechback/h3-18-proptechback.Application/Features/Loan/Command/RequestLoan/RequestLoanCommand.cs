@@ -25,6 +25,8 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
         [FromForm]
         public int QuotasCount { get; set; }
         [FromForm]
+        public string CBU { get; set; }
+        [FromForm]
         public RequestLoanGuarantorCommand Guarantor1 { get; set; }
         public RequestLoanGuarantorCommand Guarantor2 { get; set; }
     }
