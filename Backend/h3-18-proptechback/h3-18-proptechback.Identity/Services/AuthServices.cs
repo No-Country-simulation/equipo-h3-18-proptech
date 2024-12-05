@@ -65,7 +65,7 @@ namespace h3_18_proptechback.Identity.Services
 
         public async Task<RegistrationResponse> Register(RegistrationRequest request)
             {
-                var existingUser = await _userManager.FindByNameAsync(request.Username);
+                var existingUser = await _userManager.FindByNameAsync(request.Email);
 
                 if (existingUser != null) 
                 {
@@ -82,9 +82,9 @@ namespace h3_18_proptechback.Identity.Services
                 var user = new ApplicationUser
                 {
                     Email = request.Email,
-                    Nombre = request.Nombre,
-                    Apellido = request.Apellidos,
-                    UserName = request.Username,
+                    Nombre = request.Name,
+                    Apellido = request.LastName,
+                    UserName = request.Email,
                     PhoneNumber = request.PhoneNumber,
                     PhoneNumberConfirmed = true,
                     EmailConfirmed = true,
