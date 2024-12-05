@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { Button, PasswordInput, TextInput } from "../../../components/common";
 import { useSessionStore, useSwitchStore } from "../../../stores";
 import { useTransitionNavigation } from "../../../hooks";
-import { decodeUserToken } from "../../../lib";
 import { authLogin } from "../../../services";
 import { FormValues, loginSchema } from "./models";
 
@@ -29,12 +28,11 @@ export const LoginPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const response = await authLogin(data);
     if (response && response.status < 300) {
-      const user = decodeUserToken(response.data.token);
-      newSession(user);
+      const role = newSession(response.data.token);
       toast.success("Sesión iniciada exitosamente");
-      user.role === "Cliente" && navigate("/buyer");
+      role === "Cliente" && navigate("/buyer");
       // user.role === "Inversor" && navigate("/")
-      user.role === "Administrador" && navigate("/admin/dashboard/validate")
+      role === "Administrador" && navigate("/admin/dashboard/validate")
     } else {
       if (response?.data) toast.error(response.data);
       else {

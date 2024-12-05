@@ -1,5 +1,4 @@
 export * from './Button'
-export * from './CustomInput'
 export * from "./FileDropzone"
 export * from "./Loader"
 export * from './NumberInput'
@@ -7,3 +6,4 @@ export * from "./PasswordInput"
 export * from './SelectInput'
 export * from './SwitchButton'
 export * from './TextInput'
+export * from "./TextFieldWithIcon"

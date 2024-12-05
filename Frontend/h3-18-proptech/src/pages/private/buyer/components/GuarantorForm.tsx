@@ -1,51 +1,57 @@
 import { useEffect } from "react";
-import { useForm, UseFormSetValue } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocation } from "react-router-dom";
 import { TextInput, FileDropzone, Button } from "../../../../components/common";
 import { Guarantor } from "../../../../interfaces";
 import { guarantorDataSchema } from "../models";
+import useTransitionNavigation from "../../../../hooks/useTransitionNavigation";
 
-interface Props {
-  guarantors: Guarantor[];
-  externalSetValue: UseFormSetValue<any>;
-  viewGuarantorForm: React.Dispatch<any>;
-  editIndex?: number;
-}
+export function GuarantorForm() {
+  const loanForm = useFormContext();
+  const { state } = useLocation();
+  const navigate = useTransitionNavigation();
 
-export function AddGuarantorForm({
-  externalSetValue,
-  guarantors,
-  viewGuarantorForm,
-  editIndex,
-}: Props) {
+  let editIndex;
+  let guarantors;
+  if (state !== null) {
+    editIndex = state.editIndex;
+    guarantors = state.guarantors
+  } else {
+    editIndex = undefined;
+    guarantors = []
+  }
+  
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<Guarantor>({
-    defaultValues:
-      editIndex !== undefined
-        ? {
-            name: guarantors[editIndex].name,
-            lastname: guarantors[editIndex].lastname,
-            CUIT: guarantors[editIndex].CUIT,
-            DNI: guarantors[editIndex].DNI,
-            email: guarantors[editIndex].email,
-            phoneNumber: guarantors[editIndex].phoneNumber,
-            salaryReceipt1: guarantors[editIndex].salaryReceipt1,
-            salaryReceipt2: guarantors[editIndex].salaryReceipt2,
-            salaryReceipt3: guarantors[editIndex].salaryReceipt3,
-            homeReceipt: guarantors[editIndex].homeReceipt,
-          }
-        : {
-            name: "",
-            lastname: "",
-            CUIT: "",
-            DNI: "",
-            email: "",
-            phoneNumber: "",
-          },
+    defaultValues: editIndex !== undefined
+      ? {
+          name: guarantors[editIndex].name,
+          lastname: guarantors[editIndex].lastname,
+          CUIT: guarantors[editIndex].CUIT,
+          DNI: guarantors[editIndex].DNI,
+          email: guarantors[editIndex].email,
+          phoneNumber: guarantors[editIndex].phoneNumber,
+          Photo: guarantors[editIndex].Photo,
+          Front: guarantors[editIndex].Front,
+          Back: guarantors[editIndex].Back,
+          salaryReceipt1: guarantors[editIndex].salaryReceipt1,
+          salaryReceipt2: guarantors[editIndex].salaryReceipt2,
+          salaryReceipt3: guarantors[editIndex].salaryReceipt3,
+          homeReceipt: guarantors[editIndex].homeReceipt,
+        }
+      : {
+          name: "",
+          lastname: "",
+          CUIT: "",
+          DNI: "",
+          email: "",
+          phoneNumber: "",
+        },
     resolver: zodResolver(guarantorDataSchema),
   });
 
@@ -53,16 +59,17 @@ export function AddGuarantorForm({
     window.scrollTo(0, 0);
   }, []);
 
-  const onSubmit = async (data: Guarantor) => {
+  const onSubmit = (data: Guarantor) => {
     if (editIndex !== undefined) {
-      const newGuarantors = guarantors.map((guarantor, index) =>
-        index === editIndex ? data : guarantor
+      const newGuarantors = guarantors.map(
+        (guarantor: Guarantor, index: Number) =>
+          index === editIndex ? data : guarantor
       );
-      externalSetValue("guarantors", newGuarantors);
+      loanForm.setValue("guarantors", newGuarantors);
     } else {
-      externalSetValue("guarantors", [...guarantors, data]);
+      loanForm.setValue("guarantors", [...guarantors, data]);
     }
-    viewGuarantorForm(false);
+    navigate("/buyer/loan-request");
   };
 
   return (
@@ -123,6 +130,42 @@ export function AddGuarantorForm({
             />
           </section>
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
+          <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="Photo"
+              error={errors.Photo}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].Photo
+                  : undefined
+              }
+              label="Foto tipo selfie"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="Front"
+              error={errors.Front}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].Front
+                  : undefined
+              }
+              label="Frente del DNI"
+            />
+            <FileDropzone
+              fileType="both"
+              setValue={setValue}
+              name="Back"
+              error={errors.Back}
+              file={
+                editIndex !== undefined
+                  ? guarantors[editIndex].Back
+                  : undefined
+              }
+              label="Reverso del DNI"
+            />
             <FileDropzone
               fileType="both"
               setValue={setValue}
@@ -186,4 +229,4 @@ export function AddGuarantorForm({
   );
 }
 
-export default AddGuarantorForm;
+export default GuarantorForm;

@@ -8,6 +8,6 @@ export * from "./private/profile/ValidateIdentityPage";
 export * from "./private/buyer/RoleBuyerAuth";
 export * from "./private/buyer/DashboardBuyerPage";
 export * from "./private/buyer/BuyerSharesPage";
-export * from "./private/buyer/SwitchFinanceFormPage";
+export * from "./private/buyer/LoanRequestPage";
 export * from "./private/admin/RoleAdminAuth";
 export * from "./private/admin/CheckIdentityPage";
