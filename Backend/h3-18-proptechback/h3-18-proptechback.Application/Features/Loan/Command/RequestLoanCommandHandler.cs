@@ -179,17 +179,15 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             var loanUpdated = await _loanRequestRepository.RejectPendingLoanRequest(command.LoanRequestId);
             return "¡Solicitud de préstamo rechazada con exito!";
         }
-        public async Task<string> ValidateLoanRequest(ValidateLoanRequestCommand command, string email)
+        public async Task<string> ValidateLoanRequest(ValidateLoanRequestCommand command)
         {
-            var user = await _userIdentityService.GetIdentityUser(email);
 
             var loanUpdated = await _loanRequestRepository.ValidatePendingLoanRequest(command.LoanRequestId);
-
             _calculator = new FinancingCalculator(loanUpdated.LotCost, loanUpdated.DownPayment, loanUpdated.QuotasCount);
             var loan = new Domain.Loan
             {
                 ID = command.LoanRequestId,
-                Createby = user.Id,
+                Createby = loanUpdated.Createby,
                 FinancingAmount = _calculator.FinancingAmount,
                 InterestRate = _calculator.InteresRate(),
                 CreatedDate = DateTime.Now.ToUniversalTime(),
@@ -207,7 +205,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
                 Quota quota = new Quota
                 {
                     Amount = loan.PaymentMonth,
-                    Createby = user.Id,
+                    Createby = loan.Createby,
                     LoanId = loan.ID,
                     QuotaNumber = i,
                     State = Domain.Common.StateQuota.Pending,
@@ -225,11 +223,8 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             if(lastQuotaDate is null)
             {
                 var timeNow = DateTime.Now.ToUniversalTime();
-                var currentMonth11Date = new DateTime(timeNow.Year, timeNow.Month, 11);
-                if (timeNow > currentMonth11Date)
-                {
-                    return currentMonth11Date.AddMonths(1);
-                }
+                var currentMonth11Date = new DateTime(timeNow.Year, timeNow.Month, 11).AddMonths(1).ToUniversalTime();
+                
                 return currentMonth11Date;
             }
             else

@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\DocumentsUpload\**" />
+    <EmbeddedResource Remove="Features\DocumentsUpload\**" />
+    <None Remove="Features\DocumentsUpload\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Exception\" />
-    <Folder Include="Features\DocumentsUpload\" />
+    <Folder Include="Features\Loan\Queries\AllLoan\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
