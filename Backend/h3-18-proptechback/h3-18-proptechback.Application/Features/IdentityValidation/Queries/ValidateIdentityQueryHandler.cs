@@ -25,7 +25,7 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries
             _userIdentityService = userIdentityService;
             _documentsUserRepository = documentsUserRepository;
         }
-        public async Task<GetDetailsRequestValidationQueryResponse> GetDetailPendingRequest(string DNI)
+        public async Task<DetailReqLoanQueryResponse> GetDetailPendingRequest(string DNI)
         {
             var dataUser = await _dataUserRepository.GetPendingByDNI(DNI);
             if(dataUser is null)
@@ -33,7 +33,7 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries
             var user = await _userIdentityService.GetByIdIdentityUser(dataUser.Createby);
             var docsUser = await _documentsUserRepository.GetLastDataUser(DNI);
 
-            var response = new GetDetailsRequestValidationQueryResponse(user.Name, user.LastName, user.Email, user.PhoneNumber, dataUser.DNI, dataUser.CUIT, docsUser.PhotoURL, docsUser.FrontDNIURL, docsUser.BackDNIURL);
+            var response = new DetailReqLoanQueryResponse(user.Name, user.LastName, user.Email, user.PhoneNumber, dataUser.DNI, dataUser.CUIT, docsUser.PhotoURL, docsUser.FrontDNIURL, docsUser.BackDNIURL);
             return response;
         }
         public async Task<List<GetRequestValidationQueryResponse>> GetPendingRequest()

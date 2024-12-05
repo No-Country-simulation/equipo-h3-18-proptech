@@ -244,7 +244,7 @@ namespace h3_18_proptechback.API.Controllers
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<GetDetailsRequestValidationQueryResponse>> GetDetailsRequestValidation(string DNI)
+        public async Task<ActionResult<DetailReqLoanQueryResponse>> GetDetailsRequestValidation(string DNI)
         {
             try
             {
