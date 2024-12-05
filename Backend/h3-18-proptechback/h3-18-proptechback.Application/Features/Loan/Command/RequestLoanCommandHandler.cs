@@ -3,9 +3,11 @@ using h3_18_proptechback.Application.Contracts.Infrastructure.Cloudinary;
 using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Contracts.Persistence.Loan;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
-using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
+using h3_18_proptechback.Application.Features.CalculatorCredit;
 using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
+using h3_18_proptechback.Application.Features.Loan.Command.ValidateLoanRequest;
 using h3_18_proptechback.Domain;
 
 namespace h3_18_proptechback.Application.Features.Loan.Command
@@ -19,11 +21,13 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
         private readonly IDocumentsUserRepository _documentsUserRepository;
         private readonly IDataGuarantorRepository _dataGuarantorRepository;
         private readonly IDocumentsGuarantorRepository _documentsGuarantorRepository;
+        private readonly ILoanRepository _loanRepository;
+        private FinancingCalculator _calculator;
 
         public RequestLoanCommandHandler(ICloudinaryService cloudinaryService, ILoanRequestRepository loanRequestRepository,
             IDataUserRepository dataUserRepository, IUserIdentityService userIdentityService, IDocumentsUserRepository documentsUserRepository,
-            IDataGuarantorRepository dataGuarantorRepository,
-            IDocumentsGuarantorRepository documentsGuarantorRepository)
+            IDataGuarantorRepository dataGuarantorRepository, IDocumentsGuarantorRepository documentsGuarantorRepository,
+            ILoanRepository loanRepository)
         {
             _cloudinaryService = cloudinaryService;
             _loanRequestRepository = loanRequestRepository;
@@ -32,6 +36,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             _documentsUserRepository = documentsUserRepository;
             _dataGuarantorRepository = dataGuarantorRepository;
             _documentsGuarantorRepository = documentsGuarantorRepository;
+            _loanRepository = loanRepository;
         }
 
         public async Task<string> SendLoanRequest(RequestLoanCommand command, string email)
@@ -171,6 +176,67 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             };
             await _documentsGuarantorRepository.Add(docGuarantorToCreate);
 
+        }
+        public async Task<string> RejectLoanRequest(ValidateLoanRequestCommand command)
+        {
+            var loanUpdated = await _loanRequestRepository.RejectPendingLoanRequest(command.LoanRequestId);
+            return "¡Solicitud de préstamo rechazada con exito!";
+        }
+        public async Task<string> ValidateLoanRequest(ValidateLoanRequestCommand command)
+        {
+
+            var loanUpdated = await _loanRequestRepository.ValidatePendingLoanRequest(command.LoanRequestId);
+            _calculator = new FinancingCalculator(loanUpdated.LotCost, loanUpdated.DownPayment, loanUpdated.QuotasCount);
+            var loan = new Domain.Loan
+            {
+                ID = command.LoanRequestId,
+                Createby = loanUpdated.Createby,
+                FinancingAmount = _calculator.FinancingAmount,
+                InterestRate = _calculator.InteresRate(),
+                CreatedDate = DateTime.Now.ToUniversalTime(),
+                TotalPayment = _calculator.TotalPayment(),
+                PaymentMonth = _calculator.PaymentMonth(),
+                LoanRequestId = loanUpdated.ID,
+                StateLoan = Domain.Common.StateLoan.Pending,
+
+            };
+            List<Quota> quotas = new List<Quota>();
+            DateTime? lastQuota = null;
+            
+            for(int i = 1; i<= loanUpdated.QuotasCount;i++)
+            {
+                Quota quota = new Quota
+                {
+                    Amount = loan.PaymentMonth,
+                    Createby = loan.Createby,
+                    LoanId = loan.ID,
+                    QuotaNumber = i,
+                    State = Domain.Common.StateQuota.Pending,
+                    CreatedDate = DateTime.Now.ToUniversalTime(),
+                    PayDate = GetDatetimeQuota(lastQuota)
+                };
+                lastQuota = quota.PayDate;
+                quotas.Add(quota);
+            }
+            loan.Quotas = quotas;
+            await _loanRepository.Add(loan);
+            return "¡Solicitud de préstamo validada con exito!";
+        }
+
+        private DateTime GetDatetimeQuota(DateTime? lastQuotaDate)
+        {
+            if(lastQuotaDate is null)
+            {
+                var timeNow = DateTime.Now.ToUniversalTime();
+                var currentMonth11Date = new DateTime(timeNow.Year, timeNow.Month, 11).AddMonths(1).ToUniversalTime();
+                
+                return currentMonth11Date;
+            }
+            else
+            {
+                return lastQuotaDate.Value.AddMonths(1);
+            }
+            
         }
     }
 }

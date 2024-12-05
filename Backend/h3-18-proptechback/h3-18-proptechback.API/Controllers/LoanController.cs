@@ -1,8 +1,11 @@
-﻿using h3_18_proptechback.Application.Features.DataUserValue.Command.AddUser;
+﻿using Azure.Core;
+using h3_18_proptechback.Application.Features.DataUserValue.Command.AddUser;
 using h3_18_proptechback.Application.Features.Loan.Command;
 using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
+using h3_18_proptechback.Application.Features.Loan.Command.ValidateLoanRequest;
 using h3_18_proptechback.Application.Features.Loan.Queries;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllRequestLoan;
+using h3_18_proptechback.Application.Models.Emails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +18,9 @@ namespace h3_18_proptechback.API.Controllers
     public class LoanController : ControllerBase
     {
         private readonly RequestLoanCommandHandler _handler;
-        private readonly LoanQueryHandler _loanQueryHandler;
+        private readonly LoanRequestQueryHandler _loanQueryHandler;
 
-        public LoanController(RequestLoanCommandHandler handler, LoanQueryHandler loanQueryHandler)
+        public LoanController(RequestLoanCommandHandler handler, LoanRequestQueryHandler loanQueryHandler)
         {
             _handler = handler;
             _loanQueryHandler = loanQueryHandler;
@@ -42,7 +45,7 @@ namespace h3_18_proptechback.API.Controllers
         /// Error interno del servidor. Devuelve el mensaje de la excepción.
         /// </response>
         [HttpPost("sendLoanRequest")]
-        [Authorize(Roles = "Cliente, Inversor")]
+        [Authorize(Roles = "Cliente")]
         [ProducesResponseType<string>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
@@ -94,6 +97,49 @@ namespace h3_18_proptechback.API.Controllers
             try
             {
                 return Ok(await _loanQueryHandler.GetAllRequestLoan());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("validateLoanRequest/{idLoanRequest}")]
+        [Authorize(Roles = "Administrador")]
+        [ProducesResponseType<string>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<string>> ValidateLoanRequest(Guid idLoanRequest)
+        {
+            try
+            {
+                return Ok(await _handler.ValidateLoanRequest(new ValidateLoanRequestCommand(idLoanRequest)));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpPut("rejectLoanRequest/{idLoanRequest}")]
+        [Authorize(Roles = "Administrador")]
+        [ProducesResponseType<string>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<string>> RejectLoanRequest(Guid idLoanRequest)
+        {
+            try
+            {
+                return Ok(await _handler.RejectLoanRequest(new ValidateLoanRequestCommand(idLoanRequest)));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
