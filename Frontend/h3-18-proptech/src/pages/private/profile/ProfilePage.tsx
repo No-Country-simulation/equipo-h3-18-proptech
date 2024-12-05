@@ -9,7 +9,6 @@ import { profileSchema } from "./models";
 import { useTransitionNavigation } from "../../../hooks";
 import { useSessionStore } from "../../../stores";
 import { getUserbyToken, updateEmailPhone } from "../../../services";
-import { decodeUserToken } from "../../../lib";
 
 export function ProfilePage() {
   const {
@@ -59,8 +58,7 @@ export function ProfilePage() {
     updateEmailPhone({ email: data.email, phoneNumber: data.phoneNumber }).then(
       (response) => {
         if (response && response.status < 300) {
-          const user = decodeUserToken(response.data.refreshToken);
-          newSession(user);
+          newSession(response.data.token);
           toast.success(response.data.message ?? "Datos actualizados exitosamente");
           setReload(true);
         } else {
