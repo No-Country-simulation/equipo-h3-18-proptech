@@ -1,10 +1,9 @@
 ﻿namespace h3_18_proptechback.Domain.Common
 {
-    public enum StateLoan
+    public enum StateQuota
     {
         Late,
         Pending,
-        AtDay,
-        Complete
+        Paid
     }
 }

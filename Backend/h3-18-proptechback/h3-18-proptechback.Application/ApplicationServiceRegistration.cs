@@ -9,8 +9,9 @@ using System.Reflection;
 using h3_18_proptechback.Application.Models.Identity;
 using h3_18_proptechback.Application.Features.DataUserValue.Queries;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands;
-using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
 using h3_18_proptechback.Application.Features.IdentityValidation.Queries;
+using h3_18_proptechback.Application.Features.Loan.Queries;
+using h3_18_proptechback.Application.Features.Loan.Command;
 
 
 namespace h3_18_proptechback.Application
@@ -26,6 +27,7 @@ namespace h3_18_proptechback.Application
             service.AddScoped<ValidateIdentityCommandHandler>();
             service.AddScoped<ValidateIdentityQueryHandler>();
             service.AddScoped<RequestLoanCommandHandler>();
+            service.AddScoped<LoanQueryHandler>();
 
             service.AddFluentValidationAutoValidation();
             service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
