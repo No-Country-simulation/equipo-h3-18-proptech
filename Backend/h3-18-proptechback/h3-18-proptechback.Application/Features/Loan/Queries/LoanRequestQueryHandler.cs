@@ -1,11 +1,8 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
+using h3_18_proptechback.Application.Contracts.Persistence.Loan;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
+using h3_18_proptechback.Application.Features.Loan.Queries.AllLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllRequestLoan;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace h3_18_proptechback.Application.Features.Loan.Queries
 {
@@ -13,11 +10,14 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
     {
         private readonly ILoanRequestRepository _loanRequestRepository;
         private readonly IUserIdentityService _userIdentityService;
+        private readonly ILoanRepository _loanRepository;
 
-        public LoanRequestQueryHandler(ILoanRequestRepository loanRequestRepository, IUserIdentityService userIdentityService)
+        public LoanRequestQueryHandler(ILoanRequestRepository loanRequestRepository, IUserIdentityService userIdentityService,
+            ILoanRepository loanRepository)
         {
             _loanRequestRepository = loanRequestRepository;
             _userIdentityService = userIdentityService;
+            _loanRepository = loanRepository;
         }
 
         public async Task<List<AllReqLoanQueryResponse>> GetAllRequestLoan()
@@ -34,6 +34,24 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
             }
 
             return requestLoanResponses;
+        }
+
+        public async Task<List<AllLoanQueryResponse>> GetAllLoan(AllLoanQuery query)
+        {
+            var loans = await _loanRepository.GetAllLoanIncludeQuotas(query.StateLoan);
+
+            List<AllLoanQueryResponse> list = new List<AllLoanQueryResponse>();
+            foreach(var loan in loans)
+            {
+                var user = await _userIdentityService.GetByIdIdentityUser(loan.LoanRequest.DataUser.Createby!);
+                var lateQuotas = loan.Quotas.Where(l => l.State == Domain.Common.StateQuota.Late).Count();
+                list.Add(new AllLoanQueryResponse(loan.ID, lateQuotas, loan.StateLoan, string.Concat(user.Name, " ", user.LastName)));
+            }
+
+            if(!string.IsNullOrEmpty(query.Name))
+                list = list.Where(d=>d.FullName.Contains(query.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return list;
         }
     }
 }
