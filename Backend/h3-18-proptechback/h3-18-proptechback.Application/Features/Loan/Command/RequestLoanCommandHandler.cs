@@ -3,6 +3,7 @@ using h3_18_proptechback.Application.Contracts.Infrastructure.Cloudinary;
 using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
+using h3_18_proptechback.Application.Contracts.Persistence.Loan;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
 using h3_18_proptechback.Application.Features.CalculatorCredit;
 using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
@@ -20,12 +21,13 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
         private readonly IDocumentsUserRepository _documentsUserRepository;
         private readonly IDataGuarantorRepository _dataGuarantorRepository;
         private readonly IDocumentsGuarantorRepository _documentsGuarantorRepository;
+        private readonly ILoanRepository _loanRepository;
         private FinancingCalculator _calculator;
 
         public RequestLoanCommandHandler(ICloudinaryService cloudinaryService, ILoanRequestRepository loanRequestRepository,
             IDataUserRepository dataUserRepository, IUserIdentityService userIdentityService, IDocumentsUserRepository documentsUserRepository,
-            IDataGuarantorRepository dataGuarantorRepository,
-            IDocumentsGuarantorRepository documentsGuarantorRepository)
+            IDataGuarantorRepository dataGuarantorRepository, IDocumentsGuarantorRepository documentsGuarantorRepository,
+            ILoanRepository loanRepository)
         {
             _cloudinaryService = cloudinaryService;
             _loanRequestRepository = loanRequestRepository;
@@ -34,6 +36,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             _documentsUserRepository = documentsUserRepository;
             _dataGuarantorRepository = dataGuarantorRepository;
             _documentsGuarantorRepository = documentsGuarantorRepository;
+            _loanRepository = loanRepository;
         }
 
         public async Task<string> SendLoanRequest(RequestLoanCommand command, string email)
@@ -213,8 +216,10 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
                     PayDate = GetDatetimeQuota(lastQuota)
                 };
                 lastQuota = quota.PayDate;
+                quotas.Add(quota);
             }
-
+            loan.Quotas = quotas;
+            await _loanRepository.Add(loan);
             return "¡Solicitud de préstamo validada con exito!";
         }
 
