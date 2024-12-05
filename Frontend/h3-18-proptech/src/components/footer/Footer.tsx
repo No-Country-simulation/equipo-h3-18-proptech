@@ -13,7 +13,7 @@ export function Footer() {
   };
 
   return (
-    <div className="h-[280px] bg-tertiary">
+    <div className="h-[280px] bg-tertiary z-10">
       <div className=" h-[240px] bg-primary">
         <div className="flex justify-center ">
           <Link to={"/"}>

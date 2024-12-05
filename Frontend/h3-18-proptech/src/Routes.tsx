@@ -14,6 +14,17 @@ import {
   SwitchFinanceFormPage,
   ValidateIdentityPage,
 } from "./pages";
+import DashboardAdminPage from "./pages/private/admin/DashboardAdminPage";
+import {
+  ApproveLoanPage,
+  ApproveTablePage,
+  InvestorState,
+  InvestorStatePages,
+  LoansStatePage,
+  LoanState,
+  ValidateTablePage,
+  ValidateUserPage,
+} from "./pages/private/admin/pages";
 
 function AppRoutes() {
   return (
@@ -30,7 +41,6 @@ function AppRoutes() {
           <Route path="/register" element={<RegisterPage />} />
 
           <Route element={<PrivatePagesAuth />}>
-
             <Route path="/profile" element={<ProfilePage />} />
             <Route
               path="/validate-identity"
@@ -47,8 +57,19 @@ function AppRoutes() {
 
             <Route path="/admin" element={<RoleAdminAuth />}>
               <Route path="" element={<CheckIdentityPage />} />
+              <Route path="dashboard">
+                <Route element={<DashboardAdminPage />}>
+                  <Route path="validate" element={<ValidateTablePage />} />
+                  <Route path="approve" element={<ApproveTablePage />} />
+                  <Route path="loans" element={<LoansStatePage />} />
+                  <Route path="investors" element={<InvestorStatePages />} />
+                </Route>
+                <Route path="validate/:id" element={<ValidateUserPage />} />
+                <Route path="approve/:id" element={<ApproveLoanPage />} />
+                <Route path="loans/:id" element={<LoanState />} />
+                <Route path="investors/:id" element={<InvestorState />} />
+              </Route>
             </Route>
-            
           </Route>
         </Route>
       </Routes>
