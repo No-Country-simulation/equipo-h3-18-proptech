@@ -13,21 +13,17 @@ namespace h3_18_proptechback.Application.Models.Identity.Validators
         };
         public RegistrationRequestValidator()
         {
-            RuleFor(x => x.Nombre)
+            RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("El nombre es obligatorio.")
                 .MaximumLength(50).WithMessage("El nombre no debe exceder los 50 caracteres.");
 
-            RuleFor(x => x.Apellidos)
-                .NotEmpty().WithMessage("Los apellidos son obligatorios.")
-                .MaximumLength(50).WithMessage("Los apellidos no deben exceder los 50 caracteres.");
+            RuleFor(x => x.LastName)
+                .NotEmpty().WithMessage("El apellido son obligatorios.")
+                .MaximumLength(50).WithMessage("El apellido no deben exceder los 50 caracteres.");
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("El correo electrónico es obligatorio.")
                 .EmailAddress().WithMessage("El formato del correo electrónico no es válido.");
-
-            RuleFor(x => x.Username)
-                .NotEmpty().WithMessage("El nombre de usuario es obligatorio.")
-                .MinimumLength(3).WithMessage("El nombre de usuario debe tener al menos 3 caracteres.");
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("La contraseña es obligatoria.")
