@@ -9,6 +9,7 @@ namespace h3_18_proptechback.Domain
         public decimal LotCost { get; set; }
         public decimal DownPayment { get; set; }
         public int QuotasCount { get; set; }
+        public string CBU {  get; set; }
         public StateRequest StateRequest { get; set; }
     }
 

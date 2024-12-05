@@ -12,6 +12,10 @@ namespace h3_18_proptechback.Application.Features.Loan.Command.RequestLoan
             RuleFor(x => x.Salary3).NotNull().WithMessage("El tercer archivo de salario es obligatorio.");
             RuleFor(x => x.ProofOfAddress).NotNull().WithMessage("El comprobante de domicilio es obligatorio.");
 
+            RuleFor(x => x.CBU)
+                .NotEmpty().WithMessage("El CBU es obligatorio.")
+                .Matches(@"^\d{22}$").WithMessage("El CBU debe tener 22 dígitos.");
+
             RuleFor(x => x.LotCost)
                 .GreaterThan(0).WithMessage("El costo del lote debe ser mayor a 0.");
 
