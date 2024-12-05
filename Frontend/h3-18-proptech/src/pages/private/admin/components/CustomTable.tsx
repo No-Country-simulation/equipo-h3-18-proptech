@@ -24,7 +24,7 @@ export function CustomTable({ data, headers }: Props) {
         <thead className=" text-title-large-bold bg-primary text-contrast">
           <tr className="border-b-2 border-primary h-[76px] ">
             {headers.map((title) => (
-              <th>{title}</th>
+              <th key={title}>{title}</th>
             ))}
             <th className="w-1/5">Datos</th>
           </tr>
