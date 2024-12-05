@@ -1,22 +1,18 @@
 import { useSwitchStore } from "../../stores";
 
 export function SwitchButton() {
-  const { role, setBuyer, setInvestor } = useSwitchStore();
+  const { role, setRole } = useSwitchStore();
 
-  const handleClickBuyer = () => {
-    setBuyer();
-  };
-
-  const handleClickInvestor = () => {
-    setInvestor();
+  const handleChangeRole = (role: "buyer" | "investor") => {
+    setRole(role);
   };
 
   return (
     <div className="bg-primaryVar1 rounded-2xl text-title-medium-semi-bold text-contrast h-[60px] w-[250px] sm:w-[342px] text-center flex items-center justify-evenly">
-      <ButtonOnOff on={role === "buyer"} action={handleClickBuyer}>
+      <ButtonOnOff on={role === "buyer"} action={() => handleChangeRole("buyer")}>
         Comprador
       </ButtonOnOff>
-      <ButtonOnOff on={role === "investor"} action={handleClickInvestor}>
+      <ButtonOnOff on={role === "investor"} action={() => handleChangeRole("investor")}>
         Inversor
       </ButtonOnOff>
     </div>
