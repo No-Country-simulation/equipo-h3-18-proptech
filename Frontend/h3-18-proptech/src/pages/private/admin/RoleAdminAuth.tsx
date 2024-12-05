@@ -7,7 +7,7 @@ export function RoleAdminAuth() {
   const role = useSessionStore((state) => state.role);
   const navigate = useTransitionNavigation();
   if (role && role !== "Administrador") {
-    navigate("/");
+    navigate("/login");
     return (
       <Loader/>
     );
