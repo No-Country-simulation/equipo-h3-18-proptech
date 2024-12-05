@@ -20,7 +20,7 @@ export function LandingInvestor() {
     <>
       <Carousel images={images} />
       <HomeSteps />
-      <div id="simulator">
+      <div id="simulator" className="pt-16">
         <InvestmentSimulator />
       </div>
     </>

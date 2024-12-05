@@ -10,18 +10,25 @@ export interface ImageData {
 }
 
 export const Carousel = ({ images }: Props) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const slide = () => {
-    setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      //console.log(currentIndex);
-    }, 5000);
-  };
+  const [position, setPosition] = useState(0);
 
   useEffect(() => {
-    slide();
-  }, []);
+    const interval = setInterval(() => {
+      if (position < images.length - 1) {
+        setPosition(position + 1);
+      } else {
+        setPosition(0);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [position]);
+
+  const handleNewPosition = (position: number) => {
+    if (position >= 0 && position < images.length) {
+      setPosition(position);
+    }
+  };
 
   return (
     <div className="relative h-[500px]  bg-[#d9d9d9]">
@@ -29,8 +36,8 @@ export const Carousel = ({ images }: Props) => {
         {images.map(({ img, text }, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-transform transform ${
-              index === currentIndex ? "translate-x-0" : "translate-x-full"
+            className={`absolute inset-0 transition-transform transform duration-700 ${
+              index === position ? "translate-x-0" : "translate-x-full"
             }`}
           >
             <h3 className="text-headline-medium-medium absolute left-24 bottom-1/2 translate-y-1/2 w-[450px]">
@@ -49,8 +56,8 @@ export const Carousel = ({ images }: Props) => {
           <Indicator
             key={index}
             index={index}
-            currentIndex={currentIndex}
-            setIndex={setCurrentIndex}
+            position={position}
+            setPosition={handleNewPosition}
           />
         ))}
       </div>
@@ -59,18 +66,18 @@ export const Carousel = ({ images }: Props) => {
 };
 
 interface PropsInd {
-  currentIndex: number;
+  position: number;
   index: number;
-  setIndex: React.Dispatch<React.SetStateAction<number>>;
+  setPosition: (position: number) => void;
 }
 
-const Indicator = ({ index, currentIndex, setIndex }: PropsInd) => {
+const Indicator = ({ index, position, setPosition }: PropsInd) => {
   const handleClick = () => {
-    setIndex(index);
+    setPosition(index);
   };
   return (
     <button
-      className={`${index === currentIndex ? "w-6 bg-primary" : "w-4 bg-contrast"} h-4 rounded mx-1`}
+      className={`${index === position ? "w-6 bg-primary" : "w-4 bg-contrast"} transition-all duration-700 h-4 rounded mx-1`}
       onClick={handleClick}
     ></button>
   );

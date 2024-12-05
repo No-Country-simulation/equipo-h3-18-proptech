@@ -6,14 +6,14 @@ export const HomeSteps = () => {
   const { role } = useSwitchStore();
 
   return (
-    <div className="min-h-full md:h-[500px] bg-contrast  justify-center flex items-center flex-col my-16">
+    <div className="min-h-full  bg-contrast  justify-center flex items-center flex-col mt-16">
       <p className=" text-headline-medium-medium mt-4 ">Todo en simples pasos</p>
       <p className=" text-title-large-regular mt-4 mb-10 w-[90%] md:w-[700px]">
         Conoce cómo funciona nuestra plataforma en unos simples pasos y comienza
         a gestionar tu {role === "buyer" ? "financiamiento" : "inversión"}{" "}
         rápidamente.
       </p>
-      <div className="flex flex-col sm:flex-row gap-6 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {role === "buyer" ? (
           <>
             {cardDataBuyer.map(({ img, title, children }) => (

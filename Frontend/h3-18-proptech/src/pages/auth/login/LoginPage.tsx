@@ -20,8 +20,7 @@ export const LoginPage = () => {
     },
   });
 
-  const setBuyer = useSwitchStore((state) => state.setBuyer);
-  const setInvestor = useSwitchStore((state) => state.setInvestor);
+  const setRole = useSwitchStore((state) => state.setRole);
   const newSession = useSessionStore((state) => state.newSession);
   const navigate = useTransitionNavigation();
 
@@ -60,7 +59,7 @@ export const LoginPage = () => {
             type="link"
             to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setBuyer()}
+            onClick={() => setRole("buyer")}
           >
             Quiero una financiación
           </Button>
@@ -70,7 +69,7 @@ export const LoginPage = () => {
             type="link"
             to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setInvestor()}
+            onClick={() => setRole("investor")}
           >
             Quiero invertir
           </Button>
@@ -112,7 +111,7 @@ export const LoginPage = () => {
             type="link"
             to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setBuyer()}
+            onClick={() => setRole("buyer")}
           >
             Quiero una financiación
           </Button>
@@ -122,7 +121,7 @@ export const LoginPage = () => {
             type="link"
             to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setInvestor()}
+            onClick={() => setRole("investor")}
           >
             Quiero invertir
           </Button>
