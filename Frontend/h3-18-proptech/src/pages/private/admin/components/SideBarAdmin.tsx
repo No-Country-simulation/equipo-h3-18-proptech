@@ -8,7 +8,7 @@ export function SideBarAdmin() {
   // navData[1].withWarn=approveWarn
 
   return (
-    <div className=" h-full left-0 w-[260px] bg-primary text-contrast fixed pt-14">
+    <div className=" h-[700px] left-0 w-[260px] bg-primary text-contrast absolute pt-14 rounded-br-2xl">
       {navData.map(({ children, to, withWarn }) => (
         <NavigationButton
           key={to}

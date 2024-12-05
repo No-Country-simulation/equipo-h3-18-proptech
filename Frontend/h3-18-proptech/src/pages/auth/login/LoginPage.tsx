@@ -32,7 +32,7 @@ export const LoginPage = () => {
       toast.success("Sesión iniciada exitosamente");
       role === "Cliente" && navigate("/buyer");
       // user.role === "Inversor" && navigate("/")
-      role === "Administrador" && navigate("/admin/dashboard/validate")
+      role === "Administrador" && navigate("/admin")
     } else {
       if (response?.data) toast.error(response.data);
       else {

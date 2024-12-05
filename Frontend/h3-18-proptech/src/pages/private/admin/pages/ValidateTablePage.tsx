@@ -1,12 +1,43 @@
-import { CustomTable, DataTable } from "../components/CustomTable";
+import { useEffect, useState } from "react";
+import { CustomTable } from "../components/CustomTable";
+import { getAllUsersToValidate } from "../../../../services/admin";
+import { toast } from "sonner";
+import { Loader } from "../../../../components/common";
+
+export interface ValidateData {
+  fullName: string;
+  role: string;
+  dni: string;
+}
 
 export function ValidateTablePage() {
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState<ValidateData[]>([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setLoading(true);
+    getAllUsersToValidate()
+      .then((response) => {
+        if (response && response?.status < 300) {
+          setUsers(response.data);
+        } else {
+          toast.error("Ha ocurrido un error al obtener los datos");
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <>
       <h3 className="text-headline-small-medium my-6 w-[90%]  max-w-[700px]">
         Validar identidad
       </h3>
-      <CustomTable data={dataValidate} headers={validateHeader} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <CustomTable data={users} headers={validateHeader} />
+      )}
     </>
   );
 }
@@ -14,21 +45,3 @@ export function ValidateTablePage() {
 export default ValidateTablePage;
 
 const validateHeader = ["Nombre completo", "rol"];
-
-const dataValidate: DataTable[] = [
-  {
-    id: 1,
-    name: "juan Perez",
-    role: "cliente",
-  },
-  {
-    id: 2,
-    name: "Carlos gomez",
-    role: "cliente",
-  },
-  {
-    id: 3,
-    name: "Financi Bot",
-    role: "inversor",
-  },
-];

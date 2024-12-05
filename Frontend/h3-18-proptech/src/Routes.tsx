@@ -1,7 +1,11 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
-  BuyerSharesPage,
-  CheckIdentityPage,
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import {
+  BuyerSharesPage,  
   DashboardBuyerPage,
   HomePage,
   LayoutPage,
@@ -60,19 +64,17 @@ function AppRoutes() {
             <Route path="/investor">// Rutas del Inversor</Route>
 
             <Route path="/admin" element={<RoleAdminAuth />}>
-              <Route path="" element={<CheckIdentityPage />} />
-              <Route path="dashboard">
-                <Route element={<DashboardAdminPage />}>
-                  <Route path="validate" element={<ValidateTablePage />} />
-                  <Route path="approve" element={<ApproveTablePage />} />
-                  <Route path="loans" element={<LoansStatePage />} />
-                  <Route path="investors" element={<InvestorStatePages />} />
-                </Route>
-                <Route path="validate/:id" element={<ValidateUserPage />} />
-                <Route path="approve/:id" element={<ApproveLoanPage />} />
-                <Route path="loans/:id" element={<LoanState />} />
-                <Route path="investors/:id" element={<InvestorState />} />
+              <Route path="" element={<Navigate to={"validate"} />} />
+              <Route element={<DashboardAdminPage />}>
+                <Route path="validate" element={<ValidateTablePage />} />
+                <Route path="approve" element={<ApproveTablePage />} />
+                <Route path="loans" element={<LoansStatePage />} />
+                <Route path="investors" element={<InvestorStatePages />} />
               </Route>
+              <Route path="validate/:id" element={<ValidateUserPage />} />
+              <Route path="approve/:id" element={<ApproveLoanPage />} />
+              <Route path="loans/:id" element={<LoanState />} />
+              <Route path="investors/:id" element={<InvestorState />} />
             </Route>
           </Route>
         </Route>
