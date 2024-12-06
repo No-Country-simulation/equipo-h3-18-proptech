@@ -241,8 +241,29 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        /// <summary>
+        /// Obtiene los detalles de una solicitud de préstamo específica.
+        /// </summary>
+        /// <param name="loanRequestId">
+        /// Identificador único de la solicitud de préstamo cuya información se desea obtener.
+        /// </param>
+        /// <response code="200">
+        /// Devuelve los detalles de la solicitud de préstamo especificada. Incluye información relevante sobre el cliente 
+        /// y la solicitud de préstamo, así como el campo <c>creditScore</c> que indica la confiabilidad del cliente para 
+        /// pagar sus deudas. Los valores posibles de <c>creditScore</c> son:
+        /// - **1**: Muy confiable.
+        /// - **2**: Confiable.
+        /// - **3**: Neutral.
+        /// - **4**: Poco confiable.
+        /// - **5**: No confiable.
+        /// </response>
+        /// <response code="400">Error de validación en los parámetros proporcionados. Devuelve los detalles del error.</response>
+        /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpGet("detailsLoanRequest/{loanRequestId}")]
+        [ProducesResponseType<DetailLoanReqQueryResponse>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<DetailLoanReqQueryResponse>> GetDetailsLoanRequest(Guid loanRequestId)
         {
             try
@@ -258,9 +279,26 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        /// <summary>
+        /// Obtiene una lista de todos los préstamos asociados al cliente autenticado.
+        /// </summary>
+        /// <response code="200">
+        /// Devuelve una lista de préstamos asociados al cliente autenticado. Cada elemento de la lista incluye el campo 
+        /// <c>stateLoan</c>, que indica el estado del préstamo con los siguientes valores:
+        /// - **0**: Préstamo con cuota/s atrasado/as (Late).
+        /// - **1**: Préstamo con cuota/s pendiente/s (Pending).
+        /// - **2**: Préstamo al día (AtDay).
+        /// - **3**: Préstamo completado (Complete).
+        /// </response>
+        /// <response code="400">Error de validación en los parámetros proporcionados. Devuelve los detalles del error.</response>
+        /// <response code="401">El usuario no está autorizado para realizar esta operación.</response>
+        /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpGet("allMyLoans")]
         [Authorize(Roles = "Cliente")]
+        [ProducesResponseType<List<MyAllLoanQueryResponse>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<MyAllLoanQueryResponse>>> GetMyLoans()
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
