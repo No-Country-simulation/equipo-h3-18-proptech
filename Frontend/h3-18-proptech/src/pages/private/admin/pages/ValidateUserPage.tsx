@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowBackIcon, CloseIcon } from "../../../../components/icons";
 import { useEffect, useState } from "react";
-import { Button, Loader } from "../../../../components/common";
+import { Button } from "../../../../components/common";
 import { InputImage, InputText } from "../components";
 import {
   getUserToValidate,
@@ -9,6 +9,7 @@ import {
   validateIdentity,
 } from "../../../../services/admin";
 import { toast } from "sonner";
+import LoadingPage from "../../../LoadingPage";
 
 export interface UserValidateData {
   name: string;
@@ -122,7 +123,7 @@ export function ValidateUserPage() {
           </h4>
         </div>
         {loading ? (
-          <Loader />
+          <LoadingPage background="contrast" size="page" />
         ) : (
           <>
             <div className="w-[890px] px-6 py-6 text-base-color bg-contrast drop-shadow-md shadow-md shadow-[#00000025] mx-auto">

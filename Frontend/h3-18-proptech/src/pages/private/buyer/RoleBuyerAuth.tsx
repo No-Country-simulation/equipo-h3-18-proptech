@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useTransitionNavigation } from "../../../hooks";
-import { Loader } from "../../../components/common";
 import { useSessionStore } from "../../../stores";
+import LoadingPage from "../../LoadingPage";
 
 export function RoleBuyerAuth() {
   const role = useSessionStore((state) => state.role);
@@ -9,7 +9,7 @@ export function RoleBuyerAuth() {
   if (role && role !== "Cliente") {
     navigate("/");
     return (
-      <Loader/>
+      <LoadingPage background="contrast" size="page"/>
     );
   }
 

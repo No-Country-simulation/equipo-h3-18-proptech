@@ -1,5 +1,6 @@
-import { Button, Loader } from "../../../../components/common";
+import { Button } from "../../../../components/common";
 import { GreenCheckIcon, RedXIcon } from "../../../../components/icons";
+import LoadingPage from "../../../LoadingPage";
 import { InputImage, InputText } from "../components";
 import { useState } from "react";
 
@@ -94,7 +95,7 @@ export function AproveLoanGuarantors({
           />
           <div className="w-full flex items-center text-headline-small-medium justify-center">
             {show ? loader ? (
-              <Loader />
+              <LoadingPage background="transparent" size="section" />
             ) : isValid ? (
                 <>
                   <span className="text-success">Validado</span>

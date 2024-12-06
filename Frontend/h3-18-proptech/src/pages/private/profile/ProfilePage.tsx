@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Loader, TextInput } from "../../../components/common";
+import { Button, TextInput } from "../../../components/common";
 import { CheckIcon, PencilIcon } from "../../../components/icons";
 import { UserProfile } from "../../../interfaces";
 import { profileSchema } from "./models";
 import { useTransitionNavigation } from "../../../hooks";
 import { useSessionStore } from "../../../stores";
 import { getUserbyToken, updateEmailPhone } from "../../../services";
+import LoadingPage from "../../LoadingPage";
 
 export function ProfilePage() {
   const {
@@ -31,6 +32,7 @@ export function ProfilePage() {
 
   const [loading, setLoading] = useState(true);
   const [reload, setReload] = useState(false);
+  const [isSendingForm, setIsSendingForm] = useState(false);
 
   const [userData, setUserData] = useState<UserProfile>();
   const [readOnlyEmail, setReadOnlyEmail] = useState(true);
@@ -55,14 +57,21 @@ export function ProfilePage() {
   }, [reload]);
 
   const onSubmit = async (data: UserProfile) => {
+    setIsSendingForm(true);
     updateEmailPhone({ email: data.email, phoneNumber: data.phoneNumber }).then(
       (response) => {
         if (response && response.status < 300) {
-          newSession(response.data.token);
-          toast.success(response.data.message ?? "Datos actualizados exitosamente");
+          newSession(response.data.refreshToken);
+          setIsSendingForm(false);
+          toast.success(
+            response.data.message ?? "Datos actualizados exitosamente"
+          );
           setReload(true);
         } else {
-          toast.error("Ha ocurrido un error al actualizar los datos");
+          if (typeof response?.data === "string") toast.error(response.data);
+          else {
+            toast.error("Ha ocurrido un error al actualizar los datos");
+          }
         }
       }
     );
@@ -75,7 +84,7 @@ export function ProfilePage() {
       : false;
 
   return loading ? (
-    <Loader />
+    <LoadingPage background="contrast" size="section" />
   ) : (
     <section className="flex-1 flex flex-col gap-8 bg-background px-4 md:px-10 py-6">
       <header className="flex flex-col sm:flex-row gap-y-4 justify-between sm:px-10">
@@ -187,6 +196,7 @@ export function ProfilePage() {
           size="medium"
           color={formUpdated ? "primary-blue" : "disabled"}
           classname={`mx-auto`}
+          isLoading={isSendingForm}
         >
           Guardar cambios
         </Button>

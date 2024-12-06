@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useSessionStore } from "../../stores";
 import { useTransitionNavigation } from "../../hooks";
-import { Loader } from "../../components/common";
+import LoadingPage from "../LoadingPage";
 
 export function PrivatePagesAuth() {
   const session = useSessionStore((state) => state.session);
@@ -10,7 +10,7 @@ export function PrivatePagesAuth() {
   if (!session || !role) {
     navigate("/login");
     return (
-      <Loader/>
+      <LoadingPage background="contrast" size="page"/>
     );
   }
   return <Outlet />;

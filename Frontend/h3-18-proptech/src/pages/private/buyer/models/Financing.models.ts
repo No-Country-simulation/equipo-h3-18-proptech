@@ -22,12 +22,10 @@ export const guarantorDataSchema = z.object({
       "Introduce una imagen o archivo que contenga una foto de tu rostro",
   }),
   Front: z.instanceof(File, {
-    message:
-      "IIntroduce una imagen o archivo que contenga el frente de tu DN",
+    message: "IIntroduce una imagen o archivo que contenga el frente de tu DN",
   }),
   Back: z.instanceof(File, {
-    message:
-      "Introduce una imagen o archivo que contenga el reverso de tu DN",
+    message: "Introduce una imagen o archivo que contenga el reverso de tu DN",
   }),
   salaryReceipt1: z.instanceof(File, {
     message:
@@ -64,10 +62,13 @@ export const FinanceSchema = z
     downPayment: z.coerce
       .number({ message: "Debes introducir un número" })
       .nonnegative({ message: "Por favor, introduzca un número positivo" }),
-      cardNumber: z.coerce
+    CBU: z.coerce
       .number({ message: "Debes introducir un número" })
       .nonnegative({ message: "Por favor, introduzca un número positivo" })
-      .refine((value) => `${value}`.length === 16 || `${value}`.length === 17, 'Introduzca un número de tarjeta que contenga 16 o 17 dígitos'),
+      .refine(
+        (value) => `${value}`.length === 22,
+        "Introduzca un número de tarjeta que contenga 22 dígitos"
+      ),
     salaryReceipt1: z.instanceof(File, {
       message:
         "Introduce una imagen o archivo que contenga el recibo de hace un mes de tu salario",

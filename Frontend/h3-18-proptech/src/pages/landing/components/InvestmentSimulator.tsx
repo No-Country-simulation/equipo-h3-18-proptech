@@ -28,23 +28,12 @@ export function InvestmentSimulator() {
   const [grafh, setGrafh] = useState(false);
   const [totals, setTotals] = useState<number[]>([]);
 
-  //const showModal = useModalStore((state) => state.showModal);
-
-  const onSubmit: SubmitHandler<FormValues> = ({ investment, months }) => {
-    console.log({ investment, months });
-
+  const onSubmit: SubmitHandler<FormValues> = ({ investment }) => {
     const calculeEarnings = (NMonths: number) => {
       return parseFloat(
         (((1 + interest) ** NMonths - 1) * investment).toFixed(2)
       );
     };
-
-    // const calculeTotal = (NMonths: number) => {
-    //   return investment + calculeEarnings(NMonths);
-    // };
-
-    //const earnings: number = calculeEarnings(months);
-    //const total: number = calculeTotal(months);
 
     setTotals([
       calculeEarnings(3),
@@ -54,26 +43,6 @@ export function InvestmentSimulator() {
     ]);
 
     setGrafh(true);
-
-    // showModal({
-    //   title: "Ganancias",
-    //   content: [
-    //     {
-    //       label: "Inversión inicial",
-    //       value: `$${investment}`,
-    //     },
-    //     {
-    //       label: `Capitalización en ${months} meses`,
-    //       value: `$${earnings}`,
-    //     },
-    //     {
-    //       label: "Capital total",
-    //       value: `$${total}`,
-    //     },
-    //   ],
-    //   buttonLink: "/register",
-    //   buttonTitle: "Invertir",
-    // });
   };
   return (
     <>
@@ -125,7 +94,7 @@ export function InvestmentSimulator() {
             </Button>
           </section>
 
-          <section className="flex flex-row h-[250px] gap-4 items-end relative mx-auto">
+          <section className="flex flex-row h-[240px] gap-4 items-end relative mx-auto">
             <BarChart
               trigger={grafh}
               months={3}
@@ -151,12 +120,14 @@ export function InvestmentSimulator() {
               maxValue={totals[3]}
             />
           </section>
-          {grafh && (
-            <p className="text-title-medium-semi-bold text-center">
-              Rendimientos estimados de acuerdo al plazo de inversión
-            </p>
-          )}
-                  <Button
+          <div className="h-8">
+            {grafh && (
+              <p className="text-title-medium-semi-bold text-center">
+                Rendimientos estimados de acuerdo al plazo de inversión
+              </p>
+            )}
+          </div>
+          <Button
             color="primary-orange"
             size="large"
             type="link"
@@ -166,9 +137,7 @@ export function InvestmentSimulator() {
             Invertir
           </Button>
         </form>
-
       </section>
-      {/* Lo siguiente falta por diseño*/}
     </>
   );
 }

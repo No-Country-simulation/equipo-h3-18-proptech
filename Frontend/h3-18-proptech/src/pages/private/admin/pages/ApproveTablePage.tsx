@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CustomTable } from "../components";
 import { getAllLoanRequests } from "../../../../services/admin";
 import { toast } from "sonner";
-import { Loader } from "../../../../components/common";
+import LoadingPage from "../../../LoadingPage";
 
 export interface LoanData {
   fullName: string;
@@ -34,7 +34,7 @@ export function ApproveTablePage() {
         Aprobar Prestamos
       </h3>
       {loading ? (
-        <Loader />
+        <LoadingPage background="transparent" size="section" />
       ) : (
         <CustomTable data={loans} headers={validateHeader} />
       )}

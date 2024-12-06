@@ -20,7 +20,7 @@ export function LayoutPage() {
   }, []);
 
   return loading ? (
-    <LoadingPage/>
+    <LoadingPage background="contrast" size="page"/>
   ) : (
     <main className="flex flex-col min-h-screen">
       <Navbar />

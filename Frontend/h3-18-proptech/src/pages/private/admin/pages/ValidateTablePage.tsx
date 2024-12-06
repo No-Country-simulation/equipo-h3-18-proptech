@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CustomTable } from "../components/CustomTable";
 import { getAllUsersToValidate } from "../../../../services/admin";
 import { toast } from "sonner";
-import { Loader } from "../../../../components/common";
+import LoadingPage from "../../../LoadingPage";
 
 export interface ValidateData {
   fullName: string;
@@ -34,7 +34,7 @@ export function ValidateTablePage() {
         Validar identidad
       </h3>
       {loading ? (
-        <Loader />
+        <LoadingPage background="transparent" size="section" />
       ) : (
         <CustomTable data={users} headers={validateHeader} />
       )}

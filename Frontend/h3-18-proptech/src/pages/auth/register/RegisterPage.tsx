@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { TextInput, PasswordInput, Button } from "../../../components/common";
 import { useSessionStore, useSwitchStore } from "../../../stores";
 import { registerSchema } from "./models";
@@ -8,7 +10,6 @@ import { HeaderHome } from "../../landing/components";
 import { useTransitionNavigation } from "../../../hooks";
 import { authRegister } from "../../../services";
 import { RegisterUser } from "../../../interfaces";
-import { toast } from "sonner";
 
 interface RegisterForm {
   name: string;
@@ -38,7 +39,7 @@ export function RegisterPage() {
 
   const role = useSwitchStore((state) => state.role);
   const newSession = useSessionStore((state) => state.newSession);
-
+  const [isSendingForm, setIsSendingForm] = useState(false)
   const visibleRole = role === "buyer" ? "Comprador" : "Inversor";
 
   const onSubmit = (data: RegisterForm) => {
@@ -52,19 +53,20 @@ export function RegisterPage() {
       rol: userRole,
       username: data.email,
     };
+    setIsSendingForm(true)
     authRegister(formData as RegisterUser).then((response) => {
       if (response && response.status < 300) {
         newSession(response.data.token);
         toast.success("Usuario registrado exitosamente");
         navigate("/validate-identity");
       } else {
+        setIsSendingForm(false)
         if (response?.data) toast.error(response.data);
         else {
           toast.error("Ha ocurrido un error al iniciar sesión");
         }
       }
     });
-    // Envío de Formulario al Backend
   };
   const navigate = useTransitionNavigation();
   return (
@@ -150,6 +152,7 @@ export function RegisterPage() {
             size="large"
             type="submit"
             classname="self-center md:self-auto"
+            isLoading={isSendingForm}
           >
             {`Registrarme como ${visibleRole}`}
           </Button>

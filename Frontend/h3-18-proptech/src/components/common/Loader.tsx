@@ -1,9 +1,32 @@
-export function Loader() {
-  return (
-    <div className="relative flex-1 justify-center items-center flex">
-      <div className="w-20 h-20 rounded-full absolute border-8 border-solid border-gray-200"></div>
+interface Props {
+  size: "button" | "page";
+  border: "normal" | "bold";
+  borderColor: "primary-blue" | "primary-orange" | "secondary" | "disabled";
+}
 
-      <div className="w-20 h-20 rounded-full animate-spin absolute border-8 border-solid border-primary border-t-transparent shadow-md"></div>
+export function Loader({ size, border, borderColor }: Props) {
+  const sizeStyle = {
+    button: "size-8",
+    page: "size-20",
+  };
+
+  const borderStyle = {
+    normal: "border-[6px]",
+    bold: "border-8",
+  };
+
+  const borderColorStyle = {
+    "primary-blue": "border-primaryVar1 border-t-contrast",
+    "primary-orange": "border-secondary border-t-contrast",
+    secondary: "border-contrast border-t-primary",
+    disabled: "border-constrast border-t-primary",
+  };
+
+  return (
+    <div className="relative flex mx-2 justify-center items-center">
+      <div
+        className={`${sizeStyle[size]} rounded-full animate-spin ${borderStyle[border]} border-solid ${borderColorStyle[borderColor]} shadow-md`}
+      ></div>
     </div>
   );
 }
