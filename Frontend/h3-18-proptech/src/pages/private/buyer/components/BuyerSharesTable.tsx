@@ -1,3 +1,8 @@
+import {
+  MercadoPagoDisabledIcon,
+  MercadoPagoIcon,
+} from "../../../../components/icons";
+
 export interface DataBuyerSharesTable {
   share: number;
   date: Date;
@@ -15,8 +20,8 @@ export function BuyerSharesTable({ data, shares }: Props) {
   return (
     <>
       <table className="w-[1050px] text-base-color text-center bg-contrast ">
-        <thead className=" text-headline-small-bold">
-          <tr className="border-b-2 border-[#ccc] h-[70px] ">
+        <thead className=" text-headline-small-bold  bg-primary text-contrast">
+          <tr className="border-b border-[#ccc] h-[70px] ">
             <th>Cuotas</th>
             <th>Fecha</th>
             <th>Estado</th>
@@ -26,7 +31,7 @@ export function BuyerSharesTable({ data, shares }: Props) {
         </thead>
         <tbody className="text-headline-small-medium">
           {data.map(({ date, share, state, total, pay }) => (
-            <tr className="border-b-2 border-[#ccc] h-[70px]">
+            <tr className="border-b border-[#ccc] h-[70px]">
               <td>
                 {share}/{shares}
               </td>
@@ -41,8 +46,10 @@ export function BuyerSharesTable({ data, shares }: Props) {
                     : "Atrasado"}
               </td>
               <td>${total}</td>
-              <td className={`${pay ? "cursor-pointer" : "text-primaryVar1"}`}>
-                Pagar
+              <td
+                className={`${pay ? "cursor-pointer hover:bg-tertiary" : ""} flex justify-center items-center h-[70px]`}
+              >
+                {pay ? <MercadoPagoIcon /> : <MercadoPagoDisabledIcon />}
               </td>
             </tr>
           ))}
