@@ -2,19 +2,19 @@ import { Carousel, HomeSteps, ImageData, LoanSimulator } from "./components";
 
 const images: ImageData[] = [
   {
-    img: "assets/carouselcomprador1.jpg",
+    img: "assets/carouselbuyer1.webp",
     text: "El camino hacia tu nuevo lote empieza aquí.",
   },
   {
-    img: "assets/carouselcomprador2.jpg",
+    img: "assets/carouselbuyer2.webp",
     text: "Elegí el plan de financiación que mejor se adapta a vos.",
   },
   {
-    img: "assets/carouselcomprador3.jpg",
+    img: "assets/carouselbuyer3.webp",
     text: "Transformá tu sueño en una realidad con nosotros.",
   },
   {
-    img: "assets/carouselcomprador4.jpg",
+    img: "assets/carouselbuyer4.webp",
     text: "Facilidad y confianza para que des el gran paso.",
   },
 ];

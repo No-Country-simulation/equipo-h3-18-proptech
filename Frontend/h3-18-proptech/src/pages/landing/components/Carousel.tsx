@@ -40,7 +40,7 @@ export const Carousel = ({ images }: Props) => {
               index === position ? "opacity-100" : "opacity-0"
             }`}
           >
-            <section className="font-nunito text-contrast absolute font-bold text-center bg-gradient-to-r from-blue-500/30 to-orange-400/30 size-full flex items-center justify-center">
+            <section className="font-nunito text-contrast absolute font-bold text-center bg-gradient-to-r from-blue-500/30 to-orange-400/30 size-full flex items-center justify-center select-none">
               <div className="relative size-full flex items-center justify-center">
                 <span className="max-w-[18ch] text-4xl md:text-6xl self-center md:absolute md:top-36 md:left-28 drop-shadow-2xl px-8" style={{textShadow: "#000000 1px 0 10px"}}>{text}</span>
               </div>

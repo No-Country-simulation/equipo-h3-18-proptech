@@ -2,19 +2,19 @@ import { Carousel, HomeSteps, ImageData, InvestmentSimulator } from "./component
 
 const images: ImageData[] = [
   {
-    img: "assets/carouselinversor1.jpg",
+    img: "assets/carouselinvestor1.webp",
     text: "Invertí con seguridad y control en cada etapa de tu proceso.",
   },
   {
-    img: "assets/carouselinversor2.jpg",
+    img: "assets/carouselinvestor2.webp",
     text: "Descubrí oportunidades que impulsan tu futuro financiero.",
   },
   {
-    img: "assets/carouselinversor3.jpg",
+    img: "assets/carouselinvestor3.webp",
     text: "Gestioná tu inversión en un solo lugar, fácil y rápido.",
   },
   {
-    img: "assets/carouselinversor4.jpg",
+    img: "assets/carouselinvestor4.webp",
     text: "Descubrí el potencial de una inversión segura y sólida.",
   },
 ];

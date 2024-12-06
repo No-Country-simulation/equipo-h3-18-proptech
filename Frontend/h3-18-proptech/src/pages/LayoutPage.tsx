@@ -3,10 +3,10 @@ import { Toaster } from "sonner";
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/navbar";
 import { Footer } from "../components/footer";
-import { Loader } from "../components/common";
 import { Modal } from "../components/modal";
 import { useSessionStore } from "../stores";
 import { getCookie } from "../lib";
+import LoadingPage from "./LoadingPage";
 
 export function LayoutPage() {
   const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ export function LayoutPage() {
   }, []);
 
   return loading ? (
-    <Loader/>
+    <LoadingPage/>
   ) : (
     <main className="flex flex-col min-h-screen">
       <Navbar />
