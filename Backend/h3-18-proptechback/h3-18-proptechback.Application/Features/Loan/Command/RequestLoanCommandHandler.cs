@@ -107,6 +107,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
                 lastDocUser.Salary2URL = results[1];
                 lastDocUser.Salary3URL = results[2];
                 lastDocUser.ProofAddressURL = results[3];
+                lastDocUser.LoanRequestId = loanRequestCreated.ID;
 
                 await _documentsUserRepository.Update(lastDocUser);
             }
@@ -154,7 +155,9 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
                 LastName = command.LastName,
                 Createby = idUser,
                 LoanRequestId = idLoanRequest,
-                CreatedDate = DateTime.Now.ToUniversalTime()
+                CreatedDate = DateTime.Now.ToUniversalTime(),
+                Email = command.Email,
+                PhoneNumber = command.PhoneNumber
             };
             var dataResponse = await _dataGuarantorRepository.Add(dataGuarantorToCreate);
             return dataResponse.ID;

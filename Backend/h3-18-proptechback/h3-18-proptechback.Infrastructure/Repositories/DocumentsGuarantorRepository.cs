@@ -40,5 +40,12 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             await _context.SaveChangesAsync();
 
         }
+
+        public async Task<List<DocumentsGuarantor>> GetDocIncludeDataGuaByLoanRequestId(Guid loanRequestId)
+        {
+            return await _context.DocumentsGuarantors.Include(d=>d.DataGuarantor)
+                .Where(d=>d.DataGuarantor.LoanRequestId == loanRequestId)
+                .ToListAsync();
+        }
     }
 }

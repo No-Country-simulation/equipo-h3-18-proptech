@@ -1,17 +1,20 @@
 ﻿using Azure.Core;
 using h3_18_proptechback.Application.Features.DataUserValue.Command.AddUser;
+using h3_18_proptechback.Application.Features.IdentityValidation.Queries;
 using h3_18_proptechback.Application.Features.Loan.Command;
 using h3_18_proptechback.Application.Features.Loan.Command.RequestLoan;
 using h3_18_proptechback.Application.Features.Loan.Command.ValidateLoanRequest;
 using h3_18_proptechback.Application.Features.Loan.Queries;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllRequestLoan;
+using h3_18_proptechback.Application.Features.Loan.Queries.DetailLoanReq;
 using h3_18_proptechback.Application.Models.Emails;
 using h3_18_proptechback.Domain;
 using h3_18_proptechback.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Security.Claims;
 
 namespace h3_18_proptechback.API.Controllers
@@ -230,6 +233,23 @@ namespace h3_18_proptechback.API.Controllers
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("detailsLoanRequest/{loanRequestId}")]
+        public async Task<ActionResult<DetailLoanReqQueryResponse>> GetDetailsLoanRequest(Guid loanRequestId)
+        {
+            try
+            {
+                return await _loanQueryHandler.GetDetailsLoanRequest(loanRequestId);
+            }
+            catch (ArgumentException argEx)
+            {
+                return BadRequest(argEx.Message);
             }
             catch (Exception ex)
             {
