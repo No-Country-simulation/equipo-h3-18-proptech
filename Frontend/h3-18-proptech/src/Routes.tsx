@@ -5,7 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import {
-  BuyerSharesPage,  
+  BuyerSharesPage,
   DashboardBuyerPage,
   HomePage,
   LayoutPage,
@@ -54,7 +54,7 @@ function AppRoutes() {
 
             <Route path="/buyer" element={<RoleBuyerAuth />}>
               <Route path="" element={<DashboardBuyerPage />} />
-              <Route path="shares" element={<BuyerSharesPage />} />
+              <Route path="shares/:id" element={<BuyerSharesPage />} />
               <Route path="loan-request" element={<LoanRequestPage />}>
                 <Route path="" element={<LoanForm />} />
                 <Route path="guarantor" element={<GuarantorForm />} />

@@ -17,3 +17,7 @@ export * from "./ArrowBackIcon";
 export * from "./MailIcon";
 export * from "./TelephoneIcon";
 export * from "./WorldIcon";
+export * from "./PdfIconSmall";
+export * from "./MercadoPagoIcon";
+export * from "./MercadoPagoDisableIcon";
+export * from "./SelectArrowIcon";
