@@ -21,3 +21,5 @@ export * from "./PdfIconSmall";
 export * from "./MercadoPagoIcon";
 export * from "./MercadoPagoDisableIcon";
 export * from "./SelectArrowIcon";
+export * from "./CalendarIcon";
+export * from "./GraphIcon";

@@ -30,6 +30,8 @@ import {
   ValidateUserPage,
 } from "./pages/private/admin/pages";
 import { GuarantorForm, LoanForm } from "./pages/private/buyer/components";
+import RoleInvestorAuth from "./pages/private/investor/RoleInvestorAuth";
+import DashboardInvestorPage from "./pages/private/investor/DashboardInvestorPage";
 
 function AppRoutes() {
   return (
@@ -61,7 +63,9 @@ function AppRoutes() {
               </Route>
             </Route>
 
-            <Route path="/investor">// Rutas del Inversor</Route>
+            <Route path="/investor" element={<RoleInvestorAuth />}>
+              <Route path="" element={<DashboardInvestorPage />} />
+            </Route>
 
             <Route path="/admin" element={<RoleAdminAuth />}>
               <Route path="" element={<Navigate to={"validate"} />} />
