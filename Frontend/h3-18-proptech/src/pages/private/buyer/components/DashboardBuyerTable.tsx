@@ -18,7 +18,7 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
   return (
     <>
       <table className="w-[350px] md:w-[1050px] text-base-color text-center bg-contrast ">
-        <thead className="text-title-medium-bold md:text-headline-small-bold bg-primary text-contrast">
+        <thead className="text-title-medium-bold md:text-title-large-bold bg-primary text-contrast">
           <tr className="border-b border-[#ccc] h-[70px]">
             <th>Prestamo</th>
             <th className="hidden md:table-cell">Cuota</th>
@@ -27,14 +27,14 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
             <th>Descargar </th>
           </tr>
         </thead>
-        <tbody className="text-title-medium-semi-bold md:text-headline-small-medium">
+        <tbody className="text-title-medium-semi-bold md:text-body-large-regular">
           {data.map(({ loan, shares, total, id }, index) => (
             <tr
               className={`${selected === index ? "bg-tertiary" : ""} border-b border-[#ccc] h-[70px] hover:bg-tertiary`}
               onClick={() => select(index)}
             >
               <td
-                className={`text-title-medium-bold md:text-headline-small-bold ${loan === "paid" ? "text-success" : loan === "pending" ? "text-primary" : "text-error"}`}
+                className={`${loan === "paid" ? "text-success" : loan === "pending" ? "text-primary" : "text-error"}`}
               >
                 {loan === "paid"
                   ? "Al día"

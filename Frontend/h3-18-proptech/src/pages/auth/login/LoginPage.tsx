@@ -25,20 +25,20 @@ export const LoginPage = () => {
   const newSession = useSessionStore((state) => state.newSession);
   const navigate = useTransitionNavigation();
 
-  const [isSendingForm, setIsSendingForm] = useState(false)
+  const [isSendingForm, setIsSendingForm] = useState(false);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    setIsSendingForm(true)
+    setIsSendingForm(true);
     const response = await authLogin(data);
     if (response && response.status < 300) {
       const role = newSession(response.data.token);
       toast.success("Sesión iniciada exitosamente");
-      setIsSendingForm(false)
+      setIsSendingForm(false);
       role === "Cliente" && navigate("/buyer");
-      // user.role === "Inversor" && navigate("/")
-      role === "Administrador" && navigate("/admin")
+      role === "Inversor" && navigate("/investor");
+      role === "Administrador" && navigate("/admin");
     } else {
-      setIsSendingForm(false)
+      setIsSendingForm(false);
       if (response?.data) toast.error(response.data);
       else {
         toast.error("Ha ocurrido un error al iniciar sesión");
