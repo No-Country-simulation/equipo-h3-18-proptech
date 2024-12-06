@@ -1,26 +1,64 @@
+import { useNavigate } from "react-router-dom";
+import { ArrowBackIcon, SelectArrowIcon } from "../../../components/icons";
 import { BuyerSharesTable, DataBuyerSharesTable } from "./components";
 
+const options = ["Todos", "Pagado", "Atrasado", "Pendiente"];
+const pages = [1, 2, 3, 4];
 
 export function BuyerSharesPage() {
-  const dataPaid = data.filter((d) => d.state === "paid");
+  const navigate = useNavigate();
 
-  const dataNonPaid = data.filter((d) => d.state !== "paid");
+  const goBack = () => {
+    navigate("/buyer");
+  };
 
   return (
     <>
       <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
-        <div className="flex justify-between w-[1050px] my-[60px]">
-          <h2 className="text-headline-large-medium">Cuotas Pendientes</h2>
-          <p>Páginas</p>
+        <div className="flex justify-between w-[1050px] mt-[60px]">
+          <div className="flex">
+            <ArrowBackIcon onClick={goBack} className=" cursor-pointer" />
+            <h4 className="text-headline-large-medium mb-6 ml-6">Cuotas</h4>
+          </div>
+          <div className="flex gap-6">
+            <div className="flex items-center relative pb-5 mb-4">
+              <span className=" text-body-large-regular  mr-3">
+                Filtrar por
+              </span>
+              <div className="relative flex items-center cursor-pointer w-[150px]">
+                <select className="border-[3px] text-body-large-regular py-2 px-3 rounded-md shadow-md appearance-none w-full focus:outline-none border-primary">
+                  {options.map((value) => {
+                    return (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    );
+                  })}
+                </select>
+                <SelectArrowIcon className="absolute right-4 size-6 pointer-events-none" />
+              </div>
+            </div>
+            <div className="flex items-center relative pb-5 mb-4">
+              <span className=" text-body-large-regular  mr-3">Página</span>
+              <div className="relative flex items-center cursor-pointer w-[65px]">
+                <select className="border-[3px] text-body-large-regular py-2 px-3 rounded-md shadow-md appearance-none w-full focus:outline-none border-primary bg-primary text-contrast">
+                  {pages.map((value) => {
+                    return (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    );
+                  })}
+                </select>
+                <SelectArrowIcon
+                  className="absolute right-1 size-6 pointer-events-none"
+                  color="#fff"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <BuyerSharesTable data={dataNonPaid} shares={data.length} />
-      </div>
-      <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
-        <div className="flex justify-between w-[1050px] my-[60px]">
-          <h2 className="text-headline-large-medium">Cuotas Pagadas</h2>
-          <p>Páginas</p>
-        </div>
-        <BuyerSharesTable data={dataPaid} shares={data.length} />
+        <BuyerSharesTable data={data} shares={data.length} />
       </div>
     </>
   );
@@ -41,7 +79,7 @@ const data: DataBuyerSharesTable[] = [
     date: new Date(2024, 10, 5),
     state: "overdue",
     total: 600,
-    pay: true,
+    pay: false,
   },
   {
     share: 3,
