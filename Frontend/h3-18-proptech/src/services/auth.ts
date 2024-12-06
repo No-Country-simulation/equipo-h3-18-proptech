@@ -7,7 +7,9 @@ export const authRegister = async (data: RegisterUser) => {
     const response = await backend.post("/v1/Account/Register", data);
     return response;
   } catch (error) {
-    console.log(error);
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
   }
 };
 

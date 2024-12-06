@@ -14,3 +14,6 @@ export * from "./DeleteIcon";
 export * from "./UploadIcon";
 export * from "./CheckIcon";
 export * from "./ArrowBackIcon";
+export * from "./MailIcon";
+export * from "./TelephoneIcon";
+export * from "./WorldIcon";
