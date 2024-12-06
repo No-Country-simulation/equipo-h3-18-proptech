@@ -44,4 +44,4 @@ export function ValidateTablePage() {
 
 export default ValidateTablePage;
 
-const validateHeader = ["Nombre completo", "rol"];
+const validateHeader = ["Nombre completo", "Rol"];
