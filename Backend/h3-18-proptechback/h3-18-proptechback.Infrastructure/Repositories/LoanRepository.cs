@@ -21,9 +21,22 @@ namespace h3_18_proptechback.Infrastructure.Repositories
 
         public async Task<List<Loan>> GetAllLoanIncludeQuotas(StateLoan? state = null)
         {
-            if(state is not null)
-                return await _context.Loans.Include(l=>l.Quotas).Include(l=>l.LoanRequest).Include(l=>l.LoanRequest.DataUser).Where(d=>d.StateLoan == state.Value).ToListAsync();
-            return await _context.Loans.Include(l => l.Quotas).Include(l => l.LoanRequest).Include(l => l.LoanRequest.DataUser).ToListAsync();
+            var query = _context.Loans.Include(l => l.Quotas)
+                    .Include(l => l.LoanRequest)
+                    .Include(l => l.LoanRequest.DataUser);
+            if (state is not null)
+                return await query.Where(d=>d.StateLoan == state.Value)
+                    .ToListAsync();
+            return await query.ToListAsync();
+        }
+
+        public async Task<List<Loan>> GetMyAllLoanIncludeQuotas(string idUser)
+        {
+            return await _context.Loans.Include(l => l.Quotas)
+                .Include(l => l.LoanRequest)
+                .Include(l => l.LoanRequest.DataUser)
+                .Where(l=>l.LoanRequest.DataUser.Createby == idUser)
+                .ToListAsync();
         }
     }
 }

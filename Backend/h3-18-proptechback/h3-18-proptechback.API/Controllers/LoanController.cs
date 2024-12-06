@@ -8,6 +8,7 @@ using h3_18_proptechback.Application.Features.Loan.Queries;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllRequestLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.DetailLoanReq;
+using h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan;
 using h3_18_proptechback.Application.Models.Emails;
 using h3_18_proptechback.Domain;
 using h3_18_proptechback.Domain.Common;
@@ -68,14 +69,15 @@ namespace h3_18_proptechback.API.Controllers
             {
                 return Ok(await _handler.SendLoanRequest(request, email));
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 return StatusCode(500, ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -250,6 +252,29 @@ namespace h3_18_proptechback.API.Controllers
             catch (ArgumentException argEx)
             {
                 return BadRequest(argEx.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("allMyLoans")]
+        [Authorize(Roles = "Cliente")]
+        public async Task<ActionResult<List<MyAllLoanQueryResponse>>> GetMyLoans()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email))
+            {
+                return Unauthorized("El token no contiene un email válido.");
+            }
+            try
+            {
+                return Ok(await _loanQueryHandler.GetMyAllLoan(email));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

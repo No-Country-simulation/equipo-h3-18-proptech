@@ -6,6 +6,7 @@ using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllRequestLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.DetailLoanReq;
+using h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan;
 using h3_18_proptechback.Application.Models.Infrastructure;
 using h3_18_proptechback.Domain;
 
@@ -65,6 +66,31 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
 
             return list;
         }
+
+        public async Task<List<MyAllLoanQueryResponse>> GetMyAllLoan(string email)
+        {
+            var user = await _userIdentityService.GetIdentityUser(email);
+            var loans = await _loanRepository.GetMyAllLoanIncludeQuotas(user.Id);
+            List<MyAllLoanQueryResponse> list = new List<MyAllLoanQueryResponse>();
+            foreach(var loan in loans)
+            {
+                decimal payedAtDay = loan.Quotas.Where(q => q.State == Domain.Common.StateQuota.Paid)
+                                                                        .Sum(d => d.Amount);
+                var remainingAmount = loan.TotalPayment - payedAtDay;
+                var payedPercentage = Math.Round((payedAtDay * 100) / loan.TotalPayment, 2);
+                var nextExpiredDate = loan.Quotas.OrderBy(q => q.QuotaNumber)
+                                                    .First(d => d.State == Domain.Common.StateQuota.Pending)
+                                                    .PayDate;
+                var currentQuota = loan.Quotas.OrderBy(q => q.QuotaNumber)
+                                               .First(q => q.PayDate > DateTime.Now.ToUniversalTime())
+                                               .QuotaNumber;
+
+                var paymentQuota = loan.Quotas.First().Amount;
+                list.Add(new MyAllLoanQueryResponse(loan.ID, nextExpiredDate, remainingAmount, payedPercentage, loan.StateLoan, $"{currentQuota}/{loan.Quotas.Count}", paymentQuota));
+            }
+            return list;
+        }
+
         public async Task<DetailLoanReqQueryResponse> GetDetailsLoanRequest(Guid loanRequestId)
         {
             var userInfo = await _documentsUserRepository.GetDocumentsIncludeDataByLoanRequestId(loanRequestId);
