@@ -50,8 +50,8 @@ const cardDataBuyer: cardData[] = [
       "Regístrate en la plataforma y valida tu identidad para garantizar un proceso seguro y confiable.",
   },
   {
-    img: "https://picsum.photos/160/160",
-    title: "Simulación de Crédito",
+    img: "assets/calculadora.gif",
+    title: "Simulación de crédito",
     children:
       "Utiliza el simulador de crédito para conocer las opciones disponibles según tus necesidades de financiamiento: monto, plazo y tasa de interés.",
   },
