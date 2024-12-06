@@ -80,7 +80,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
                 await CreateGuarantor(guarantor1), await CreateGuarantor(guarantor2));
         }
 
-        public async Task<DetailLoanReqGuaQueryResponse> CreateGuarantor(DocumentsGuarantor guarantor1)
+        private async Task<DetailLoanReqGuaQueryResponse> CreateGuarantor(DocumentsGuarantor guarantor1)
         {
             return new DetailLoanReqGuaQueryResponse(
                         guarantor1.DataGuarantor.FirstName, guarantor1.DataGuarantor.LastName, guarantor1.DataGuarantor.DNI,
@@ -89,7 +89,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
                         guarantor1.Salary3URL, guarantor1.ProofAddressURL, guarantor1.PhotoURL, guarantor1.FrontDNIURL, guarantor1.BackDNIURL);
         }
 
-        public async Task<int> GetCreditScore(string CUIT)
+        private async Task<int> GetCreditScore(string CUIT)
         {
             try
             {
