@@ -36,13 +36,15 @@ export const Carousel = ({ images }: Props) => {
         {images.map(({ img, text }, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-transform transform duration-700 ${
-              index === position ? "translate-x-0" : "translate-x-full"
+            className={`absolute inset-0 transform duration-700 transition-all ${
+              index === position ? "opacity-100" : "opacity-0"
             }`}
           >
-            <h3 className="text-headline-medium-medium absolute left-24 bottom-1/2 translate-y-1/2 w-[450px]">
-              {text}
-            </h3>
+            <section className="font-nunito text-contrast absolute font-bold text-center bg-gradient-to-r from-blue-500/30 to-orange-400/30 size-full flex items-center justify-center">
+              <div className="relative size-full flex items-center justify-center">
+                <span className="max-w-[18ch] text-4xl md:text-6xl self-center md:absolute md:top-36 md:left-28 drop-shadow-2xl px-8" style={{textShadow: "#000000 1px 0 10px"}}>{text}</span>
+              </div>
+            </section>
             <img
               src={img}
               alt={`Slide ${index}`}

@@ -6,7 +6,7 @@ export const registerSchema = z
       .string()
       .min(1, "Introduce tu nombre")
       .max(40, "Ingrese un nombre con máximo 40 caracteres"),
-    lastname: z
+    lastName: z
       .string()
       .min(1, "Introduce tu apellido")
       .max(40, "Ingrese un apellido con máximo 40 caracteres"),

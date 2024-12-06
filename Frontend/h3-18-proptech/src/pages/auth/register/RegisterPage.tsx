@@ -2,16 +2,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { TextInput, PasswordInput, Button } from "../../../components/common";
-import { useSwitchStore } from "../../../stores";
+import { useSessionStore, useSwitchStore } from "../../../stores";
 import { registerSchema } from "./models";
 import { HeaderHome } from "../../landing/components";
 import { useTransitionNavigation } from "../../../hooks";
 import { authRegister } from "../../../services";
 import { RegisterUser } from "../../../interfaces";
+import { toast } from "sonner";
 
 interface RegisterForm {
-  nombre: string;
-  apellido: string;
+  name: string;
+  lastName: string;
   phoneNumber: string;
   email: string;
   password: string;
@@ -25,8 +26,8 @@ export function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterForm>({
     defaultValues: {
-      nombre: "",
-      apellido: "",
+      name: "",
+      lastName: "",
       phoneNumber: "",
       email: "",
       password: "",
@@ -36,22 +37,33 @@ export function RegisterPage() {
   });
 
   const role = useSwitchStore((state) => state.role);
+  const newSession = useSessionStore((state) => state.newSession);
 
   const visibleRole = role === "buyer" ? "Comprador" : "Inversor";
 
   const onSubmit = (data: RegisterForm) => {
     const userRole = role === "buyer" ? "Cliente" : "Inversor";
     const formData = {
-      nombre: data.nombre,
-      apellido: data.apellido,
+      name: data.name,
+      lastName: data.lastName,
       email: data.email,
       password: data.password,
       phoneNumber: data.phoneNumber,
       rol: userRole,
       username: data.email,
     };
-    console.log(formData);
-    authRegister(formData as RegisterUser);
+    authRegister(formData as RegisterUser).then((response) => {
+      if (response && response.status < 300) {
+        newSession(response.data.token);
+        toast.success("Usuario registrado exitosamente");
+        navigate("/validate-identity");
+      } else {
+        if (response?.data) toast.error(response.data);
+        else {
+          toast.error("Ha ocurrido un error al iniciar sesión");
+        }
+      }
+    });
     // Envío de Formulario al Backend
   };
   const navigate = useTransitionNavigation();
@@ -94,14 +106,14 @@ export function RegisterPage() {
           <TextInput
             register={register}
             label="Nombre"
-            name="nombre"
-            error={errors.nombre}
+            name="name"
+            error={errors.name}
           />
           <TextInput
             register={register}
             label="Apellido"
-            name="apellido"
-            error={errors.apellido}
+            name="lastName"
+            error={errors.lastName}
           />
           <TextInput
             register={register}
