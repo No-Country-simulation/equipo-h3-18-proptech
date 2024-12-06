@@ -28,16 +28,17 @@ namespace h3_18_proptechback.CreditRecord.Services
 
         public int GetAverageCreditScore(List<Periodo> periodos)
         {
-            var averageByPeriodo = periodos.Select(p =>
-            {
-                var result = p.Entidades.Where(e => e.Situacion > 0 && e.Situacion <= 5)
-                .Average(e => e.Situacion);
+            
+            var situaciones = periodos
+                .SelectMany(p => p.Entidades) 
+                .Where(e => e.Situacion > 0 && e.Situacion <= 5)
+                .Select(e => e.Situacion); 
 
-                return result;
-            }).ToList();
+            if (!situaciones.Any())
+                return 0;
 
-            var resultAverage = Math.Round(averageByPeriodo.Average());
-            return Convert.ToInt32(resultAverage);
+            var promedio = Math.Round(situaciones.Average());
+            return Convert.ToInt32(promedio);
         }
 
         public async Task<ApiResponse> ObtenerDeudasAsync(Application.Models.Infrastructure.DeudasRequest request)

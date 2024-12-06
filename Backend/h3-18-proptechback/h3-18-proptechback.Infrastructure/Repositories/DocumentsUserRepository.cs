@@ -34,6 +34,11 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             
         }
 
+        public async Task<DocumentsUser> GetDocumentsIncludeDataByLoanRequestId(Guid loanRequestId)
+        {
+            return await _context.DocumentsUsers.Include(d=>d.DataUser).FirstAsync(d => d.LoanRequestId == loanRequestId);
+        }
+
         public async Task<DocumentsUser> GetLastDataUser(string DNI)
         {
             var lastDataUser = _context.DocumentsUsers.OrderByDescending(d=>d.CreatedDate).FirstOrDefault();
