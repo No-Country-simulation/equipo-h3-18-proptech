@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LogoIcon } from "../icons";
+import { LogoIcon, MailIcon, TelephoneIcon, WorldIcon } from "../icons";
 import { useSessionStore, useSwitchStore } from "../../stores";
 import { useTransitionNavigation } from "../../hooks";
 
@@ -28,32 +28,31 @@ export function Footer() {
   };
 
   return (
-    <div className="sm:h-[280px] bg-tertiary z-10">
-      <div className=" sm:h-[240px] bg-primary">
-        <div className="flex justify-center ">
-          <Link
-            to={"/"}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/");
-            }}
-          >
-            <LogoIcon className="aspect-square w-[80px] h-[80px] lg:w-[140px] lg:h-[140px] rounded-lg my-6" />
-          </Link>
-        </div>
-        <section className="flex">
-          <div className="flex gap-4 w-fit flex-col flex-1 pb-4 md:flex-auto md:flex-row md:gap-4 md:mb-0 justify-center items-center">
+    <article className="bg-tertiary z-10">
+      <section className=" bg-primary flex flex-col md:flex-row items-center gap-y-4 gap-x-8 px-4 pb-6 md:pb-0 md:px-6 lg:px-16">
+        <Link
+          to={"/"}
+          className="flex justify-center"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
+        >
+          <LogoIcon className="aspect-square w-[100px] h-[100px] md:w-[140px] md:h-full rounded-lg my-6" />
+        </Link>
+        <section className="flex flex-col items-center gap-y-8 gap-x-8 justify-center flex-1">
+          <div className="flex gap-4 w-full flex-col flex-1 sm:flex-row md:gap-8 lg:gap-10 justify-center items-center">
             <Link
               to={"/"}
               onClick={(e) => {
                 e.preventDefault();
                 navigate("/");
               }}
-              className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold uppercase hover:text-secondary flex items-center"
+              className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold capitalize hover:text-secondary flex items-center"
             >
               Quienes somos
             </Link>
-            <div className="hidden md:flex w-[2px] h-8 bg-secondary"></div>
+            <div className="hidden sm:flex w-[2px] h-8 bg-secondary"></div>
             <Link
               to={"/"}
               onClick={(e) => {
@@ -61,20 +60,20 @@ export function Footer() {
                 navigate("/");
                 goToSimulator();
               }}
-              className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold uppercase hover:text-secondary flex items-center"
+              className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold capitalize hover:text-secondary flex items-center"
             >
               Simulador
             </Link>
             {session && (
               <>
-                <div className="hidden md:flex w-[2px] h-8 bg-secondary"></div>
+                <div className="hidden sm:flex w-[2px] h-8 bg-secondary"></div>
                 <Link
                   to={userAditionalRoute}
                   onClick={(e) => {
                     e.preventDefault();
                     navigate(userAditionalRoute);
                   }}
-                  className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold uppercase hover:text-secondary flex items-center"
+                  className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold capitalize hover:text-secondary flex items-center"
                 >
                   {sessionRole === "Administrador"
                     ? "Gestión de Usuarios"
@@ -83,12 +82,28 @@ export function Footer() {
               </>
             )}
           </div>
+          <ul className="flex gap-4 w-full flex-col flex-1 sm:flex-row md:gap-5 lg:gap-8 justify-center items-center">
+            <li className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold capitalize flex items-center gap-2">
+              <TelephoneIcon className="w-6 h-6" />
+              <span>123 456 789</span>
+            </li>
+            <li className="hidden sm:flex w-[2px] h-8 bg-secondary"></li>
+            <li className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold lowercase flex items-center gap-2">
+              <MailIcon className="w-6 h-6" />
+              <span>financia.ai@info.com</span>
+            </li>
+            <li className="hidden sm:flex w-[2px] h-8 bg-secondary"></li>
+            <li className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold capitalize flex items-center gap-2">
+              <WorldIcon className="w-5 h-5" />
+              <span>Dirección 123 - Argentina</span>
+            </li>
+          </ul>
         </section>
-      </div>
+      </section>
       <h4 className=" text-body-medium-regular text-center leading-10">
         Todos los derechos reservados
       </h4>
-    </div>
+    </article>
   );
 }
 

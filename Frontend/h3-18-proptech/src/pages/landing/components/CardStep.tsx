@@ -36,8 +36,8 @@ export function CardStep({ children, img, title }: Props) {
           className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] 
         backface-hidden h-full"
         >
-          <div className="w-[160px] h-[160px] bg-[#d9d9d9] mt-[45px] mb-[32px] mx-auto">
-            {img && <img src={img} alt="" />}
+          <div className="w-[160px] h-[160px] bg-[#d9d9d9] mt-[45px] mb-[32px] mx-auto rounded-lg">
+            {img && <img src={img} className="rounded-lg" alt="" />}
           </div>
           <p className=" text-title-large-semi-bold text-contrast w-[200px] text-center">
             {title}
