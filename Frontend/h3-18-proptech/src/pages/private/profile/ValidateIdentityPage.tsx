@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,6 +31,7 @@ export function ValidateIdentityPage() {
   }, []);
 
   const navigate = useTransitionNavigation();
+  const [isSendingForm, setIsSendingForm] = useState(false)
 
   const onSubmit = async (data: ValidateIdentityForm) => {
     const form = new FormData();
@@ -40,11 +41,14 @@ export function ValidateIdentityPage() {
     form.append("Back", data.Back);
     form.append("Photo", data.Photo);
 
+    setIsSendingForm(true);
     const response = await sendValidationInfo(form);
     if (response?.status === 200) {
       toast.success(response.data);
+      setIsSendingForm(false);
       navigate("/profile");
     } else {
+      setIsSendingForm(false);
       if (typeof response?.data === "string") toast.error(response.data);
       else {
         toast.error("Ha ocurrido un error al guardar sus datos");
@@ -114,6 +118,7 @@ export function ValidateIdentityPage() {
           size="large"
           type="submit"
           classname="self-center mt-2"
+          isLoading={isSendingForm}
         >
           Validar Identidad
         </Button>

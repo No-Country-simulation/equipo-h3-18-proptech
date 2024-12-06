@@ -6,6 +6,7 @@ import { useSessionStore, useSwitchStore } from "../../../stores";
 import { useTransitionNavigation } from "../../../hooks";
 import { authLogin } from "../../../services";
 import { FormValues, loginSchema } from "./models";
+import { useState } from "react";
 
 export const LoginPage = () => {
   const {
@@ -24,15 +25,20 @@ export const LoginPage = () => {
   const newSession = useSessionStore((state) => state.newSession);
   const navigate = useTransitionNavigation();
 
+  const [isSendingForm, setIsSendingForm] = useState(false)
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    setIsSendingForm(true)
     const response = await authLogin(data);
     if (response && response.status < 300) {
       const role = newSession(response.data.token);
       toast.success("Sesión iniciada exitosamente");
+      setIsSendingForm(false)
       role === "Cliente" && navigate("/buyer");
       // user.role === "Inversor" && navigate("/")
       role === "Administrador" && navigate("/admin")
     } else {
+      setIsSendingForm(false)
       if (response?.data) toast.error(response.data);
       else {
         toast.error("Ha ocurrido un error al iniciar sesión");
@@ -95,6 +101,7 @@ export const LoginPage = () => {
           color="primary-blue"
           size="large"
           classname="mt-4 self-center md:self-auto"
+          isLoading={isSendingForm}
         >
           Iniciar sesión
         </Button>

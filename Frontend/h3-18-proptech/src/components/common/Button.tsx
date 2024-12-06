@@ -1,5 +1,6 @@
 import { Link, To } from "react-router-dom";
 import { useTransitionNavigation } from "../../hooks";
+import Loader from "./Loader";
 
 interface Props {
   children: string;
@@ -9,6 +10,7 @@ interface Props {
   onClick?: () => void;
   to?: To;
   classname?: string;
+  isLoading?: boolean;
 }
 
 export function Button({
@@ -19,6 +21,7 @@ export function Button({
   type,
   classname,
   to,
+  isLoading
 }: Props) {
   const sizeStyle = {
     small: "w-[clamp(129px,15vw,159px)] h-[50px]",
@@ -30,7 +33,7 @@ export function Button({
     "primary-orange": "bg-secondary text-contrast hover:bg-secondaryVar1",
     "primary-blue": "bg-primary text-contrast hover:bg-primaryVar2",
     secondary: "bg-white border-2 border-primary hover:bg-tertiary",
-    disabled: "bg-disabled pointer-events-none"
+    disabled: "bg-disabled pointer-events-none",
   };
 
   const navigate = useTransitionNavigation();
@@ -48,12 +51,19 @@ export function Button({
     </Link>
   ) : (
     <button
-      className={`${classname} ${sizeStyle[size]} ${colorStyle[color]} text-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold`}
+      className={`${classname} ${sizeStyle[size]} ${colorStyle[color]} text-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold flex items-center justify-center`}
       type={type}
       onClick={onClick}
       disabled={color === "disabled"}
     >
-      {children}
+      { isLoading ? (
+        <>
+          <span className="ps-4">{children}</span>
+          <Loader borderColor={color} size={"button"} border="normal"/>
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 }

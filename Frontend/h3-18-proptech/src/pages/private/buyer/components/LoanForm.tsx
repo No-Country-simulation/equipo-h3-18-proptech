@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import {
   Button,
@@ -34,7 +34,10 @@ export function LoanForm() {
   const salaryReceipt3 = watch("salaryReceipt3");
   const homeReceipt = watch("homeReceipt");
 
+  const [isSendingForm, setIsSendingForm] = useState(false);
+
   const onSubmit = async (data: RequestLoanForm) => {
+    setIsSendingForm(true);
     const form = new FormData();
 
     form.append("Salary", data.salaryReceipt1);
@@ -44,7 +47,7 @@ export function LoanForm() {
     form.append("LotCost", data.lotCost.toString());
     form.append("DownPayment", data.downPayment.toString());
     form.append("QuotasCount", data.quotasCount.toString());
-    form.append("CardNumber", data.cardNumber.toString());
+    form.append("CBU", data.CBU.toString());
     data.guarantors.forEach((guarantor, index) => {
       form.append(`Guarantor${index + 1}.Name`, guarantor.name);
       form.append(`Guarantor${index + 1}.LastName`, guarantor.lastname);
@@ -65,14 +68,15 @@ export function LoanForm() {
     });
     sendLoanRequest(form).then((response) => {
       if (response && response.status < 300) {
-        console.log(response);
+        setIsSendingForm(false);
         toast.success(
           "Su solicitud de financiamiento ha sido enviada exitosamente"
         );
+        navigate("/buyer");
       } else {
+        setIsSendingForm(false);
         if (typeof response?.data === "string") toast.error(response.data);
         else {
-          console.log(response);
           toast.error(
             "Ha ocurrido un error al enviar su solicitud de financiamiento"
           );
@@ -141,8 +145,8 @@ export function LoanForm() {
             <NumberInput
               register={register}
               label="Nro de Tarjeta"
-              name="cardNumber"
-              error={errors.cardNumber}
+              name="CBU"
+              error={errors.CBU}
             />
           </section>
 
@@ -219,6 +223,7 @@ export function LoanForm() {
             size="large"
             type="submit"
             classname="self-center mt-2"
+            isLoading={isSendingForm}
           >
             Solicitar Financiación
           </Button>
