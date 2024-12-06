@@ -26,7 +26,8 @@ namespace h3_18_proptechback.Infrastructure.Persistence
         public DbSet<Loan> Loans { get; set; }
         public DbSet<LoanRequest> LoanRequests { get; set; }
         public DbSet<Quota> Quotas { get; set; }
+        public DbSet<Money> Moneys { get; set; }
 
-        
+
     }
 }
