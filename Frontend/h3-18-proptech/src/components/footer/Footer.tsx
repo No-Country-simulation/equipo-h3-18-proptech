@@ -90,7 +90,7 @@ export function Footer() {
             <li className="hidden sm:flex w-[2px] h-8 bg-secondary"></li>
             <li className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold lowercase flex items-center gap-2">
               <MailIcon className="w-6 h-6" />
-              <span>financia.ai@info.com</span>
+              <span>financia.al@info.com</span>
             </li>
             <li className="hidden sm:flex w-[2px] h-8 bg-secondary"></li>
             <li className="transition-colors text-contrast text-title-medium-semi-bold md:text-title-medium-semi-bold capitalize flex items-center gap-2">
