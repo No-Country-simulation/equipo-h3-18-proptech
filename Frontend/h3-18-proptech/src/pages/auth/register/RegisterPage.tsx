@@ -86,7 +86,7 @@ export function RegisterPage() {
           </p>
           <img
             className="w-[300px] h-[240px] md:w-[409px] md:h-[320px] self-center md:self-auto"
-            src="https://picsum.photos/409/320"
+            src={visibleRole === "Comprador" ? "/assets/registerbuyer.webp" : "/assets/registerinvestor.webp"}
             alt={`Regístrate como ${visibleRole}`}
           />
           <span className="text-title-large-semi-bold mt-6 hidden md:flex md:gap-2 ">

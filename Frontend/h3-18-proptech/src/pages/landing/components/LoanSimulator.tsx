@@ -2,7 +2,7 @@ import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, NumberInput, SelectInput } from "../../../components/common";
 import { loanSimulatorSchema } from "../models";
-import { useModalStore } from "../../../stores";
+import { useModalStore, useSessionStore } from "../../../stores";
 
 /*   
   financing: number; // Monto solicitado para la compra de un terreno
@@ -44,6 +44,7 @@ export function LoanSimulator() {
     resolver: zodResolver(loanSimulatorSchema),
   });
 
+  const session = useSessionStore(state => state.session)
   const showModal = useModalStore((state) => state.showModal);
 
   const onSubmit = (data: FieldValues) => {
@@ -90,7 +91,7 @@ export function LoanSimulator() {
           value: `${totalPayment}$`,
         },
       ],
-      buttonLink: "/register",
+      buttonLink: session ? "/buyer/loan-request" : "/register",
       buttonTitle: "Solicitar Financiación",
     });
   };
@@ -119,7 +120,7 @@ export function LoanSimulator() {
         color="primary-orange"
         size="large"
         type="link"
-        to="/register"
+        to={session ? "/buyer/loan-request" : "/register"}
         classname="hidden md:flex"
       >
         Solicitar financiación
@@ -167,7 +168,7 @@ export function LoanSimulator() {
         color="primary-orange"
         size="large"
         type="link"
-        to="/register"
+        to={session ? "/buyer/loan-request" : "/register"}
         classname="flex md:hidden"
       >
         Solicitar financiación
