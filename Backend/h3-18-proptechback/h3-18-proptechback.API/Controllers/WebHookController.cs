@@ -20,7 +20,7 @@ namespace h3_18_proptechback.API.Controllers
             _configuration = options.Value;
         }
         [HttpPost("payQuota")]
-        public async Task<ActionResult> payQuota([FromBody] PayQuotaCommand command)
+        public async Task<ActionResult> PayQuota([FromBody] PayQuotaCommand command)
         {
             try
             {
