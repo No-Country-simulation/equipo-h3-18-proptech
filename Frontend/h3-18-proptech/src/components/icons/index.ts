@@ -23,3 +23,7 @@ export * from "./MercadoPagoDisableIcon";
 export * from "./SelectArrowIcon";
 export * from "./CalendarIcon";
 export * from "./GraphIcon";
+export * from "./ValidateUserIcon"
+export * from "./ApproveLoanIcon"
+export * from "./InvestStatusIcon"
+export * from "./LoanStatusIcon"

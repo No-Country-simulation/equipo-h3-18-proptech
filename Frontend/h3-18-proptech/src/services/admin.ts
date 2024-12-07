@@ -3,7 +3,7 @@ import { authHeaders, backend } from ".";
 
 export const getAllUsersToValidate = async () => {
   try {
-    const response = await backend.get("/DataUser/requestValidationPending", {
+    const response = await backend.get("/Identity/requestValidationPending", {
       headers: authHeaders(),
     });
     return response;
@@ -16,7 +16,7 @@ export const getAllUsersToValidate = async () => {
 
 export const getUserToValidate = async (dni:string) => {
   try {
-    const response = await backend.get(`/DataUser/detailsRequestValidation/${dni}`, {
+    const response = await backend.get(`/Identity/detailsRequestValidation/${dni}`, {
       headers: authHeaders(),
     });
     return response;
@@ -29,7 +29,7 @@ export const getUserToValidate = async (dni:string) => {
 
 export const validateIdentity = async (dni:string) => {
   try {
-    const response = await backend.post(`/DataUser/validateIdentity/${dni}`,dni, {
+    const response = await backend.put(`/Identity/validateIdentity/${dni}`,dni, {
       headers: authHeaders(),
     });
     return response;
@@ -42,7 +42,7 @@ export const validateIdentity = async (dni:string) => {
 
 export const rejectIdentity = async (dni:string) => {
   try {
-    const response = await backend.post(`/DataUser/rejectValidationIdentity/${dni}`,dni, {
+    const response = await backend.put(`/Identity/rejectValidationIdentity/${dni}`,dni, {
       headers: authHeaders(),
     });
     return response;
@@ -55,7 +55,7 @@ export const rejectIdentity = async (dni:string) => {
 
 export const getAllLoanRequests = async () => {
   try {
-    const response = await backend.get("/Loan/allLoanRequestPending", {
+    const response = await backend.get("/LoanRequest/allLoanRequestPending", {
       headers: authHeaders(),
     });
     return response;

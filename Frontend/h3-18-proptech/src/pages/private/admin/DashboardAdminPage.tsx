@@ -3,12 +3,12 @@ import SideBarAdmin from "./components/SideBarAdmin";
 
 function DashboardAdminPage() {
   return (
-    <div className="relative bg-[#F8F8F8] ">
+    <article className="bg-background flex justify-center min-h-[86vh]">
       <SideBarAdmin />
-      <div className="min-h-[750px] flex flex-col  items-center py-6 ml-[260px]">
+      <section className="flex-1 flex flex-col items-center py-6 px-4">
         <Outlet />
-      </div>
-    </div>
+      </section>
+    </article>
   );
 }
 
