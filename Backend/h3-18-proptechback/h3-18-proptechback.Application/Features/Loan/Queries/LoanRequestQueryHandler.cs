@@ -5,7 +5,9 @@ using h3_18_proptechback.Application.Contracts.Persistence.Loan;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.AllRequestLoan;
+using h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.DetailLoanReq;
+using h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan;
 using h3_18_proptechback.Application.Models.Infrastructure;
 using h3_18_proptechback.Domain;
 
@@ -65,6 +67,31 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
 
             return list;
         }
+
+        public async Task<List<MyAllLoanQueryResponse>> GetMyAllLoan(string email)
+        {
+            var user = await _userIdentityService.GetIdentityUser(email);
+            var loans = await _loanRepository.GetMyAllLoanIncludeQuotas(user.Id);
+            List<MyAllLoanQueryResponse> list = new List<MyAllLoanQueryResponse>();
+            foreach(var loan in loans)
+            {
+                decimal payedAtDay = loan.Quotas.Where(q => q.State == Domain.Common.StateQuota.Paid)
+                                                                        .Sum(d => d.Amount);
+                var remainingAmount = loan.TotalPayment - payedAtDay;
+                var payedPercentage = Math.Round((payedAtDay * 100) / loan.TotalPayment, 2);
+                var nextExpiredDate = loan.Quotas.OrderBy(q => q.QuotaNumber)
+                                                    .First(d => d.State == Domain.Common.StateQuota.Pending)
+                                                    .PayDate;
+                var currentQuota = loan.Quotas.OrderBy(q => q.QuotaNumber)
+                                               .First(q => q.PayDate > DateTime.Now.ToUniversalTime())
+                                               .QuotaNumber;
+
+                var paymentQuota = loan.Quotas.First().Amount;
+                list.Add(new MyAllLoanQueryResponse(loan.ID, nextExpiredDate, remainingAmount, payedPercentage, loan.StateLoan, $"{currentQuota}/{loan.Quotas.Count}", paymentQuota));
+            }
+            return list;
+        }
+
         public async Task<DetailLoanReqQueryResponse> GetDetailsLoanRequest(Guid loanRequestId)
         {
             var userInfo = await _documentsUserRepository.GetDocumentsIncludeDataByLoanRequestId(loanRequestId);
@@ -99,6 +126,55 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries
             {
                 return 1;
             }
+        }
+
+        public async Task<ClientLoanQueryResponse> GetDetailsLoanClient(ClientLoanQuery query, string email)
+        {
+            var loan = await _loanRepository.GetLoanByIdInclude(query.LoanId);
+            if (loan is null)
+                throw new ArgumentException("Préstamo no encontrado");
+            var currentUser = await _userIdentityService.GetIdentityUser(email);
+            if (currentUser.Id != loan.LoanRequest.DataUser.Createby)
+                throw new ArgumentException("Préstamo no encontrado");
+            var result = loan.Quotas.Skip((query.Page - 1) * 6)
+                .Take(6);
+
+            if (query.StateQuota is not null)
+                result = result.Where(l => l.State == query.StateQuota);
+            var totalItems = result.Count();
+            var division = totalItems / 6m;
+
+            var totalPages = (int) Math.Ceiling(division);
+
+            var listResponse = result.Select(q =>
+            {
+                return new ClientQuotaQueryResponse(q.ID, $"{q.QuotaNumber}/{totalItems}", q.PayDate, q.State, q.Amount, q.PreferenceID);
+            }).ToList();
+
+            return new ClientLoanQueryResponse(query.Page, totalPages, query.StateQuota, listResponse, loan.ID);
+        }
+
+        public async Task<LoanQueryResponse> GetDetailsLoan(ClientLoanQuery query)
+        {
+            var loan = await _loanRepository.GetLoanByIdInclude(query.LoanId);
+            if(loan is null)
+                throw new ArgumentException("Préstamo no encontrado");
+            var result = loan.Quotas.Skip((query.Page - 1)*6)
+                .Take(6);
+
+            if (query.StateQuota is not null)
+                result = result.Where(l => l.State == query.StateQuota);
+            var totalItems = result.Count();
+            var division = totalItems / 6m;
+
+            var totalPages = (int)Math.Ceiling(division);
+
+            var listResponse = result.Select(q =>
+            {
+                return new QuotaQueryResponse(q.ID, $"{q.QuotaNumber}/{totalItems}", q.PayDate, q.State, q.Amount);
+            }).ToList();
+
+            return new LoanQueryResponse(query.Page, totalPages, query.StateQuota, listResponse, loan.ID);
         }
     }
 }

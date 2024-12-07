@@ -166,7 +166,7 @@ namespace h3_18_proptechback.API.Controllers
         /// <response code="401">El token de autenticación no es válido o no está presente.</response>
         /// <response code="500">Error interno del servidor. Devuelve el mensaje de la excepción.</response>
         [HttpGet("currentUser")]
-        [Authorize(Roles = "Cliente, Inversor")]
+        [Authorize]
         [ProducesResponseType<GetCurrentUserQueryResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]

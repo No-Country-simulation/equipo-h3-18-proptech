@@ -41,7 +41,9 @@ namespace h3_18_proptechback.Infrastructure.Repositories
 
         public async Task<DocumentsUser> GetLastDataUser(string DNI)
         {
-            var lastDataUser = _context.DocumentsUsers.OrderByDescending(d=>d.CreatedDate).FirstOrDefault();
+            var lastDataUser = _context.DocumentsUsers.OrderByDescending(d=>d.CreatedDate)
+                .Include(d=>d.DataUser)
+                .FirstOrDefault(d=>d.DataUser.DNI == DNI);
             return lastDataUser;
         }
 

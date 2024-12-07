@@ -27,7 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "h3-18-proptechback.Identity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "h3-18-proptechback.CreditRecord", "h3-18-proptechback.CreditRecord\h3-18-proptechback.CreditRecord.csproj", "{01B6B4B3-52E5-4393-B080-0CC5D28C1EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "h3-18-proptechback.Cloudinary", "h3-18-proptechback.Cloudinary\h3-18-proptechback.Cloudinary.csproj", "{DD0B46DA-0DA9-4620-B69B-6D68C45F96ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "h3-18-proptechback.Cloudinary", "h3-18-proptechback.Cloudinary\h3-18-proptechback.Cloudinary.csproj", "{DD0B46DA-0DA9-4620-B69B-6D68C45F96ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "h3-18-proptechback.MercadoPago", "h3-18-proptechback.MercadoPago\h3-18-proptechback.MercadoPago.csproj", "{FDBB2AF1-DE2E-4002-BB76-339FE59903C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "h3-18-proptechback.DolarAPI", "h3-18-proptechback.DolarAPI\h3-18-proptechback.DolarAPI.csproj", "{0DAEA13E-4EF6-4E96-9B6C-D9C359B9337B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{DD0B46DA-0DA9-4620-B69B-6D68C45F96ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD0B46DA-0DA9-4620-B69B-6D68C45F96ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD0B46DA-0DA9-4620-B69B-6D68C45F96ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDBB2AF1-DE2E-4002-BB76-339FE59903C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDBB2AF1-DE2E-4002-BB76-339FE59903C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDBB2AF1-DE2E-4002-BB76-339FE59903C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDBB2AF1-DE2E-4002-BB76-339FE59903C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DAEA13E-4EF6-4E96-9B6C-D9C359B9337B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DAEA13E-4EF6-4E96-9B6C-D9C359B9337B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DAEA13E-4EF6-4E96-9B6C-D9C359B9337B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DAEA13E-4EF6-4E96-9B6C-D9C359B9337B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +90,8 @@ Global
 		{6066CD77-683E-48CC-B4A3-D90D5B9AD783} = {615F5AA3-7992-4325-B7A0-E017C2AA19B1}
 		{01B6B4B3-52E5-4393-B080-0CC5D28C1EAC} = {615F5AA3-7992-4325-B7A0-E017C2AA19B1}
 		{DD0B46DA-0DA9-4620-B69B-6D68C45F96ED} = {615F5AA3-7992-4325-B7A0-E017C2AA19B1}
+		{FDBB2AF1-DE2E-4002-BB76-339FE59903C7} = {615F5AA3-7992-4325-B7A0-E017C2AA19B1}
+		{0DAEA13E-4EF6-4E96-9B6C-D9C359B9337B} = {615F5AA3-7992-4325-B7A0-E017C2AA19B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4E71A81-EF9B-45CC-A820-09913D9AEB17}

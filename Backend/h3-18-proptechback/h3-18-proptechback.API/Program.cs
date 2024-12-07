@@ -2,12 +2,10 @@ using h3_18_proptechback.Identity;
 using h3_18_proptechback.Infrastructure;
 using h3_18_proptechback.Application;
 using h3_18_proptechback.CreditRecord;
-using Microsoft.EntityFrameworkCore;
 using h3_18_proptechback.Cloudinary;
-using h3_18_proptechback.CreditRecord.Models.configurations;
-using h3_18_proptechback.CreditRecord.Models.Requets;
-using h3_18_proptechback.CreditRecord.Services;
+using h3_18_proptechback.MercadoPago;
 using h3_18_proptechback.API;
+using h3_18_proptechback.DolarAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +21,8 @@ builder.Services.AddApplicationInfrastructureServicesExtensions(builder.Configur
 builder.Services.AddAplicationService();
 builder.Services.RecordCreditServices(builder.Configuration);
 builder.Services.AddCloudinaryServicesExtensions(builder.Configuration);
+builder.Services.AddMercadoPagoServicesExtensions(builder.Configuration);
+builder.Services.AddDolarAPIServicesExtensions(builder.Configuration);
 
 
 

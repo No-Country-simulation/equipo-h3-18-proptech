@@ -10,5 +10,6 @@ namespace h3_18_proptechback.Domain
         public DateTime PayDate { get; set; }
         public StateQuota State { get; set; }
         public decimal Amount { get; set; }
+        public string PreferenceID { get; set; }
     }
 }
