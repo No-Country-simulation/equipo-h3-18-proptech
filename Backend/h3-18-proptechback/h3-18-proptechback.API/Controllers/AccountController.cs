@@ -1,6 +1,5 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Models.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace h3_18_proptechback.API.Controllers

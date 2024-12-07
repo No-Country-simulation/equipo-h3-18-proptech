@@ -35,7 +35,7 @@ namespace h3_18_proptechback.Infrastructure.Repositories
                     DataGuarantorID = userExists.ID,
                     DataGuarantor = userExists,
                     CreatedDate = DateTime.Now.ToUniversalTime(),
-                    Createby = "System",
+                    Createby = userExists.Createby,
                 });
             await _context.SaveChangesAsync();
 
