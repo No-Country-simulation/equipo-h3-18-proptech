@@ -62,20 +62,24 @@ export const LoginPage = () => {
           <Button
             color="primary-orange"
             size="large"
-            type="link"
-            to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setRole("buyer")}
+            type="button"
+            onClick={() => {
+              setRole("buyer");
+              navigate("/register");
+            }}
           >
             Quiero una financiación
           </Button>
           <Button
             color="primary-orange"
             size="large"
-            type="link"
-            to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setRole("investor")}
+            type="button"
+            onClick={() => {
+              setRole("investor");
+              navigate("/register");
+            }}
           >
             Quiero invertir
           </Button>
@@ -115,20 +119,24 @@ export const LoginPage = () => {
           <Button
             color="primary-orange"
             size="large"
-            type="link"
-            to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setRole("buyer")}
+            type="button"
+            onClick={() => {
+              setRole("buyer");
+              navigate("/register");
+            }}
           >
             Quiero una financiación
           </Button>
           <Button
             color="primary-orange"
             size="large"
-            type="link"
-            to={"/register"}
             classname="mb-4 self-center md:self-auto"
-            onClick={() => setRole("investor")}
+            type="button"
+            onClick={() => {
+              setRole("investor");
+              navigate("/register");
+            }}
           >
             Quiero invertir
           </Button>

@@ -27,7 +27,7 @@ export function CardStep({ children, img, title }: Props) {
         className={`relative bg-primary rounded-2xl w-[250px] h-[330px] flex items-center flex-col cursor-pointer transition ease-in-out duration-1000 transform-style-3d  ${showInfo && "transform rotate-y-180"}`}
         onClick={handleClick}
       >
-        <div className=" w-[200px] h-[266px] border-2 border-secondary rounded-lg m-auto text-center flex items-center transform rotate-y-180 backface-hidden">
+        <div className=" w-[200px] h-[266px] border-4 border-secondary rounded-lg m-auto text-center flex items-center transform rotate-y-180 backface-hidden">
           <p className=" text-body-large-regular w-[150px] text-contrast m-auto">
             {children}
           </p>
@@ -37,7 +37,7 @@ export function CardStep({ children, img, title }: Props) {
         backface-hidden h-full"
         >
           <div className="w-[160px] h-[160px] bg-[#d9d9d9] mt-[45px] mb-[32px] mx-auto rounded-lg">
-            {img && <img src={img} className="rounded-lg" alt="" />}
+            {img && <img src={img} className="rounded-lg border-4 border-secondary" alt="" />}
           </div>
           <p className=" text-title-large-semi-bold text-contrast w-[200px] text-center">
             {title}

@@ -1,13 +1,14 @@
 import { LandingBuyer, LandingInvestor } from ".";
-import { useSwitchStore } from "../../stores";
+import { useSessionStore, useSwitchStore } from "../../stores";
 import { HeaderHome } from "./components";
 
 export function LandingPage() {
   const { role } = useSwitchStore();
+  const sessionRole = useSessionStore(state => state.role)
 
   return (
     <>
-      <HeaderHome />
+      {sessionRole !== "Cliente" && sessionRole !== "Inversor" && <HeaderHome />}
       {role === "buyer" ? <LandingBuyer /> : <LandingInvestor />}
     </>
   );
