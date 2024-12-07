@@ -14,7 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Contracts\Persistence\Investmant\" />
     <Folder Include="Exception\" />
+    <Folder Include="Features\Investmant\Command\AddInvestmant\" />
+    <Folder Include="Features\Investmant\Command\PayInvestmant\" />
+    <Folder Include="Features\Investmant\Command\UpdateInvestmant\" />
+    <Folder Include="Features\Investmant\Query\GetInvestmantHistory\" />
+    <Folder Include="Features\Investmant\Query\GetInvestmantUser\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
