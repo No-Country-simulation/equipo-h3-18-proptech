@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ArrowBackIcon, CloseIcon } from "../../../../components/icons";
 import { useEffect, useState } from "react";
 import { Button } from "../../../../components/common";
@@ -10,6 +10,7 @@ import {
 } from "../../../../services/admin";
 import { toast } from "sonner";
 import LoadingPage from "../../../LoadingPage";
+import { useTransitionNavigation } from "../../../../hooks";
 
 export interface UserValidateData {
   name: string;
@@ -53,7 +54,7 @@ export function ValidateUserPage() {
     backDNI,
   } = user;
 
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigation();
   const [fileChosen, setFileChosen] = useState({
     open: false,
     src: "",

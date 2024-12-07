@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import useTransitionNavigation from '../../../../hooks/useTransitionNavigation';
 
 export interface DataTable {
   dni?: string;
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function CustomTable({ data, headers }: Props) {
-  const navigate = useNavigate()
+  const navigate = useTransitionNavigation()
 
   return (
     <>

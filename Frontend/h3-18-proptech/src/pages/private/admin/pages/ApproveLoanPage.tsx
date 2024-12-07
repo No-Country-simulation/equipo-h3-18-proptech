@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/common";
 import {
   ArrowBackIcon,
@@ -8,12 +7,13 @@ import {
 import { InputImage, InputText } from "../components";
 import { useState } from "react";
 import AproveLoanGuarantors, { GuarantorData } from "./AproveLoanGuarantors";
+import useTransitionNavigation from '../../../../hooks/useTransitionNavigation';
 
 const file =
   "https://i.pinimg.com/736x/f4/2c/a2/f42ca243c73da80076b92401edb84489.jpg";
 
 export function ApproveLoanPage() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigation();
   const [guarantor1, setGuarantor1] = useState(false);
   const [guarantor2, setGuarantor2] = useState(false);
   const [open, setOpen] = useState(false);
