@@ -1,9 +1,9 @@
 import { BigInfoCard, Button, InfoCard } from "../../../components/common";
 import { CalendarIcon, CashIcon, GraphIcon } from "../../../components/icons";
-import GraphMoneyIcon from "../../../components/icons/GraphMoneyIcon";
+import InvestorGraph from "./components/InvestorGraph";
 
 export function DashboardInvestorPage() {
-  const data = false;
+  const data = true;
 
   return (
     <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
@@ -25,7 +25,8 @@ export function DashboardInvestorPage() {
               value="8"
             />
           </div>
-          <div className="flex my-12 gap-6 justify-start md:w-[1050px] ">
+          <InvestorGraph />
+          <div className="flex my-20 gap-6 justify-start md:w-[1050px] ">
             <Button
               color="primary-orange"
               size="medium"
@@ -42,7 +43,7 @@ export function DashboardInvestorPage() {
       ) : (
         <BigInfoCard
           buttonText="Invertir"
-          icon={<GraphMoneyIcon />}
+          icon={<img src="assets/icono-inversor.png" />}
           to="/investor"
         >
           Actualmente no tienes inversiones activas registradas en tu cuenta.
