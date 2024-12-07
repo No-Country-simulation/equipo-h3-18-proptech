@@ -65,3 +65,16 @@ export const getAllLoanRequests = async () => {
     }
   }
 };
+
+export const getDetailsLoanRequests = async (id: string) => {
+  try {
+    const response = await backend.get(`/LoanRequest/detailsLoanRequest/${id}`, {
+      headers: authHeaders(),
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};
