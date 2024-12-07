@@ -2,6 +2,7 @@
 using h3_18_proptechback.Application.Contracts.Infrastructure.MercadoPago;
 using h3_18_proptechback.Domain;
 using h3_18_proptechback.MercadoPago.Models;
+using MercadoPago.Client.Payment;
 using MercadoPago.Client.Preference;
 using MercadoPago.Config;
 using MercadoPago.Resource.Preference;
@@ -50,6 +51,17 @@ namespace h3_18_proptechback.MercadoPago.Services
             var client = new PreferenceClient();
             Preference pref = await client.CreateAsync(request);
             return pref.Id;
+        }
+
+        public async Task<Guid?> GetIdQuota(string idPayment)
+        {
+            MercadoPagoConfig.AccessToken = _configuration.AccessToken;
+            var client = new PaymentClient();
+            var payment = await client.GetAsync(long.Parse(idPayment));
+
+            if(payment.Status == "approved")
+                return new Guid(payment.ExternalReference);
+            return null;
         }
     }
 }

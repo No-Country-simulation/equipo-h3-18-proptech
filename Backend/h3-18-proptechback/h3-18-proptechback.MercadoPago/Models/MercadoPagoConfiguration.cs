@@ -9,5 +9,6 @@ namespace h3_18_proptechback.MercadoPago.Models
     public class MercadoPagoConfiguration
     {
         public string AccessToken { get; set; }
+        public string WebHookSecretKey { get; set; }
     }
 }
