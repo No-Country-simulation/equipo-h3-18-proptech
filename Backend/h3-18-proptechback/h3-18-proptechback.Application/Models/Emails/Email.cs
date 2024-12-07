@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace h3_18_proptechback.Application.Models.Emails
+﻿namespace h3_18_proptechback.Application.Models.Emails
 {
     public class Email
     {

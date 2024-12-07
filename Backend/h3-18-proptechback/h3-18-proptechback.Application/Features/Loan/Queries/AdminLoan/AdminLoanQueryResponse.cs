@@ -1,15 +1,15 @@
 ﻿using h3_18_proptechback.Domain.Common;
 
-namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
+namespace h3_18_proptechback.Application.Features.Loan.Queries.AdminLoan
 {
-    public class ClientLoanQueryResponse
+    public class AdminLoanQueryResponse
     {
         public int Page { get; set; }
         public int TotalPages { get; set; }
         public StateQuota? StateQuota { get; set; }
         public Guid LoanId { get; set; }
-        public List<ClientQuotaQueryResponse> Quotas { get; set; }
-        public ClientLoanQueryResponse(int page, int totalPages, StateQuota? stateQuota, List<ClientQuotaQueryResponse> quotas, Guid loanId)
+        public List<QuotaQueryResponse> Quotas { get; set; }
+        public AdminLoanQueryResponse(int page, int totalPages, StateQuota? stateQuota, List<QuotaQueryResponse> quotas, Guid loanId)
         {
             Page = page;
             TotalPages = totalPages;
@@ -19,22 +19,20 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
         }
     }
 
-    public class ClientQuotaQueryResponse
+    public class QuotaQueryResponse
     {
         public Guid QuotaId { get; set; }
         public string QuotaNumber { get; set; }
         public DateTime ExpiredDate { get; set; }
         public StateQuota StateQuota { get; set; }
         public decimal Amount { get; set; }
-        public string PreferenceID { get; set; }
-        public ClientQuotaQueryResponse(Guid quotaId, string quotaNumber, DateTime expiredDate, StateQuota stateQuota, decimal amount, string preferenceID)
+        public QuotaQueryResponse(Guid quotaId, string quotaNumber, DateTime expiredDate, StateQuota stateQuota, decimal amount)
         {
             QuotaId = quotaId;
             QuotaNumber = quotaNumber;
             ExpiredDate = expiredDate;
             StateQuota = stateQuota;
             Amount = amount;
-            PreferenceID = preferenceID;
         }
     }
 }
