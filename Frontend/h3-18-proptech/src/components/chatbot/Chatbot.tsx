@@ -39,9 +39,9 @@ export function Chatbot() {
     <>
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="p-2 rounded-full bg-white border-2 border-primary fixed bottom-4 right-4 hover:scale-125 transition-all text-xl duration-300 z-50"
+        className="rounded-full bg-white fixed bottom-4 right-4 hover:scale-125 transition-all text-xl duration-300 z-50"
       >
-        🤖
+        <img src="/assets/bot.png" className="w-14 h-14"/>
       </button>
       <article
         className={
