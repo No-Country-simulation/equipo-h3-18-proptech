@@ -7,6 +7,11 @@ export const chatbotAnswers: ChatbotAnswer[] = [
     owner: "chatbot",
     options: [
       {
+        text: "Financia.al",
+        action: "platform",
+        owner: "user",
+      },
+      {
         text: "Cuentas",
         action: "accounts",
         owner: "user",
@@ -21,9 +26,26 @@ export const chatbotAnswers: ChatbotAnswer[] = [
         action: "invests",
         owner: "user",
       },
+    ],
+  },
+  {
+    question: "platform",
+    text: "¿Qué deseas conocer sobre nosotros?",
+    owner: "chatbot",
+    options: [
       {
-        text: "Financia.al",
-        action: "platform",
+        text: "Objetivo",
+        action: "platform-goal",
+        owner: "user",
+      },
+      {
+        text: "Misión",
+        action: "platform-mission",
+        owner: "user",
+      },
+      {
+        text: "Contactar con ustedes",
+        action: "platform-contact",
         owner: "user",
       },
     ],
@@ -89,12 +111,98 @@ export const chatbotAnswers: ChatbotAnswer[] = [
       },
       {
         text: "¿Cuál es la tasa de interés de mis inversiones?",
-        action: "loan-requirements",
+        action: "invest-interest-rate",
         owner: "user",
       },
       {
         text: "¿En qué momento puedo retirar mi dinero?",
-        action: "loan-time",
+        action: "invest-retire-time",
+        owner: "user",
+      },
+    ],
+  },
+  {
+    question: "platform-goal",
+    text: "Somos una plataforma web que busca conectar a inversores interesados financiar la venta de terrenos en distintos países de Latinoamérica con compradores potenciales. Ofrecemos herramientas de análisis de inversión y métricas detalladas para los inversores, permitiéndoles evaluar el rendimiento y riesgo de sus inversiones, además de conocer su historial de ganancias. Presentamos una experiencia intuitiva y transparente para ayudar a nuestros usuarios con sus finanzas.",
+    owner: "chatbot",
+    options: [
+      {
+        text: "¿Cómo puedo crearme una cuenta como Comprador?",
+        action: "buyer-account",
+        owner: "user",
+      },
+      {
+        text: "¿Cómo puedo crearme una cuenta como Inversor?",
+        action: "invest-account",
+        owner: "user",
+      },
+      {
+        text: "Misión de la Plataforma",
+        action: "platform-mission",
+        owner: "user",
+      },
+      {
+        text: "Contactar con ustedes",
+        action: "platform-contact",
+        owner: "user",
+      },
+      {
+        text: "Volver a las preguntas iniciales",
+        action: "welcome",
+        owner: "user",
+      },
+    ],
+  },
+  {
+    question: "platform-mission",
+    text: "Nuestra misión tiene un impacto social relevante. Ante la falta de opciones de crédito accesible, ofrecemos a las familias la posibilidad de adquirir un terreno donde construir su hogar. Al mismo tiempo, proporcionamos a quienes tienen capacidad de ahorro una forma de invertir sus fondos en un activo de sólida revalorización a mediano plazo.",
+    owner: "chatbot",
+    options: [
+      {
+        text: "¿Cómo puedo crearme una cuenta como Comprador?",
+        action: "buyer-account",
+        owner: "user",
+      },
+      {
+        text: "¿Cómo puedo crearme una cuenta como Inversor?",
+        action: "invest-account",
+        owner: "user",
+      },
+      {
+        text: "Objetivo de la Plataforma",
+        action: "platform-goal",
+        owner: "user",
+      },
+      {
+        text: "Contactar con ustedes",
+        action: "platform-contact",
+        owner: "user",
+      },
+      {
+        text: "Volver a las preguntas iniciales",
+        action: "welcome",
+        owner: "user",
+      },
+    ],
+  },
+  {
+    question: "platform-contact",
+    text: "Por cualquier duda o inconveniente, puedes contactar con nosotros llamando a nuestra línea telefónica: 123 456 789. También a traves de nuestro correo electrónico: financia.al@info.com.",
+    owner: "chatbot",
+    options: [
+      {
+        text: "Misión de la Plataforma",
+        action: "platform-mission",
+        owner: "user",
+      },
+      {
+        text: "Objetivo de la Plataforma",
+        action: "platform-goal",
+        owner: "user",
+      },
+      {
+        text: "Volver a las preguntas iniciales",
+        action: "welcome",
         owner: "user",
       },
     ],
@@ -149,16 +257,6 @@ export const chatbotAnswers: ChatbotAnswer[] = [
     owner: "chatbot",
     options: [
       {
-        text: "¿Cómo puedo crearme una cuenta como Comprador?",
-        action: "buyer-account",
-        owner: "user",
-      },
-      {
-        text: "¿Cómo puedo crearme una cuenta como Inversor?",
-        action: "invest-account",
-        owner: "user",
-      },
-      {
         text: "¿Cómo solicitar un financiamiento?",
         action: "loan-request",
         owner: "user",
@@ -177,7 +275,7 @@ export const chatbotAnswers: ChatbotAnswer[] = [
   },
   {
     question: "loan-request",
-    text: "Para solicitar un financiamiento, es necesario indicar el costo del lote o terreno, el adelanto a pagar, la cantidad de cuotas deseadas y la Clave Bancaria Uniforme (CBU). Posteriormente es indispensable subir en formato PDF o Imagen los recibos de sueldo de los últimos 3 meses y un comprobante de servicio que valide tu domicilio actual. Finalmente, se debe completar toda la información personal y financiera, además de los archivos antes mencionados de las 2 personas que actuen como garantes del préstamo",
+    text: "Para solicitar un financiamiento, es necesario indicar el costo del lote o terreno, el adelanto a pagar, la cantidad de cuotas deseadas y la Clave Bancaria Uniforme (CBU). Posteriormente es indispensable subir en formato PDF o Imagen los recibos de sueldo de los últimos 3 meses y un comprobante de servicio que valide tu domicilio actual. Finalmente, se debe completar toda la información personal y financiera, además de los archivos antes mencionados, de las 2 personas que actuen como garantes del préstamo",
     owner: "chatbot",
     options: [
       {
@@ -259,6 +357,72 @@ export const chatbotAnswers: ChatbotAnswer[] = [
       {
         text: "¿Por qué mi financiamiento fue rechazado?",
         action: "loan-reject",
+        owner: "user",
+      },
+      {
+        text: "Volver a las preguntas iniciales",
+        action: "welcome",
+        owner: "user",
+      },
+    ],
+  },
+  {
+    question: "invest-requirement",
+    text: "Para invertir, primero debes haber validado tu identidad. Posteriormente, solo debes hacer la transferencia del dinero a través de nuestra pasarela de pago. Una vez que se realice la transacción, empezarás a recibir ganancias a partir del siguiente mes.",
+    owner: "chatbot",
+    options: [
+      {
+        text: "¿Cuál es la tasa de interés de mis inversiones?",
+        action: "invest-interest-rate",
+        owner: "user",
+      },
+      {
+        text: "¿En qué momento puedo retirar mi dinero?",
+        action: "invest-retire-time",
+        owner: "user",
+      },
+      {
+        text: "Volver a las preguntas iniciales",
+        action: "welcome",
+        owner: "user",
+      },
+    ],
+  },
+  {
+    question: "invest-interest-rate",
+    text: "Actualmente, nuestra tasa de interés para las inversiones se encuentra en 1.52%.",
+    owner: "chatbot",
+    options: [
+      {
+        text: "¿Cómo invertir?",
+        action: "invest-requirement",
+        owner: "user",
+      },
+      {
+        text: "¿En qué momento puedo retirar mi dinero?",
+        action: "invest-retire-time",
+        owner: "user",
+      },
+      {
+        text: "Volver a las preguntas iniciales",
+        action: "welcome",
+        owner: "user",
+      },
+    ],
+  },
+  {
+    question: "invest-retire-time",
+    text: "Una vez realizada tu inversión, puede retirar tu dinero en cualquier momento.",
+    owner: "chatbot",
+    options: [
+      {
+        text: "¿Cómo invertir?",
+        action: "invest-requirement",
+        owner: "user",
+      },
+      {
+        text: "¿Cuál es la tasa de interés de mis inversiones?",
+        action: "invest-interest-rate",
         owner: "user",
       },
       {
