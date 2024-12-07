@@ -144,7 +144,7 @@ export function LoanForm() {
             />
             <NumberInput
               register={register}
-              label="Nro de Tarjeta"
+              label="CBU"
               name="CBU"
               error={errors.CBU}
             />
