@@ -30,6 +30,14 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<Loan?> GetLoanByIdInclude(Guid loanId)
+        {
+            return await _context.Loans.Include(l => l.Quotas)
+                .Include(l => l.LoanRequest)
+                .Include(l => l.LoanRequest.DataUser)
+                .FirstOrDefaultAsync(l => l.ID == loanId);
+        }
+
         public async Task<List<Loan>> GetMyAllLoanIncludeQuotas(string idUser)
         {
             return await _context.Loans.Include(l => l.Quotas)

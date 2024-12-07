@@ -1,5 +1,6 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Infrastructure.Cloudinary;
+using h3_18_proptechback.Application.Contracts.Infrastructure.MercadoPago;
 using h3_18_proptechback.Application.Contracts.Persistence.DataGuarantor;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.DocumentsUsers;
@@ -22,12 +23,13 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
         private readonly IDataGuarantorRepository _dataGuarantorRepository;
         private readonly IDocumentsGuarantorRepository _documentsGuarantorRepository;
         private readonly ILoanRepository _loanRepository;
+        private readonly IMercadoPagoService _mercadoPagoService;
         private FinancingCalculator _calculator;
 
         public RequestLoanCommandHandler(ICloudinaryService cloudinaryService, ILoanRequestRepository loanRequestRepository,
             IDataUserRepository dataUserRepository, IUserIdentityService userIdentityService, IDocumentsUserRepository documentsUserRepository,
             IDataGuarantorRepository dataGuarantorRepository, IDocumentsGuarantorRepository documentsGuarantorRepository,
-            ILoanRepository loanRepository)
+            ILoanRepository loanRepository, IMercadoPagoService mercadoPagoService)
         {
             _cloudinaryService = cloudinaryService;
             _loanRequestRepository = loanRequestRepository;
@@ -37,6 +39,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
             _dataGuarantorRepository = dataGuarantorRepository;
             _documentsGuarantorRepository = documentsGuarantorRepository;
             _loanRepository = loanRepository;
+            _mercadoPagoService = mercadoPagoService;
         }
 
         public async Task<string> SendLoanRequest(RequestLoanCommand command, string email)
@@ -217,8 +220,9 @@ namespace h3_18_proptechback.Application.Features.Loan.Command
                     QuotaNumber = i,
                     State = Domain.Common.StateQuota.Pending,
                     CreatedDate = DateTime.Now.ToUniversalTime(),
-                    PayDate = GetDatetimeQuota(lastQuota)
+                    PayDate = GetDatetimeQuota(lastQuota),
                 };
+                quota.PreferenceID = await _mercadoPagoService.CreateAndGetPreferenceID(quota);
                 lastQuota = quota.PayDate;
                 quotas.Add(quota);
             }
