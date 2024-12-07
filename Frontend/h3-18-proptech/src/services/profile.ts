@@ -38,7 +38,7 @@ export const updateEmailPhone = async ({
 export const sendValidationInfo = async (data: FormData) => {
   try {
     const response = await backend.post(
-      "/DataUser/sendValidationRequest",
+      "/Identity/sendValidationRequest",
       data,
       { headers: authHeaders() }
     );

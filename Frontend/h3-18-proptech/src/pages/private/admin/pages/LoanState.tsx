@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { DataUser, UserData } from "../components";
-import { useNavigate } from "react-router-dom";
 import { ArrowBackIcon } from "../../../../components/icons";
 import { Button } from "../../../../components/common";
+import { useTransitionNavigation } from "../../../../hooks";
 
 const data: UserData = {
   name: "string",
@@ -22,7 +22,7 @@ const data: UserData = {
 };
 
 export function LoanState() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigation();
   const [openGuarantors, setOpenGuarantors] = useState(false);
 
   const goBack = () => {

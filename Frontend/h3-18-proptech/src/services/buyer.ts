@@ -3,7 +3,7 @@ import { authHeaders, backend } from ".";
 
 export const sendLoanRequest = async (data: FormData) => {
   try {
-    const response = await backend.post("/Loan/sendLoanRequest", data, {
+    const response = await backend.post("/LoanRequest/sendLoanRequest", data, {
       headers: authHeaders(),
     });
     return response;

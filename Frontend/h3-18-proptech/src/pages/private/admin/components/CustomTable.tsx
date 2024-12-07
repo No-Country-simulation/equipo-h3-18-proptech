@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import useTransitionNavigation from '../../../../hooks/useTransitionNavigation';
 
 export interface DataTable {
   dni?: string;
@@ -18,11 +18,11 @@ interface Props {
 }
 
 export function CustomTable({ data, headers }: Props) {
-  const navigate = useNavigate()
+  const navigate = useTransitionNavigation()
 
   return (
     <>
-      <table className=" w-[90%] max-w-[700px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-[#00000025]">
+      <table className=" w-full max-w-[700px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-tertiary">
         <thead className=" text-title-large-bold bg-primary text-contrast">
           <tr className="border-b-2 border-primary h-[76px] ">
             {headers.map((title) => (

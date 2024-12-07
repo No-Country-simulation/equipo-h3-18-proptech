@@ -63,12 +63,8 @@ export const FinanceSchema = z
       .number({ message: "Debes introducir un número" })
       .nonnegative({ message: "Por favor, introduzca un número positivo" }),
     CBU: z.coerce
-      .number({ message: "Debes introducir un número" })
-      .nonnegative({ message: "Por favor, introduzca un número positivo" })
-      .refine(
-        (value) => `${value}`.length === 22,
-        "Introduzca un número de tarjeta que contenga 22 dígitos"
-      ),
+      .string({ message: "Introduce tu CBU" })
+      .regex(/^\d{22}$/, "Ingrese un CBU que contenga 22 dígitos"),
     salaryReceipt1: z.instanceof(File, {
       message:
         "Introduce una imagen o archivo que contenga el recibo de hace un mes de tu salario",

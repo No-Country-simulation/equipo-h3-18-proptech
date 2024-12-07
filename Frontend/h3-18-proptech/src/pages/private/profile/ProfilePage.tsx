@@ -100,7 +100,9 @@ export function ProfilePage() {
             to={role === "Cliente" ? "/buyer/loan-request" : "/investor"}
             classname="self-center sm:self-auto hidden sm:flex items-center justify-center"
           >
-            {role === "Cliente" ? "Solicitar Financiamiento" : "Quiero invertir"}
+            {role === "Cliente"
+              ? "Solicitar Financiamiento"
+              : "Quiero invertir"}
           </Button>
         )}
       </header>
@@ -207,7 +209,7 @@ export function ProfilePage() {
         </Button>
       </form>
 
-      {userData?.stateValidation == 0 && (
+      {userData?.stateValidation == 0 && role !== "Administrador" && (
         <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1">
           <p className="text-body-large-regular self-start">
             Para acceder a una financiación, es indispensable validar tu
@@ -234,7 +236,7 @@ export function ProfilePage() {
         </article>
       )}
 
-      {userData?.stateValidation === 1 && (
+      {userData?.stateValidation === 1 && role !== "Administrador" && (
         <article className="w-full max-w-[1000px] mx-auto bg-contrast shadow-md shadow-tertiary rounded-lg py-6 px-4 sm:px-8 flex flex-col items-center gap-1 border-2 border-secondary">
           <h3 className="text-title-large-bold text-center mb-2">
             Tu solicitud de validación está en proceso.
@@ -247,13 +249,15 @@ export function ProfilePage() {
           </p>
         </article>
       )}
-      <Button
-        size={"large"}
-        color={"primary-orange"}
-        classname="self-center sm:self-auto flex sm:hidden items-center justify-center"
-      >
-        Solicitar Financiamiento
-      </Button>
+      {role !== "Administrador" && (
+        <Button
+          size={"large"}
+          color={"primary-orange"}
+          classname="self-center sm:self-auto flex sm:hidden items-center justify-center"
+        >
+          Solicitar Financiamiento
+        </Button>
+      )}
     </section>
   );
 }

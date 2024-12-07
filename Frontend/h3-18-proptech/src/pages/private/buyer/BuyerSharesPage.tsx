@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import { ArrowBackIcon, SelectArrowIcon } from "../../../components/icons";
 import { BuyerSharesTable, DataBuyerSharesTable } from "./components";
+import useTransitionNavigation from '../../../hooks/useTransitionNavigation';
 
 const options = ["Todos", "Pagado", "Atrasado", "Pendiente"];
 const pages = [1, 2, 3, 4];
 
 export function BuyerSharesPage() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigation();
 
   const goBack = () => {
     navigate("/buyer");

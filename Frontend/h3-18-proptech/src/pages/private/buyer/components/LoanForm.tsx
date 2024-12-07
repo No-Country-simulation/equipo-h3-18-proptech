@@ -6,6 +6,7 @@ import {
   NumberInput,
   SelectInput,
   TextFieldWithIcon,
+  TextInput,
 } from "../../../../components/common";
 import { RequestLoanForm } from "../models";
 import { Guarantor } from "../../../../interfaces";
@@ -47,7 +48,7 @@ export function LoanForm() {
     form.append("LotCost", data.lotCost.toString());
     form.append("DownPayment", data.downPayment.toString());
     form.append("QuotasCount", data.quotasCount.toString());
-    form.append("CBU", data.CBU.toString());
+    form.append("CBU", data.CBU);
     data.guarantors.forEach((guarantor, index) => {
       form.append(`Guarantor${index + 1}.Name`, guarantor.name);
       form.append(`Guarantor${index + 1}.LastName`, guarantor.lastname);
@@ -83,8 +84,6 @@ export function LoanForm() {
         }
       }
     });
-
-    // LLAMAR SERVICIO
   };
 
   return (
@@ -142,7 +141,7 @@ export function LoanForm() {
                 label: `${month} meses`,
               }))}
             />
-            <NumberInput
+            <TextInput
               register={register}
               label="CBU"
               name="CBU"
