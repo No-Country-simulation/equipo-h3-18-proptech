@@ -1,5 +1,6 @@
 export * from "./LayoutPage";
 export * from "./HomePage";
+export * from "./NotFoundPage";
 export * from "./auth/register/RegisterPage";
 export * from "./auth/login/LoginPage";
 export * from "./private/PrivatePagesAuth";

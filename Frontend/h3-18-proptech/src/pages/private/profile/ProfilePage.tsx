@@ -39,6 +39,7 @@ export function ProfilePage() {
   const [readOnlyPhoneNumber, setReadOnlyPhoneNumber] = useState(true);
 
   const newSession = useSessionStore((state) => state.newSession);
+  const role = useSessionStore((state) => state.role);
   const navigate = useTransitionNavigation();
 
   useEffect(() => {
@@ -91,13 +92,17 @@ export function ProfilePage() {
         <h1 className="text-headline-large-medium text-center sm:text-start">
           Mi Perfil
         </h1>
-        <Button
-          size={"large"}
-          color={"primary-orange"}
-          classname="self-center sm:self-auto hidden sm:flex items-center justify-center"
-        >
-          Solicitar Financiamiento
-        </Button>
+        {role !== "Administrador" && (
+          <Button
+            size={"large"}
+            color={"primary-orange"}
+            type="link"
+            to={role === "Cliente" ? "/buyer/loan-request" : "/investor"}
+            classname="self-center sm:self-auto hidden sm:flex items-center justify-center"
+          >
+            {role === "Cliente" ? "Solicitar Financiamiento" : "Quiero invertir"}
+          </Button>
+        )}
       </header>
 
       <form

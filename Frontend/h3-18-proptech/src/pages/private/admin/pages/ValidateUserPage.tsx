@@ -26,6 +26,9 @@ export interface UserValidateData {
 export function ValidateUserPage() {
   let { id } = useParams();
   const [loading, setLoading] = useState(true);
+  const [isApproving, setIsApproving] = useState(false);
+  const [isRejecting, setIsRejecting] = useState(false);
+
   const [user, setUser] = useState<UserValidateData>({
     name: "",
     lastName: "",
@@ -77,37 +80,43 @@ export function ValidateUserPage() {
   };
 
   const viewFile = (file: string) => {
-    if (file.endsWith('.pdf')) {
-      file = file.replace(".pdf", ".jpg")
-      window.open(file, '_blank')?.focus();
-    }else setFileChosen({ open: true, src: file });
+    if (file.endsWith(".pdf")) {
+      file = file.replace(".pdf", ".jpg");
+      window.open(file, "_blank")?.focus();
+    } else setFileChosen({ open: true, src: file });
   };
 
   const validate = () => {
+    setIsApproving(true);
     if (id) {
       validateIdentity(id).then((response) => {
         if (response && response?.status < 300) {
+          setIsApproving(false);
           toast.success("Usuario validado");
           setTimeout(() => {
             goBack();
           }, 2000);
         } else {
           toast.error("Ha ocurrido un error al validar");
+          setIsApproving(false);
         }
       });
     }
   };
 
   const reject = () => {
+    setIsRejecting(true);
     if (id) {
       rejectIdentity(id).then((response) => {
         if (response && response?.status < 300) {
+          setIsRejecting(false);
           toast.success("Usuario rechazado");
           setTimeout(() => {
             goBack();
           }, 2000);
         } else {
           toast.error("Ha ocurrido un error");
+          setIsRejecting(false);
         }
       });
     }
@@ -161,10 +170,20 @@ export function ValidateUserPage() {
               </div>
             </div>
             <div className="flex justify-center gap-4 my-6">
-              <Button size="small" color="primary-blue" onClick={validate}>
+              <Button
+                size="small"
+                color="primary-blue"
+                onClick={validate}
+                isLoading={isApproving}
+              >
                 Validar
               </Button>
-              <Button size="small" color="secondary" onClick={reject}>
+              <Button
+                size="small"
+                color="secondary"
+                onClick={reject}
+                isLoading={isRejecting}
+              >
                 Rechazar
               </Button>
             </div>

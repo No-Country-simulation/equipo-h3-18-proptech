@@ -22,7 +22,7 @@ export function Navbar() {
       ? "/buyer"
       : sessionRole === "Administrador"
         ? "/admin"
-        : "/profile";
+        : "/investor";
 
   const goToSimulator = () => {
     setTimeout(() => {

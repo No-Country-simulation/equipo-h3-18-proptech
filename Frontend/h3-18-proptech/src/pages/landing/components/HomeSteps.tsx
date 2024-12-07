@@ -44,25 +44,25 @@ interface cardData {
 
 const cardDataBuyer: cardData[] = [
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardbuyer1.gif",
     title: "Registro y validación",
     children:
       "Regístrate en la plataforma y valida tu identidad para garantizar un proceso seguro y confiable.",
   },
   {
-    img: "assets/calculadora.gif",
+    img: "assets/cardbuyer2.gif",
     title: "Simulación de crédito",
     children:
       "Utiliza el simulador de crédito para conocer las opciones disponibles según tus necesidades de financiamiento: monto, plazo y tasa de interés.",
   },
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardbuyer3.gif",
     title: "Solicitud de financiamiento",
     children:
       "Completa tu solicitud de financiamiento directamente en la plataforma, proporcionando los datos requeridos para procesarla.",
   },
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardbuyer4.gif",
     title: "Gestión del financiamiento",
     children:
       "Una vez aprobado, administra tus pagos y monitorea tu progreso a través de una interfaz fácil de usar.",
@@ -71,25 +71,25 @@ const cardDataBuyer: cardData[] = [
 
 const cardDataInvestor: cardData[] = [
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardinvestor1.gif",
     title: "Registro y validación",
     children:
       "Regístrate en la plataforma y valida tu identidad para garantizar seguridad y confianza en las operaciones.",
   },
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardinvestor2.gif",
     title: "Explora opciones de financiamiento",
     children:
       "Accede a herramientas que te permiten simular condiciones de crédito, evaluar montos, plazos y tasas de interés según las oportunidades disponibles.",
   },
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardinvestor3.gif",
     title: "Consulta reportes y métricas",
     children:
       "Usa el panel de control personalizado para analizar estadísticas clave, proyecciones y tendencias de tus inversiones.",
   },
   {
-    img: "https://picsum.photos/160/160",
+    img: "assets/cardinvestor4.gif",
     title: "Gestiona tus Inversiones",
     children:
       "Realiza seguimientos de tus rendimientos, ajusta tus estrategias según los informes y optimiza tus decisiones de inversión.",

@@ -11,6 +11,7 @@ import {
   LayoutPage,
   LoanRequestPage,
   LoginPage,
+  NotFoundPage,
   PrivatePagesAuth,
   ProfilePage,
   RegisterPage,
@@ -81,6 +82,7 @@ function AppRoutes() {
               <Route path="investors/:id" element={<InvestorState />} />
             </Route>
           </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Router>
