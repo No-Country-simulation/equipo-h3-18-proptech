@@ -44,7 +44,7 @@ export function SideBarAdmin() {
   ];
 
   return (
-    <aside className={`w-[60px] bg-primary text-contrast flex flex-col gap-y-4 py-6 px-2 shadow-lg shadow-tertiary ${isOpen && "md:w-full md:max-w-[260px] md:ps-3 md:pe-2"} transition-transform`}>
+    <aside className={`w-[60px] bg-primary text-contrast flex flex-col gap-y-4 py-6 px-2 shadow-lg shadow-tertiary ${isOpen && "md:w-full md:max-w-[260px] md:ps-3 md:pe-2"} transition-transform select-none`}>
       <header className={`flex gap-2 px-1 items-center justify-center ${isOpen && "md:justify-start"}`}>
         <button onClick={() => setIsOpen(!isOpen)}>
           <MenuIcon className="h-7 w-7" />
