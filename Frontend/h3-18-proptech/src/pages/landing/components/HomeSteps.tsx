@@ -6,7 +6,7 @@ export const HomeSteps = () => {
   const { role } = useSwitchStore();
 
   return (
-    <div className="min-h-full  bg-contrast  justify-center flex items-center flex-col mt-16">
+    <div className="min-h-full bg-background justify-center flex items-center flex-col mt-16">
       <p className=" text-headline-medium-medium mt-4 ">Todo en simples pasos</p>
       <p className=" text-title-large-regular mt-4 mb-10 w-[90%] md:w-[700px]">
         Conoce cómo funciona nuestra plataforma en unos simples pasos y comienza
