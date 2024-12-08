@@ -1,16 +1,20 @@
-import useTransitionNavigation from '../../../../hooks/useTransitionNavigation';
+import useTransitionNavigation from "../../../../hooks/useTransitionNavigation";
 
 export interface DataTable {
   dni?: string;
   fullName: string;
   role?: string;
-  state?: "Atrasado" | "Pagado";
-  overdue?: number;
   amount?: number;
   activeMonths?: number;
-  financingMount?: string
-  loanRequestId?: string
+  financingMount?: string;
+  loanRequestId?: string;
+
+  loanId?: string;
+  stateLoan?: number;
+  lateQuotas?: number;
 }
+
+const stateLoanType = ["Atrasado", "Pendiente", "Al día", "Completado"];
 
 interface Props {
   headers: string[];
@@ -18,7 +22,7 @@ interface Props {
 }
 
 export function CustomTable({ data, headers }: Props) {
-  const navigate = useTransitionNavigation()
+  const navigate = useTransitionNavigation();
 
   return (
     <>
@@ -37,30 +41,35 @@ export function CustomTable({ data, headers }: Props) {
               fullName,
               role,
               dni,
-              state,
-              overdue,
+              stateLoan,
+              lateQuotas,
               amount,
               activeMonths,
               loanRequestId,
-              financingMount
+              financingMount,
+              loanId,
             }) => (
               <tr className="border-b-2 border-primary h-[76px]" key={dni}>
                 <td className=" capitalize">{fullName}</td>
                 {role && <td>{role}</td>}
-                {state && (
+                {stateLoan && (
                   <td
-                    className={`${state === "Pagado" ? "text-success" : "text-error"} text-title-medium-bold`}
+                    className={`${stateLoan === 0 ? "text-error" : stateLoan === 1 ? "text-primary" : stateLoan === 2 ? "text-success" : "text-primaryVar1"} text-title-medium-bold`}
                   >
-                    {state}
+                    {stateLoanType[stateLoan]}
                   </td>
                 )}
-                {overdue !== undefined && <td>{overdue}</td>}
+                {lateQuotas !== undefined && <td>{lateQuotas}</td>}
                 {amount !== undefined && <td>${amount.toFixed(2)}</td>}
                 {financingMount !== undefined && <td>${financingMount}</td>}
                 {activeMonths !== undefined && <td>{activeMonths}</td>}
                 <td
                   className=" cursor-pointer hover:bg-tertiary"
-                  onClick={()=>navigate(`${dni ? dni : loanRequestId}`)}
+                  onClick={() =>
+                    navigate(
+                      `${dni ? dni : loanRequestId ? loanRequestId : loanId}`
+                    )
+                  }
                 >
                   Ver datos
                 </td>
@@ -69,9 +78,11 @@ export function CustomTable({ data, headers }: Props) {
           )}
         </tbody>
       </table>
-      {data.length === 0 && <h3 className="flex text-body-large-regular my-6 w-[90%]  max-w-[700px] justify-center">
-        No hay datos para mostrar
-      </h3>}
+      {data.length === 0 && (
+        <h3 className="flex text-body-large-regular my-6 w-[90%]  max-w-[700px] justify-center">
+          No hay datos para mostrar
+        </h3>
+      )}
     </>
   );
 }

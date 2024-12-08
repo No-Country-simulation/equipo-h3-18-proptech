@@ -7,18 +7,19 @@ import { useTransitionNavigation } from "../../../../hooks";
 const data: UserData = {
   name: "string",
   lastName: "string",
-  DNI: "string",
-  CUIT: "string",
+  dni: "string",
+  cuit: "string",
   email: "string",
   phoneNumber: "string",
-  photo:
+  selfieURL:
     "http://res.cloudinary.com/dwqg0f5ak/image/upload/v1733410659/messi.jpg",
-  front: "string",
-  back: "string",
-  salary: "string",
-  salary2: "string",
-  salary3: "string",
-  proofOfAddress: "string",
+  frontDNIURL: "string",
+  backDNIURL: "string",
+  salaryURL: "string",
+  salary2URL: "string",
+  salary3URL: "string",
+  proofOfAddressURL: "string",
+  creditScore: 0,
 };
 
 export function LoanState() {

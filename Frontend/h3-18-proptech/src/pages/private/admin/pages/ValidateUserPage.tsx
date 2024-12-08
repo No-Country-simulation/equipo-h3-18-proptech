@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { ArrowBackIcon, CloseIcon } from "../../../../components/icons";
+import { ArrowBackIcon } from "../../../../components/icons";
 import { useEffect, useState } from "react";
 import { Button } from "../../../../components/common";
 import { InputImage, InputText } from "../components";
@@ -55,10 +55,6 @@ export function ValidateUserPage() {
   } = user;
 
   const navigate = useTransitionNavigation();
-  const [fileChosen, setFileChosen] = useState({
-    open: false,
-    src: "",
-  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -78,13 +74,6 @@ export function ValidateUserPage() {
 
   const goBack = () => {
     navigate("/admin/validate");
-  };
-
-  const viewFile = (file: string) => {
-    if (file.endsWith(".pdf")) {
-      file = file.replace(".pdf", ".jpg");
-      window.open(file, "_blank")?.focus();
-    } else setFileChosen({ open: true, src: file });
   };
 
   const validate = () => {
@@ -153,20 +142,11 @@ export function ValidateUserPage() {
                 <InputText title="Teléfono">{phoneNumber}</InputText>
               </div>
               <div className="flex gap-4 my-8">
-                <InputImage
-                  title={"Frente del DNI"}
-                  action={() => viewFile(frontDNI)}
-                />
-                <InputImage
-                  title={"Dorso del DNI"}
-                  action={() => viewFile(backDNI)}
-                />
+                <InputImage title={"Frente del DNI"} file={frontDNI} />
+                <InputImage title={"Dorso del DNI"} file={backDNI} />
               </div>
               <div className="flex gap-4 my-8">
-                <InputImage
-                  title={"Foto del rostro"}
-                  action={() => viewFile(photo)}
-                />
+                <InputImage title={"Foto del rostro"} file={photo} />
                 <div className="w-full"></div>
               </div>
             </div>
@@ -190,24 +170,6 @@ export function ValidateUserPage() {
             </div>
           </>
         )}
-        <dialog
-          onClick={() => setFileChosen({ open: false, src: "" })}
-          className={`${fileChosen.open ? "opacity-100" : "opacity-0 scale-0"} transition-opacity fixed h-screen w-screen bg-black bg-opacity-50 z-[100] flex items-center justify-center px-4 top-0`}
-        >
-          <figure className="relative">
-            <img
-              src={fileChosen.src}
-              alt="Hola Mundo"
-              className="max-w-[250px] max-h-[250px] aspect-square md:max-w-[70vw] md:max-h-[70vh]"
-            />
-            <button
-              type="button"
-              onClick={() => setFileChosen({ open: false, src: "" })}
-            >
-              <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
-            </button>
-          </figure>
-        </dialog>
       </div>
     </div>
   );
