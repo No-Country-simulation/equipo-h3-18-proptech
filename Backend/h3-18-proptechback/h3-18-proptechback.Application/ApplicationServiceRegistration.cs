@@ -23,7 +23,6 @@ using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
 using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
 
-
 namespace h3_18_proptechback.Application
 {
     public static class ApplicationServiceRegistration
@@ -65,7 +64,6 @@ namespace h3_18_proptechback.Application
             //---------------
             service.AddScoped<AddInvestmantCommandHandler>();
             service.AddScoped<GetInvestmantUserQueryHandler>();
-            
 
 
             service.AddFluentValidationAutoValidation();
