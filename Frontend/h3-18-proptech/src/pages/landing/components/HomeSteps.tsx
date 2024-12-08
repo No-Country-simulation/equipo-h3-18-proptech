@@ -1,13 +1,14 @@
 import { CardStep } from ".";
 import { useSwitchStore } from "../../../stores";
 
-
 export const HomeSteps = () => {
   const { role } = useSwitchStore();
 
   return (
     <div className="min-h-full bg-background justify-center flex items-center flex-col mt-16">
-      <p className=" text-headline-medium-medium mt-4 ">Todo en simples pasos</p>
+      <p className=" text-headline-medium-medium mt-4 ">
+        Todo en simples pasos
+      </p>
       <p className=" text-title-large-regular mt-4 mb-10 w-[90%] md:w-[700px]">
         Conoce cómo funciona nuestra plataforma en unos simples pasos y comienza
         a gestionar tu {role === "buyer" ? "financiamiento" : "inversión"}{" "}
@@ -86,12 +87,12 @@ const cardDataInvestor: cardData[] = [
     img: "assets/cardinvestor3.gif",
     title: "Consulta reportes y métricas",
     children:
-      "Usa el panel de control personalizado para analizar estadísticas clave, proyecciones y tendencias de tus inversiones.",
+      "Visualiza el estado actual de tus inversiones, ganancias mensuales y tiempo acumulado de inversión.",
   },
   {
     img: "assets/cardinvestor4.gif",
     title: "Gestiona tus Inversiones",
     children:
-      "Realiza seguimientos de tus rendimientos, ajusta tus estrategias según los informes y optimiza tus decisiones de inversión.",
+      "Usa nuestra interfaz intuitiva para gestionar tus ganancias: retira tu dinero cuando lo desees o elige reinvertirlo de forma rápida y segura.",
   },
 ];

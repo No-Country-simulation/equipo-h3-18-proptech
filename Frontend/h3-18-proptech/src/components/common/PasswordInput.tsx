@@ -11,7 +11,14 @@ interface Props {
   placeholder?: string;
 }
 
-export function PasswordInput({ register, name, label, info, error, placeholder }: Props) {
+export function PasswordInput({
+  register,
+  name,
+  label,
+  info,
+  error,
+  placeholder,
+}: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -24,8 +31,16 @@ export function PasswordInput({ register, name, label, info, error, placeholder 
           {...register(name)}
           className={`border-[3px] w-full text-body-large-regular py-2 px-3 pe-8 rounded-md shadow-md focus:outline-none ${error ? "border-error" : "border-primary"}`}
         />
-        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute top-3 right-2">
-          {showPassword ? <EyeoffIcon className="h-6 w-6" /> : <EyeIcon className="h-6 w-6"/>}
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute top-3 right-2"
+        >
+          {!showPassword ? (
+            <EyeoffIcon className="h-6 w-6" />
+          ) : (
+            <EyeIcon className="h-6 w-6" />
+          )}
         </button>
       </div>
 

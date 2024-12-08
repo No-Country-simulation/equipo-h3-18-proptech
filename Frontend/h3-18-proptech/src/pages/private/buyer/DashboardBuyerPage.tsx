@@ -1,14 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BigInfoCard, Button, InfoCard } from "../../../components/common";
 import {
   CashIcon,
   CircleProgressIcon,
   MoneyIcon,
 } from "../../../components/icons";
-import { DashboardBuyerTable, DataBuyerTable } from "./components";
+import { DashboardBuyerTable } from "./components";
+import { getAllMyLoans } from "../../../services/buyer";
+import { toast } from "sonner";
+import LoadingPage from "../../LoadingPage";
+
+interface LoanData {
+  idLoan: string;
+  nextExpirationDate: Date;
+  remainingAmount: number;
+  payedPercentage: number;
+  currentQuota: string;
+  stateLoan: number;
+  quotaValue: number;
+}
 
 export function DashboardBuyerPage() {
   const [selected, setSelected] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [loans, setLoans] = useState<LoanData[]>([]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setLoading(true);
+    getAllMyLoans()
+      .then((response) => {
+        if (response && response?.status < 300) {
+          response.data.forEach((el: LoanData) => {
+            el.nextExpirationDate = new Date(el.nextExpirationDate);
+          });
+          setLoans(response.data);
+        } else {
+          toast.error("Ha ocurrido un error al obtener los datos");
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   const select = (pos: number) => {
     setSelected(pos);
@@ -17,29 +49,31 @@ export function DashboardBuyerPage() {
   return (
     <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center md:w-[1050px] my-4 md:my-[60px]">
-        <h2 className="text-headline-small-medium">Prestamos aprobados</h2>
+        <h2 className="text-headline-small-medium">Préstamos aprobados</h2>
       </div>
-      {data.length > 0 ? (
+      {loading ? (
+        <LoadingPage background="transparent" size="section" />
+      ) : loans.length > 0 ? (
         <>
           <div className="flex flex-col md:flex-row justify-between gap-3 pb-6 md:pb-16">
             <InfoCard
               title="Próxima fecha de pago"
               icon={<CashIcon />}
-              value="10/12/2024"
+              value={loans[selected].nextExpirationDate.toLocaleDateString()}
             />
             <InfoCard
               title="Monto restante"
               icon={<MoneyIcon />}
-              value="$1200"
+              value={`$${loans[selected].remainingAmount.toFixed(2).toString()}`}
             />
             <InfoCard
               title="Porcentaje pagado"
               icon={<CircleProgressIcon />}
-              value="15%"
+              value={`${loans[selected].payedPercentage.toString()}%`}
             />
           </div>
           <DashboardBuyerTable
-            data={data}
+            data={loans}
             selected={selected}
             select={select}
           />
@@ -77,24 +111,3 @@ export function DashboardBuyerPage() {
 }
 
 export default DashboardBuyerPage;
-
-const data: DataBuyerTable[] = [
-  {
-    id: 1,
-    loan: "paid",
-    shares: 6,
-    total: 1000,
-  },
-  {
-    id: 2,
-    loan: "overdue",
-    shares: 3,
-    total: 1500,
-  },
-  {
-    id: 3,
-    loan: "pending",
-    shares: 10,
-    total: 1200,
-  },
-];
