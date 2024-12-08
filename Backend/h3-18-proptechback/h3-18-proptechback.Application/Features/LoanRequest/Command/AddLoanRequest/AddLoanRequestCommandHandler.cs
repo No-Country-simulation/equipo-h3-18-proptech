@@ -17,6 +17,7 @@ namespace h3_18_proptechback.Application.Features.LoanRequest.Command.AddLoanReq
         private readonly IDocumentsGuarantorRepository _documentsGuarantorRepository;
         private readonly ICloudinaryService _cloudinaryService;
         private readonly ILoanRequestRepository _loanRequestRepository;
+
         public AddLoanRequestCommandHandler(IUserIdentityService userIdentityService, IDataUserRepository dataUserRepository,
             IDataGuarantorRepository dataGuarantorRepository, IDocumentsUserRepository documentsUserRepository,
             IDocumentsGuarantorRepository documentsGuarantorRepository, ICloudinaryService cloudinaryService,
