@@ -1,11 +1,12 @@
 interface Props {
   text: string;
   isLastOne: boolean;
+  owner: "user" | "chatbot"
 }
 
-export function ChatbotMessageBox({ text = "", isLastOne }: Props) {
+export function ChatbotMessageBox({ text = "", isLastOne, owner }: Props) {
   return (
-    <article className="flex gap-4 items-start">
+    <article className={`flex gap-4 items-start ${owner === "chatbot" ? "justify-start" : "justify-end"}`}>
       <span
         className={
           isLastOne
@@ -15,7 +16,7 @@ export function ChatbotMessageBox({ text = "", isLastOne }: Props) {
       >
         <img src="/assets/bot.png" className="w-8 h-8"/>
       </span>
-      <p className="bg-slate-100 px-2 py-1 my-2 max-w-[70%] rounded-lg self-center">
+      <p className={`px-2 py-1 my-2 max-w-[70%] rounded-lg ${owner === "chatbot" ? "bg-slate-100" : "bg-secondary text-contrast text-center"}`}>
         {text}
       </p>
     </article>

@@ -15,9 +15,9 @@ export function UserMessageBox({ text = "", action }: Props) {
           const answer = chatbotAnswers.find(
             (answers) => answers.question === action
           );
-          if (answer) addNewMessage(answer);
+          if (answer) addNewMessage(answer, { text, owner: "user" });
         }}
-        className="bg-secondary hover:bg-secondaryVar1 text-white px-2 py-1 my-2 max-w-[70%] rounded-lg self-center"
+        className="bg-secondary hover:bg-secondaryVar1 text-contrast px-2 py-1 my-2 max-w-[70%] rounded-lg"
       >
         {text}
       </button>

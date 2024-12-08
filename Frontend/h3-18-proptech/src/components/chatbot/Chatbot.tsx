@@ -69,10 +69,11 @@ export function Chatbot() {
             <h4 className="text-2xl text-center mt-3 font-semibold">
               Bienvenido a Financia.ai
             </h4>
-            {messages.map(({ text }, index) => (
+            {messages.map(({ text, owner }, index) => (
               <ChatbotMessageBox
                 key={index}
                 text={text}
+                owner={owner}
                 isLastOne={index === messages.length - 1}
               />
             ))}
