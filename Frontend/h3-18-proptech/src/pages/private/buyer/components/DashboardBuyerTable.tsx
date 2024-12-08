@@ -2,11 +2,16 @@ import { Link } from "react-router-dom";
 import { PdfIconSmall } from "../../../../components/icons";
 
 export interface DataBuyerTable {
-  id: number;
-  loan: "paid" | "pending" | "overdue";
-  shares: number;
-  total: number;
+  idLoan: string;
+  currentQuota: string;
+  stateLoan: number;
+  quotaValue: number;
+  nextExpirationDate?: Date;
+  remainingAmount?: number;
+  payedPercentage?: number;
 }
+
+const quotasState = ["Atrasada", "Pendiente", "Al día", "Completa"];
 
 interface Props {
   data: DataBuyerTable[];
@@ -28,32 +33,29 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
           </tr>
         </thead>
         <tbody className="text-title-medium-semi-bold md:text-body-large-regular">
-          {data.map(({ loan, shares, total, id }, index) => (
-            <tr
-              className={`${selected === index ? "bg-tertiary" : ""} border-b border-[#ccc] h-[70px] hover:bg-tertiary`}
-              onClick={() => select(index)}
-            >
-              <td
-                className={`${loan === "paid" ? "text-success" : loan === "pending" ? "text-primary" : "text-error"}`}
+          {data.map(
+            ({ currentQuota, stateLoan, quotaValue, idLoan }, index) => (
+              <tr
+                className={`${selected === index ? "bg-tertiary" : ""} border-b border-[#ccc] h-[70px] hover:bg-tertiary transition cursor-pointer`}
+                key={idLoan}
+                onClick={() => select(index)}
               >
-                {loan === "paid"
-                  ? "Al día"
-                  : loan === "pending"
-                    ? "Pendiente"
-                    : "Atrasado"}
-              </td>
-              <td className="hidden md:table-cell">
-                {shares}/{data.length}
-              </td>
-              <td>${total}</td>
-              <td>
-                <Link to={`shares/${id}`}>Ver</Link>
-              </td>
-              <td className="flex justify-center items-center h-[70px]">
-                <PdfIconSmall />
-              </td>
-            </tr>
-          ))}
+                <td
+                  className={`${stateLoan === 2 ? "text-success" : stateLoan === 1 ? "text-primary" : stateLoan === 3 ? "text-primaryVar1" : "text-error"}`}
+                >
+                  {quotasState[stateLoan]}
+                </td>
+                <td className="hidden md:table-cell">{currentQuota}</td>
+                <td>${quotaValue.toFixed(2)}</td>
+                <td className="hover:bg-contrast transition">
+                  <Link to={`shares/${idLoan}`}>Ver</Link>
+                </td>
+                <td className="flex justify-center items-center h-[70px] hover:bg-contrast">
+                  <PdfIconSmall />
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </>
