@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, NumberInput } from "../../../components/common";
 import { FormValues, investmentSimulatorSchema } from "../models";
+import { useSessionStore } from "../../../stores";
 // import { useModalStore } from "../../stores/modal/modal.store";
 
 /*   
@@ -27,6 +28,7 @@ export function InvestmentSimulator() {
 
   const [grafh, setGrafh] = useState(false);
   const [totals, setTotals] = useState<number[]>([]);
+  const session = useSessionStore(state => state.session)
 
   const onSubmit: SubmitHandler<FormValues> = ({ investment }) => {
     const calculeEarnings = (NMonths: number) => {
@@ -67,7 +69,7 @@ export function InvestmentSimulator() {
             color="primary-orange"
             size="large"
             type="link"
-            to="/register"
+            to={session ? "/investor" : "/register"}
             classname="hidden md:flex"
           >
             Invertir
@@ -131,7 +133,7 @@ export function InvestmentSimulator() {
             color="primary-orange"
             size="large"
             type="link"
-            to="/register"
+            to={session ? "/investor" : "/register"}
             classname="flex self-center mt-4 md:hidden"
           >
             Invertir

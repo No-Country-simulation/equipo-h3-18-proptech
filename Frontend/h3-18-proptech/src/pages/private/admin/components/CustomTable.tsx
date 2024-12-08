@@ -49,7 +49,7 @@ export function CustomTable({ data, headers }: Props) {
               financingMount,
               loanId,
             }) => (
-              <tr className="border-b-2 border-primary h-[76px]" key={dni}>
+              <tr className="border-b-2 border-primary h-[76px]" key={dni ?? loanRequestId ?? loanId}>
                 <td className=" capitalize">{fullName}</td>
                 {role && <td>{role}</td>}
                 {stateLoan && (
@@ -64,7 +64,7 @@ export function CustomTable({ data, headers }: Props) {
                 {financingMount !== undefined && <td>${financingMount}</td>}
                 {activeMonths !== undefined && <td>{activeMonths}</td>}
                 <td
-                  className=" cursor-pointer hover:bg-tertiary"
+                  className=" cursor-pointer hover:bg-tertiary transition-colors"
                   onClick={() =>
                     navigate(
                       `${dni ? dni : loanRequestId ? loanRequestId : loanId}`
