@@ -14,11 +14,14 @@ export const getAllUsersToValidate = async () => {
   }
 };
 
-export const getUserToValidate = async (dni:string) => {
+export const getUserToValidate = async (dni: string) => {
   try {
-    const response = await backend.get(`/Identity/detailsRequestValidation/${dni}`, {
-      headers: authHeaders(),
-    });
+    const response = await backend.get(
+      `/Identity/detailsRequestValidation/${dni}`,
+      {
+        headers: authHeaders(),
+      }
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -27,11 +30,15 @@ export const getUserToValidate = async (dni:string) => {
   }
 };
 
-export const validateIdentity = async (dni:string) => {
+export const validateIdentity = async (dni: string) => {
   try {
-    const response = await backend.put(`/Identity/validateIdentity/${dni}`,dni, {
-      headers: authHeaders(),
-    });
+    const response = await backend.put(
+      `/Identity/validateIdentity/${dni}`,
+      dni,
+      {
+        headers: authHeaders(),
+      }
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -40,11 +47,15 @@ export const validateIdentity = async (dni:string) => {
   }
 };
 
-export const rejectIdentity = async (dni:string) => {
+export const rejectIdentity = async (dni: string) => {
   try {
-    const response = await backend.put(`/Identity/rejectValidationIdentity/${dni}`,dni, {
-      headers: authHeaders(),
-    });
+    const response = await backend.put(
+      `/Identity/rejectValidationIdentity/${dni}`,
+      dni,
+      {
+        headers: authHeaders(),
+      }
+    );
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -68,7 +79,57 @@ export const getAllLoanRequests = async () => {
 
 export const getDetailsLoanRequests = async (id: string) => {
   try {
-    const response = await backend.get(`/LoanRequest/detailsLoanRequest/${id}`, {
+    const response = await backend.get(
+      `/LoanRequest/detailsLoanRequest/${id}`,
+      {
+        headers: authHeaders(),
+      }
+    );
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};
+
+export const validateLoan = async (id: string) => {
+  try {
+    const response = await backend.put(
+      `/LoanRequest/validateLoanRequest/${id}`,
+      id,
+      {
+        headers: authHeaders(),
+      }
+    );
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};
+
+export const rejectLoan = async (id: string) => {
+  try {
+    const response = await backend.put(
+      `/LoanRequest/rejectLoanRequest/${id}`,
+      id,
+      {
+        headers: authHeaders(),
+      }
+    );
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};
+
+export const getAllLoans = async () => {
+  try {
+    const response = await backend.get("/Loan/allLoan", {
       headers: authHeaders(),
     });
     return response;

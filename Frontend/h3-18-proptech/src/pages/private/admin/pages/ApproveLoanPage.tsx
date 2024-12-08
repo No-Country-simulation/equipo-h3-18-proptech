@@ -1,57 +1,28 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "../../../../components/common";
+import { ArrowBackIcon, GreenCheckIcon } from "../../../../components/icons";
 import {
-  ArrowBackIcon,
-  CloseIcon,
-  GreenCheckIcon,
-} from "../../../../components/icons";
-import { InputImage, InputText } from "../components";
-import AproveLoanGuarantors, { GuarantorData } from "./AproveLoanGuarantors";
+  creditScoreData,
+  DataUser,
+  InputImage,
+  InputText,
+} from "../components";
 import useTransitionNavigation from "../../../../hooks/useTransitionNavigation";
 import LoadingPage from "../../../LoadingPage";
-import { getDetailsLoanRequests } from "../../../../services/admin";
+import {
+  getDetailsLoanRequests,
+  rejectLoan,
+  validateLoan,
+} from "../../../../services/admin";
 import { toast } from "sonner";
-
-const file =
-  "https://i.pinimg.com/736x/f4/2c/a2/f42ca243c73da80076b92401edb84489.jpg";
 
 interface LoanInfo {
   lotCost: number;
   downPayment: number;
   quotasCount: number;
-  guarantor1: {
-    selfieURL: string;
-    frontDNIURL: string;
-    backDNIURL: string;
-    name: string;
-    lastName: string;
-    dni: string;
-    cuit: string;
-    email: string;
-    phoneNumber: string;
-    creditScore: number;
-    salaryURL: string;
-    salary2URL: string;
-    salary3URL: string;
-    proofOfAddressURL: string;
-  };
-  guarantor2: {
-    selfieURL: string;
-    frontDNIURL: string;
-    backDNIURL: string;
-    name: string;
-    lastName: string;
-    dni: string;
-    cuit: string;
-    email: string;
-    phoneNumber: string;
-    creditScore: number;
-    salaryURL: string;
-    salary2URL: string;
-    salary3URL: string;
-    proofOfAddressURL: string;
-  };
+  guarantor1: GuarantorData;
+  guarantor2: GuarantorData;
   name: string;
   lastName: string;
   dni: string;
@@ -65,46 +36,54 @@ interface LoanInfo {
   proofOfAddressURL: string;
 }
 
+interface GuarantorData {
+  selfieURL: string;
+  frontDNIURL: string;
+  backDNIURL: string;
+  name: string;
+  lastName: string;
+  dni: string;
+  cuit: string;
+  email: string;
+  phoneNumber: string;
+  creditScore: number;
+  salaryURL: string;
+  salary2URL: string;
+  salary3URL: string;
+  proofOfAddressURL: string;
+}
+
+const emptyUser = {
+  selfieURL: "",
+  frontDNIURL: "",
+  backDNIURL: "",
+  name: "",
+  lastName: "",
+  dni: "",
+  cuit: "",
+  email: "",
+  phoneNumber: "",
+  creditScore: 0,
+  salaryURL: "",
+  salary2URL: "",
+  salary3URL: "",
+  proofOfAddressURL: "",
+};
+
 export function ApproveLoanPage() {
   let { id } = useParams();
   const navigate = useTransitionNavigation();
   const [loading, setLoading] = useState(true);
+  const [loadingAccept, setLoadingAccept] = useState(false);
+  const [loadingReject, setLoadingreject] = useState(false);
+  const [loadingGuar1, setLoadingGuar1] = useState(false);
+  const [loadingGuar2, setLoadingGuar2] = useState(false);
   const [loanInfo, setLoanInfo] = useState<LoanInfo>({
     lotCost: 0,
     downPayment: 0,
     quotasCount: 0,
-    guarantor1: {
-      selfieURL: "",
-      frontDNIURL: "",
-      backDNIURL: "",
-      name: "",
-      lastName: "",
-      dni: "",
-      cuit: "",
-      email: "",
-      phoneNumber: "",
-      creditScore: 0,
-      salaryURL: "",
-      salary2URL: "",
-      salary3URL: "",
-      proofOfAddressURL: "",
-    },
-    guarantor2: {
-      selfieURL: "",
-      frontDNIURL: "",
-      backDNIURL: "",
-      name: "",
-      lastName: "",
-      dni: "",
-      cuit: "",
-      email: "",
-      phoneNumber: "",
-      creditScore: 0,
-      salaryURL: "",
-      salary2URL: "",
-      salary3URL: "",
-      proofOfAddressURL: "",
-    },
+    guarantor1: emptyUser,
+    guarantor2: emptyUser,
     name: "",
     lastName: "",
     dni: "",
@@ -121,23 +100,18 @@ export function ApproveLoanPage() {
   const [guarantor2, setGuarantor2] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const [fileChosen, setFileChosen] = useState({
-    open: false,
-    src: "",
-  });
-
   const goBack = () => {
     navigate("/admin/approve");
   };
 
-  const viewFile = (file: string) => {
-    if (file.endsWith(".pdf")) {
-      file = file.replace(".pdf", ".jpg");
-      window.open(file, "_blank")?.focus();
-    } else setFileChosen({ open: true, src: file });
-  };
-
-  const validate1 = (v: boolean) => {
+  const validateGuarantor1 = (v: boolean) => {
+    setLoadingGuar1(true);
+    setTimeout(() => {
+      setLoadingGuar1(false);
+      v
+        ? toast.success("Garante Nº 1 validado")
+        : toast.error("Garante Nº 1 rechazado");
+    }, 500);
     setGuarantor1(v);
     if (v && guarantor2) {
       setTimeout(() => {
@@ -146,7 +120,14 @@ export function ApproveLoanPage() {
     }
   };
 
-  const validate2 = (v: boolean) => {
+  const validateGuarantor2 = (v: boolean) => {
+    setLoadingGuar2(true);
+    setTimeout(() => {
+      setLoadingGuar2(false);
+      v
+        ? toast.success("Garante Nº 2 validado")
+        : toast.error("Garante Nº 2 rechazado");
+    }, 500);
     setGuarantor2(v);
     if (guarantor1 && v) {
       setTimeout(() => {
@@ -170,6 +151,42 @@ export function ApproveLoanPage() {
         .finally(() => setLoading(false));
     }
   }, []);
+
+  const acceptLoan = () => {
+    setLoadingAccept(true);
+    if (id) {
+      validateLoan(id)
+        .then((response) => {
+          if (response && response?.status < 300) {
+            toast.success("Préstamo validado");
+            setTimeout(() => {
+              goBack();
+            }, 500);
+          } else {
+            toast.error("Ha ocurrido un error al obtener los datos");
+          }
+        })
+        .finally(() => setLoadingAccept(false));
+    }
+  };
+
+  const declineLoan = () => {
+    setLoadingreject(true);
+    if (id) {
+      rejectLoan(id)
+        .then((response) => {
+          if (response && response?.status < 300) {
+            toast.error("Préstamo rechazado");
+            setTimeout(() => {
+              goBack();
+            }, 500);
+          } else {
+            toast.error("Ha ocurrido un error al obtener los datos");
+          }
+        })
+        .finally(() => setLoadingreject(false));
+    }
+  };
 
   return loading ? (
     <LoadingPage background="transparent" size="page" />
@@ -201,32 +218,43 @@ export function ApproveLoanPage() {
                 <InputText title="Teléfono">{loanInfo.phoneNumber}</InputText>
               </div>
               <div className="flex gap-4 my-4">
-                <InputText title="Costo del lote">{loanInfo.lotCost.toString()}</InputText>
-                <InputText title="Adelanto">{loanInfo.downPayment.toString()}</InputText>
+                <InputText title="Costo del lote">
+                  {loanInfo.lotCost.toString()}
+                </InputText>
+                <InputText title="Adelanto">
+                  {loanInfo.downPayment.toString()}
+                </InputText>
               </div>
               <div className="flex gap-4 my-4">
                 <InputText title="Cantidad de cuotas">
                   {loanInfo.quotasCount.toString()}
                 </InputText>
-                <InputText title="Score crediticio">{loanInfo.creditScore.toString()}</InputText>
+                <InputText title="Score crediticio">
+                  {creditScoreData[loanInfo.creditScore]}
+                </InputText>
               </div>
               <div className="flex gap-4 my-8">
-                <InputImage title={"Recibo 1"} action={() => viewFile(loanInfo.salaryURL)} />
-                <InputImage title={"Recibo 2"} action={() => viewFile(loanInfo.salary2URL)} />
+                <InputImage title={"Recibo 1"} file={loanInfo.salaryURL} />
+                <InputImage title={"Recibo 2"} file={loanInfo.salary2URL} />
               </div>
               <div className="flex gap-4 my-8 mb-4">
-                <InputImage title={"Recibo 3"} action={() => viewFile(loanInfo.salary3URL)} />
-                <InputImage title={"Servicio"} action={() => viewFile(loanInfo.proofOfAddressURL)} />
+                <InputImage title={"Recibo 3"} file={loanInfo.salary3URL} />
+                <InputImage
+                  title={"Servicio"}
+                  file={loanInfo.proofOfAddressURL}
+                />
               </div>
               <div className="flex gap-4 my-4">
                 <div className="relative w-full">
-                  <InputText title="Garante 1">Garante 1</InputText>
+                  <InputText title="Garante 1">
+                    {`${loanInfo.guarantor1.name} ${loanInfo.guarantor1.lastName}`}
+                  </InputText>
                   {guarantor1 && (
                     <GreenCheckIcon className="absolute right-2 top-[34px] scale-50" />
                   )}
                 </div>
                 <div className="relative w-full">
-                  <InputText title="Garante 2">Garante 2</InputText>
+                  <InputText title="Garante 2">{`${loanInfo.guarantor2.name} ${loanInfo.guarantor2.lastName}`}</InputText>
                   {guarantor2 && (
                     <GreenCheckIcon className="absolute right-2 top-[34px] scale-50" />
                   )}
@@ -246,10 +274,17 @@ export function ApproveLoanPage() {
               <Button
                 size="small"
                 color={`${guarantor1 && guarantor2 ? "primary-blue" : "disabled"}`}
+                onClick={acceptLoan}
+                isLoading={loadingAccept}
               >
                 Validar
               </Button>
-              <Button size="small" color="secondary">
+              <Button
+                size="small"
+                color="secondary"
+                onClick={declineLoan}
+                isLoading={loadingReject}
+              >
                 Rechazar
               </Button>
             </div>
@@ -265,74 +300,49 @@ export function ApproveLoanPage() {
                 Aprobar Garantes
               </h4>
             </div>
-            <AproveLoanGuarantors
-              guarantor={data[0]}
-              viewFile={viewFile}
-              validate={validate1}
-              isValid={guarantor1}
-            />
-            <AproveLoanGuarantors
-              guarantor={data[1]}
-              viewFile={viewFile}
-              validate={validate2}
-              isValid={guarantor2}
-            />
+            <DataUser data={loanInfo.guarantor1} type="garante Nº 1" />
+            <div className="flex justify-center gap-4 my-6">
+              <Button
+                size="small"
+                color="primary-blue"
+                onClick={() => validateGuarantor1(true)}
+                isLoading={loadingGuar1 && guarantor1}
+              >
+                Aprobar
+              </Button>
+              <Button
+                size="small"
+                color="secondary"
+                onClick={() => validateGuarantor1(false)}
+                isLoading={loadingGuar1 && !guarantor1}
+              >
+                Rechazar
+              </Button>
+            </div>
+            <DataUser data={loanInfo.guarantor2} type="garante Nº2" />
+            <div className="flex justify-center gap-4 my-6">
+              <Button
+                size="small"
+                color="primary-blue"
+                onClick={() => validateGuarantor2(true)}
+                isLoading={loadingGuar2 && guarantor2}
+              >
+                Aprobar
+              </Button>
+              <Button
+                size="small"
+                color="secondary"
+                onClick={() => validateGuarantor2(false)}
+                isLoading={loadingGuar2 && !guarantor2}
+              >
+                Rechazar
+              </Button>
+            </div>
           </>
         )}
-        <dialog
-          onClick={() => setFileChosen({ open: false, src: "" })}
-          className={`${fileChosen.open ? "opacity-100" : "opacity-0 scale-0"} transition-opacity fixed h-screen w-screen bg-black bg-opacity-50 z-[100] flex items-center justify-center px-4 top-0`}
-        >
-          <figure className="relative">
-            <img
-              src={fileChosen.src}
-              alt="Hola Mundo"
-              className="max-w-[250px] max-h-[250px] aspect-square md:max-w-[70vw] md:max-h-[70vh]"
-            />
-            <button
-              type="button"
-              onClick={() => setFileChosen({ open: false, src: "" })}
-            >
-              <CloseIcon className="absolute top-2 right-2 h-6 w-6 rounded-full p-1 bg-contrast cursor-pointer hover:bg-tertiary transition-colors" />
-            </button>
-          </figure>
-        </dialog>
       </div>
     </div>
   );
 }
 
 export default ApproveLoanPage;
-
-const data: GuarantorData[] = [
-  {
-    name: "Carlos",
-    lastName: "Perez",
-    DNI: "12345678",
-    CUIT: "20123456783",
-    email: "string@string.com",
-    phoneNumber: "12345678",
-    photo: file,
-    front: file,
-    back: file,
-    salary: file,
-    salary2: file,
-    salary3: file,
-    proofOfAddress: file,
-  },
-  {
-    name: "Juan",
-    lastName: "Alvarez",
-    DNI: "12345678",
-    CUIT: "20123456783",
-    email: "string@string.com",
-    phoneNumber: "12345678",
-    photo: file,
-    front: file,
-    back: file,
-    salary: file,
-    salary2: file,
-    salary3: file,
-    proofOfAddress: file,
-  },
-];
