@@ -20,6 +20,7 @@
             {150, 0.017913m},
             {180, 0.017199m}
         };
+
         public FinancingCalculator(decimal lotCost, decimal downPayment, int quotasCount)
         {
             LotCost = lotCost;

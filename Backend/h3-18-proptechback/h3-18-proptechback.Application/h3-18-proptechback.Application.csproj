@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <Folder Include="Exception\" />
+    <Folder Include="Features\Investmant\Command\PayInvestmant\" />
+    <Folder Include="Features\Investmant\Command\UpdateInvestmant\" />
+    <Folder Include="Features\Investmant\Query\GetInvestmantHistory\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
