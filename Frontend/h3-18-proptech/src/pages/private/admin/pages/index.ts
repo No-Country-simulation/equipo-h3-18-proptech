@@ -6,3 +6,4 @@ export * from "./ValidateUserPage";
 export * from "./ApproveLoanPage";
 export * from "./LoanState";
 export * from "./InvestorState";
+export * from "./LoanUserDataPage";

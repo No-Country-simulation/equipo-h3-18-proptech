@@ -1,32 +1,12 @@
 import { useEffect, useState } from "react";
-import { UserData } from "../components";
 import { ArrowBackIcon } from "../../../../components/icons";
 import { Button } from "../../../../components/common";
 import { useTransitionNavigation } from "../../../../hooks";
 import { useParams } from "react-router-dom";
 import { getDetailsLoan } from "../../../../services/admin";
 import { toast } from "sonner";
-import LoanStateUserPage from "./LoanStateUserPage";
 import LoadingPage from "../../../LoadingPage";
 import SelectButton from "../../../../components/common/SelectButton";
-
-const data: UserData = {
-  name: "string",
-  lastName: "string",
-  dni: "string",
-  cuit: "string",
-  email: "string",
-  phoneNumber: "string",
-  selfieURL:
-    "http://res.cloudinary.com/dwqg0f5ak/image/upload/v1733410659/messi.jpg",
-  frontDNIURL: "string",
-  backDNIURL: "string",
-  salaryURL: "string",
-  salary2URL: "string",
-  salary3URL: "string",
-  proofOfAddressURL: "string",
-  creditScore: 0,
-};
 
 interface DetailedLoanInfo {
   page: number;
@@ -46,7 +26,6 @@ export function LoanState() {
   let { id } = useParams();
   const navigate = useTransitionNavigation();
   const [loading, setLoading] = useState(true);
-  const [openUserData, setOpenUserData] = useState(false);
   const [detailedLoanInfo, setDetailedLoanInfo] = useState<DetailedLoanInfo>({
     loanId: "",
     page: 1,
@@ -56,7 +35,6 @@ export function LoanState() {
   });
   const [filterOption, setFilterOption] = useState<"" | 0 | 1 | 2>("");
   const [page, setPage] = useState<number>(1);
-
 
   const quotasState = {
     0: "Atrasada",
@@ -87,12 +65,15 @@ export function LoanState() {
 
   const pagesOptions = [];
   for (let index = 1; index <= detailedLoanInfo.totalPages; index++) {
-    pagesOptions.push({ label: `${index < 10 ? `0${index}` : index}`, value: index });
+    pagesOptions.push({
+      label: `${index < 10 ? `0${index}` : index}`,
+      value: index,
+    });
   }
 
   return loading ? (
     <LoadingPage background="transparent" size="section" />
-  ) : !openUserData ? (
+  ) : (
     <section className="bg-background flex-1">
       <div className="w-full flex flex-col gap-4 max-w-[1100px] mx-auto my-6">
         <header className="flex flex-col px-8 md:flex-row md:items-center justify-between gap-x-4 gap-y-6">
@@ -156,7 +137,7 @@ export function LoanState() {
                         {new Date(quota.expiredDate).toLocaleDateString()}
                       </td>
                       <td
-                        className={`${quota.stateQuota === 2 ? "text-success" : quota.stateQuota === 0 ? "text-error" : "text-base-color"} text-title-medium-bold`}
+                        className={`${quota.stateQuota === 2 ? "text-success" : quota.stateQuota === 0 ? "text-error" : "text-primary"} text-title-medium-bold`}
                       >
                         {quotasState[quota.stateQuota]}
                       </td>
@@ -167,20 +148,17 @@ export function LoanState() {
               </tbody>
             </table>
           )}
-
           <Button
             color="primary-blue"
             size="large"
             classname="self-start mt-2"
-            onClick={() => setOpenUserData(true)}
+            onClick={() => navigate("clientDetails")}
           >
             Ver datos del usuario
           </Button>
         </section>
       </div>
     </section>
-  ) : (
-    <LoanStateUserPage data={data} setOpenUserData={setOpenUserData} />
   );
 }
 export default LoanState;

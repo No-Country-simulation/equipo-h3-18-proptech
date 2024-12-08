@@ -17,7 +17,7 @@ import {
 } from "../../../../services/admin";
 import { toast } from "sonner";
 
-interface LoanInfo {
+export interface LoanInfo {
   lotCost: number;
   downPayment: number;
   quotasCount: number;
@@ -53,7 +53,7 @@ interface GuarantorData {
   proofOfAddressURL: string;
 }
 
-const emptyUser = {
+export const emptyUser = {
   selfieURL: "",
   frontDNIURL: "",
   backDNIURL: "",
