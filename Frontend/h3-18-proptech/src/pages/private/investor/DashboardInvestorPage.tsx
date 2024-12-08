@@ -26,7 +26,7 @@ export function DashboardInvestorPage() {
             />
           </div>
           <InvestorGraph />
-          <div className="flex my-20 gap-6 justify-start md:w-[1050px] ">
+          <div className="flex flex-col md:flex-row my-20 gap-6 justify-start md:w-[1050px] ">
             <Button
               color="primary-orange"
               size="medium"

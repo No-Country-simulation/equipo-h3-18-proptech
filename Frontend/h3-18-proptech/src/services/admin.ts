@@ -139,3 +139,25 @@ export const getAllLoans = async () => {
     }
   }
 };
+
+export const getDetailsLoan = async (
+  id: string,
+  _filterOption: "" | 0 | 1 | 2,
+  _page: number
+) => {
+  try {
+    const response = await backend.get(`/Loan/detailsLoanAdmin/`, {
+      headers: authHeaders(),
+      params: {
+        loanId: id,
+        stateQuota: _filterOption,
+        page: _page,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};
