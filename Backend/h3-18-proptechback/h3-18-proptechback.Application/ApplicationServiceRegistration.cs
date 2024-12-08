@@ -19,6 +19,9 @@ using h3_18_proptechback.Application.Features.Loan.Queries.GetMyLoans;
 using h3_18_proptechback.Application.Features.IdentityValidation.Commands.AddUser;
 using h3_18_proptechback.Application.Features.IdentityValidation.Queries.DetailReqIdentity;
 using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetRequestValidation;
+using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
+using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
+using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
 
 
 namespace h3_18_proptechback.Application
@@ -58,6 +61,12 @@ namespace h3_18_proptechback.Application
             service.AddScoped<ClientLoanQueryHandler>();
             service.AddScoped<GetLoansQueryHandler>();
             service.AddScoped<GetMyLoansQueryHandler>();
+            //Investmant
+            //---------------
+            service.AddScoped<AddInvestmantCommandHandler>();
+            service.AddScoped<GetInvestmantUserQueryHandler>();
+            
+
 
             service.AddFluentValidationAutoValidation();
             service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
