@@ -27,6 +27,7 @@ import {
   InvestorStatePages,
   LoansStatePage,
   LoanState,
+  LoanUserDataPage,
   ValidateTablePage,
   ValidateUserPage,
 } from "./pages/private/admin/pages";
@@ -79,6 +80,7 @@ function AppRoutes() {
               <Route path="validate/:id" element={<ValidateUserPage />} />
               <Route path="approve/:id" element={<ApproveLoanPage />} />
               <Route path="loans/:id" element={<LoanState />} />
+              <Route path="loans/:id/clientDetails" element={<LoanUserDataPage />} />
               <Route path="investors/:id" element={<InvestorState />} />
             </Route>
           </Route>
