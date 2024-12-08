@@ -27,7 +27,7 @@ namespace h3_18_proptechback.API.Controllers
                 string xSignature = HttpContext.Request.Headers["x-signature"];
                 if (string.IsNullOrEmpty(xSignature))
                 {
-                    return BadRequest("x-signature header missing");
+                    return Ok("x-signature header missing");
                 }
 
                 var parts = xSignature.Split(',');
@@ -53,7 +53,7 @@ namespace h3_18_proptechback.API.Controllers
 
                 if (string.IsNullOrEmpty(ts) || string.IsNullOrEmpty(v1))
                 {
-                    return BadRequest("Invalid signature format");
+                    return Ok("Invalid signature format");
                 }
 
                 string requestId = HttpContext.Request.Headers["x-request-id"];
@@ -70,7 +70,7 @@ namespace h3_18_proptechback.API.Controllers
 
                     if (calculatedHash != v1)
                     {
-                        return BadRequest("Invalid signature");
+                        return Ok("Invalid signature");
                     }
                 }
 
@@ -80,7 +80,7 @@ namespace h3_18_proptechback.API.Controllers
                     return Ok();
                     
                 }
-                return BadRequest("Not payment type");
+                return Ok("Not payment type");
             }
             catch (Exception ex)
             {

@@ -9,5 +9,10 @@ namespace h3_18_proptechback.Infrastructure.Repositories
         public QuotaRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public async Task<bool> IsCurrentQuota(Quota quota)
+        {
+            return quota.PayDate > DateTime.Now.ToUniversalTime();
+        }
     }
 }

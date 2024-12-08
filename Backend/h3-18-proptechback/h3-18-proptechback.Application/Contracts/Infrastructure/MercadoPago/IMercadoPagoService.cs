@@ -9,7 +9,7 @@ namespace h3_18_proptechback.Application.Contracts.Infrastructure.MercadoPago
 {
     public interface IMercadoPagoService
     {
-        Task<string> CreateAndGetPreferenceID(Quota quota);
+        Task<string> CreateAndGetPreferenceID(string title, decimal price, DateTime eventDate, string externalReference, string backUrl, DateTime? expirationDate = null);
         Task<Guid?> GetIdQuota(string idPayment);
     }
 }

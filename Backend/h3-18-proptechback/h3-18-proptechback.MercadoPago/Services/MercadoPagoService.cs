@@ -5,6 +5,7 @@ using h3_18_proptechback.MercadoPago.Models;
 using MercadoPago.Client.Payment;
 using MercadoPago.Client.Preference;
 using MercadoPago.Config;
+using MercadoPago.Resource.Payment;
 using MercadoPago.Resource.Preference;
 using Microsoft.Extensions.Options;
 
@@ -21,7 +22,8 @@ namespace h3_18_proptechback.MercadoPago.Services
             _configuration = options.Value;
             _dolarService = dolarService;
         }
-        public async Task<string> CreateAndGetPreferenceID(Quota quota)
+
+        public async Task<string> CreateAndGetPreferenceID(string title, decimal price, DateTime eventDate, string externalReference, string backUrl, DateTime? expirationDate = null)
         {
             MercadoPagoConfig.AccessToken = _configuration.AccessToken;
             var request = new PreferenceRequest
@@ -30,22 +32,22 @@ namespace h3_18_proptechback.MercadoPago.Services
                 {
                     new PreferenceItemRequest
                     {
-                        Title = $"Pago de cuota N°{quota.QuotaNumber}",
+                        Title = title,
                         Quantity = 1,
-                        UnitPrice = await _dolarService.GetValueInARS(quota.Amount),
+                        UnitPrice = price,
                         CurrencyId = "ARS",
-                        EventDate = quota.CreatedDate,
+                        EventDate = eventDate,
                     }
                 },
-                ExternalReference = quota.ID.ToString(),
+                ExternalReference = externalReference,
                 AutoReturn = "all",
                 BackUrls = new PreferenceBackUrlsRequest
                 {
-                    Failure = "https://equipo-h3-18-proptech-desarrollo.onrender.com/buyer",
-                    Pending = "https://equipo-h3-18-proptech-desarrollo.onrender.com/buyer",
-                    Success = "https://equipo-h3-18-proptech-desarrollo.onrender.com/buyer"
+                    Failure = backUrl,
+                    Pending = backUrl,
+                    Success = backUrl
                 },
-                DateOfExpiration = null
+                DateOfExpiration = expirationDate
             };
 
             var client = new PreferenceClient();
@@ -58,10 +60,22 @@ namespace h3_18_proptechback.MercadoPago.Services
             MercadoPagoConfig.AccessToken = _configuration.AccessToken;
             var client = new PaymentClient();
             var payment = await client.GetAsync(long.Parse(idPayment));
-
-            if(payment.Status == "approved")
-                return new Guid(payment.ExternalReference);
+            
+            if (payment.Status == "approved")
+            {
+                return new Guid(StringFormatToGuid(payment.ExternalReference));
+            }
             return null;
+        }
+
+        private string StringFormatToGuid(string value)
+        {
+            string valueR = $"{value.Substring(0, 8)}-" +
+                    $"{value.Substring(8, 4)}-" +
+                    $"{value.Substring(12, 4)}-" +
+                    $"{value.Substring(16, 4)}-" +
+                    $"{value.Substring(20)}";
+            return valueR;
         }
     }
 }

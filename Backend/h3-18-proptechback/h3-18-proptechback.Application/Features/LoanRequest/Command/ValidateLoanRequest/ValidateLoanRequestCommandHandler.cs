@@ -1,4 +1,5 @@
-﻿using h3_18_proptechback.Application.Contracts.Infrastructure.MercadoPago;
+﻿using h3_18_proptechback.Application.Contracts.Infrastructure.DolarAPI;
+using h3_18_proptechback.Application.Contracts.Infrastructure.MercadoPago;
 using h3_18_proptechback.Application.Contracts.Persistence.Loan;
 using h3_18_proptechback.Application.Contracts.Persistence.LoanRequest;
 using h3_18_proptechback.Application.Features.CalculatorCredit;
@@ -11,12 +12,14 @@ namespace h3_18_proptechback.Application.Features.LoanRequest.Command.ValidateLo
         private readonly ILoanRequestRepository _loanRequestRepository;
         private readonly ILoanRepository _loanRepository;
         private readonly IMercadoPagoService _mercadoPagoService;
+        private readonly IDolarService _dolarService;
         private FinancingCalculator _calculator;
-        public ValidateLoanRequestCommandHandler(ILoanRequestRepository loanRequestRepository, ILoanRepository loanRepository, IMercadoPagoService mercadoPagoService)
+        public ValidateLoanRequestCommandHandler(ILoanRequestRepository loanRequestRepository, ILoanRepository loanRepository, IMercadoPagoService mercadoPagoService, IDolarService dolarService)
         {
             _loanRequestRepository = loanRequestRepository;
             _loanRepository = loanRepository;
             _mercadoPagoService = mercadoPagoService;
+            _dolarService = dolarService;
         }
 
         public async Task<string> HandleAsync(ValidateLoanRequestCommand command)
@@ -52,7 +55,12 @@ namespace h3_18_proptechback.Application.Features.LoanRequest.Command.ValidateLo
                     CreatedDate = DateTime.Now.ToUniversalTime(),
                     PayDate = GetDatetimeQuota(lastQuota),
                 };
-                quota.PreferenceID = await _mercadoPagoService.CreateAndGetPreferenceID(quota);
+                quota.PreferenceID = await _mercadoPagoService
+                    .CreateAndGetPreferenceID($"Pago de cuota N°{quota.QuotaNumber}",
+                    await _dolarService.GetValueInARS(loan.PaymentMonth), quota.CreatedDate.Value,
+                    quota.ID.ToString().Replace("-", ""),
+                    "https://equipo-h3-18-proptech-desarrollo.onrender.com/buyer",
+                    quota.PayDate);
                 lastQuota = quota.PayDate;
                 quotas.Add(quota);
             }
