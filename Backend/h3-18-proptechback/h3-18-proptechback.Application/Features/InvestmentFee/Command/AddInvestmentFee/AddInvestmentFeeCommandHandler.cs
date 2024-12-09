@@ -64,7 +64,7 @@ namespace h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInves
                 year = command.year,
                 MonthlyInterest = interestMonth,
                 Share = command.Share,
-                capitalization = command.capitalization
+                capitalization = command.Share + interestMonth
 
             };
 
