@@ -17,7 +17,13 @@ export function RetireMoneyModal({
   montoAcumulado,
 }: Props) {
   const handleClick = () => {
-    setInvestInfo(undefined);
+    setInvestInfo(
+      (state) =>
+        state && {
+          ...state,
+          montoActual: 0,
+        }
+    );
     toast.success(
       "Tu dinero ha sido retirado exitosamente. En unos días recibirás el monto acumulado"
     );
@@ -39,7 +45,9 @@ export function RetireMoneyModal({
           </button>
         </header>
         <p className="text-center py-4 text-title-large-semi-bold">
-          ¿Estás seguro que deseas retirar la inversión por un monto de $<span className="text-title-large-bold">{montoAcumulado}</span>?</p>
+          ¿Estás seguro que deseas retirar la inversión por un monto de $
+          <span className="text-title-large-bold">{montoAcumulado}</span>?
+        </p>
         <footer
           onClick={() => setOpenModal(false)}
           className="flex gap-12 w-full mx-auto justify-center"

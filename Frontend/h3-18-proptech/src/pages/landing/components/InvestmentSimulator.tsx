@@ -22,13 +22,13 @@ export function InvestmentSimulator() {
     register,
     formState: { errors },
   } = useForm<FormValues>({
-    defaultValues: { investment: 1000, months: 6 },
+    defaultValues: { investment: undefined, months: 6 },
     resolver: zodResolver(investmentSimulatorSchema),
   });
 
   const [grafh, setGrafh] = useState(false);
   const [totals, setTotals] = useState<number[]>([]);
-  const session = useSessionStore(state => state.session)
+  const session = useSessionStore((state) => state.session);
 
   const onSubmit: SubmitHandler<FormValues> = ({ investment }) => {
     const calculeEarnings = (NMonths: number) => {
