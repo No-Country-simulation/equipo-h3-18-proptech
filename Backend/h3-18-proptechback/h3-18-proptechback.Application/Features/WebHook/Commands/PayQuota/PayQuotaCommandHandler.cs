@@ -14,7 +14,8 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.PayQuota
         private readonly ILoanRepository _loanRepository;
         private readonly IEmailServices _emailServices;
         private readonly IUserIdentityService _userIdentityService;
-        public PayQuotaCommandHandler(IMercadoPagoService mercadoPagoService, IQuotaRepository quotaRepository, ILoanRepository loanRepository, IEmailServices emailServices)
+        public PayQuotaCommandHandler(IMercadoPagoService mercadoPagoService, IQuotaRepository quotaRepository,
+            ILoanRepository loanRepository, IEmailServices emailServices)
         {
             _mercadoPagoService = mercadoPagoService;
             _quotaRepository = quotaRepository;
@@ -37,6 +38,14 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.PayQuota
             quota.State = Domain.Common.StateQuota.Paid;
 
             var quotaUpdated = await _quotaRepository.Update(quota);
+
+            await _emailServices.SendEmailAsync(new Models.Emails.Email
+            {
+                TO = user.Email,
+                Subject = $"Hemos recibido tu pago correspondiente a la cuota número {quotaUpdated.QuotaNumber}",
+                BodyHTML = CreateBodyHtml(string.Concat(user.Name, " ", user.LastName), quotaUpdated.Amount, quotaUpdated.QuotaNumber),
+                Body = $"¡Gracias por tu pago!\r\n\r\nHola {string.Concat(user.Name, " ", user.LastName)},\r\n\r\nHemos recibido tu pago correspondiente a la cuota número {{quotaNumber}}.\r\n\r\nPrecio: ${quotaUpdated.Amount}  \r\nNúmero de Cuota: {quotaUpdated.QuotaNumber}\r\n\r\n© {DateTime.Now.ToUniversalTime().Year} Financia.al | Todos los derechos reservados\r\n"
+            });
             
             if (await _quotaRepository.IsCurrentQuota(quotaUpdated) &&
                 !await _loanRepository.AnyQuotaLate(quota.LoanId))
@@ -48,22 +57,22 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.PayQuota
             
         }
 
-        private void metodo()
+        private string CreateBodyHtml(string fullName, decimal price, int quotaNumber)
         {
-            string body = @"<!DOCTYPE html>
+            return @$"<!DOCTYPE html>
 <html lang=""es"">
 <head>
     <meta charset=""UTF-8"">
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
     <title>Notificación de Pago</title>
     <style>
-        body {
+        body {{
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
             margin: 0;
             padding: 0;
-        }
-        .email-container {
+        }}
+        .email-container {{
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
@@ -71,43 +80,43 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.PayQuota
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
-        }
-        .header {
+        }}
+        .header {{
             background-color: white;
             padding: 20px;
             text-align: center;
-        }
-        .header img {
+        }}
+        .header img {{
             max-width: 130px;
-        }
-        .card-content {
+        }}
+        .card-content {{
             padding: 20px;
             color: #333;
-        }
-        .card-content h2 {
+        }}
+        .card-content h2 {{
             color: #3d5a80;
             margin-bottom: 10px;
-        }
-        .card-content p {
+        }}
+        .card-content p {{
             font-size: 16px;
             line-height: 1.5;
             margin: 10px 0;
-        }
-        .card-content .payment-info {
+        }}
+        .card-content .payment-info {{
             margin-top: 20px;
             background-color: #f0f4f8;
             padding: 15px;
             border-radius: 6px;
-        }
-        .card-content .payment-info p {
+        }}
+        .card-content .payment-info p {{
             margin: 5px 0;
-        }
-        .footer {
+        }}
+        .footer {{
             background-color: #3d5a80;
             color: white;
             padding: 10px;
             text-align: center;
-        }
+        }}
     </style>
 </head>
 <body>
@@ -235,18 +244,16 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.PayQuota
 
         <div class=""card-content"">
             <h2>¡Gracias por tu pago!</h2>
-            <p>Hola <strong>{{ nombre_usuario }}</strong>,</p>
-            <p>Hemos recibido tu pago correspondiente a la cuota número <strong>{{ numero_cuota }}</strong>.</p>
+            <p>Hola <strong>{fullName}</strong>,</p>
+            <p>Hemos recibido tu pago correspondiente a la cuota número <strong>{quotaNumber}</strong>.</p>
             <div class=""payment-info"">
-                <p><strong>Título de Pago:</strong> {{ titulo_pago }}</p>
-                <p><strong>Precio:</strong> ${{ precio }}</p>
-                <p><strong>Fecha:</strong> {{ fecha }}</p>
-                <p><strong>Numero de Cuota:</strong> {{ numero_cuota }}</p>
+                <p><strong>Precio:</strong> ${price}</p>
+                <p><strong>Numero de Cuota:</strong> {quotaNumber}</p>
             </div>
         </div>
 
         <div class=""footer"">
-            <p>&copy; {{ year }} Nombre de la Empresa | Todos los derechos reservados</p>
+            <p>&copy; {DateTime.Now.ToUniversalTime().Year} Financia.al | Todos los derechos reservados</p>
         </div>
     </div>
 
