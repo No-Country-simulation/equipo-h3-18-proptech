@@ -12,6 +12,7 @@ using h3_18_proptechback.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
 
 
 
@@ -32,6 +33,8 @@ namespace h3_18_proptechback.Infrastructure
             services.AddScoped<ILoanRequestRepository, LoanRequestRepository>();
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IQuotaRepository, QuotaRepository>();
+            services.AddScoped<IFinantialInvestmant, FinantialInvestmantRepository>();
+
 
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             services.AddTransient<IEmailServices, EmailService>();
