@@ -8,6 +8,6 @@
 
         public string Body { get; set; }
 
-        public string BodyHTML { get; set; }
+        public string? BodyHTML { get; set; } = null;
     }
 }
