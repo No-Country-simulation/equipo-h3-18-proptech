@@ -130,7 +130,7 @@ export function DashboardInvestorPage() {
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center md:max-w-[1050px] my-8">
           <h2 className="text-headline-small-medium">Resumen Financiero</h2>
         </div>
-        {investInfo ? (
+        {investInfo && investInfo.montoActual ? (
           <>
             <div className="flex flex-col md:flex-row justify-between gap-3 pb-6 md:pb-16">
               <InfoCard
@@ -175,13 +175,16 @@ export function DashboardInvestorPage() {
             </div>
           </>
         ) : (
-          <BigInfoCard
-            buttonText="Invertir"
-            icon={<img src="assets/icono-inversor.png" />}
-            to="/investor"
-          >
-            Actualmente no tienes inversiones activas registradas en tu cuenta.
-          </BigInfoCard>
+          <div className="my-16">
+            <BigInfoCard
+              buttonText="Invertir"
+              icon={<img src="assets/icono-inversor.png" />}
+              action={() => setOpenInvestModal(true)}
+            >
+              Actualmente no tienes inversiones activas registradas en tu
+              cuenta.
+            </BigInfoCard>
+          </div>
         )}
       </div>
       <InvestModal

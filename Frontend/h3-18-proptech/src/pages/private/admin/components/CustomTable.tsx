@@ -12,6 +12,7 @@ export interface DataTable {
   loanId?: string;
   stateLoan?: number;
   lateQuotas?: number;
+  investorid?: string;
 }
 
 const stateLoanType = ["Atrasado", "Pendiente", "Al día", "Completado"];
@@ -48,8 +49,12 @@ export function CustomTable({ data, headers }: Props) {
               loanRequestId,
               financingMount,
               loanId,
+              investorid,
             }) => (
-              <tr className="border-b-2 border-primary h-[76px]" key={dni ?? loanRequestId ?? loanId}>
+              <tr
+                className="border-b-2 border-primary h-[76px]"
+                key={dni ?? loanRequestId ?? loanId}
+              >
                 <td className=" capitalize">{fullName}</td>
                 {role && <td>{role}</td>}
                 {stateLoan && (
@@ -67,7 +72,7 @@ export function CustomTable({ data, headers }: Props) {
                   className=" cursor-pointer hover:bg-tertiary transition-colors"
                   onClick={() =>
                     navigate(
-                      `${dni ? dni : loanRequestId ? loanRequestId : loanId}`
+                      `${dni ? dni : loanRequestId ? loanRequestId : loanId ? loanId : investorid}`
                     )
                   }
                 >

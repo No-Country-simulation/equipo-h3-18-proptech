@@ -16,22 +16,22 @@ export default InvestorStatePages;
 const validateHeader = ["Nombre completo", "Monto invertido", "Meses activos"];
 
 const dataValidate: DataTable[] = [
-  // {
-  //   id: 1,
-  //   name: "juan Perez",
-  //   amount: 1200,
-  //   activeMonths: 4,
-  // },
-  // {
-  //   id: 2,
-  //   name: "Carlos gomez",
-  //   amount: 10000,
-  //   activeMonths: 8,
-  // },
-  // {
-  //   id: 3,
-  //   name: "Financi Bot",
-  //   amount: 3570.541,
-  //   activeMonths: 14,
-  // },
+  {
+    investorid: "4d010f99-1d0e-4484-8949-b5f48fe27090",
+    fullName: "juan Perez",
+    amount: 1200,
+    activeMonths: 4,
+  },
+  {
+    investorid: "a143cc03-5dba-4965-abd6-e4e21e3e6b7b",
+    fullName: "Carlos gomez",
+    amount: 10000,
+    activeMonths: 8,
+  },
+  {
+    investorid: "a143cc03-5dba-4965-abd6-e4e21e3e6b7b",
+    fullName: "Gastón Gonzalez",
+    amount: 3570.541,
+    activeMonths: 14,
+  },
 ];
