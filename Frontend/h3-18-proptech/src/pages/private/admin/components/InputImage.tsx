@@ -19,7 +19,12 @@ export const InputImage = ({ title, file }: ImageProps) => {
     if (file.endsWith(".pdf")) {
       file = file.replace(".pdf", ".jpg");
       window.open(file, "_blank")?.focus();
-    } else setFileChosen({ open: true, src: file });
+    } else if (file.endsWith(".ai")) {
+      file = file.replace(".ai", ".jpg");
+      window.open(file, "_blank")?.focus();
+    } else {
+      setFileChosen({ open: true, src: file });
+    }
   };
 
   return (
