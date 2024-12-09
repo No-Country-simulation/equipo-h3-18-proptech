@@ -19,6 +19,8 @@ namespace h3_18_proptechback.Domain
 
         public int Moth {  get; set; }
 
+        public int year { get; set; }
+
         public decimal MonthlyInterest { get; set; }
 
         public decimal Share {  get; set; }

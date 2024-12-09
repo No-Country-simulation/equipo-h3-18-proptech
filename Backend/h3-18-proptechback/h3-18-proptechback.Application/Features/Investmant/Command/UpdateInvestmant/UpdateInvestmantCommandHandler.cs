@@ -1,52 +1,53 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
-using h3_18_proptechback.Domain;
+using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant
+namespace h3_18_proptechback.Application.Features.Investmant.Command.UpdateInvestmant
 {
-    public class AddInvestmantCommandHandler
+    public class UpdateInvestmantCommandHandler
     {
         private readonly IUserIdentityService _userIdentityService;
         private readonly IDataUserRepository _dataUserRepository;
         private readonly IFinantialInvestmant _investmant;
 
-        public AddInvestmantCommandHandler(IUserIdentityService userIdentityService, IFinantialInvestmant investmant, IDataUserRepository dataUserRepository)
+        public UpdateInvestmantCommandHandler(IUserIdentityService userIdentityService, IDataUserRepository dataUserRepository,
+            IFinantialInvestmant investmant)
         {
             _userIdentityService = userIdentityService;
             _dataUserRepository = dataUserRepository;
             _investmant = investmant;
         }
 
-        public async Task<string> AddInvestAsyc(AddInvestmantCommand command, string email) 
+        public async Task<string> AddInvestAsyc(UpdateInvestmantCommand command, string email) 
         {
             var user = await _userIdentityService.GetIdentityUser(email);
             var dataUser = await _dataUserRepository.GetUserByGuidIdentity(user.Id);
 
             if (dataUser is null || dataUser.StateValidation is not Domain.Common.StateRequest.Valid)
                 throw new ArgumentException("El usuario no tiene identidad validada.");
-            //falta validar pago
+
             var Investmant = new Domain.Investmant
             {
+                ID = command.Id,
                 CaptialIntial = command.CaptialIntial,
                 Dateinitial = DateTime.Now.ToUniversalTime(),
                 Isactive = command.Isactive,
-                Createby = user.Id,
-                CreatedDate = DateTime.Now.ToUniversalTime(),
+                IsPayed = command.IsPayed,
+                LastModifiedBy = user.Id,
+                LastModifiedDate = DateTime.Now.ToUniversalTime(),
+                returnInvestmant = command.returnInvestmant
 
             };
 
-            var investmantadd = await _investmant.Add(Investmant);
+            var investmantupdate = await _investmant.Update(Investmant);
 
-
-
-            return $"Sr {user.Name} {user.LastName} Su inversion por el monto {investmantadd.CaptialIntial} fue procesada exitosamente";  
-
+            return $"Se realizaron las siguientes modificaciones{investmantupdate}";
         }
     }
 }

@@ -22,6 +22,10 @@ using h3_18_proptechback.Application.Features.IdentityValidation.Queries.GetRequ
 using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
 using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
+using h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInvestmentFee;
+using h3_18_proptechback.Application.Features.Investmant.Command.UpdateInvestmant;
+using h3_18_proptechback.Application.Features.InvestmentFee.Query.GetInvestmentFeeByUserandMoth;
+
 
 namespace h3_18_proptechback.Application
 {
@@ -64,7 +68,12 @@ namespace h3_18_proptechback.Application
             //---------------
             service.AddScoped<AddInvestmantCommandHandler>();
             service.AddScoped<GetInvestmantUserQueryHandler>();
+            service.AddScoped<UpdateInvestmantCommandHandler>();
 
+            //InvestmantFee
+            //-------------------
+            service.AddScoped<AddInvestmentFeeCommandHandler>();
+            service.AddScoped<GetInvestmentFeeByMothQueryHandler>();
 
             service.AddFluentValidationAutoValidation();
             service.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
