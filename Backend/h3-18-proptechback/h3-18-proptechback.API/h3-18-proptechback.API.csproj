@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>h3_18_proptechback.API</RootNamespace>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>CS8618;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\h3-18-proptechback.Application\h3-18-proptechback.Application.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.Cloudinary\h3-18-proptechback.Cloudinary.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.CreditRecord\h3-18-proptechback.CreditRecord.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.DolarAPI\h3-18-proptechback.DolarAPI.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.Domain\h3-18-proptechback.Domain.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.Identity\h3-18-proptechback.Identity.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.Infrastructure\h3-18-proptechback.Infrastructure.csproj" />
+    <ProjectReference Include="..\h3-18-proptechback.MercadoPago\h3-18-proptechback.MercadoPago.csproj" />
+  </ItemGroup>
+
+</Project>
