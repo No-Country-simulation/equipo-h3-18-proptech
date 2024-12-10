@@ -15,7 +15,7 @@ namespace h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInves
             RuleFor(x => x.InvestmantId).NotNull().WithMessage("Es requerido el Guid de inversor");
             RuleFor(x => x.IntialCapital).NotNull().WithMessage("El Capital incial es Requerido")
                 .PrecisionScale(18, 2, false).WithMessage("Se requiere un dato decimal")
-                .Must(x => x < 0).WithMessage("El valor debe ser mayor a 0");
+                .Must(x => x > 0).WithMessage("El valor debe ser mayor a 0");
             RuleFor(x => x.DateInitShare).NotNull().WithMessage("Se requiere una fecha de inicio para inciar los calculos del mes");
             RuleFor(x => x.DateCloseShare).NotNull().WithMessage("Se requiere una fecha del cierre para establecer el aporte de intereses");
             RuleFor(x => x.Moth).NotNull().WithMessage("Se requiere indique el numero de mes iniciando en 0 para enero y 11 para diciembre")

@@ -45,7 +45,7 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
 
 
 
-            return $"Sr {user.Name} {user.LastName} Su inversion por el monto {investmantadd.CaptialIntial} fue procesada exitosamente";  
+            return $"Sr  {user.Name} {user.LastName} Su inversion por el monto {investmantadd.CaptialIntial} fue procesada exitosamente bajo el numero {investmantadd.ID}";  
 
         }
     }
