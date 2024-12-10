@@ -8,6 +8,7 @@ using MercadoPago.Config;
 using MercadoPago.Resource.Payment;
 using MercadoPago.Resource.Preference;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace h3_18_proptechback.MercadoPago.Services
 {
@@ -23,7 +24,7 @@ namespace h3_18_proptechback.MercadoPago.Services
             _dolarService = dolarService;
         }
 
-        public async Task<string> CreateAndGetPreferenceID(string title, decimal price, DateTime eventDate, string externalReference, string backUrl, DateTime? expirationDate = null)
+        public async Task<string> CreateAndGetPreferenceID(string title, decimal price, DateTime eventDate, string externalReference, string backUrl, DateTime expirationDateFrom, DateTime expirationDateTo, bool expires)
         {
             MercadoPagoConfig.AccessToken = _configuration.AccessToken;
             var request = new PreferenceRequest
@@ -47,7 +48,10 @@ namespace h3_18_proptechback.MercadoPago.Services
                     Pending = backUrl,
                     Success = backUrl
                 },
-                DateOfExpiration = expirationDate
+                ExpirationDateFrom = expirationDateFrom,
+                ExpirationDateTo = expirationDateTo,
+                Expires = expires    
+                
             };
 
             var client = new PreferenceClient();

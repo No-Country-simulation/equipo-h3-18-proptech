@@ -60,7 +60,9 @@ namespace h3_18_proptechback.Application.Features.LoanRequest.Command.ValidateLo
                     await _dolarService.GetValueInARS(loan.PaymentMonth), quota.CreatedDate.Value,
                     quota.ID.ToString().Replace("-", ""),
                     "https://equipo-h3-18-proptech-desarrollo.onrender.com/buyer",
-                    quota.PayDate);
+                    DateTime.UtcNow < quota.PayDate.AddDays(-30) ? quota.PayDate.AddDays(-30): DateTime.UtcNow,
+                    quota.PayDate,
+                    false);
                 lastQuota = quota.PayDate;
                 quotas.Add(quota);
             }
