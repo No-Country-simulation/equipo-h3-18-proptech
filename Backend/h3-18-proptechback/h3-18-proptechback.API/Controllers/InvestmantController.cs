@@ -35,7 +35,7 @@ namespace h3_18_proptechback.API.Controllers
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<GetInvestmantUserQueryResponse>> GetInvestmant(GetInvestmantUserQueryRequest command)
+        public async Task<ActionResult<GetInvestmantUserQueryResponse>> GetInvestmant([FromQuery]GetInvestmantUserQueryRequest command)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace h3_18_proptechback.API.Controllers
         {
             try
             {
-                return Ok(await _HandlerQueryFee.GetInvestmentFeebymontAsync(command);
+                return Ok(await _HandlerQueryFee.GetInvestmentFeebymontAsync(command));
             }
             catch (ArgumentException ex)
             {
