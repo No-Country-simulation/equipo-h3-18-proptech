@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "../lib";
 
 export const backend = axios.create({
-  baseURL: "https://www.equipo-h3-18-proptechbackend.somee.com/api",
+  baseURL: import.meta.env.VITE_BACKEND_URL
 });
 
 export const authHeaders = () => {

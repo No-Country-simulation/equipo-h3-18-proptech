@@ -6,7 +6,7 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { CloseIcon } from "../../../../components/icons";
 import { useState } from "react";
 
-initMercadoPago("APP_USR-06d4fd1b-77fa-424c-bc8b-2973856f15c0");
+initMercadoPago(import.meta.env.VITE_MERCADO_PAGO_KEY);
 
 export interface DataBuyerSharesTable {
   quotaId: string;
