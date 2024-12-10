@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+﻿using FluentValidation;>
 using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
 using System;
 using System.Collections.Generic;
