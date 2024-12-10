@@ -9,5 +9,6 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.Quota
 {
     public interface IQuotaRepository : IGenericRepository<Domain.Quota>
     {
+        Task<bool> IsCurrentQuota(Domain.Quota quota);
     }
 }

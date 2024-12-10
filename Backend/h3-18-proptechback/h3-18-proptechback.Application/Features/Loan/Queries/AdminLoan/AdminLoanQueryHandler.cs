@@ -23,7 +23,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.AdminLoan
                 return new QuotaQueryResponse(q.ID, $"{q.QuotaNumber}/{resultPagination.totalItems}", q.PayDate, q.State, q.Amount);
             }).ToList();
 
-            return new AdminLoanQueryResponse(query.Page, resultPagination.totalPages, query.StateQuota, listResponse, loan.ID);
+            return new AdminLoanQueryResponse(query.Page, resultPagination.totalPages, query.StateQuota, listResponse, loan.ID, loan.LoanRequestId);
         }
     }
 }

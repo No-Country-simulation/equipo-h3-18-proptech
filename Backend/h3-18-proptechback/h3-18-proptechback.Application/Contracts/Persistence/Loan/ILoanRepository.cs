@@ -13,5 +13,6 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.Loan
         Task<List<Domain.Loan>> GetAllLoanIncludeQuotas(StateLoan? state);
         Task<List<Domain.Loan>> GetMyAllLoanIncludeQuotas(string idUser);
         Task<Domain.Loan?> GetLoanByIdInclude(Guid loanId);
+        Task<bool> AnyQuotaLate(Guid loanId);
     }
 }

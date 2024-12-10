@@ -19,6 +19,14 @@ namespace h3_18_proptechback.Infrastructure.Repositories
         {
         }
 
+        public async Task<bool> AnyQuotaLate(Guid loanId)
+        {
+            return await _context.Loans.AsNoTracking()
+                .Include(l=>l.Quotas)
+                .AnyAsync(l=>l.Quotas
+                .Any(q=>q.State == StateQuota.Late));
+        }
+
         public async Task<List<Loan>> GetAllLoanIncludeQuotas(StateLoan? state = null)
         {
             var query = _context.Loans.Include(l => l.Quotas)
