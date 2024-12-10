@@ -1,0 +1,6 @@
+@h3_18_proptechback.API_HostAddress = http://localhost:5053
+
+GET {{h3_18_proptechback.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
