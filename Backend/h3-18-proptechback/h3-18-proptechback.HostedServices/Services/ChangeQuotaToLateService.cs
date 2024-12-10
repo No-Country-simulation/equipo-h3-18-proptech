@@ -274,7 +274,7 @@ namespace h3_18_proptechback.HostedServices.Services
         </div>
 
         <div class=""footer"">
-            <p>&copy; {DateTime.UtcNow.Year} Nombre de la Empresa | Todos los derechos reservados</p>
+            <p>&copy; {DateTime.UtcNow.Year} Financia.al | Todos los derechos reservados</p>
         </div>
     </div>
 
