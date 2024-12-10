@@ -46,6 +46,15 @@ namespace h3_18_proptechback.Infrastructure.Repositories
                 .FirstOrDefaultAsync(l => l.ID == loanId);
         }
 
+        public async Task<List<Loan>> GetLoansQuotaPendingLate()
+        {
+            return await _context.Loans.Include(l => l.Quotas)
+                .Where(l => l.Quotas.
+                                Any(q => q.State == StateQuota.Pending 
+                                && q.PayDate < DateTime.Now.ToUniversalTime()))
+                .ToListAsync();
+        }
+
         public async Task<List<Loan>> GetMyAllLoanIncludeQuotas(string idUser)
         {
             return await _context.Loans.Include(l => l.Quotas)
