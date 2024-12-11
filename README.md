@@ -62,11 +62,8 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 
 ---
 
-<h1 align="center"> 
-  👫 Equipo
-</h1>
+## 👫 Equipo
 
-<dl>
   <h3>⚛️ Front-End</h3>
   <dd>
     <table>
@@ -149,39 +146,33 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
   </dd>
   <dd>
   <h3>🖌 UX/UI</h3>
-    <dl>
-      <dd>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Behance</th>
-              <th>Linkedin</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Natalia Caniza</td>
-              <td>
-                <a href="https://www.behance.net/nataliacaniza">
-                  <img src="https://img.shields.io/badge/Behance-0054F7?style=for-the-badge&logo=behance&logoColor=white"/>
-                </a>
-              </td>
-              <td>
-                <a href="https://www.linkedin.com/in/naticaniza/">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </dd>
-    </dl>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Behance</th>
+            <th>Linkedin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Natalia Caniza</td>
+            <td>
+              <a href="https://www.behance.net/nataliacaniza">
+                <img src="https://img.shields.io/badge/Behance-0054F7?style=for-the-badge&logo=behance&logoColor=white"/>
+              </a>
+            </td>
+            <td>
+              <a href="https://www.linkedin.com/in/naticaniza/">
+                <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
   </dd>
   <dd>
   <h3>♟️ Team Leader</h3>
-    <dl>
-      <dd>
         <table>
           <thead>
             <tr>
@@ -206,10 +197,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
             </tr>
           </tbody>
         </table>
-      </dd>
-    </dl>
   </dd>
-</dl>
 <br>
 
 ---
@@ -218,7 +206,3 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 
 * 🚀 Despliegue del Frontend: 
 * 📜 Swagger del Backend: 
-<br>
-
----
-<br>
