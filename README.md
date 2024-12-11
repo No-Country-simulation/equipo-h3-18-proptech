@@ -204,5 +204,6 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 
 ## 🔗 Enlaces Importantes
 
-* 🚀 Despliegue del Frontend: 
-* 📜 Swagger del Backend: 
+* 🚀 Despliegue: 
+* 📜 Swagger: 
+* 🖌️ Figma: 
