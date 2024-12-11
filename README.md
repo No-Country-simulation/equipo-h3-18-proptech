@@ -19,9 +19,9 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 <p>✅ <strong>Gestión de Financiamiento:</strong> Herramientas que permite a los usuarios definir términos de pago, tasas de interés y plazos personalizados.</p>
 <p>✅ <strong>Simulador de Crédito:</strong> Un simulador interactivo que permite a los compradores e inversores simular diferentes escenarios de crédito y visualizar los resultados, estimando el monto de las cuotas mensuales basadas en el capital solicitado, tasa de interés y plazo.</p>
 <p>✅ <strong>Evaluación de Riesgo Crediticio:</strong> Herramienta que permite evaluar el riesgo crediticio de los usuarios compradores, brindando transparencia para los inversores.</p>
-<p>✅ <strong>Autenticación de Usuarios:</strong> Proceso de verificación riguroso que asegura la identidad de todos los usuarios para garantizar la confidencialidad y seguridad</p>
+<p>✅ <strong>Autenticación de Usuarios:</strong> Proceso de verificación riguroso que asegura la identidad de todos los usuarios para garantizar la confidencialidad y seguridad.</p>
 <p>✅ <strong>Panel de Control de Usuarios:</strong> Muestra un resumen de las finanzas realizadas por el usuario. A los compradores les muestra la información de sus préstamos y cuotas a pagar. Mientras que a los inversores les muestra un resumen completo de su inversión y las ganancias por mes.</p>
-<p>✅ <strong>Chatbot de Atención al Cliente:</strong> Chatbot que responde a preguntas frecuentes sobre la plataforma</p>
+<p>✅ <strong>Chatbot de Atención al Cliente:</strong> Chatbot que responde a preguntas frecuentes sobre la plataforma.</p>
 
 ---
 
