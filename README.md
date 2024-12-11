@@ -67,7 +67,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 </h1>
 
 <dl>
-  <dt>⚛️ Front-End</dt>
+  <h3>⚛️ Front-End</h3>
   <dd>
     <table>
       <thead>
@@ -107,7 +107,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
       </tbody>
     </table>
   </dd>
-  <dt>💻 Back-End</dt>
+  <h3>💻 Back-End</h3>
   <dd>
     <table>
       <thead>
@@ -148,7 +148,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
     </table>
   </dd>
   <dd>
-  <dt>🖌 UX/UI</dt>
+  <h3>🖌 UX/UI</h3>
     <dl>
       <dd>
         <table>
@@ -164,7 +164,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
               <td>Natalia Caniza</td>
               <td>
                 <a href="https://www.behance.net/nataliacaniza">
-                  <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+                  <img src="https://img.shields.io/badge/Behance-0054F7?style=for-the-badge&logo=behance&logoColor=white"/>
                 </a>
               </td>
               <td>
@@ -179,7 +179,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
     </dl>
   </dd>
   <dd>
-  <dt>♟️ Team Leader</dt>
+  <h3>♟️ Team Leader</h3>
     <dl>
       <dd>
         <table>
