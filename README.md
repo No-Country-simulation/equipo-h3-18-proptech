@@ -1,7 +1,6 @@
 <div align="center">
   <h2>Bienvenido a Financia.al</h2>
   <img src="https://github.com/user-attachments/assets/c2fb72ed-24db-4d00-a6ef-a857ee488b11" alt="Logo de Financia.al" width="100px" />
-  <p>Inviertan, por favor</p>
 </div>
 
 
