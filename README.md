@@ -61,19 +61,19 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 <br>
 
 ---
-## 🛠️ Servicios Externos
+## 🌐 Integraciones Externas
 
 La plataforma **Financia.al** utiliza diversas herramientas y servicios externos para ofrecer funcionalidades avanzadas y garantizar una experiencia óptima para los usuarios:
 
-- **Cloudinary**: Gestión y almacenamiento de archivos multimedia y documentos en la nube. Este servicio permite cargar, almacenar, transformar y entregar archivos multimedia de manera eficiente.
+- 🖼️ **Cloudinary**: Gestión y almacenamiento de archivos multimedia y documentos en la nube. Este servicio permite cargar, almacenar, transformar y entregar archivos multimedia de manera eficiente.
 
-- **DolarAPI**: Integración para consultar el tipo de cambio oficial del dólar a distintas monedas locales, facilitando transacciones financieras internacionales y cálculos precisos.
+- 💱 **DolarAPI**: Integración para consultar el tipo de cambio oficial del dólar a distintas monedas locales, facilitando transacciones financieras internacionales y cálculos precisos.
 
-- **MercadoPago**: Implementación de una pasarela de pagos que permite realizar pagos con tarjetas de crédito, débito, y billeteras virtuales de manera segura.
+- 💳 **MercadoPago**: Implementación de una pasarela de pagos que permite realizar pagos con tarjetas de crédito, débito, y billeteras virtuales de manera segura.
 
-- **BCRA API**: Consumo de la API del Banco Central de la República Argentina para obtener el score crediticio de entidades según el CUIT, lo que fortalece la evaluación de riesgo crediticio.
+- 📊 **BCRA API**: Consumo de la API del Banco Central de la República Argentina para obtener el score crediticio de entidades según el CUIT, lo que fortalece la evaluación de riesgo crediticio.
 
-- **SendGrid**: Herramienta para la personalización y envío de correos electrónicos transaccionales y de notificaciones, asegurando una comunicación directa y profesional con los usuarios.
+- ✉️ **SendGrid**: Herramienta para la personalización y envío de correos electrónicos transaccionales y de notificaciones, asegurando una comunicación directa y profesional con los usuarios.
 ---
 
 ## 👫 Equipo
