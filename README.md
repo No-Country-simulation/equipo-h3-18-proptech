@@ -63,7 +63,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 ---
 
 <h1 align="center"> 
-  🧑‍🤝‍🧑 Equipo
+  👫 Equipo
 </h1>
 
 <dl>
