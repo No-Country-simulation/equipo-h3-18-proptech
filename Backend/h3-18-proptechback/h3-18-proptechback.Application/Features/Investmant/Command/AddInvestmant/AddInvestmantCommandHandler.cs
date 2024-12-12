@@ -34,8 +34,11 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
             var Investmant = new Domain.Investmant
             {
                 CaptialIntial = command.CaptialIntial,
+                Moth = DateTime.UtcNow.Month,
+                year = DateTime.UtcNow.Year,
                 Dateinitial = DateTime.Now.ToUniversalTime(),
-                Isactive = command.Isactive,
+                Isactive = true,
+                IsPayed = false,
                 Createby = user.Id,
                 CreatedDate = DateTime.Now.ToUniversalTime(),
 

@@ -15,9 +15,9 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
             .PrecisionScale(18, 2, false).WithMessage("Se requiere un dato decimal")
             .Must(x => x > 0).WithMessage("El valor debe ser mayor a 0");
 
-            RuleFor(x => x.Dateinitial).NotNull().WithMessage("Se requiere una fecha de inicio para inciar los calculos");
+            //RuleFor(x => x.Dateinitial).NotNull().WithMessage("Se requiere una fecha de inicio para inciar los calculos");
 
-            RuleFor(x => x.Isactive).NotNull();
+            //RuleFor(x => x.Isactive).NotNull();
 
             RuleFor(x => x.returnInvestmant).PrecisionScale(18, 2, false);
 
