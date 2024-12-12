@@ -50,7 +50,7 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmant
                     Isactive = item.Isactive,
                     DatePaymant = item.DatePaymant,
                     IsPayed = item.IsPayed,
-                    returnInvestmant = item.returnInvestmant
+                    returnInvestmant = item.returnInvestmant.Value
                 };
 
                 responseList.Add(response);
