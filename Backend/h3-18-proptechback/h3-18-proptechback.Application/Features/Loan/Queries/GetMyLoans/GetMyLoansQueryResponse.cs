@@ -1,9 +1,5 @@
-﻿using h3_18_proptechback.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using h3_18_proptechback.Application.Features.CalculatorCredit;
+using h3_18_proptechback.Domain.Common;
 
 namespace h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan
 {
@@ -16,7 +12,8 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan
         public StateLoan StateLoan { get; set; }
         public string CurrentQuota { get; set; }
         public decimal QuotaValue { get; set; }
-        public GetMyLoansQueryResponse(Guid idLoan, DateTime nextExpirationDate, decimal remainingAmount, decimal payedPercentage, StateLoan stateLoan, string currentQuota, decimal quotaValue)
+        public ListType ListType { get; set; }
+        public GetMyLoansQueryResponse(Guid idLoan, DateTime nextExpirationDate, decimal remainingAmount, decimal payedPercentage, StateLoan stateLoan, string currentQuota, decimal quotaValue, ListType listType)
         {
             IdLoan = idLoan;
             this.nextExpirationDate = nextExpirationDate;
@@ -25,6 +22,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan
             StateLoan = stateLoan;
             CurrentQuota = currentQuota;
             QuotaValue = quotaValue;
+            ListType = listType;
         }
     }
 }

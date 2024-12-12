@@ -18,10 +18,9 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<DataUser?> GetPendingByDNI(string DNI)
+        public async Task<DataUser?> GetByDNI(string DNI)
         {
-            
-            return await _context.DataUsers.FirstOrDefaultAsync(data => data.DNI == DNI && data.StateValidation == Domain.Common.StateRequest.Pending);
+            return await _context.DataUsers.FirstOrDefaultAsync(data => data.DNI == DNI);
         }
 
         public async Task<DataUser?> GetUserByGuidIdentity(string id)
@@ -40,15 +39,6 @@ namespace h3_18_proptechback.Infrastructure.Repositories
             var exists = await _context.DataUsers.AnyAsync(du => du.DNI == DNI);
 
             return exists;
-        }
-
-        public async Task<bool> IsValueUser(DataUser entity)
-        {
-            var existe = await _context.Set<DataUser>().FindAsync(entity.DNI);
-            if (existe == null)
-                throw new Exception($"Es Requerido un valor");
-
-                return true;
         }
 
         public async Task RejectUser(string DNI)

@@ -19,7 +19,7 @@ namespace h3_18_proptechback.Application.Features.IdentityValidation.Queries.Det
         }
         public async Task<DetailReqIdentityQueryResponse> HandleAsync(string DNI)
         {
-            var dataUser = await _dataUserRepository.GetPendingByDNI(DNI);
+            var dataUser = await _dataUserRepository.GetByDNI(DNI);
             if (dataUser is null)
                 throw new ArgumentException($"Solicitud en estado pendiente con DNI: {DNI} inexistente.");
             var user = await _userIdentityService.GetByIdIdentityUser(dataUser.Createby);

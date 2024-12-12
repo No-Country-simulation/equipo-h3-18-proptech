@@ -1,5 +1,6 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Persistence.Loan;
+using h3_18_proptechback.Application.Features.CalculatorCredit;
 using h3_18_proptechback.Application.Features.Loan.Queries.Common;
 
 namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
@@ -8,6 +9,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
     {
         private readonly ILoanRepository _loanRepository;
         private readonly IUserIdentityService _userIdentityService;
+        private FinancingCalculator _calculator;
         public ClientLoanQueryHandler(ILoanRepository loanRepository, IUserIdentityService userIdentityService)
         {
             _loanRepository = loanRepository;
@@ -22,6 +24,8 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
             if (currentUser.Id != loan.LoanRequest.DataUser.Createby)
                 throw new ArgumentException("Préstamo no encontrado");
 
+            _calculator = new FinancingCalculator(loan.LoanRequest.LotCost, loan.LoanRequest.DownPayment, loan.LoanRequest.QuotasCount);
+
             var resultPagination = PaginationHelper.Pagination(query, loan.Quotas.ToList());
 
             var listResponse = resultPagination.quotas.Select(q =>
@@ -29,7 +33,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
                 return new ClientQuotaQueryResponse(q.ID, $"{q.QuotaNumber}/{resultPagination.totalItems}", q.PayDate, q.State, q.Amount, q.PreferenceID);
             }).ToList();
 
-            return new ClientLoanQueryResponse(query.Page, resultPagination.totalPages, query.StateQuota, listResponse, loan.ID);
+            return new ClientLoanQueryResponse(query.Page, resultPagination.totalPages, query.StateQuota, listResponse, loan.ID, _calculator.GetList());
         }
     }
 }

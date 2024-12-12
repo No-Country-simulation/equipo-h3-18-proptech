@@ -41,6 +41,16 @@
             else
                 return 1.15m;
         }
+
+        public ListType GetList()
+        {
+            if (DownPayment >= (30m * LotCost) / 100m)
+                return ListType.Gold;
+            else if (QuotasCount <= 30m)
+                return ListType.SilverPlus;
+            else
+                return ListType.Silver;
+        }
         public decimal PaymentMonth() => GetMonthValue() * FinancingAmount * GetDiscount();
         public decimal MinimumSalary() => PaymentMonth() * 4m;
         public decimal TotalPayment()
@@ -54,5 +64,13 @@
                 return MonthlyRefValues[QuotasCount];
             throw new ArgumentException("La cantidad de cuotas asignada no es valida.");
         }
+    }
+
+    public enum ListType
+    {
+        Gold,
+        SilverPlus,
+        Silver
+
     }
 }

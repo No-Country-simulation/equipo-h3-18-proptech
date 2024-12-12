@@ -1,4 +1,5 @@
 ﻿using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
+using h3_18_proptechback.Application.Features.Investmant.Query.GetAllInvestment;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
 using h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInvestmentFee;
 using h3_18_proptechback.Application.Features.InvestmentFee.Query.GetInvestmentFeeByUserandMoth;
@@ -19,13 +20,15 @@ namespace h3_18_proptechback.API.Controllers
         private readonly GetInvestmantUserQueryHandler _handlerQuery;
         private readonly AddInvestmentFeeCommandHandler _feeCommmand;
         private readonly GetInvestmentFeeByMothQueryHandler _HandlerQueryFee;
+        private readonly GetAllInvestmentQueryHandler _getAllInvestmentQueryHandler;
 
         public InvestmantController(AddInvestmantCommandHandler handlerCommand, GetInvestmantUserQueryHandler handlerQuery,
-                                    AddInvestmentFeeCommandHandler feeCommmand)
+                                    AddInvestmentFeeCommandHandler feeCommmand, GetAllInvestmentQueryHandler getAllInvestmentQueryHandler)
         {
             _handlerCommand = handlerCommand;
             _handlerQuery = handlerQuery;
             _feeCommmand = feeCommmand;
+            _getAllInvestmentQueryHandler = getAllInvestmentQueryHandler;
         }
 
 
@@ -104,7 +107,22 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
+        [HttpGet("allInvestment")]
+        [Authorize(Roles = "Administrador")]
+        [ProducesResponseType<string>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<GetAllInvestmentQueryResponse>> GetAllInvestment()
+        {
+            try
+            {
+                return Ok(await _getAllInvestmentQueryHandler.HandleAsync());
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
       
     }
 }
