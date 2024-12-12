@@ -3,7 +3,7 @@ import { useTransitionNavigation } from "../../hooks";
 import Loader from "./Loader";
 
 interface Props {
-  children: string;
+  children: JSX.Element | JSX.Element[] | string | (string | JSX.Element)[];
   size: "small" | "medium" | "large";
   color: "primary-blue" | "primary-orange" | "secondary" | "disabled";
   type?: "submit" | "reset" | "button" | "link" | undefined;
@@ -21,7 +21,7 @@ export function Button({
   type,
   classname,
   to,
-  isLoading
+  isLoading,
 }: Props) {
   const sizeStyle = {
     small: "w-[clamp(129px,15vw,159px)] h-[50px]",
@@ -56,14 +56,22 @@ export function Button({
       onClick={onClick}
       disabled={color === "disabled"}
     >
-      { isLoading ? (
-        <>
-          <span className="ps-4">{children}</span>
-          <Loader borderColor={color} size={"button"} border="normal"/>
-        </>
-      ) : (
-        children
-      )}
+      <div style={{ display: "grid", gridTemplateAreas: "stack", alignItems:"center" }}>
+        <span
+          className={`${isLoading ? "invisible" : "visible"}`}
+          style={{
+            gridArea: "stack",
+          }}
+        >
+          {children}
+        </span>
+        <Loader
+          classname={isLoading ? "visible" : "invisible"}
+          borderColor={color}
+          size={"button"}
+          border="normal"
+        />
+      </div>
     </button>
   );
 }

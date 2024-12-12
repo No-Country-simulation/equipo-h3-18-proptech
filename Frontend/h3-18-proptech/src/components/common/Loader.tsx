@@ -2,9 +2,10 @@ interface Props {
   size: "button" | "page";
   border: "normal" | "bold";
   borderColor: "primary-blue" | "primary-orange" | "secondary" | "disabled";
+  classname?: string;
 }
 
-export function Loader({ size, border, borderColor }: Props) {
+export function Loader({ size, border, borderColor, classname }: Props) {
   const sizeStyle = {
     button: "size-8",
     page: "size-20",
@@ -23,11 +24,11 @@ export function Loader({ size, border, borderColor }: Props) {
   };
 
   return (
-    <div className="relative flex mx-2 justify-center items-center">
+    <span aria-label="Loading icon" className={`${classname} relative flex mx-2 justify-center items-center`} style={{gridArea: "stack",}}>
       <div
         className={`${sizeStyle[size]} rounded-full animate-spin ${borderStyle[border]} border-solid ${borderColorStyle[borderColor]} shadow-md`}
       ></div>
-    </div>
+    </span>
   );
 }
 

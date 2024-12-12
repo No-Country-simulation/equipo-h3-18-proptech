@@ -47,15 +47,15 @@ export function DashboardBuyerPage() {
   };
 
   return (
-    <div className="bg-[#F8F8F8] min-h-[750px] flex flex-col  items-center">
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-center md:w-[1050px] my-4 md:my-[60px]">
-        <h2 className="text-headline-small-medium">Préstamos aprobados</h2>
-      </div>
+    <div className="bg-background min-h-[750px] flex flex-col max-w-[1050px] md:mx-auto px-4 sm:px-8 items-center">
       {loading ? (
         <LoadingPage background="transparent" size="section" />
       ) : loans.length > 0 ? (
         <>
-          <div className="flex flex-col md:flex-row justify-between gap-3 pb-6 md:pb-16">
+          <div className="flex justify-between items-center self-center sm:self-start my-4 md:my-8">
+            <h2 className="text-headline-small-medium ">Préstamos aprobados</h2>
+          </div>
+          <div className="flex flex-col items-center sm:flex-row sm:flex-wrap justify-center lg:justify-evenly w-full gap-x-6 lg:w-[1050px] gap-y-6 mb-6 md:mb-16">
             <InfoCard
               title="Próxima fecha de pago"
               icon={<CashIcon />}
@@ -77,7 +77,7 @@ export function DashboardBuyerPage() {
             selected={selected}
             select={select}
           />
-          <div className="flex my-12 gap-6 justify-start md:w-[1050px] ">
+          <div className="flex flex-col sm:flex-row my-6 md:my-12 gap-6 justify-center items-center md:justify-start w-full ">
             <Button
               color="primary-orange"
               size="medium"
