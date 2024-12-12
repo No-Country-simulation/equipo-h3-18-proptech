@@ -4,6 +4,7 @@ using h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan;
 using h3_18_proptechback.Application.Features.Loan.Queries.Common;
 using h3_18_proptechback.Application.Features.Loan.Queries.GetMyLoans;
 using h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan;
+using h3_18_proptechback.Application.Features.Loan.Queries.PdfLoan;
 using h3_18_proptechback.Domain.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,14 +20,16 @@ namespace h3_18_proptechback.API.Controllers
         private readonly GetMyLoansQueryHandler _getMyLoansQueryHandler;
         private readonly AdminLoanQueryHandler _adminLoanQueryHandler;
         private readonly ClientLoanQueryHandler _clientLoanQueryHandler;
+        private readonly PdfLoanQueryHandler _pdfLoanQueryHandler;
 
         public LoanController(GetLoansQueryHandler getLoansQueryHandler, GetMyLoansQueryHandler getMyLoansQueryHandler,
-            AdminLoanQueryHandler adminLoanQueryHandler, ClientLoanQueryHandler clientLoanQueryHandler)
+            AdminLoanQueryHandler adminLoanQueryHandler, ClientLoanQueryHandler clientLoanQueryHandler, PdfLoanQueryHandler pdfLoanQueryHandler)
         {
             _getLoansQueryHandler = getLoansQueryHandler;
             _getMyLoansQueryHandler = getMyLoansQueryHandler;
             _adminLoanQueryHandler = adminLoanQueryHandler;
             _clientLoanQueryHandler = clientLoanQueryHandler;
+            _pdfLoanQueryHandler = pdfLoanQueryHandler;
         }
 
         /// <summary>
@@ -207,6 +210,29 @@ namespace h3_18_proptechback.API.Controllers
             try
             {
                 return Ok(await _adminLoanQueryHandler.HandleAsync(new DetailsLoanQuery(page, stateQuota, loanId)));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("loanPDF")]
+        [Authorize(Roles = "Cliente")]
+        public async Task<ActionResult<PdfLoanQueryResponse>> GetLoaPDF(Guid loanId)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email))
+            {
+                return Unauthorized("El token no contiene un email válido.");
+            }
+            try
+            {
+                return Ok(await _pdfLoanQueryHandler.HandleAsync(new PdfLoanQuery() { LoanId = loanId}, email));
             }
             catch (ArgumentException ex)
             {

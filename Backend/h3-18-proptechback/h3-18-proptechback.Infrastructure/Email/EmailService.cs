@@ -36,7 +36,7 @@ namespace h3_18_proptechback.Infrastructure.Email
                 Name = _emailSettings.FromName
             };
 
-            var sendGridMessage= MailHelper.CreateSingleEmail(from, subject, to, emailBody, emailBody);
+            var sendGridMessage= MailHelper.CreateSingleEmail(from, subject, to, emailBody, email.BodyHTML?? emailBody);
 
             var response = await client.SendEmailAsync(sendGridMessage);
             var result = await response.Body.ReadAsStringAsync();

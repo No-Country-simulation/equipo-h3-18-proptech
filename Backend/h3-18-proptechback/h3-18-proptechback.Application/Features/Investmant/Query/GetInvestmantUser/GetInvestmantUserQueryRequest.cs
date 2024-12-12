@@ -11,12 +11,6 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmant
     {
         public string email { get; set; }
         
-        //public decimal? CaptialIntial { get; set; }
-
-        //public DateTime? Dateinitial { get; set; }
         
-        //public bool? Isactive { get; set; }
-
-        //public bool? IsPayed { get; set; }
     }
 }

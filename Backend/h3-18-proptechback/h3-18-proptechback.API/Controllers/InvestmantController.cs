@@ -38,11 +38,21 @@ namespace h3_18_proptechback.API.Controllers
         [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<GetInvestmantUserQueryResponse>> GetInvestmant([FromQuery]GetInvestmantUserQueryRequest command)
+        public async Task<ActionResult<GetInvestmantUserQueryResponse>> GetInvestmant()
         {
             try
             {
-                return Ok(await _handlerQuery.GetInvestmantByUserAsyc(command));
+                var email = User.FindFirstValue(ClaimTypes.Email);
+                if (string.IsNullOrEmpty(email))
+                {
+                    return Unauthorized("El token no contiene un email válido.");
+                }
+                GetInvestmantUserQueryRequest request = new GetInvestmantUserQueryRequest
+                {
+                    email = email
+
+                };
+                return Ok(await _handlerQuery.GetInvestmantByUserAsyc(request));
             }
             catch (ArgumentException ex)
             {
@@ -53,29 +63,6 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-        [HttpGet("QueryInvestmantFee")]
-        [Authorize(Roles = "Inversor")]
-        [ProducesResponseType<List<GetInvestmantUserQueryHandler>>(StatusCodes.Status200OK)]
-        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<GetInvestmentFeeByMothQueryResponse>> GetInvestmantFee(GetInvestmentFeeByMothQueryRequest command)
-        {
-            try
-            {
-                return Ok(await _HandlerQueryFee.GetInvestmentFeebymontAsync(command));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
 
         [HttpPost("RegisterInvestmant")]
         [Authorize(Roles = "Inversor")]
