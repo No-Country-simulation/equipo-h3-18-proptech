@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { PdfIconSmall } from "../../../../components/icons";
+import { useTransitionNavigation } from "../../../../hooks";
+import DownloadPDFButton from "./DownloadPDFButton";
 
 export interface DataBuyerTable {
   idLoan: string;
@@ -20,9 +20,10 @@ interface Props {
 }
 
 export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
+  const navigate = useTransitionNavigation();
   return (
-    <>
-      <table className="w-[350px] md:w-[1050px] text-base-color text-center bg-contrast ">
+    <div className="overflow-x-auto w-full">
+      <table className="w-full min-w-[400px] md:max-w-[1050px] text-base-color text-center bg-contrast ">
         <thead className="text-title-medium-bold md:text-title-large-bold bg-primary text-contrast">
           <tr className="border-b border-[#ccc] h-[70px]">
             <th>Prestamo</th>
@@ -47,18 +48,24 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
                 </td>
                 <td className="hidden md:table-cell">{currentQuota}</td>
                 <td>${quotaValue.toFixed(2)}</td>
-                <td className="hover:bg-contrast transition">
-                  <Link to={`shares/${idLoan}`}>Ver</Link>
+                <td
+                  className="hover:bg-contrast transition"
+                  onClick={() => navigate(`shares/${idLoan}`)}
+                >
+                  Ver
                 </td>
-                <td className="flex justify-center items-center h-[70px] hover:bg-contrast">
-                  <PdfIconSmall />
+                <td className="flex justify-center items-center h-[70px]">
+                  <DownloadPDFButton
+                    classname="hover:bg-contrast"
+                    loanId={idLoan}
+                  />
                 </td>
               </tr>
             )
           )}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
