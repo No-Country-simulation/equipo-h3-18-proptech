@@ -9,8 +9,13 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmant
 {
     public class GetInvestmantUserQueryRequest
     {
+       
+
         public string email { get; set; }
-        
-        
+
+        public GetInvestmantUserQueryRequest(string email)
+        {
+            this.email = email;
+        }
     }
 }
