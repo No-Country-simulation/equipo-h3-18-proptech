@@ -164,7 +164,7 @@ La plataforma **Financia.al** utiliza diversas herramientas y servicios externos
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Behance</th>
+            <th>Github</th>
             <th>Linkedin</th>
           </tr>
         </thead>
@@ -172,8 +172,8 @@ La plataforma **Financia.al** utiliza diversas herramientas y servicios externos
           <tr>
             <td>Natalia Caniza</td>
             <td>
-              <a href="https://www.behance.net/nataliacaniza">
-                <img src="https://img.shields.io/badge/Behance-0054F7?style=for-the-badge&logo=behance&logoColor=white"/>
+              <a href="https://github.com/NatiCaniza">
+                <img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
               </a>
             </td>
             <td>
