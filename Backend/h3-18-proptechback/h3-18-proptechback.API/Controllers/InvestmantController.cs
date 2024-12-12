@@ -44,11 +44,10 @@ namespace h3_18_proptechback.API.Controllers
                 {
                     return Unauthorized("El token no contiene un email válido.");
                 }
-                GetInvestmantUserQueryRequest request = new GetInvestmantUserQueryRequest
-                {
-                    email = email
 
-                };
+                var request = new GetInvestmantUserQueryRequest(email); 
+               
+                
                 return Ok(await _handlerQuery.GetInvestmantByUserAsyc(request));
             }
             catch (ArgumentException ex)
