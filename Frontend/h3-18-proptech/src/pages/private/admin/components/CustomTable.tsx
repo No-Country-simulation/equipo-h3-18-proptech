@@ -84,7 +84,7 @@ export function CustomTable({ data, headers }: Props) {
         </tbody>
       </table>
       {data.length === 0 && (
-        <h3 className="flex text-body-large-regular my-6 max-w-[700px] justify-center">
+        <h3 className="flex text-body-large-regular my-6 justify-center">
           No hay datos para mostrar
         </h3>
       )}
