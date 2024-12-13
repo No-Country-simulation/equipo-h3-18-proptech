@@ -152,6 +152,10 @@ export function ApproveLoanPage() {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [open]);
+
   const acceptLoan = () => {
     setLoadingAccept(true);
     if (id) {
@@ -196,7 +200,10 @@ export function ApproveLoanPage() {
         {!open ? (
           <>
             <header className="flex gap-2 md:gap-4 items-center mb-4 md:mb-6">
-              <ArrowBackIcon onClick={goBack} className=" cursor-pointer h-12 w-12" />
+              <ArrowBackIcon
+                onClick={goBack}
+                className=" cursor-pointer h-12 w-12"
+              />
               <h4 className="text-headline-small-medium">
                 Aprobar financiación
               </h4>
@@ -291,15 +298,13 @@ export function ApproveLoanPage() {
           </>
         ) : (
           <>
-            <div className="flex">
+            <header className="flex gap-2 md:gap-4 items-center mb-4 md:mb-6">
               <ArrowBackIcon
                 onClick={() => setOpen(false)}
-                className=" cursor-pointer"
+                className=" cursor-pointer h-12 w-12"
               />
-              <h4 className="text-headline-small-medium mb-6 ml-6">
-                Aprobar Garantes
-              </h4>
-            </div>
+              <h4 className="text-headline-small-medium">Aprobar Garantes</h4>
+            </header>
             <DataUser data={loanInfo.guarantor1} type="garante Nº 1" />
             <div className="flex justify-center gap-4 my-6">
               <Button

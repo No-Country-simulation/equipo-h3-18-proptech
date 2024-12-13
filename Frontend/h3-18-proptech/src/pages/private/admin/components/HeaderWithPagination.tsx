@@ -11,7 +11,7 @@ export function HeaderWithPagination({ maxPages, title, action }: Props) {
   const [search, setSearch] = useState<string | undefined>(undefined);
   const [pagesOptions, setPagesOptions] = useState<
     { label: string; value: number }[]
-  >([]);
+  >();
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -31,7 +31,12 @@ export function HeaderWithPagination({ maxPages, title, action }: Props) {
   }, [page]);
 
   useEffect(() => {
-    action(1, search);
+    if (typeof search === "string") {
+      const timer = setTimeout(() => action(1, search), 300);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, [search]);
 
   return (
@@ -48,7 +53,7 @@ export function HeaderWithPagination({ maxPages, title, action }: Props) {
             arrowClassname="text-contrast"
             value={page}
             setValue={setPage}
-            options={pagesOptions}
+            options={pagesOptions ?? [{label: "01", value: 1}]}
           />
         </div>
       </div>
