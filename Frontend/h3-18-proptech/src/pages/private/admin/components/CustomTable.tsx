@@ -26,8 +26,8 @@ export function CustomTable({ data, headers }: Props) {
   const navigate = useTransitionNavigation();
 
   return (
-    <section className="w-[70vw] lg:w-[80vw] overflow-x-auto max-w-[900px] mb-8">
-      <table className="min-w-[500px] w-full text-base-color text-center bg-contrast">
+    <section className="w-[70vw] lg:w-[80vw] overflow-x-auto max-w-[900px] mb-8 drop-shadow-md shadow-sm shadow-[#00000025]">
+      <table className="min-w-[500px] w-full text-base-color text-center bg-contrast ">
         <thead className="text-title-large-bold bg-primary text-contrast">
           <tr className="border-b-2 border-primary h-[76px]">
             {headers.map((title) => (
