@@ -6,7 +6,7 @@
 
 ## 🚀 Introducción
 
-**Financia.al** es una plataforma web fintech que simplifica el proceso de alquiler de propiedades, conectando a propietarios e inquilinos en un entorno intuitivo y seguro. Tanto propietarios como inquilinos pueden gestionar sus propiedades y búsquedas de manera eficiente.
+**Financia.al** es una plataforma web fintech que busca conectar a inversores interesados en financiar la venta de terrenos en distintos países de Latinoamérica con potenciales compradores. Ofrecemos una experiencia simplificada y segura para que todos los usuarios puedan hacer solicitudes de financiamiento, pagar sus cuotas e invertir sus fondos en un activo de sólida revalorización a mediano plazo.
 
 ---
 ## 🎯 Objetivo Principal
