@@ -1,11 +1,9 @@
-import { CustomTable, DataTable } from "../components";
+import { CustomTable, DataTable, HeaderWithPagination } from "../components";
 
 export function InvestorStatePages() {
   return (
     <>
-      <h3 className="text-headline-small-medium my-6 w-[90%]  max-w-[700px]">
-        Estado de inversiones
-      </h3>
+      <HeaderWithPagination title="Estado de inversiones" maxPages={2} />
       <CustomTable data={dataValidate} headers={validateHeader} />
     </>
   );
@@ -29,7 +27,7 @@ const dataValidate: DataTable[] = [
     activeMonths: 8,
   },
   {
-    investorid: "a143cc03-5dba-4965-abd6-e4e21e3e6b7b",
+    investorid: "3b454ee6-c2c0-4ce6-930c-4ae4ebdaa3ff",
     fullName: "Gastón Gonzalez",
     amount: 3570.541,
     activeMonths: 14,

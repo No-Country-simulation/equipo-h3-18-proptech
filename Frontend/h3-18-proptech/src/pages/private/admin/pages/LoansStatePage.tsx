@@ -3,6 +3,7 @@ import { CustomTable } from "../components/CustomTable";
 import { getAllLoans } from "../../../../services/admin";
 import { toast } from "sonner";
 import LoadingPage from "../../../LoadingPage";
+import { HeaderWithPagination } from "../components";
 
 interface LoanData {
   loanId: string;
@@ -31,9 +32,7 @@ export function LoansStatePage() {
 
   return (
     <>
-      <h3 className="text-headline-small-medium my-6 w-[90%]  max-w-[700px]">
-        Estado de prestamos
-      </h3>
+      <HeaderWithPagination title="Estado de préstamos" maxPages={loans.length} />
       {loading ? (
         <LoadingPage background="transparent" size="section" />
       ) : (

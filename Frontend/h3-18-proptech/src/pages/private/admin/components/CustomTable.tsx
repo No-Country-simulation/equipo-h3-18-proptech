@@ -26,10 +26,10 @@ export function CustomTable({ data, headers }: Props) {
   const navigate = useTransitionNavigation();
 
   return (
-    <>
-      <table className=" w-full max-w-[700px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-tertiary">
-        <thead className=" text-title-large-bold bg-primary text-contrast">
-          <tr className="border-b-2 border-primary h-[76px] ">
+    <section className="w-[70vw] lg:w-[80vw] overflow-x-auto max-w-[900px] mb-8">
+      <table className="min-w-[500px] w-full text-base-color text-center bg-contrast">
+        <thead className="text-title-large-bold bg-primary text-contrast">
+          <tr className="border-b-2 border-primary h-[76px]">
             {headers.map((title) => (
               <th key={title}>{title}</th>
             ))}
@@ -53,9 +53,9 @@ export function CustomTable({ data, headers }: Props) {
             }) => (
               <tr
                 className="border-b-2 border-primary h-[76px]"
-                key={dni ?? loanRequestId ?? loanId}
+                key={dni ?? loanRequestId ?? loanId ?? investorid}
               >
-                <td className=" capitalize">{fullName}</td>
+                <td className="capitalize w-1/3">{fullName}</td>
                 {role && <td>{role}</td>}
                 {stateLoan && (
                   <td
@@ -84,11 +84,11 @@ export function CustomTable({ data, headers }: Props) {
         </tbody>
       </table>
       {data.length === 0 && (
-        <h3 className="flex text-body-large-regular my-6 w-[90%]  max-w-[700px] justify-center">
+        <h3 className="flex text-body-large-regular my-6 max-w-[700px] justify-center">
           No hay datos para mostrar
         </h3>
       )}
-    </>
+    </section>
   );
 }
 

@@ -42,7 +42,7 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
                 onClick={() => select(index)}
               >
                 <td
-                  className={`${stateLoan === 2 ? "text-success" : stateLoan === 1 ? "text-primary" : stateLoan === 3 ? "text-primaryVar1" : "text-error"}`}
+                  className={`text-title-medium-bold ${stateLoan === 2 ? "text-success" : stateLoan === 1 ? "text-primary" : stateLoan === 3 ? "text-primaryVar1" : "text-error"}`}
                 >
                   {quotasState[stateLoan]}
                 </td>
