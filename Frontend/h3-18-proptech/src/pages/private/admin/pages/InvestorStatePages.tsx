@@ -1,10 +1,65 @@
+import { useEffect, useState } from "react";
 import { CustomTable, DataTable, HeaderWithPagination } from "../components";
+import LoadingPage from "../../../LoadingPage";
 
 export function InvestorStatePages() {
+  const [loading, setLoading] = useState(true);
+  const [investors, setInvestors] = useState<DataTable[]>([]);
+  const [maxPages, setmaxPages] = useState(1);
+  const rowsPerPage = 6;
+
+  useEffect(() => {
+    getWithPagination(1);
+  }, []);
+
+  const getWithPagination = (page: number, search?: string) => {
+    window.scrollTo(0, 0);
+    setLoading(true);
+    let resp = dataValidate;
+    if (search) {
+      resp = resp.filter((row) =>
+        row.fullName.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    setInvestors(resp.slice((page - 1) * rowsPerPage, page * rowsPerPage));
+    setmaxPages(
+      resp.length < 1
+        ? 1
+        : resp.length % rowsPerPage
+          ? Math.floor(resp.length / rowsPerPage + 1)
+          : Math.floor(resp.length / rowsPerPage)
+    );
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+    // getAllLoans()
+    //   .then((response) => {
+    //     if (response && response?.status < 300) {
+    //       let resp = response.data as LoanData[]
+    //       if (search) {
+    //         resp = resp.filter(row=>row.fullName.toLowerCase().includes(search.toLowerCase()))
+    //       }
+    //       setLoans(resp.slice((page-1)*rowsPerPage,page*rowsPerPage));
+    //       setmaxPages(resp.length%rowsPerPage ? Math.floor(resp.length/rowsPerPage + 1) :  Math.floor(resp.length/rowsPerPage))
+    //     } else {
+    //       toast.error("Ha ocurrido un error al obtener los datos");
+    //     }
+    //   })
+    //   .finally(() => setLoading(false));
+  };
+
   return (
     <>
-      <HeaderWithPagination title="Estado de inversiones" maxPages={2} />
-      <CustomTable data={dataValidate} headers={validateHeader} />
+      <HeaderWithPagination
+        title="Estado de inversiones"
+        maxPages={maxPages}
+        action={getWithPagination}
+      />
+      {loading ? (
+        <LoadingPage background="transparent" size="section" />
+      ) : (
+        <CustomTable data={investors} headers={validateHeader} />
+      )}
     </>
   );
 }
