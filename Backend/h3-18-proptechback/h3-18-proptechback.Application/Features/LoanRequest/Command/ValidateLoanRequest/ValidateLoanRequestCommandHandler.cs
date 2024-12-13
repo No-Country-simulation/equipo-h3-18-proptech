@@ -47,6 +47,7 @@ namespace h3_18_proptechback.Application.Features.LoanRequest.Command.ValidateLo
             {
                 Quota quota = new Quota
                 {
+                    ID = Guid.NewGuid(),
                     Amount = loan.PaymentMonth,
                     Createby = loan.Createby,
                     LoanId = loan.ID,
