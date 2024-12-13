@@ -63,7 +63,7 @@ export function BuyerSharesTable({ data }: Props) {
                   <td>{quotaNumber}</td>
                   <td>{expiredDate.toLocaleDateString()}</td>
                   <td
-                    className={` ${stateQuota === 2 ? "text-success" : stateQuota === 1 ? "text-primary" : "text-error"}`}
+                    className={`text-title-medium-bold ${stateQuota === 2 ? "text-success" : stateQuota === 1 ? "text-primary" : "text-error"}`}
                   >
                     {quotasState[stateQuota]}
                   </td>
