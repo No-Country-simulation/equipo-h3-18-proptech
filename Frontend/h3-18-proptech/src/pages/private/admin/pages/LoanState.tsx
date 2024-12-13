@@ -108,7 +108,7 @@ export function LoanState() {
           </div>
         </header>
 
-        <section className="flex flex-col gap-10 items-center justify-center px-8">
+        <section className="flex flex-col gap-10 items-center justify-center px-4 md:px-8">
           <article className="w-full max-w-[500px] flex flex-col gap-4 text-center bg-contrast p-4 shadow-lg shadow-tertiary">
             <h5 className="pt-2 text-headline-small-medium">ID del préstamo</h5>
             <hr className="bg-secondary border border-secondary" />
@@ -119,11 +119,11 @@ export function LoanState() {
               No hay datos para mostrar
             </h1>
           ) : (
-            <section className="overflow-x-auto w-full flex items-center justify-center">
-              <table className="w-full min-w-[400px] max-w-[900px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-[#00000025]">
+            <section className="overflow-x-auto w-full flex">
+              <table className="w-full min-w-[450px] max-w-[900px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-[#00000025] mx-auto">
                 <thead className=" text-title-large-bold bg-primary text-contrast">
                   <tr className="border-b-2 border-primary h-[76px] ">
-                    <th>Cuota</th>
+                    <th>Cuotas</th>
                     <th>Fecha</th>
                     <th>Estado</th>
                     <th>Monto</th>
