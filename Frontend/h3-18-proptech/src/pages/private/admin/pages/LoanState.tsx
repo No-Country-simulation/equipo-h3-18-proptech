@@ -72,16 +72,19 @@ export function LoanState() {
   }
 
   return loading ? (
-    <LoadingPage background="transparent" size="section" />
+    <LoadingPage background="transparent" size="page" />
   ) : (
     <section className="bg-background flex-1">
       <div className="w-full flex flex-col gap-4 max-w-[1100px] mx-auto my-6">
         <header className="flex flex-col px-8 md:flex-row md:items-center justify-between gap-x-4 gap-y-6">
-          <div className="flex gap-4">
-            <ArrowBackIcon onClick={goBack} className=" cursor-pointer" />
+          <div className="flex gap-2 md:gap-4 items-center">
+            <ArrowBackIcon
+              onClick={goBack}
+              className=" cursor-pointer h-12 w-12"
+            />
             <h4 className="text-headline-small-medium">Datos del préstamo</h4>
           </div>
-          <div className="self-end md:self-auto flex flex-col sm:flex-row gap-6">
+          <div className="self-end md:self-auto flex flex-col-reverse items-center sm:items-start w-full sm:w-auto sm:flex-row gap-6">
             <SelectButton
               value={filterOption}
               setValue={setFilterOption}
@@ -116,37 +119,39 @@ export function LoanState() {
               No hay datos para mostrar
             </h1>
           ) : (
-            <table className="w-full max-w-[900px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-[#00000025]">
-              <thead className=" text-title-large-bold bg-primary text-contrast">
-                <tr className="border-b-2 border-primary h-[76px] ">
-                  <th>Cuota</th>
-                  <th>Fecha</th>
-                  <th>Estado</th>
-                  <th>Monto</th>
-                </tr>
-              </thead>
-              <tbody className="text-body-large-regular">
-                {detailedLoanInfo.quotas.map((quota) => {
-                  return (
-                    <tr
-                      key={quota.quotaId}
-                      className="border-b-2 border-primary h-[76px]"
-                    >
-                      <td>{quota.quotaNumber}</td>
-                      <td>
-                        {new Date(quota.expiredDate).toLocaleDateString()}
-                      </td>
-                      <td
-                        className={`${quota.stateQuota === 2 ? "text-success" : quota.stateQuota === 0 ? "text-error" : "text-primary"} text-title-medium-bold`}
+            <section className="overflow-x-auto w-full flex items-center justify-center">
+              <table className="w-full min-w-[400px] max-w-[900px] text-base-color text-center bg-contrast drop-shadow-md shadow-md shadow-[#00000025]">
+                <thead className=" text-title-large-bold bg-primary text-contrast">
+                  <tr className="border-b-2 border-primary h-[76px] ">
+                    <th>Cuota</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Monto</th>
+                  </tr>
+                </thead>
+                <tbody className="text-body-large-regular">
+                  {detailedLoanInfo.quotas.map((quota) => {
+                    return (
+                      <tr
+                        key={quota.quotaId}
+                        className="border-b-2 border-primary h-[76px]"
                       >
-                        {quotasState[quota.stateQuota]}
-                      </td>
-                      <td>${quota.amount.toFixed(2)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td>{quota.quotaNumber}</td>
+                        <td>
+                          {new Date(quota.expiredDate).toLocaleDateString()}
+                        </td>
+                        <td
+                          className={`${quota.stateQuota === 2 ? "text-success" : quota.stateQuota === 0 ? "text-error" : "text-primary"} text-title-medium-bold`}
+                        >
+                          {quotasState[quota.stateQuota]}
+                        </td>
+                        <td>${quota.amount.toFixed(2)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </section>
           )}
           <Button
             color="primary-blue"

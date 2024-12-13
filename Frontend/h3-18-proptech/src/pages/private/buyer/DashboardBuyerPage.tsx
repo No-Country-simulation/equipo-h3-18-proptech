@@ -97,14 +97,16 @@ export function DashboardBuyerPage() {
           </div>
         </>
       ) : (
-        <BigInfoCard
-          buttonText="Solicitar financiación"
-          icon={<CashIcon className=" scale-125" />}
-          to="/buyer/loan-request"
-        >
-          Actualmente no tienes préstamos registrados. Descubre cómo financiar
-          tu próximo terreno con nosotros.
-        </BigInfoCard>
+        <section className="flex-1 flex items-center justify-center">
+          <BigInfoCard
+            buttonText="Solicitar financiación"
+            icon={<CashIcon className=" scale-125" />}
+            to="/buyer/loan-request"
+          >
+            Actualmente no tienes préstamos registrados. Descubre cómo financiar
+            tu próximo terreno con nosotros.
+          </BigInfoCard>
+        </section>
       )}
     </div>
   );

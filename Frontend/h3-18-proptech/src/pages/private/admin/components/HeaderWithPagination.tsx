@@ -31,7 +31,7 @@ export function HeaderWithPagination({ maxPages, title }: Props) {
             arrowClassname="text-contrast"
             value={page}
             setValue={setPage}
-            options={pagesOptions}
+            options={pagesOptions.length === 0 ? [{label: "01", value: 1}] : pagesOptions}
           />
         </div>
       </div>
