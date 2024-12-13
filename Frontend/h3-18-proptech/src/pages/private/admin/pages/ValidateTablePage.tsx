@@ -3,6 +3,7 @@ import { CustomTable } from "../components/CustomTable";
 import { getAllUsersToValidate } from "../../../../services/admin";
 import { toast } from "sonner";
 import LoadingPage from "../../../LoadingPage";
+import { HeaderWithPagination } from "../components";
 
 export interface ValidateData {
   fullName: string;
@@ -30,9 +31,7 @@ export function ValidateTablePage() {
 
   return (
     <>
-      <h3 className="text-headline-small-medium my-6 w-[90%]  max-w-[700px]">
-        Validar identidad
-      </h3>
+      <HeaderWithPagination title="Validar identidad" maxPages={users.length} />
       {loading ? (
         <LoadingPage background="transparent" size="section" />
       ) : (

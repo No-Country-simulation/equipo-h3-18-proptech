@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CustomTable } from "../components";
+import { CustomTable, HeaderWithPagination } from "../components";
 import { getAllLoanRequests } from "../../../../services/admin";
 import { toast } from "sonner";
 import LoadingPage from "../../../LoadingPage";
@@ -30,9 +30,7 @@ export function ApproveTablePage() {
 
   return (
     <>
-      <h3 className="text-headline-small-medium my-6 w-[90%]  max-w-[700px]">
-        Aprobar Prestamos
-      </h3>
+      <HeaderWithPagination title="Aprobar préstamos" maxPages={loans.length} />
       {loading ? (
         <LoadingPage background="transparent" size="section" />
       ) : (
