@@ -6,9 +6,25 @@ import { useSessionStore, useSwitchStore } from "../../../stores";
 import { useTransitionNavigation } from "../../../hooks";
 import { authLogin } from "../../../services";
 import { FormValues, loginSchema } from "./models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const LoginPage = () => {
+  const session = useSessionStore((state) => state.session);
+  const role = useSessionStore((state) => state.role);
+  const navigate = useTransitionNavigation();
+
+  useEffect(() => {
+    if (session && role === "Cliente") {
+      navigate("/buyer");
+    }
+    if (session && role === "Inversor") {
+      navigate("/investor");
+    }
+    if (session && role === "Administrador") {
+      navigate("/admin");
+    }
+  }, []);
+
   const {
     handleSubmit,
     formState: { errors },
@@ -23,7 +39,6 @@ export const LoginPage = () => {
 
   const setRole = useSwitchStore((state) => state.setRole);
   const newSession = useSessionStore((state) => state.newSession);
-  const navigate = useTransitionNavigation();
 
   const [isSendingForm, setIsSendingForm] = useState(false);
 
