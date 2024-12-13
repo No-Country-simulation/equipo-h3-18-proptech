@@ -57,14 +57,14 @@ export function InvestorState() {
   return loading ? (
     <LoadingPage background="transparent" size="page" />
   ) : (
-    <div className="bg-[#F8F8F8]">
-      <div className="w-[90%] max-w-[1100px] mx-auto my-6">
-        <div className="flex">
-          <ArrowBackIcon onClick={goBack} className=" cursor-pointer" />
-          <h4 className="text-headline-small-medium mb-6 ml-6">
+    <div className="bg-background">
+      <div className="w-full max-w-[1000px] mx-auto my-6 px-4">
+        <header className="flex gap-2 md:gap-4 items-center mb-4 md:mb-6">
+          <ArrowBackIcon onClick={goBack} className=" cursor-pointer h-12 w-12" />
+          <h4 className="text-headline-small-medium">
             Datos del inversor
           </h4>
-        </div>
+        </header>
         <DataUser data={loanUserInfo} type="inversor" />
       </div>
     </div>

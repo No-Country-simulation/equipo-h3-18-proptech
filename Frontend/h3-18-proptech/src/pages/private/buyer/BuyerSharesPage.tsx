@@ -77,7 +77,7 @@ export function BuyerSharesPage() {
   ) : (
     <>
       <div className="bg-background md:min-h-[750px] flex flex-col items-center max-w-[1050px] md:mx-auto w-full px-4 sm:px-8 mt-4 mb-8 md:my-8">
-        <div className="flex flex-col md:flex-row justify-between w-full items-start gap-y-4  md:items-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between w-full items-start gap-y-4 md:items-center mb-8">
           <div className="flex items-center gap-2 md:gap-4">
             <ArrowBackIcon onClick={goBack} className="cursor-pointer h-12 w-12" />
             <h4 className="text-headline-small-medium">Cuotas</h4>

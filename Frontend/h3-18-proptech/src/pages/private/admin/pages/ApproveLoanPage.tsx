@@ -191,33 +191,33 @@ export function ApproveLoanPage() {
   return loading ? (
     <LoadingPage background="transparent" size="page" />
   ) : (
-    <div className="bg-[#F8F8F8]">
-      <div className="w-[90%] max-w-[1100px] mx-auto my-6">
+    <div className="bg-background">
+      <div className="w-full max-w-[1000px] mx-auto my-6 px-4">
         {!open ? (
           <>
-            <div className="flex">
-              <ArrowBackIcon onClick={goBack} className=" cursor-pointer" />
-              <h4 className="text-headline-small-medium mb-6 ml-6">
+            <header className="flex gap-2 md:gap-4 items-center mb-4 md:mb-6">
+              <ArrowBackIcon onClick={goBack} className=" cursor-pointer h-12 w-12" />
+              <h4 className="text-headline-small-medium">
                 Aprobar financiación
               </h4>
-            </div>
-            <div className="w-[890px] px-6 py-6 text-base-color bg-contrast drop-shadow-md shadow-md shadow-[#00000025] mx-auto">
-              <h4 className="text-title-large-regular m-6">
+            </header>
+            <div className="max-w-[890px] px-6 py-6 text-base-color bg-contrast drop-shadow-md shadow-md shadow-[#00000025] mx-auto">
+              <h4 className="text-title-large-regular sm:m-6">
                 Información del préstamo solicitado
               </h4>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="Nombre">{loanInfo.name}</InputText>
                 <InputText title="Apellido">{loanInfo.lastName}</InputText>
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="DNI">{loanInfo.dni}</InputText>
                 <InputText title="CUIT">{loanInfo.cuit}</InputText>
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="Email">{loanInfo.email}</InputText>
                 <InputText title="Teléfono">{loanInfo.phoneNumber}</InputText>
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="Costo del lote">
                   {loanInfo.lotCost.toString()}
                 </InputText>
@@ -225,7 +225,7 @@ export function ApproveLoanPage() {
                   {loanInfo.downPayment.toString()}
                 </InputText>
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="Cantidad de cuotas">
                   {loanInfo.quotasCount.toString()}
                 </InputText>
@@ -233,18 +233,18 @@ export function ApproveLoanPage() {
                   {creditScoreData[loanInfo.creditScore]}
                 </InputText>
               </div>
-              <div className="flex gap-4 my-8">
+              <div className="flex flex-col md:flex-row gap-y-8 gap-x-4 my-8">
                 <InputImage title={"Recibo 1"} file={loanInfo.salaryURL} />
                 <InputImage title={"Recibo 2"} file={loanInfo.salary2URL} />
               </div>
-              <div className="flex gap-4 my-8 mb-4">
+              <div className="flex flex-col md:flex-row gap-y-8 gap-x-4 my-8 mb-4">
                 <InputImage title={"Recibo 3"} file={loanInfo.salary3URL} />
                 <InputImage
                   title={"Servicio"}
                   file={loanInfo.proofOfAddressURL}
                 />
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-y-8 gap-x-4 my-4">
                 <div className="relative w-full">
                   <InputText title="Garante 1">
                     {`${loanInfo.guarantor1.name} ${loanInfo.guarantor1.lastName}`}
