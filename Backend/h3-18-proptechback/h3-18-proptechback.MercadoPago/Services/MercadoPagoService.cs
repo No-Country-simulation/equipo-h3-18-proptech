@@ -1,11 +1,9 @@
 ﻿using h3_18_proptechback.Application.Contracts.Infrastructure.DolarAPI;
 using h3_18_proptechback.Application.Contracts.Infrastructure.MercadoPago;
-using h3_18_proptechback.Domain;
 using h3_18_proptechback.MercadoPago.Models;
 using MercadoPago.Client.Payment;
 using MercadoPago.Client.Preference;
 using MercadoPago.Config;
-using MercadoPago.Resource.Payment;
 using MercadoPago.Resource.Preference;
 using Microsoft.Extensions.Options;
 

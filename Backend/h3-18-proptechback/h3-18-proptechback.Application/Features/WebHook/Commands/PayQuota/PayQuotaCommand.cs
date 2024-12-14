@@ -5,7 +5,7 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.ApproveCuotaP
     public class PayQuotaCommand
     {
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public long Id { get; set; }
         [JsonPropertyName("live_mode")]
         public bool LiveMode { get; set; }
         [JsonPropertyName("type")]
@@ -13,7 +13,7 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.ApproveCuotaP
         [JsonPropertyName("date_created")]
         public DateTime DateCreated { get; set; }
         [JsonPropertyName("user_id")]
-        public long UserId { get; set; }
+        public string UserId { get; set; }
         [JsonPropertyName("api_version")]
         public string ApiVersion { get; set; }
         [JsonPropertyName("action")]
