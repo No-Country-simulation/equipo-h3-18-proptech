@@ -9,7 +9,8 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmant
     public class GetInvestmantUserQueryResponse
     {
         
-
+        public Guid id { get; set; }
+             
         public decimal CaptialIntial { get; set; }
 
         public DateTime Dateinitial { get; set; }

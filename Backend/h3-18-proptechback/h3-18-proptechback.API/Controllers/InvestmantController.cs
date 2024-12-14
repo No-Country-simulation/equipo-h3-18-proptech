@@ -1,4 +1,5 @@
-﻿using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
+using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
+using h3_18_proptechback.Application.Features.Investmant.Command.UpdateShareInvesmant;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetAllInvestment;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
 using h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInvestmentFee;
@@ -18,16 +19,15 @@ namespace h3_18_proptechback.API.Controllers
     {
         private readonly AddInvestmantCommandHandler _handlerCommand;
         private readonly GetInvestmantUserQueryHandler _handlerQuery;
-        private readonly AddInvestmentFeeCommandHandler _feeCommmand;
         private readonly GetInvestmentFeeByMothQueryHandler _HandlerQueryFee;
         private readonly GetAllInvestmentQueryHandler _getAllInvestmentQueryHandler;
-
+        private readonly UpdateShareInvesmantHandler _handlerUpdateShare;
         public InvestmantController(AddInvestmantCommandHandler handlerCommand, GetInvestmantUserQueryHandler handlerQuery,
-                                    AddInvestmentFeeCommandHandler feeCommmand, GetAllInvestmentQueryHandler getAllInvestmentQueryHandler)
+                                    UpdateShareInvesmantHandler handlerUpdateShare, GetAllInvestmentQueryHandler getAllInvestmentQueryHandler)
         {
             _handlerCommand = handlerCommand;
             _handlerQuery = handlerQuery;
-            _feeCommmand = feeCommmand;
+            _handlerUpdateShare = handlerUpdateShare;
             _getAllInvestmentQueryHandler = getAllInvestmentQueryHandler;
         }
 
@@ -93,6 +93,37 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPatch("ShareInvestmant")]
+        [Authorize(Roles = "Inversor")]
+        [ProducesResponseType<string>(StatusCodes.Status200OK)]
+        [ProducesResponseType<string>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType<string>(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<string>> AddshareInvestmant([FromQuery] UpdateShareInvesmantCommand command) 
+        {
+            try
+            {
+                var email = User.FindFirstValue(ClaimTypes.Email);
+                if (string.IsNullOrEmpty(email))
+                {
+                    return Unauthorized("El token no contiene un email válido.");
+                }
+                var result = await _handlerUpdateShare.UpdateShareInvestAsync(command, email);
+
+                return Ok(result);
+
+            }
+            catch (ArgumentException ArgEx)
+            {
+                return BadRequest(ArgEx.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpGet("allInvestment")]
         [Authorize(Roles = "Administrador")]
         [ProducesResponseType<string>(StatusCodes.Status200OK)]
@@ -109,6 +140,5 @@ namespace h3_18_proptechback.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-      
     }
 }

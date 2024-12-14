@@ -26,6 +26,7 @@ using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
 using h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInvestmentFee;
 using h3_18_proptechback.Application.Features.Investmant.Command.UpdateInvestmant;
 using h3_18_proptechback.Application.Features.InvestmentFee.Query.GetInvestmentFeeByUserandMoth;
+using h3_18_proptechback.Application.Features.Investmant.Command.UpdateShareInvesmant;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetAllInvestment;
 using h3_18_proptechback.Application.Features.Loan.Queries.PdfLoan;
 
@@ -73,6 +74,7 @@ namespace h3_18_proptechback.Application
             service.AddScoped<AddInvestmantCommandHandler>();
             service.AddScoped<GetInvestmantUserQueryHandler>();
             service.AddScoped<UpdateInvestmantCommandHandler>();
+            service.AddScoped<UpdateShareInvesmantHandler>();
 
             //InvestmantFee
             //-------------------
