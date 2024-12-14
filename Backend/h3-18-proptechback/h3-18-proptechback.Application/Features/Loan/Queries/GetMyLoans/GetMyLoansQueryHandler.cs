@@ -1,5 +1,6 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Persistence.Loan;
+using h3_18_proptechback.Application.Features.CalculatorCredit;
 using h3_18_proptechback.Application.Features.Loan.Queries.MyAllLoan;
 
 namespace h3_18_proptechback.Application.Features.Loan.Queries.GetMyLoans
@@ -8,6 +9,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.GetMyLoans
     {
         private readonly IUserIdentityService _userIdentityService;
         private readonly ILoanRepository _loanRepository;
+        private FinancingCalculator _calculator;
         public GetMyLoansQueryHandler(IUserIdentityService userIdentityService, ILoanRepository loanRepository)
         {
             _userIdentityService = userIdentityService;
@@ -20,6 +22,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.GetMyLoans
             List<GetMyLoansQueryResponse> list = new List<GetMyLoansQueryResponse>();
             foreach (var loan in loans)
             {
+                _calculator = new FinancingCalculator(loan.LoanRequest.LotCost, loan.LoanRequest.DownPayment, loan.LoanRequest.QuotasCount);
                 decimal payedAtDay = loan.Quotas.Where(q => q.State == Domain.Common.StateQuota.Paid)
                                                                         .Sum(d => d.Amount);
                 var remainingAmount = loan.TotalPayment - payedAtDay;
@@ -32,7 +35,7 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.GetMyLoans
                                                .QuotaNumber;
 
                 var paymentQuota = loan.Quotas.First().Amount;
-                list.Add(new GetMyLoansQueryResponse(loan.ID, nextExpiredDate, remainingAmount, payedPercentage, loan.StateLoan, $"{currentQuota}/{loan.Quotas.Count}", paymentQuota));
+                list.Add(new GetMyLoansQueryResponse(loan.ID, nextExpiredDate, remainingAmount, payedPercentage, loan.StateLoan, $"{currentQuota}/{loan.Quotas.Count}", paymentQuota, _calculator.GetList()));
             }
             return list;
         }
