@@ -15,12 +15,13 @@ namespace h3_18_proptechback.Application.Features.WebHook.Commands.PayQuota
         private readonly IEmailServices _emailServices;
         private readonly IUserIdentityService _userIdentityService;
         public PayQuotaCommandHandler(IMercadoPagoService mercadoPagoService, IQuotaRepository quotaRepository,
-            ILoanRepository loanRepository, IEmailServices emailServices)
+            ILoanRepository loanRepository, IEmailServices emailServices, IUserIdentityService userIdentityService)
         {
             _mercadoPagoService = mercadoPagoService;
             _quotaRepository = quotaRepository;
             _loanRepository = loanRepository;
             _emailServices = emailServices;
+            _userIdentityService = userIdentityService;
         }
 
         public async Task HandleAsync(PayQuotaCommand command)
