@@ -43,9 +43,9 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.UpdateShare
             //calc share
             var newemail = new GetInvestmantUserQueryRequest(user.Email);
 
-            var getInvestmant = _query.GetInvestmantByUserAsyc(newemail).Result;
+            var getInvestmant = await _query.GetInvestmantByUserAsyc(newemail);
 
-            var list = getInvestmant.Max();
+            var list = getInvestmant.Last();
 
             var moth = list.Moth++;
             var interest =  InvestmentInterest.interest;
@@ -53,22 +53,20 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.UpdateShare
             var interestmont = calcular.InterestPerMonth();
             var sharemont = command.Share + interestmont;
             var returninvest = sharemont + list.returnInvestmant;
-            
-            var Investmanshare = new Domain.Investmant
-            {
-                ID = command.Id,
-                LastModifiedBy = user.Id,
-                LastModifiedDate = DateTime.UtcNow,
-                year = DateTime.UtcNow.Year,
-                Moth = DateTime.UtcNow.Month,
-                MonthlyInterest = interestmont,
-                Share = command.Share,
-                profit = sharemont,
-                returnInvestmant = returninvest
 
-            };
-            var result = await _investmant.Update(Investmanshare);
-            return $"Su cuota se a agregado exitosamente {result}";
+            var invest = await _investmant.GetIdAsync(list.id);
+
+            invest.LastModifiedBy = user.Id;
+            invest.LastModifiedDate = DateTime.UtcNow;
+            invest.year = DateTime.UtcNow.Year;
+            invest.Moth = DateTime.UtcNow.Month;
+            invest.MonthlyInterest = interestmont;
+            invest.Share = command.Share;
+            invest.profit = sharemont;
+            invest.returnInvestmant = returninvest;
+
+            var result = await _investmant.Update(invest);
+            return $"Su cuota se a agregado exitosamente";
         }
     }
 }

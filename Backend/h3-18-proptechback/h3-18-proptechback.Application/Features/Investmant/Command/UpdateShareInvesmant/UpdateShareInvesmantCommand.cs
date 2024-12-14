@@ -10,15 +10,17 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.UpdateShare
     {
         public Guid Id { get; set; }
         
-        public decimal CaptialIntial { get; set; }
+        //public decimal CaptialIntial { get; set; }
 
-        public decimal? MonthlyInterest { get; set; }
+        //public decimal? MonthlyInterest { get; set; }
 
         public decimal? Share { get; set; }
 
-        public decimal? profit { get; set; }
+        //public decimal? profit { get; set; }
 
-        public decimal? returnInvestmant { get; set; }
+        //public decimal? returnInvestmant { get; set; }
+
+        public UpdateShareInvesmantCommand() { }
 
         public UpdateShareInvesmantCommand(Guid Id)
         {
