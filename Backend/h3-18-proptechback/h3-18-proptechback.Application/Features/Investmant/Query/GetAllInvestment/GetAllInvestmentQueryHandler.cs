@@ -21,14 +21,14 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetAllInvestm
         }
         public async Task<List<GetAllInvestmentQueryResponse>> HandleAsync()
         {
-            var investments = _finantialInvestmant.GetAll().ToList();
+            var investments = await _finantialInvestmant.GetAllInvestmentInclude();
             List<GetAllInvestmentQueryResponse> list = new List<GetAllInvestmentQueryResponse>();
             foreach(var investment in investments)
             {
                 var dataUser = await _dataUserRepository.GetUserByGuidIdentity(investment.Createby!);
                 var user = await _userIdentityService.GetByIdIdentityUser(dataUser.Createby);
-                //list.Add(new GetAllInvestmentQueryResponse
-                //    (string.Concat(user.Name, " ", user.LastName), 1, dataUser.DNI));
+                list.Add(new GetAllInvestmentQueryResponse
+                (string.Concat(user.Name, " ", user.LastName), investment.CurrentAmount, investment.InvestmentFees.Count, dataUser.DNI));
             }
             return list;
 

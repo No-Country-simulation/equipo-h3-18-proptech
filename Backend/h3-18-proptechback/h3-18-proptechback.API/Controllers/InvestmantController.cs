@@ -1,7 +1,5 @@
-using Azure.Core;
 using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
 using h3_18_proptechback.Application.Features.Investmant.Command.ExtractAmount;
-using h3_18_proptechback.Application.Features.Investmant.Command.UpdateShareInvesmant;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetAllInvestment;
 using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
 using Microsoft.AspNetCore.Authorization;

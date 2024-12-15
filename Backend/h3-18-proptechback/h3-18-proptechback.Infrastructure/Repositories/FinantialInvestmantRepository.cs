@@ -17,6 +17,12 @@ namespace h3_18_proptechback.Infrastructure.Repositories
         {
         }
 
+        public async Task<List<Investmant>> GetAllInvestmentInclude()
+        {
+            return await _context.Investmants.Include(i=>i.InvestmentFees)
+            .ToListAsync();
+        }
+
         public async Task<Investmant?> InvestmentActiveByUserId(string userId)
         {
             return await _context.Investmants.FirstOrDefaultAsync(i => i.Createby == userId &&
