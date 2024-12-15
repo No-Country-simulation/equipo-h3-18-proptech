@@ -47,14 +47,14 @@ namespace h3_18_proptechback.Application.Features.InvestmentFee.Query.GetInvestm
                 { 
                     id = item.ID,
                     InvestmantId = item.InvestmantId,
-                    IntialCapital = item.IntialCapital,
-                    DateInitShare   = item.DateInitShare,
-                    DateCloseShare = item.DateCloseShare,
-                    Moth  = item.Moth,
-                    year = item.year,
-                    MonthlyInterest = item.MonthlyInterest,
-                    Share = item.Share,
-                    capitalization = item.capitalization
+                    //IntialCapital = item.IntialCapital,
+                    //DateInitShare   = item.DateInitShare,
+                    //DateCloseShare = item.DateCloseShare,
+                    //Moth  = item.Moth,
+                    //year = item.year,
+                    //MonthlyInterest = item.MonthlyInterest,
+                    //Share = item.Share,
+                    //capitalization = item.capitalization
                 };
                 responseList.Add(response);
             }

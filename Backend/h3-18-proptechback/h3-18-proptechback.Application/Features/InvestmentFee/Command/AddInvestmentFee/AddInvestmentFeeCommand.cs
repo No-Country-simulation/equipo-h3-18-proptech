@@ -8,23 +8,17 @@ namespace h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInves
 {
     public class AddInvestmentFeeCommand
     {
-        public Guid InvestmantId { get; set; }
+        public decimal CapitalInitial { get; set; }
 
-        public decimal IntialCapital { get; set; }
+        public DateTime? DatePayment { get; set; }
 
-        public DateTime DateInitShare { get; set; }
+        public bool IsActive { get; set; }
 
-        public DateTime DateCloseShare { get; set; }
+        public bool IsPayed { get; set; }
 
-        public int Moth { get; set; }
+        public decimal TotalProfit { get; set; }
 
-        public int year { get; set; }
-
-        public decimal MonthlyInterest { get; set; }
-
-        public decimal Share { get; set; }
-
-        public decimal capitalization { get; set; }
+        public decimal ReturnInvestment { get; set; }
 
         public AddInvestmentFeeCommand()
         {

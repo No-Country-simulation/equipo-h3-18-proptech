@@ -20,8 +20,7 @@ namespace h3_18_proptechback.Infrastructure.Repositories
         public async Task<List<InvestmentFee>> Getpermonth(Guid investmantId)
         {
            return _context.investmentFees.Where(x=> x.InvestmantId == investmantId)
-                .OrderBy(x => x.year)
-                .ThenBy(x => x.Moth)
+                .OrderBy(x => x.CreatedDate)
                 .ToList();
             
 

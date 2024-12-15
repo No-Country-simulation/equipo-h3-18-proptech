@@ -1,43 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser
+﻿namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser
 {
     public class GetInvestmantUserQueryResponse
     {
-        
-        public Guid id { get; set; }
-             
-        public decimal CaptialIntial { get; set; }
-
-        public DateTime Dateinitial { get; set; }
-        
-        public int Moth { get; set; }
-
-        public int year { get; set; }
-
-        public DateTime DatePaymant { get; set; }
-
-        public bool Isactive { get; set; }
-
-        public bool IsPayed { get; set; }
-        
-        public decimal? MonthlyInterest { get; set; }
-
-        public decimal? Share { get; set; }
-
-        public decimal? profit { get; set; }
-
-        public decimal? returnInvestmant { get; set; }
-        
-
-        public GetInvestmantUserQueryResponse()
+        public decimal CurrentAmount { get; set; }
+        public DateTime InitDate { get; set; }
+        public decimal Profit { get; set; }
+        public List<GetItemUserQueryResponse> History { get; set; }
+        public GetInvestmantUserQueryResponse(decimal currentAmount, DateTime initDate, decimal profit, List<GetItemUserQueryResponse> history)
         {
-            
+            CurrentAmount = currentAmount;
+            InitDate = initDate;
+            Profit = profit;
+            History = history;
         }
+    }
 
+    public class GetItemUserQueryResponse
+    {
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public decimal Profit { get; set; }
+
+        public GetItemUserQueryResponse(int year, int month, decimal profit)
+        {
+            Year = year;
+            Month = month;
+            Profit = profit;
+        }
     }
 }

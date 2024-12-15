@@ -27,8 +27,8 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetAllInvestm
             {
                 var dataUser = await _dataUserRepository.GetUserByGuidIdentity(investment.Createby!);
                 var user = await _userIdentityService.GetByIdIdentityUser(dataUser.Createby);
-                list.Add(new GetAllInvestmentQueryResponse
-                    (string.Concat(user.Name, " ", user.LastName), investment.CaptialIntial, 1, dataUser.DNI));
+                //list.Add(new GetAllInvestmentQueryResponse
+                //    (string.Concat(user.Name, " ", user.LastName), 1, dataUser.DNI));
             }
             return list;
 

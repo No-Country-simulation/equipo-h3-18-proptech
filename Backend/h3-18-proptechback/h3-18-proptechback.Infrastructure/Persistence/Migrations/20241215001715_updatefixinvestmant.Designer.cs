@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using h3_18_proptechback.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using h3_18_proptechback.Infrastructure.Persistence;
 namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241215001715_updatefixinvestmant")]
+    partial class updatefixinvestmant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,14 +226,14 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<decimal>("CapitalInitial")
+                        .HasColumnType("numeric");
+
                     b.Property<string>("Createby")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("CurrentAmount")
-                        .HasColumnType("numeric");
 
                     b.Property<DateTime?>("DatePayment")
                         .HasColumnType("timestamp with time zone");
@@ -246,6 +249,9 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("ReturnInvestment")
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("TotalProfit")
                         .HasColumnType("numeric");
@@ -278,6 +284,9 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Profit")
                         .HasColumnType("numeric");
