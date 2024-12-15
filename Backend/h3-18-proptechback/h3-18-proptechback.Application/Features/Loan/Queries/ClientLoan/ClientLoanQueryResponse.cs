@@ -1,4 +1,5 @@
-﻿using h3_18_proptechback.Domain.Common;
+﻿using h3_18_proptechback.Application.Features.CalculatorCredit;
+using h3_18_proptechback.Domain.Common;
 
 namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
 {
@@ -8,14 +9,16 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.ClientLoan
         public int TotalPages { get; set; }
         public StateQuota? StateQuota { get; set; }
         public Guid LoanId { get; set; }
+        public ListType ListType { get; set; }
         public List<ClientQuotaQueryResponse> Quotas { get; set; }
-        public ClientLoanQueryResponse(int page, int totalPages, StateQuota? stateQuota, List<ClientQuotaQueryResponse> quotas, Guid loanId)
+        public ClientLoanQueryResponse(int page, int totalPages, StateQuota? stateQuota, List<ClientQuotaQueryResponse> quotas, Guid loanId, ListType listType)
         {
             Page = page;
             TotalPages = totalPages;
             StateQuota = stateQuota;
             Quotas = quotas;
             LoanId = loanId;
+            ListType = listType;
         }
     }
 

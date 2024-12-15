@@ -6,12 +6,13 @@ namespace h3_18_proptechback.Application.Features.Loan.Queries.Common
     {
         public static (int totalItems, int totalPages, List<Quota> quotas) Pagination(DetailsLoanQuery query, List<Quota> quotas)
         {
-            var result = quotas.OrderBy(q=>q.QuotaNumber)
+            List<Quota> result = quotas;
+            if(query.StateQuota is not null)
+                result = quotas.Where(l=>l.State == query.StateQuota).ToList();
+
+            result = result.OrderBy(q=>q.QuotaNumber)
                 .Skip((query.Page - 1) * 6)
                 .Take(6).ToList();
-
-            if (query.StateQuota is not null)
-                result = result.Where(l => l.State == query.StateQuota).ToList();
             var totalItems = quotas.Count();
             var division = totalItems / 6m;
 

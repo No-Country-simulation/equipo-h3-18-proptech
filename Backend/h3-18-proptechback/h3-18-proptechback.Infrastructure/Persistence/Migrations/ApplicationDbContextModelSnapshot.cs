@@ -223,25 +223,22 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("CaptialIntial")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("Createby")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("DatePaymant")
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("DatePayment")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("Dateinitial")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsPayed")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("Isactive")
+                    b.Property<bool>("IsPayed")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastModifiedBy")
@@ -250,10 +247,7 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("reinvest")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal>("returnInvestmant")
+                    b.Property<decimal>("TotalProfit")
                         .HasColumnType("numeric");
 
                     b.HasKey("ID");
@@ -276,12 +270,6 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("DateCloseShare")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("DateInitShare")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("IntialCapital")
-                        .HasColumnType("numeric");
-
                     b.Property<Guid>("InvestmantId")
                         .HasColumnType("uuid");
 
@@ -291,19 +279,12 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("MonthlyInterest")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Moth")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Share")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("capitalization")
+                    b.Property<decimal>("Profit")
                         .HasColumnType("numeric");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("InvestmantId");
 
                     b.ToTable("investmentFees");
                 });
@@ -505,6 +486,17 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                     b.Navigation("LoanRequest");
                 });
 
+            modelBuilder.Entity("h3_18_proptechback.Domain.InvestmentFee", b =>
+                {
+                    b.HasOne("h3_18_proptechback.Domain.Investmant", "Investmant")
+                        .WithMany("InvestmentFees")
+                        .HasForeignKey("InvestmantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Investmant");
+                });
+
             modelBuilder.Entity("h3_18_proptechback.Domain.Loan", b =>
                 {
                     b.HasOne("h3_18_proptechback.Domain.LoanRequest", "LoanRequest")
@@ -536,6 +528,11 @@ namespace h3_18_proptechback.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Loan");
+                });
+
+            modelBuilder.Entity("h3_18_proptechback.Domain.Investmant", b =>
+                {
+                    b.Navigation("InvestmentFees");
                 });
 
             modelBuilder.Entity("h3_18_proptechback.Domain.Loan", b =>
