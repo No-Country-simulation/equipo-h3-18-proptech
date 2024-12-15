@@ -11,5 +11,6 @@ namespace h3_18_proptechback.Application.Contracts.Persistence.Investmant
     {
         Task<Domain.Investmant?> InvestmentActiveByUserId(string userId);
         Task<Domain.Investmant?> InvestmentListActiveByUserId(string userId);
+        Task<List<Domain.Investmant>> GetAllInvestmentInclude();
     }
 }
