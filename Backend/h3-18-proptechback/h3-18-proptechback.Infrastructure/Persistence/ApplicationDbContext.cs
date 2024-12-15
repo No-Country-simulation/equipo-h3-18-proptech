@@ -17,6 +17,11 @@ namespace h3_18_proptechback.Infrastructure.Persistence
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+            modelBuilder.Entity<Investmant>()
+                .HasMany(i => i.InvestmentFees)
+                .WithOne(f => f.Investmant)
+                .HasForeignKey(f => f.InvestmantId);
+
         }
 
         public DbSet<DataUser> DataUsers { get; set; }

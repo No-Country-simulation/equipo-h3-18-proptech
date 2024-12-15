@@ -19,18 +19,17 @@ namespace h3_18_proptechback.API.Controllers
     {
         private readonly AddInvestmantCommandHandler _handlerCommand;
         private readonly GetInvestmantUserQueryHandler _handlerQuery;
-        private readonly GetInvestmentFeeByMothQueryHandler _HandlerQueryFee;
         private readonly GetAllInvestmentQueryHandler _getAllInvestmentQueryHandler;
         private readonly UpdateShareInvesmantHandler _handlerUpdateShare;
-        public InvestmantController(AddInvestmantCommandHandler handlerCommand, GetInvestmantUserQueryHandler handlerQuery,
-                                    UpdateShareInvesmantHandler handlerUpdateShare, GetAllInvestmentQueryHandler getAllInvestmentQueryHandler)
+
+        public InvestmantController(AddInvestmantCommandHandler handlerCommand, GetInvestmantUserQueryHandler handlerQuery, 
+            GetAllInvestmentQueryHandler getAllInvestmentQueryHandler, UpdateShareInvesmantHandler handlerUpdateShare)
         {
             _handlerCommand = handlerCommand;
             _handlerQuery = handlerQuery;
-            _handlerUpdateShare = handlerUpdateShare;
             _getAllInvestmentQueryHandler = getAllInvestmentQueryHandler;
+            _handlerUpdateShare = handlerUpdateShare;
         }
-
 
         [HttpGet("QueryInvestmant")]
         [Authorize(Roles = "Inversor")]

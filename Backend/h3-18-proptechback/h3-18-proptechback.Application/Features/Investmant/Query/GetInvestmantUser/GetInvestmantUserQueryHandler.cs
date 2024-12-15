@@ -46,17 +46,7 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmant
                 var response = new GetInvestmantUserQueryResponse
                 {
                     id = item.ID,
-                    CaptialIntial = item.CaptialIntial,
-                    Dateinitial = item.Dateinitial,
-                    Moth = item.Moth,
-                    year = item.year,
-                    Isactive = item.Isactive,
-                    DatePaymant = item.DatePaymant,
-                    IsPayed = item.IsPayed,
-                    MonthlyInterest = item.MonthlyInterest,
-                    Share = item.Share,
-                    profit = item.profit,
-                    returnInvestmant = item.returnInvestmant
+                    
                 };
 
                 responseList.Add(response);

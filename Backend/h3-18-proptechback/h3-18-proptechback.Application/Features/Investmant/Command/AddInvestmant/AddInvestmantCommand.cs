@@ -10,27 +10,17 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
 {
     public class AddInvestmantCommand
     {
-        public decimal CaptialIntial { get; set; }
+        public decimal CapitalInitial { get; set; }
 
-        //public DateTime Dateinitial { get; set; }
+        public DateTime? DatePayment { get; set; }
 
-        //public int Moth { get; set; }
+        public bool IsActive { get; set; }
 
-        //public int year { get; set; }
+        public bool IsPayed { get; set; }
 
-        //public DateTime DatePaymant { get; set; }
+        public decimal TotalProfit { get; set; }
 
-        //public bool Isactive { get; set; }
-
-        //public bool IsPayed { get; set; }
-
-        public decimal? MonthlyInterest { get; set; }
-
-        public decimal? Share { get; set; }
-
-        public decimal? profit { get; set; }
-
-        public decimal? returnInvestmant { get; set; }
+        public decimal ReturnInvestment { get; set; }
 
         public AddInvestmantCommand()
         {
@@ -38,14 +28,11 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
         }
 
         
-        public AddInvestmantCommand(decimal captialIntial, decimal returnInvestmant)
+        public AddInvestmantCommand(decimal CapitalInitial, decimal returnInvestmant)
         {
-            CaptialIntial = captialIntial;
-            //Dateinitial = dateinitial;
-            //DatePaymant = datePaymant;
-            //Isactive = isactive;
-            //IsPayed = isPayed;
-            this.returnInvestmant = returnInvestmant;
+            this.CapitalInitial = CapitalInitial;
+            
+            this.ReturnInvestment = returnInvestmant;
         }
     }
 }

@@ -35,13 +35,13 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.UpdateInves
             var Investmant = new Domain.Investmant
             {
                 ID = command.Id,
-                CaptialIntial = command.CaptialIntial,
-                Dateinitial = DateTime.Now.ToUniversalTime(),
-                Isactive = command.Isactive,
+                //CaptialIntial = command.CaptialIntial,
+                //Dateinitial = DateTime.Now.ToUniversalTime(),
+                //Isactive = command.Isactive,
                 IsPayed = command.IsPayed,
                 LastModifiedBy = user.Id,
                 LastModifiedDate = DateTime.Now.ToUniversalTime(),
-                returnInvestmant = command.returnInvestmant
+                //returnInvestmant = command.returnInvestmant
 
             };
 

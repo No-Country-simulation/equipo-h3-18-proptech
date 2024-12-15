@@ -58,12 +58,12 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.UpdateShare
 
             invest.LastModifiedBy = user.Id;
             invest.LastModifiedDate = DateTime.UtcNow;
-            invest.year = DateTime.UtcNow.Year;
-            invest.Moth = DateTime.UtcNow.Month;
-            invest.MonthlyInterest = interestmont;
-            invest.Share = command.Share;
-            invest.profit = sharemont;
-            invest.returnInvestmant = returninvest;
+            //invest.year = DateTime.UtcNow.Year;
+            //invest.Moth = DateTime.UtcNow.Month;
+            //invest.MonthlyInterest = interestmont;
+            //invest.Share = command.Share;
+            //invest.profit = sharemont;
+            //invest.returnInvestmant = returninvest;
 
             var result = await _investmant.Update(invest);
             return $"Su cuota se a agregado exitosamente";

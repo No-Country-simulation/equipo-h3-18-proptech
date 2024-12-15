@@ -1,17 +1,14 @@
-﻿using h3_18_proptechback.Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace h3_18_proptechback.Domain
+namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmantFee
 {
-    public class InvestmentFee: BaseEntity
+    public class AddInvestmantFeeCommand
     {
         public Guid InvestmantId { get; set; }
-
-        public Investmant Investmant { get; set; }
 
         public DateTime DateCloseShare { get; set; }
 
@@ -19,5 +16,9 @@ namespace h3_18_proptechback.Domain
 
         public decimal Profit { get; set; }
 
+        public AddInvestmantFeeCommand()
+        {
+            
+        }
     }
 }

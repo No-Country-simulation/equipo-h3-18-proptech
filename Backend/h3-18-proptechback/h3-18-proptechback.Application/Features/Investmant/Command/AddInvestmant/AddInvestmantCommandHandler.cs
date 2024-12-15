@@ -1,6 +1,8 @@
 ﻿using h3_18_proptechback.Application.Contracts.Identity;
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
+using h3_18_proptechback.Application.Contracts.Persistence.InvestmentFee;
+using h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmantUser;
 using h3_18_proptechback.Domain;
 using System;
 using System.Collections.Generic;
@@ -15,12 +17,17 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
         private readonly IUserIdentityService _userIdentityService;
         private readonly IDataUserRepository _dataUserRepository;
         private readonly IFinantialInvestmant _investmant;
-
-        public AddInvestmantCommandHandler(IUserIdentityService userIdentityService, IFinantialInvestmant investmant, IDataUserRepository dataUserRepository)
+        private readonly IFinatialInvestmentFee _fee;
+        private readonly GetInvestmantUserQueryHandler _query;
+        
+        public AddInvestmantCommandHandler(IUserIdentityService userIdentityService, IFinantialInvestmant investmant, 
+                                        IDataUserRepository dataUserRepository, IFinatialInvestmentFee fee)
         {
             _userIdentityService = userIdentityService;
             _dataUserRepository = dataUserRepository;
             _investmant = investmant;
+            _fee = fee;
+           
         }
 
         public async Task<string> AddInvestAsyc(AddInvestmantCommand command, string email) 
@@ -30,25 +37,73 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
 
             if (dataUser is null || dataUser.StateValidation is not Domain.Common.StateRequest.Valid)
                 throw new ArgumentException("El usuario no tiene identidad validada.");
-            //falta validar pago
-            var Investmant = new Domain.Investmant
+            
+            //exist investmant
+            var newemail = new GetInvestmantUserQueryRequest(user.Email);
+
+            var getInvestmant = await _query.GetInvestmantByUserAsyc(newemail);
+
+            var list = getInvestmant.Last();
+
+            if(getInvestmant.Count == 0 ) { 
+
+
+                var Investmant = new Domain.Investmant
+                {
+                    CapitalInitial = command.CapitalInitial,
+                    IsActive = true,
+                    IsPayed = false,   
+                    Createby = user.Id,
+                    CreatedDate = DateTime.Now.ToUniversalTime(),
+
+                };
+                var investmantadd = await _investmant.Add(Investmant);
+                var investmantFee = new Domain.InvestmentFee
+                { 
+                    InvestmantId = Investmant.ID,
+                    Createby =user.Id,
+                    CreatedDate = DateTime.UtcNow.ToUniversalTime(),
+                    DateCloseShare = DateTime.UtcNow.ToUniversalTime(),
+                    Month = DateTime.Now.Month,
+
+
+                
+                };
+                var investmantaddfee =  _fee.Add(investmantFee);
+
+                return $"Sr  {user.Name} {user.LastName} Su inversion por el monto  fue procesada exitosamente bajo el numero {investmantadd.ID}";
+
+            }
+            else 
             {
-                CaptialIntial = command.CaptialIntial,
-                Moth = DateTime.UtcNow.Month,
-                year = DateTime.UtcNow.Year,
-                Dateinitial = DateTime.Now.ToUniversalTime(),
-                Isactive = true,
-                IsPayed = false,
-                Createby = user.Id,
-                CreatedDate = DateTime.Now.ToUniversalTime(),
+               var newinvestmant =  command.CapitalInitial + list.returnInvestmant;
+                var Investmant = new Domain.Investmant
+                {
+                    CapitalInitial = command.CapitalInitial,
+                    IsActive = true,
+                    IsPayed = false,
+                    Createby = user.Id,
+                    CreatedDate = DateTime.Now.ToUniversalTime(),
+                    ReturnInvestment = newinvestmant
+                    
+                };
+                var investmantadd = _investmant.Update(Investmant);
+                var investmantFee = new Domain.InvestmentFee
+                {
+                    InvestmantId = Investmant.ID,
+                    Createby = user.Id,
+                    CreatedDate = DateTime.UtcNow.ToUniversalTime(),
+                    DateCloseShare = DateTime.UtcNow.ToUniversalTime(),
+                    Month = DateTime.Now.Month,
 
-            };
-
-            var investmantadd = await _investmant.Add(Investmant);
 
 
+                };
+                var investmantaddfee = _fee.Add(investmantFee);
+                return $"Sr  {user.Name} {user.LastName} Su inversion por el monto  fue procesada exitosamente bajo el numero {investmantadd.Id}";
+            }
 
-            return $"Sr  {user.Name} {user.LastName} Su inversion por el monto {investmantadd.CaptialIntial} fue procesada exitosamente bajo el numero {investmantadd.ID}";  
+            
 
         }
     }
