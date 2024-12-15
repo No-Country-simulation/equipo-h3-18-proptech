@@ -25,16 +25,8 @@ namespace h3_18_proptechback.Application.Features.Calculators
         }
 
         public decimal InterestPerMonth()
-        { 
-            var capitalInitial = _initialInvestment;
-            var months = _moths;
-            var rateo = _interest;
-            var interest = 1 + rateo;
-            var calculerinteres = rateo - 1;
-            var interestepermonth = calculerinteres * months;
-            var result = capitalInitial * (decimal)interestepermonth;
-
-            return result;
+        {
+            return ((decimal)Math.Pow((1 + _interest), _moths) - 1) * _initialInvestment;
         }
 
     }

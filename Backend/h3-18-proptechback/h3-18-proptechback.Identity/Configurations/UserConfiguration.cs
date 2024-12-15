@@ -29,8 +29,8 @@ namespace h3_18_proptechback.Identity.Configurations
                 new ApplicationUser
                 {
                     Id = "7691104e-2fde-4a76-8f1a-4da658956946",
-                    Email = "inversor@locahost.com",
-                    NormalizedEmail = "inversor@locahost.com",
+                    Email = "inversor@localhost.com",
+                    NormalizedEmail = "inversor@localhost.com",
                     Nombre = "Juan Carlos",
                     Apellido = "Perez",
                     UserName = "Inversor01",
