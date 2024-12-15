@@ -2,15 +2,6 @@
 using h3_18_proptechback.Application.Contracts.Persistence.DataUsers;
 using h3_18_proptechback.Application.Contracts.Persistence.Investmant;
 using h3_18_proptechback.Application.Contracts.Persistence.InvestmentFee;
-using h3_18_proptechback.Application.Features.Calculators;
-using h3_18_proptechback.Application.Features.Investmant.Command.AddInvestmant;
-using h3_18_proptechback.Application.Models.Emails;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static h3_18_proptechback.Application.Features.Calculators.InvestmantCalculator;
 
 namespace h3_18_proptechback.Application.Features.InvestmentFee.Command.AddInvestmentFee
 {

@@ -11,12 +11,9 @@ namespace h3_18_proptechback.Application.Features.Investmant.Command.AddInvestma
     {
         public AddInvestmantCommandValidator()
         {
-            RuleFor(x => x.CapitalInitial).NotNull().WithMessage("El Capital incial es Requerido")
+            RuleFor(x => x.Amount).NotNull().WithMessage("El monto es requerido")
             .PrecisionScale(18, 2, false).WithMessage("Se requiere un dato decimal")
             .Must(x => x > 0).WithMessage("El valor debe ser mayor a 0");
-
-            RuleFor(x => x.ReturnInvestment).PrecisionScale(18, 2, false);
-
         }
     }
 }

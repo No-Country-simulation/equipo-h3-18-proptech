@@ -5,7 +5,7 @@ namespace h3_18_proptechback.Domain
 {
     public class Investmant: BaseEntity
     {
-        public decimal CapitalInitial { get; set; }
+        public decimal CurrentAmount { get; set; }
 
         public DateTime? DatePayment { get; set; }
 
@@ -14,8 +14,6 @@ namespace h3_18_proptechback.Domain
         public bool IsPayed { get; set; }
 
         public decimal TotalProfit { get; set; }
-
-        public decimal? ReturnInvestment { get; set; }
 
         public ICollection<InvestmentFee> InvestmentFees { get; set; }
 

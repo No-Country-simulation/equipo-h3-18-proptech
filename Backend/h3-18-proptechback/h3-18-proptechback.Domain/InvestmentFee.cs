@@ -15,8 +15,6 @@ namespace h3_18_proptechback.Domain
 
         public DateTime DateCloseShare { get; set; }
 
-        public int Month { get; set; }
-
         public decimal Profit { get; set; }
 
     }

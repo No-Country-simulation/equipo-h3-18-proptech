@@ -25,34 +25,28 @@ namespace h3_18_proptechback.Application.Features.Investmant.Query.GetInvestmant
             _investmant = investmant;
         }
 
-        public async Task<List<GetInvestmantUserQueryResponse>> GetInvestmantByUserAsyc(GetInvestmantUserQueryRequest queryRequest)
+        public async Task<GetInvestmantUserQueryResponse?> HandleAsync(string email)
         {
-            var user = await _userIdentityService.GetIdentityUser(queryRequest.email);
+            var user = await _userIdentityService.GetIdentityUser(email);
             var dataUser = await _dataUserRepository.GetUserByGuidIdentity(user.Id);
 
             if (dataUser is null || dataUser.StateValidation is not Domain.Common.StateRequest.Valid)
                 throw new ArgumentException("El usuario no tiene identidad validada.");
 
-            var investmentalbyuser = _investmant.GetAll();
-            var res = investmentalbyuser.Where(x => x.Createby == user.Id).ToList();
+            var activeInvestment = await _investmant.InvestmentListActiveByUserId(user.Id);
 
-            if (res.Count == 0)
-                return new List<GetInvestmantUserQueryResponse>();
-
-            var responseList = new List<GetInvestmantUserQueryResponse>();
-
-            foreach (var item in res)
+            if (activeInvestment is null)
+                return null;
+            var historyOrder = activeInvestment.InvestmentFees.OrderBy(i => i.CreatedDate);
+            List<GetItemUserQueryResponse> list = new List<GetItemUserQueryResponse>();
+            foreach(var monthInvest in historyOrder)
             {
-                var response = new GetInvestmantUserQueryResponse
-                {
-                    id = item.ID,
-                    
-                };
-
-                responseList.Add(response);
+                list.Add(new GetItemUserQueryResponse(monthInvest.CreatedDate!.Value.Year,
+                    monthInvest.CreatedDate.Value.Month, monthInvest.Profit));
             }
+            var response = new GetInvestmantUserQueryResponse(activeInvestment.CurrentAmount, activeInvestment.CreatedDate!.Value, activeInvestment.TotalProfit, list);
 
-            return responseList;
+            return response;
         }
     }
 }
