@@ -1,128 +1,134 @@
 import { useEffect, useState } from "react";
 import { BigInfoCard, Button, InfoCard } from "../../../components/common";
 import { CalendarIcon, CashIcon, GraphIcon } from "../../../components/icons";
-import { InvestModal, RetireMoneyModal } from "../../../components/modal";
+import { InvestModal } from "../../../components/modal";
 import { InvestorGraph } from "./components";
+import {
+  addInversion,
+  extractInversion,
+  getMyInversion,
+} from "../../../services";
+import { toast } from "sonner";
+import LoadingPage from "../../LoadingPage";
 
 export interface InvestInfo {
-  montoActual: number;
-  gananciaTotal: number;
-  mesesInv: number;
-  year: number;
-  gananciasPorMes: { mes: number; monto: number }[];
-  startYear: number;
+  currentAmount: number;
+  initDate: Date;
+  profit: number;
+  history: Historial[];
 }
 
-const fakeData = [
-  {
-    montoActual: 10000,
-    gananciaTotal: 1300,
-    mesesInv: 13,
-    year: 2023,
-    startYear: 2023,
-    gananciasPorMes: [
-      {
-        mes: 11,
-        monto: 100,
-      },
-    ],
-  },
-  {
-    montoActual: 10000,
-    gananciaTotal: 1300,
-    mesesInv: 13,
-    year: 2024,
-    startYear: 2023,
-    gananciasPorMes: [
-      {
-        mes: 0,
-        monto: 200,
-      },
-      {
-        mes: 1,
-        monto: 300,
-      },
-      {
-        mes: 2,
-        monto: 400,
-      },
-      {
-        mes: 3,
-        monto: 500,
-      },
-      {
-        mes: 4,
-        monto: 600,
-      },
-      {
-        mes: 5,
-        monto: 700,
-      },
-      {
-        mes: 6,
-        monto: 800,
-      },
-      {
-        mes: 7,
-        monto: 900,
-      },
-      {
-        mes: 8,
-        monto: 1000,
-      },
-      {
-        mes: 9,
-        monto: 1100,
-      },
-      {
-        mes: 10,
-        monto: 1200,
-      },
-      {
-        mes: 11,
-        monto: 1300,
-      },
-    ],
-  },
-];
+interface Historial {
+  year: number;
+  month: number;
+  profit: number;
+}
+
+export interface AddInversion {
+  amount: number;
+}
 
 export function DashboardInvestorPage() {
+  const [loading, setLoading] = useState(true);
+  const [loadingGraph, setLoadingGraph] = useState(false);
   const actualYear = new Date().getFullYear();
-  const [investInfo, setInvestInfo] = useState<InvestInfo | undefined>({
-    montoActual: 0,
-    gananciasPorMes: [{ monto: 0, mes: 0 }],
-    year: 2000,
-    gananciaTotal: 0,
-    mesesInv: 0,
-    startYear: 2000,
-  });
+  const [investInfo, setInvestInfo] = useState<InvestInfo | undefined>(
+    undefined
+  );
+  const [investHistory, setInvestHistory] = useState<Historial[] | undefined>(
+    undefined
+  );
 
   const [selectedYear, setSelectedYear] = useState(actualYear);
   const [openInvestModal, setOpenInvestModal] = useState(false);
+  const [loadingInvest, setLoadingInvest] = useState(false);
   const [openRetireModal, setOpenRetireModal] = useState(false);
 
   useEffect(() => {
-    const response = fakeData.find((data) => data.year === actualYear);
-    if (response) {
-      setInvestInfo(response);
-    }
+    getInversion();
   }, []);
 
   useEffect(() => {
-    const response = fakeData.find((data) => data.year === selectedYear);
-    if (response) {
-      setInvestInfo(
-        (state) =>
-          state && {
-            ...state,
-            gananciasPorMes: response.gananciasPorMes,
-            year: response.year,
-          }
-      );
-    } else {
-      setInvestInfo((state) => state && { ...state, gananciasPorMes: [] });
-    }
+    getYearHistory(selectedYear);
   }, [selectedYear]);
+
+  const getInversion = () => {
+    window.scrollTo(0, 0);
+    setLoading(true);
+    getMyInversion()
+      .then((response) => {
+        if (response && response?.status < 300) {
+          if (response.status === 204) {
+            setInvestInfo(undefined);
+          } else {
+            let data = response.data as InvestInfo;
+            data.initDate = new Date(data.initDate);
+            setInvestInfo(data);
+            setInvestHistory(
+              data.history.filter((el) => el.year === actualYear)
+            );
+          }
+        } else {
+          toast.error("Ha ocurrido un error al obtener los datos");
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const getYearHistory = (year: number) => {
+    setLoadingGraph(true);
+    getMyInversion()
+      .then((response) => {
+        if (response && response?.status < 300) {
+          if (response.status === 204) {
+            setInvestHistory(undefined);
+          } else {
+            let data = response.data as InvestInfo;
+            setInvestHistory(data.history.filter((el) => el.year === year));
+          }
+        } else {
+          toast.error("Ha ocurrido un error al obtener los datos");
+          setInvestHistory(undefined);
+        }
+      })
+      .finally(() => setLoadingGraph(false));
+  };
+
+  const setInversion = (inv: AddInversion) => {
+    setLoadingInvest(true);
+    addInversion(inv)
+      .then((response) => {
+        if (response && response?.status < 300) {
+          toast.success("Inversión realizada con éxito");
+          getInversion();
+        } else {
+          toast.error("Ha ocurrido un error al realizar la inversión");
+        }
+      })
+      .finally(() => {
+        setLoadingInvest(false);
+        setOpenInvestModal(false);
+      });
+  };
+
+  const setExtraction = (inv: AddInversion) => {
+    setLoadingInvest(true);
+    extractInversion(inv)
+      .then((response) => {
+        if (response && response?.status < 300) {
+          toast.success("Extracción realizada con éxito");
+          getInversion();
+        } else {
+          toast.error("Ha ocurrido un error al realizar la extracción");
+        }
+      })
+      .finally(() => {
+        setLoadingInvest(false);
+        setOpenRetireModal(false);
+      });
+  };
 
   return (
     <>
@@ -130,31 +136,37 @@ export function DashboardInvestorPage() {
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center md:max-w-[1050px] my-8">
           <h2 className="text-headline-small-medium">Resumen Financiero</h2>
         </div>
-        {investInfo && investInfo.montoActual ? (
+        {loading ? (
+          <LoadingPage background="transparent" size="section" />
+        ) : investInfo ? (
           <>
             <div className="flex flex-col md:flex-row justify-between gap-3 pb-6 md:pb-16">
               <InfoCard
                 title="Monto actual"
                 icon={<CashIcon />}
-                value={`$${investInfo.montoActual}`}
+                value={`$${investInfo.currentAmount}`}
               />
               <InfoCard
                 title="Ganancia total"
                 icon={<GraphIcon />}
-                value={`$${investInfo.gananciaTotal}`}
+                value={`$${investInfo.profit}`}
               />
               <InfoCard
                 title="Meses invirtiendo"
                 icon={<CalendarIcon />}
-                value={investInfo.mesesInv.toString()}
+                value={investInfo.history.length.toString()}
               />
             </div>
-            <InvestorGraph
-              year={selectedYear}
-              setYear={setSelectedYear}
-              gananciasPorMes={investInfo.gananciasPorMes}
-              startYear={investInfo.startYear}
-            />
+            {loadingGraph ? (
+              <LoadingPage background="transparent" size="section" classname="min-h-[364px]" />
+            ) : (
+              <InvestorGraph
+                year={selectedYear}
+                setYear={setSelectedYear}
+                profitPerMonth={investHistory ?? []}
+                startYear={investInfo.initDate.getFullYear()}
+              />
+            )}
             <div className="flex flex-col md:flex-row my-20 gap-6 justify-start md:max-w-[1050px] ">
               <Button
                 color="primary-orange"
@@ -189,14 +201,18 @@ export function DashboardInvestorPage() {
       </div>
       <InvestModal
         openModal={openInvestModal}
-        setInvestInfo={setInvestInfo}
+        setAction={setInversion}
         setOpenModal={setOpenInvestModal}
+        loading={loadingInvest}
+        type="invert"
       />
-      <RetireMoneyModal
+      <InvestModal
         openModal={openRetireModal}
-        setInvestInfo={setInvestInfo}
+        setAction={setExtraction}
         setOpenModal={setOpenRetireModal}
-        montoAcumulado={investInfo?.montoActual ?? 0}
+        loading={loadingInvest}
+        maxAmount={investInfo?.currentAmount ?? 0}
+        type="extract"
       />
     </>
   );
