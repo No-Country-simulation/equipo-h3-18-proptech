@@ -37,7 +37,7 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
           {data.map(
             ({ currentQuota, stateLoan, quotaValue, idLoan }, index) => (
               <tr
-                className={`${data.length > 1 && selected === index ? "border-2 border-secondary" : "border-b border-[#ccc]"}  h-[70px] hover:bg-tertiary transition cursor-pointer`}
+                className={`${data.length > 1 && selected === index ? "border-2 border-secondary hover:bg-tertiary transition cursor-pointer" : "border-b border-[#ccc]"} h-[70px] `}
                 key={idLoan}
                 onClick={() => select(index)}
               >

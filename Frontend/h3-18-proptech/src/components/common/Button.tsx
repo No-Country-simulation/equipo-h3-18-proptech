@@ -54,7 +54,7 @@ export function Button({
       className={`${classname} ${sizeStyle[size]} ${colorStyle[color]} text-center rounded-lg transition-colors drop-shadow-lg shadow-md text-title-medium-semi-bold flex items-center justify-center`}
       type={type}
       onClick={onClick}
-      disabled={color === "disabled"}
+      disabled={color === "disabled" || isLoading}
     >
       <div style={{ display: "grid", gridTemplateAreas: "stack", alignItems:"center" }}>
         <span
