@@ -1,12 +1,67 @@
-import { CustomTable, DataTable } from "../components";
+import { useEffect, useState } from "react";
+import { CustomTable, DataTable, HeaderWithPagination } from "../components";
+import LoadingPage from "../../../LoadingPage";
+import { getAllInversions } from "../../../../services";
+import { toast } from "sonner";
+
+interface InvestorData {
+  fullName: string;
+  investAmount: number;
+  activeMonths: number;
+  dni: string;
+}
 
 export function InvestorStatePages() {
+  const [loading, setLoading] = useState(true);
+  const [investors, setInvestors] = useState<DataTable[]>([]);
+  const [maxPages, setmaxPages] = useState(1);
+  const rowsPerPage = 6;
+
+  useEffect(() => {
+    getWithPagination(1);
+  }, []);
+
+  const getWithPagination = (page: number, search?: string) => {
+    window.scrollTo(0, 0);
+    setLoading(true);
+    getAllInversions()
+      .then((response) => {
+        if (response && response?.status < 300) {
+          let resp = response.data as InvestorData[];
+          if (search) {
+            resp = resp.filter((row) =>
+              row.fullName.toLowerCase().includes(search.toLowerCase())
+            );
+          }
+          setInvestors(
+            resp.slice((page - 1) * rowsPerPage, page * rowsPerPage)
+          );
+          setmaxPages(
+            resp.length < 1
+              ? 1
+              : resp.length % rowsPerPage
+                ? Math.floor(resp.length / rowsPerPage + 1)
+                : Math.floor(resp.length / rowsPerPage)
+          );
+        } else {
+          toast.error("Ha ocurrido un error al obtener los datos");
+        }
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <>
-      <h3 className="text-headline-small-medium my-6 w-[90%]  max-w-[700px]">
-        Estado de inversiones
-      </h3>
-      <CustomTable data={dataValidate} headers={validateHeader} />
+      <HeaderWithPagination
+        title="Estado de inversiones"
+        maxPages={maxPages}
+        action={getWithPagination}
+      />
+      {loading ? (
+        <LoadingPage background="transparent" size="section" />
+      ) : (
+        <CustomTable data={investors} headers={validateHeader} />
+      )}
     </>
   );
 }
@@ -14,24 +69,3 @@ export function InvestorStatePages() {
 export default InvestorStatePages;
 
 const validateHeader = ["Nombre completo", "Monto invertido", "Meses activos"];
-
-const dataValidate: DataTable[] = [
-  {
-    investorid: "4d010f99-1d0e-4484-8949-b5f48fe27090",
-    fullName: "juan Perez",
-    amount: 1200,
-    activeMonths: 4,
-  },
-  {
-    investorid: "a143cc03-5dba-4965-abd6-e4e21e3e6b7b",
-    fullName: "Carlos gomez",
-    amount: 10000,
-    activeMonths: 8,
-  },
-  {
-    investorid: "a143cc03-5dba-4965-abd6-e4e21e3e6b7b",
-    fullName: "Gastón Gonzalez",
-    amount: 3570.541,
-    activeMonths: 14,
-  },
-];

@@ -83,9 +83,7 @@ export function ValidateUserPage() {
         if (response && response?.status < 300) {
           setIsApproving(false);
           toast.success("Usuario validado");
-          setTimeout(() => {
-            goBack();
-          }, 2000);
+          goBack();
         } else {
           toast.error("Ha ocurrido un error al validar");
           setIsApproving(false);
@@ -113,39 +111,39 @@ export function ValidateUserPage() {
   };
 
   return (
-    <div className="bg-[#F8F8F8] min-h-screen">
-      <div className="w-[90%] max-w-[1100px] mx-auto my-6">
-        <div className="flex">
-          <ArrowBackIcon onClick={goBack} className="cursor-pointer" />
-          <h4 className="text-headline-small-medium mb-6 ml-6">
+    <div className="bg-background min-h-screen">
+      <div className="w-full max-w-[1000px] mx-auto my-6 px-4">
+        <header className="flex gap-2 md:gap-4 items-center mb-4 md:mb-6">
+          <ArrowBackIcon onClick={goBack} className="cursor-pointer h-12 w-12" />
+          <h4 className="text-headline-small-medium ">
             Validar usuario
           </h4>
-        </div>
+        </header>
         {loading ? (
-          <LoadingPage background="contrast" size="page" />
+          <LoadingPage background="transparent" size="page" />
         ) : (
           <>
-            <div className="w-[890px] px-6 py-6 text-base-color bg-contrast drop-shadow-md shadow-md shadow-[#00000025] mx-auto">
-              <h4 className="text-title-large-regular m-6">
+            <div className="max-w-[890px] px-6 py-6 text-base-color bg-contrast drop-shadow-md shadow-md shadow-[#00000025] mx-auto">
+              <h4 className="text-title-large-regular sm:m-6">
                 Información del usuario
               </h4>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="Nombre">{name}</InputText>
                 <InputText title="Apellido">{lastName}</InputText>
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="DNI">{dni}</InputText>
                 <InputText title="CUIT">{cuit}</InputText>
               </div>
-              <div className="flex gap-4 my-4">
+              <div className="flex flex-col md:flex-row gap-4 my-4">
                 <InputText title="Email">{email}</InputText>
                 <InputText title="Teléfono">{phoneNumber}</InputText>
               </div>
-              <div className="flex gap-4 my-8">
+              <div className="flex flex-col md:flex-row gap-y-8 gap-x-4 my-8">
                 <InputImage title={"Frente del DNI"} file={frontDNI} />
                 <InputImage title={"Dorso del DNI"} file={backDNI} />
               </div>
-              <div className="flex gap-4 my-8">
+              <div className="flex flex-col md:flex-row gap-y-8 gap-x-4 mt-8 md:my-8">
                 <InputImage title={"Foto del rostro"} file={photo} />
                 <div className="w-full"></div>
               </div>

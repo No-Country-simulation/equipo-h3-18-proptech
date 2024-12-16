@@ -30,7 +30,7 @@ export const InputImage = ({ title, file }: ImageProps) => {
   return (
     <>
       <div className="flex gap-4 w-full">
-        <div className="flex-1 py-2 px-4 shadow-md shadow-tertiary border-[3px] rounded-lg border-primary text-ellipsis max-w-[50vw] whitespace-nowrap overflow-hidden md:w-full">
+        <div className="flex-1 py-2 px-4 shadow-md shadow-tertiary border-[3px] rounded-lg border-primary text-ellipsis md:max-w-[50vw] whitespace-nowrap overflow-hidden w-full">
           {title}
         </div>
         <button

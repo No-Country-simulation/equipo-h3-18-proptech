@@ -11,7 +11,7 @@ interface Props {
   arrowClassname?: string;
 }
 
-function SelectButton({ options, value, setValue, selectClassname, arrowClassname }: Props) {
+export function SelectButton({ options, value, setValue, selectClassname, arrowClassname }: Props) {
   return (
     <article className="relative flex items-center cursor-pointer">
       <select

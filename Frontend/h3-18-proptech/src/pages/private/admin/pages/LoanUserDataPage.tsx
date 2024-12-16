@@ -78,11 +78,11 @@ export function LoanUserDataPage() {
   return loading ? (
     <LoadingPage background="transparent" size="page" />
   ) : (
-    <div className="bg-[#F8F8F8]">
-      <div className="w-[90%] max-w-[1100px] mx-auto my-6">
-        <div className="flex">
-          <ArrowBackIcon onClick={goBack} className=" cursor-pointer" />
-          <h4 className="text-headline-small-medium mb-6 ml-6">
+    <div className="bg-background">
+      <div className="w-full max-w-[1100px] mx-auto my-6 px-4">
+        <div className="flex gap-4 items-center mb-6">
+          <ArrowBackIcon onClick={goBack} className="cursor-pointer" />
+          <h4 className="text-headline-small-medium">
             Datos de usuario
           </h4>
         </div>
@@ -93,7 +93,7 @@ export function LoanUserDataPage() {
             color="primary-blue"
             onClick={() => setOpen(!open)}
           >
-            Ver garantes
+            {open ? "Ocultar garantes" : "Mostrar garantes"}
           </Button>
         </div>
         {open && (
