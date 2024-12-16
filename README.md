@@ -24,7 +24,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 <p>✅ <strong>Chatbot de Atención al Cliente:</strong> Chatbot que responde a preguntas frecuentes sobre la plataforma.</p>
 
 ---
-## Instrucciones de Configuración e Instalación Local
+## 📝 Instrucciones de Configuración e Instalación Local
 
 ### Software requerido:
 - **Node.js** (versión 16 o superior)
@@ -35,6 +35,8 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 - **SQL Server Management Studio**
 - **PostgreSQL**
 ### Pasos para instalar el proyecto:
+
+### Configuración del Frontend
 
 1. **Clonar el repositorio**:
 
