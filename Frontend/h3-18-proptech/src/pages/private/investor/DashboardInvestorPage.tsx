@@ -158,7 +158,7 @@ export function DashboardInvestorPage() {
               />
             </div>
             {loadingGraph ? (
-              <LoadingPage background="transparent" size="section" />
+              <LoadingPage background="transparent" size="section" classname="min-h-[364px]" />
             ) : (
               <InvestorGraph
                 year={selectedYear}
