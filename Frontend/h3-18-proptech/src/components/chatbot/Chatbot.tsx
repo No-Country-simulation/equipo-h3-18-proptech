@@ -67,7 +67,7 @@ export function Chatbot() {
             className="overflow-y-scroll h-full ps-2 pe-4 pb-4 mb-2 justify-between transition-all"
           >
             <h4 className="text-2xl text-center mt-3 font-semibold">
-              Bienvenido a Financia.ai
+              Bienvenido a Financia.al
             </h4>
             {messages.map(({ text, owner }, index) => (
               <ChatbotMessageBox

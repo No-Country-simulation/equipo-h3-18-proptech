@@ -83,9 +83,7 @@ export function ValidateUserPage() {
         if (response && response?.status < 300) {
           setIsApproving(false);
           toast.success("Usuario validado");
-          setTimeout(() => {
-            goBack();
-          }, 2000);
+          goBack();
         } else {
           toast.error("Ha ocurrido un error al validar");
           setIsApproving(false);

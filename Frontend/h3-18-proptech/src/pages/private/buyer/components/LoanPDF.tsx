@@ -1,4 +1,4 @@
-import { DetailedLoanInfo, Quota } from "../BuyerSharesPage";
+import { Quota } from "../BuyerSharesPage";
 import {
   Page,
   Text,
@@ -10,14 +10,24 @@ import {
 import Logo from "../../../../assets/logo.png";
 
 interface PDFProps {
-  detailedLoanInfo: DetailedLoanInfo;
+  detailedLoanInfo: {
+    stateQuota: null | 0 | 1 | 2;
+    loanId: string;
+    loanDate: Date;
+    quotas: Quota[];
+    name: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+  };
+  pagedQuotas: Partial<Record<number, Quota[]>>;
 }
 
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     backgroundColor: "#fff",
-    padding: "20px",
+    padding: "18px",
     fontFamily: "Helvetica",
   },
   title: {
@@ -31,7 +41,6 @@ const styles = StyleSheet.create({
   tableContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 24,
     marginHorizontal: "12px",
   },
   tableHeaderContainer: {
@@ -113,107 +122,130 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-export const LoanPDF = ({ detailedLoanInfo }: PDFProps) => (
+export const LoanPDF = ({ detailedLoanInfo, pagedQuotas }: PDFProps) => (
   <Document>
-    <Page size="A4" style={styles.page}>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginRight: "12px",
-        }}
-      >
+    {Object.keys(pagedQuotas).map((key) => (
+      <Page size="A4" style={styles.page}>
         <View
           style={{
             display: "flex",
             flexDirection: "row",
+            justifyContent: "space-between",
             alignItems: "center",
-            gap: "20px",
+            marginRight: "12px",
           }}
         >
-          <Image src={Logo} style={{ width: 84, height: 80 }}></Image>
-          <Text style={styles.title}>Reporte de Préstamo</Text>
-        </View>
-        <Text style={styles.documentDate}>
-          {new Date().toLocaleDateString()}
-        </Text>
-      </View>
-
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "4px",
-          marginTop: "10px",
-          paddingTop: "10px",
-          marginLeft: "12px",
-          marginRight: "12px",
-          borderTop: "1px solid black",
-        }}
-      >
-        <View
-          style={{
-            fontSize: "12px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 4,
-          }}
-        >
-          <Text style={{ fontFamily: "Helvetica-Bold" }}>Nombre y Apellido:</Text>
-          <Text
-            style={{ fontFamily: "Helvetica" }}
-          >{`Abel Montes Vega`}</Text>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
+            <Image src={Logo} style={{ width: 64, height: 60 }}></Image>
+            <Text style={styles.title}>Reporte de Préstamo</Text>
+          </View>
+          <Text style={styles.documentDate}>
+            {new Date().toLocaleDateString()}
+          </Text>
         </View>
 
         <View
           style={{
-            fontSize: "12px",
             display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 4,
+            flexDirection: "column",
+            gap: "4px",
+            marginTop: "12px",
+            paddingTop: "12px",
+            marginBottom: "20px",
+            marginLeft: "12px",
+            marginRight: "12px",
+            borderTop: "1px solid black",
           }}
         >
-          <Text style={{ fontFamily: "Helvetica-Bold" }}>Correo Electrónico:</Text>
-          <Text
-            style={{ fontFamily: "Helvetica" }}
-          >{`abel@backend.com`}</Text>
+          <View
+            style={{
+              fontSize: "12px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>
+              Nombre y Apellido:
+            </Text>
+            <Text
+              style={{ fontFamily: "Helvetica" }}
+            >{`${detailedLoanInfo.name} ${detailedLoanInfo.lastName}`}</Text>
+          </View>
+
+          <View
+            style={{
+              fontSize: "12px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>
+              Correo Electrónico:
+            </Text>
+            <Text style={{ fontFamily: "Helvetica" }}>
+              {detailedLoanInfo.email}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              fontSize: "12px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Teléfono:</Text>
+            <Text style={{ fontFamily: "Helvetica" }}>
+              {detailedLoanInfo.phoneNumber}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              fontSize: "12px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 4,
+            }}
+          >
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>
+              ID del préstamo:
+            </Text>
+            <Text
+              style={{ fontFamily: "Helvetica" }}
+            >{`${detailedLoanInfo.loanId}`}</Text>
+          </View>
         </View>
 
-        <View
+        <Table items={pagedQuotas[Number(key)] ?? []} />
+        <Text
+          fixed
           style={{
-            fontSize: "12px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 4,
+            textAlign: "center",
+            position: "absolute",
+            bottom: 12,
+            left: 0,
+            right: 0,
+            fontSize: 12,
+            color: "grey"
           }}
-        >
-          <Text style={{ fontFamily: "Helvetica-Bold" }}>Teléfono:</Text>
-          <Text style={{ fontFamily: "Helvetica" }}>{`+54123456789`}</Text>
-        </View>
-
-        <View
-          style={{
-            fontSize: "12px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 4,
-          }}
-        >
-          <Text style={{ fontFamily: "Helvetica-Bold" }}>ID del préstamo:</Text>
-          <Text
-            style={{ fontFamily: "Helvetica" }}
-          >{`${detailedLoanInfo.loanId}`}</Text>
-        </View>
-      </View>
-
-      <Table items={detailedLoanInfo.quotas} />
-    </Page>
+        >{`${key} / 4`}</Text>
+      </Page>
+    ))}
   </Document>
 );
 
@@ -250,12 +282,12 @@ const TableItem = ({ items }: TableItemProps) => {
     2: "Pagada",
   };
   const tableItems = items.map(
-    ({ quotaNumber, expiredDate, stateQuota, amount, quotaId }) => {
+    ({ quotaNumber, expirationDate, stateQuota, amount, quotaId }) => {
       return (
         <View key={quotaId} style={styles.tableItemContainer}>
           <Text style={styles.tableItemQuotes}>{quotaNumber}</Text>
           <Text style={styles.tableItemDate}>
-            {expiredDate.toLocaleDateString()}
+            {expirationDate?.toLocaleDateString()}
           </Text>
           <Text style={styles.tableItemStatus}>
             {statuses[stateQuota as 0 | 1 | 2]}
