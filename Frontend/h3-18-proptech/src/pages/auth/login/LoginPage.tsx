@@ -124,9 +124,9 @@ export const LoginPage = () => {
         >
           Iniciar sesión
         </Button>
-        <span className="text-title-small-bold mt-2 hover:text-secondary transition-colors">
+        {/* <span className="text-title-small-bold mt-2 hover:text-secondary transition-colors">
           ¿Olvidaste la contraseña?
-        </span>
+        </span> */}
         <footer className="flex-col flex md:hidden">
           <span className="text-title-large-semi-bold mb-8 text-center md:text-start mt-6 md:mt-0">
             ¿Aún no tienes cuenta? Comienza tu registro aquí.

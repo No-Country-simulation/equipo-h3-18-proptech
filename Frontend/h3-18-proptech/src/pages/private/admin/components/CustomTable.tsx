@@ -13,6 +13,7 @@ export interface DataTable {
   stateLoan?: number;
   lateQuotas?: number;
   investorid?: string;
+  investAmount?: number;
 }
 
 const stateLoanType = ["Atrasado", "Pendiente", "Al día", "Completado"];
@@ -50,6 +51,7 @@ export function CustomTable({ data, headers }: Props) {
               financingMount,
               loanId,
               investorid,
+              investAmount,
             }) => (
               <tr
                 className="border-b-2 border-primary h-[76px]"
@@ -66,6 +68,9 @@ export function CustomTable({ data, headers }: Props) {
                 )}
                 {lateQuotas !== undefined && <td>{lateQuotas}</td>}
                 {amount !== undefined && <td>${amount.toFixed(2)}</td>}
+                {investAmount !== undefined && (
+                  <td>${investAmount.toFixed(2)}</td>
+                )}
                 {financingMount !== undefined && <td>${financingMount}</td>}
                 {activeMonths !== undefined && <td>{activeMonths}</td>}
                 <td
