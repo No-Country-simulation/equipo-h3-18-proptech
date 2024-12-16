@@ -49,14 +49,14 @@ export const DashboardBuyerTable = ({ data, selected, select }: Props) => {
                 <td className="hidden md:table-cell">{currentQuota}</td>
                 <td>${quotaValue.toFixed(2)}</td>
                 <td
-                  className="hover:bg-contrast transition"
+                  className="hover:bg-tertiary cursor-pointer duration-300 transition"
                   onClick={() => navigate(`shares/${idLoan}`)}
                 >
                   Ver
                 </td>
                 <td className="flex justify-center items-center h-[70px]">
                   <DownloadPDFButton
-                    classname="hover:bg-contrast"
+                    classname="hover:bg-tertiary cursor-pointer duration-300"
                     loanId={idLoan}
                   />
                 </td>
