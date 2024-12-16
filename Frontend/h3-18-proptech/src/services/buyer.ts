@@ -48,3 +48,19 @@ export const getMyLoanDetails = async (
     }
   }
 };
+
+export const getMyLoanDetailsAtPDF = async (id: string) => {
+  try {
+    const response = await backend.get(`/Loan/loanPDF`, {
+      headers: authHeaders(),
+      params: {
+        loanId: id,
+      },
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};
