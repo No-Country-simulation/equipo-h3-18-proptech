@@ -161,3 +161,16 @@ export const getDetailsLoan = async (
     }
   }
 };
+
+export const getAllInversions = async () => {
+  try {
+    const response = await backend.get("/Investmant/allInvestment", {
+      headers: authHeaders(),
+    });
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error.response;
+    }
+  }
+};

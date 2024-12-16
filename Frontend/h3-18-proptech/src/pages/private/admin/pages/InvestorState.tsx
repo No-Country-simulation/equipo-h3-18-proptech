@@ -4,8 +4,20 @@ import LoadingPage from "../../../LoadingPage";
 import { DataUser, UserData } from "../components";
 import { useTransitionNavigation } from "../../../../hooks";
 import { useEffect, useState } from "react";
-import { getDetailsLoanRequests } from "../../../../services/admin";
+import { getUserToValidate } from "../../../../services/admin";
 import { toast } from "sonner";
+
+interface ResponseData {
+  name: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  dni: string;
+  cuit: string;
+  photo: string;
+  frontDNI: string;
+  backDNI: string;
+}
 
 export function InvestorState() {
   let { id } = useParams();
@@ -19,11 +31,9 @@ export function InvestorState() {
     cuit: "",
     email: "",
     phoneNumber: "",
-    creditScore: 0,
-    salaryURL: "",
-    salary2URL: "",
-    salary3URL: "",
-    proofOfAddressURL: "",
+    selfieURL: "",
+    frontDNIURL: "",
+    backDNIURL: "",
   });
 
   const goBack = () => {
@@ -34,18 +44,18 @@ export function InvestorState() {
     window.scrollTo(0, 0);
     setLoading(true);
     if (id) {
-      getDetailsLoanRequests(id)
+      getUserToValidate(id)
         .then((response) => {
           if (response && response?.status < 300) {
-            const {
-              lotCost,
-              downPayment,
-              quotasCount,
-              guarantor1,
-              guarantor2,
-              ...userInfo
-            } = response.data;
-            setLoanUserInfo(userInfo);
+            let data = response.data as ResponseData;
+            const { photo, frontDNI, backDNI, ...rest } = data;
+            let tableData: UserData = {
+              selfieURL: photo,
+              frontDNIURL: frontDNI,
+              backDNIURL: backDNI,
+              ...rest,
+            };
+            setLoanUserInfo(tableData);
           } else {
             toast.error("Ha ocurrido un error al obtener los datos");
           }
@@ -60,10 +70,11 @@ export function InvestorState() {
     <div className="bg-background">
       <div className="w-full max-w-[1000px] mx-auto my-6 px-4">
         <header className="flex gap-2 md:gap-4 items-center mb-4 md:mb-6">
-          <ArrowBackIcon onClick={goBack} className=" cursor-pointer h-12 w-12" />
-          <h4 className="text-headline-small-medium">
-            Datos del inversor
-          </h4>
+          <ArrowBackIcon
+            onClick={goBack}
+            className=" cursor-pointer h-12 w-12"
+          />
+          <h4 className="text-headline-small-medium">Datos del inversor</h4>
         </header>
         <DataUser data={loanUserInfo} type="inversor" />
       </div>
