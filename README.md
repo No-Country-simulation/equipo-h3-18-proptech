@@ -36,19 +36,23 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 - **PostgreSQL**
 ### Pasos para instalar el proyecto:
 
-### Configuración del Frontend
-
 1. **Clonar el repositorio**:
+    ```
+    git clone https://github.com/No-Country-simulation/equipo-h3-18-proptech.git
+    ```
 
-2. **Configurar el Frontend**:
-   - Entrar en la carpeta `Frontend` y luego en `h3-18-proptech` para instalar las dependencias.
+2. **Configurar el Frontend**: Entrar en la carpeta `equipo-h3-18-proptech\Frontend\h3-18-proptech` e instalar las dependencias
+    ```
+    cd Frontend
+    cd h3-18-proptech
+    npm install
+    ```
 
-3. **Crear el archivo `.env`**:
-   - Dentro de la carpeta `h3-18-proptech`, crear el archivo `.env` y agregar las siguientes variables de entorno:
-     ```env
-     VITE_BACKEND_URL=<URL donde se encuentra alojado el Backend>
-     VITE_MERCADO_PAGO_KEY=<Llave para desarrolladores de Mercado Pago>
-     ```
+3. **Crear el archivo `.env`**: Dentro de la carpeta `h3-18-proptech`, crear el archivo `.env` y agregar las siguientes variables de entorno:
+   ```env
+   VITE_BACKEND_URL=<URL donde se encuentra alojado el Backend>
+   VITE_MERCADO_PAGO_KEY=<Llave para desarrolladores de Mercado Pago>
+   ```
 
 4. **Ejecutar el servidor de desarrollo Frontend**:
 
