@@ -328,6 +328,7 @@ La plataforma **Financia.al** utiliza diversas herramientas y servicios externos
 ## 🔗 Enlaces Importantes
 
 * 🚀 [Front-End Deploy](https://equipo-h3-18-proptech-desarrollo.onrender.com/)
-* 📜 [Back-End Swagger Documentation](https://www.equipo-h3-18-proptechbackend.somee.com/swagger/index.html)
+* 📜 [Back-End Swagger Documentación](https://www.equipo-h3-18-proptechbackend.somee.com/swagger/index.html)
 * 🖌️ [Figma Design](https://www.figma.com/design/ELq2yYVZYHbDrE9ViAVQ8X/equipo-h3-18-proptech?node-id=149-17&p=f&t=SWJbM5Go1VvekH60-0)
-
+* 📖 [Documentación General](https://docs.google.com/document/d/1vFJCID6pkvEObkK3lO0Ay3XRHACDdmzzjS50e7YrSXo/edit?tab=t.0)
+* 🎥 [Video de Presentación](https://drive.google.com/file/d/17j7K4SnFwlRBSjHYhOqrX8Cciz-6Rvvt/view?usp=drive_link)
