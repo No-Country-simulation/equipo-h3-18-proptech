@@ -41,22 +41,25 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
     git clone https://github.com/No-Country-simulation/equipo-h3-18-proptech.git
     ```
 
-2. **Configurar el Frontend**: Entrar en la carpeta `equipo-h3-18-proptech\Frontend\h3-18-proptech` e instalar las dependencias
+2. **Para configurar el Frontend, es necesario entrar en la carpeta Frontend y luego en h3-18-proptech para poder instalar las dependencias**:
     ```
-    cd Frontend
-    cd h3-18-proptech
-    npm install
+    \equipo-h3-18-proptech>cd Frontend
+    \equipo-h3-18-proptech\Frontend> cd h3-18-proptech
+    \equipo-h3-18-proptech\Frontend\h3-18-proptech> npm install
     ```
 
-3. **Crear el archivo `.env`**: Dentro de la carpeta `h3-18-proptech`, crear el archivo `.env` y agregar las siguientes variables de entorno:
+3. **Dentro de la carpeta `h3-18-proptech`, crear el archivo `.env` y agregar las siguientes variables de entorno**:
    ```env
    VITE_BACKEND_URL=<URL donde se encuentra alojado el Backend>
    VITE_MERCADO_PAGO_KEY=<Llave para desarrolladores de Mercado Pago>
    ```
 
 4. **Ejecutar el servidor de desarrollo Frontend**:
+   ```env
+   \equipo-h3-18-proptech\Frontend\h3-18-proptech> npm run dev
+   ```
 
-5. **Visitar la URL**: [http://localhost:5173/](http://localhost:5173/)
+6. **Visitar la URL**: [http://localhost:5173/](http://localhost:5173/)
 
 ### Configuración del Backend
 
