@@ -282,7 +282,7 @@ const TableItem = ({ items }: TableItemProps) => {
     2: "Pagada",
   };
   const tableItems = items.map(
-    ({ quotaNumber, expirationDate, stateQuota, amount, quotaId }) => {
+    ({ expirationDate, quotaNumber, stateQuota, amount, quotaId }) => {
       return (
         <View key={quotaId} style={styles.tableItemContainer}>
           <Text style={styles.tableItemQuotes}>{quotaNumber}</Text>
