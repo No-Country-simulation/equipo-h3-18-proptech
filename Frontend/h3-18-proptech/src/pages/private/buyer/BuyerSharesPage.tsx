@@ -23,7 +23,6 @@ export interface Quota {
   stateQuota: number;
   amount: number;
   preferenceID: string;
-  expirationDate?: Date;
 }
 
 export function BuyerSharesPage() {

@@ -12,17 +12,26 @@ interface Props {
   classname?: string;
 }
 
+export interface PDFQuota {
+  quotaId: string;
+  quotaNumber: string;
+  expirationDate: Date;
+  stateQuota: number;
+  amount: number;
+  preferenceID: string;
+}
+
 export function DownloadPDFButton({ loanId, classname }: Props) {
   const [loading, setLoading] = useState(false);
   const handleDownload = async () => {
     setLoading(true);
     const response = await getMyLoanDetailsAtPDF(loanId);
     if (response && response.data) {
-      response.data.quotas.forEach((el: Quota) => {
-        el.expiredDate = new Date(el.expiredDate);
+      response.data.quotas.forEach((el: PDFQuota) => {
         el.expirationDate = el.expirationDate
           ? new Date(el.expirationDate)
           : el.expirationDate;
+          
       });
       const pagedQuotas = Object.groupBy(response.data.quotas as Quota[], (_item, index) =>
         Math.ceil((index + 1) / 18)
