@@ -24,7 +24,7 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 <p>✅ <strong>Chatbot de Atención al Cliente:</strong> Chatbot que responde a preguntas frecuentes sobre la plataforma.</p>
 
 ---
-## Instrucciones de Configuración e Instalación Local
+## 📝 Instrucciones de Configuración e Instalación Local
 
 ### Software requerido:
 - **Node.js** (versión 16 o superior)
@@ -37,20 +37,29 @@ Conectar a inversores interesados en financiar la venta de terrenos en distintos
 ### Pasos para instalar el proyecto:
 
 1. **Clonar el repositorio**:
+    ```
+    git clone https://github.com/No-Country-simulation/equipo-h3-18-proptech.git
+    ```
 
-2. **Configurar el Frontend**:
-   - Entrar en la carpeta `Frontend` y luego en `h3-18-proptech` para instalar las dependencias.
+2. **Para configurar el Frontend, es necesario entrar en la carpeta Frontend y luego en h3-18-proptech para poder instalar las dependencias**:
+    ```
+    \equipo-h3-18-proptech>cd Frontend
+    \equipo-h3-18-proptech\Frontend> cd h3-18-proptech
+    \equipo-h3-18-proptech\Frontend\h3-18-proptech> npm install
+    ```
 
-3. **Crear el archivo `.env`**:
-   - Dentro de la carpeta `h3-18-proptech`, crear el archivo `.env` y agregar las siguientes variables de entorno:
-     ```env
-     VITE_BACKEND_URL=<URL donde se encuentra alojado el Backend>
-     VITE_MERCADO_PAGO_KEY=<Llave para desarrolladores de Mercado Pago>
-     ```
+3. **Dentro de la carpeta `h3-18-proptech`, crear el archivo `.env` y agregar las siguientes variables de entorno**:
+   ```env
+   VITE_BACKEND_URL=<URL donde se encuentra alojado el Backend>
+   VITE_MERCADO_PAGO_KEY=<Llave para desarrolladores de Mercado Pago>
+   ```
 
 4. **Ejecutar el servidor de desarrollo Frontend**:
+   ```env
+   \equipo-h3-18-proptech\Frontend\h3-18-proptech> npm run dev
+   ```
 
-5. **Visitar la URL**: [http://localhost:5173/](http://localhost:5173/)
+6. **Visitar la URL**: [http://localhost:5173/](http://localhost:5173/)
 
 ### Configuración del Backend
 
